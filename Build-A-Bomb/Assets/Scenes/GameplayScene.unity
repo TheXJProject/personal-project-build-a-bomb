@@ -361,8 +361,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSolved: 0
-  isSelected: 0
   isBeingSolved: 0
+  isSelected: 0
+  percentComplete: 0
+  keys: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

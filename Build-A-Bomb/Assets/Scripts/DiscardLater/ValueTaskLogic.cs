@@ -6,6 +6,7 @@ public class ValueTaskLogic : MonoBehaviour
 {
     Vector3 mousePos;
     public Camera cam;
+    float newAngle, oldAngle;
 
     void Update()
     {
@@ -13,7 +14,8 @@ public class ValueTaskLogic : MonoBehaviour
         mousePos.z = -cam.transform.position.z;
         mousePos = cam.ScreenToWorldPoint(mousePos);
 
-        float angle = Mathf.Atan2(mousePos.x, mousePos.y) * Mathf.Rad2Deg;
-        transform.Rotate(0, 0, angle);
+        newAngle = Mathf.Atan2(mousePos.x, mousePos.y) * Mathf.Rad2Deg;
+        transform.Rotate(0, 0, oldAngle - newAngle);
+        oldAngle = newAngle;
     }
 }

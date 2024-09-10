@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class TaskSelection : MonoBehaviour
 {
+    TaskStatus task;
+    private void OnEnable()
+    {
+        task = GetComponent<TaskStatus>();
+    }
     private void OnMouseDown()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        task.TaskSelected();
     }
 }

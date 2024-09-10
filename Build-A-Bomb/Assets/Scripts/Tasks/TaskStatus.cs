@@ -13,7 +13,20 @@ public class TaskStatus : MonoBehaviour
     public bool TaskSelected()
     {
         if (AnyTaskFocused) return false;
+
         isSelected = true;
+        AnyTaskFocused = true;
+
+        return true;
+    }
+
+    public bool TaskDeselected()
+    {
+        if (!isSelected) return false;
+
+        isSelected = false;
+        AnyTaskFocused = false;
+
         return true;
     }
 }

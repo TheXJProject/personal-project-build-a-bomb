@@ -34,8 +34,8 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            musicSource.clip = s.clip;
-            musicSource.Play();
+            //musicSource.clip = s.clip;
+            //musicSource.Play();
         }
     }
 
@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
 
     public void MusicToggleMute()
     {
-        musicSource.mute = !musicSource.mute;
+        //musicSource.mute = !musicSource.mute;
     }
     
     public void SFXToggleMute()
@@ -65,6 +65,6 @@ public class AudioManager : MonoBehaviour
 
     public void MusicVolume(float volume)
     {
-        mus
+        //mus
     }
 }

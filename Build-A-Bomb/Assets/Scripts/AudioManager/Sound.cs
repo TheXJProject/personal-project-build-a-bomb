@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
+    [Header("---- Sound Settings ----\n")]
+
     public string name;
     public AudioClip clip;
     

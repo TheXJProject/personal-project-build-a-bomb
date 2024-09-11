@@ -7,8 +7,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-
-
     [Header("---- Audio Clips ----\n")]
     public Sound[] musicSounds;
     public Sound[] sfxSounds;

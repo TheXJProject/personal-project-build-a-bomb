@@ -13,14 +13,13 @@ public class TaskSelection : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        task = GetComponent<TaskStatus>();
     }
     private void OnEnable()
     {
         rightMouseDown = playerControls.Mouse.RightClick;
         rightMouseDown.Enable();
         rightMouseDown.performed += Deselect;
-
-        task = GetComponent<TaskStatus>();
     }
     private void OnDisable()
     {

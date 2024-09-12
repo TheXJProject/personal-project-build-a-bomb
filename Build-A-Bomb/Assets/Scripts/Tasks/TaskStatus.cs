@@ -6,8 +6,8 @@ using UnityEngine;
 public class TaskStatus : MonoBehaviour
 {
     // Events from this class
-    public static event Action onTaskSelected;
-    public static event Action onTaskDeSelected;
+    public static event Action<GameObject> onTaskSelected;
+    public static event Action<GameObject> onTaskDeSelected;
 
     // Shared between all tasks
     public static bool AnyTaskFocused;
@@ -24,7 +24,7 @@ public class TaskStatus : MonoBehaviour
     public bool TaskSelected()
     {
         if (AnyTaskFocused) return false;
-        onTaskSelected?.Invoke();
+        onTaskSelected?.Invoke(gameObject);
 
         isSelected = true;
         AnyTaskFocused = true;
@@ -35,7 +35,7 @@ public class TaskStatus : MonoBehaviour
     public bool TaskDeselected()
     {
         if (!isSelected) return false;
-        onTaskDeSelected?.Invoke();
+        onTaskDeSelected?.Invoke(gameObject);
 
         isSelected = false;
         AnyTaskFocused = false;

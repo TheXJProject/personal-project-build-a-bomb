@@ -24,6 +24,8 @@ public class AudioManager : MonoBehaviour
 
             foreach (MusicSource i in musicSourceList)
             {
+                i.songName = MusicSource.defaultName;
+
                 foreach (MusicSource j in musicSourceList)
                 {
                     if (i == j)
@@ -60,8 +62,49 @@ public class AudioManager : MonoBehaviour
         else
         {
             source.playing = true;
+            source.songName = sound.name;
             source.musicSource.clip = sound.clip;
             source.musicSource.Play();
+        }
+    }
+
+    public void StopMusic(string name)
+    {
+        Sound sound = Array.Find(musicSounds, x => x.name == name);
+        MusicSource source = Array.Find(musicSourceList, y => y.songName == name);
+
+        if (sound == null)
+        {
+            Debug.LogWarning("Error, music sound " + sound + " not found!");
+        }
+        else if (source == null)
+        {
+            Debug.LogWarning("Error, no music source found playing " + sound + "!");
+        }
+        else
+        {
+            source.musicSource.Stop();
+            source.songName = MusicSource.defaultName;
+            source.playing = false;
+        }
+    }
+
+    public void StopAllMusic()
+    {
+        bool playingCheck = false;
+
+        foreach (MusicSource source in musicSourceList)
+        {
+            playingCheck = playingCheck | source.playing;
+            
+            source.musicSource.Stop();
+            source.songName = MusicSource.defaultName;
+            source.playing = false;
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Error, no music was playing!");
         }
     }
 

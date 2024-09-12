@@ -5,9 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class MusicSource
 {
-    [Header("---- Source Settings ----\n")]
+    public const string defaultName  = "Empty";
 
-    public string name = "Empty";
+    [Header("---- Source Settings ----\n")]
+    public string songName;
     public AudioSource musicSource;
     public bool playing = false;
+
 }

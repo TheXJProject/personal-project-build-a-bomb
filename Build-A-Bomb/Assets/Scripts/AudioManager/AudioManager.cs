@@ -5,6 +5,8 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    //          ++++++ Description at the bottom! ++++++
+
     public static AudioManager Instance;
 
     [Header("---- Audio Clips ----\n")]
@@ -22,9 +24,14 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
+            // From here, sets up audio sources.
+
+            sfxSource.loop = false;
+
             foreach (MusicSource i in musicSourceList)
             {
                 i.songName = MusicSource.defaultName;
+                i.musicSource.loop = true;
 
                 foreach (MusicSource j in musicSourceList)
                 {
@@ -49,7 +56,7 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(string name)
     {
         Sound sound = Array.Find(musicSounds, x => x.name == name);
-        MusicSource source = Array.Find(musicSourceList, y => y.playing == false);
+        MusicSource source = Array.Find(musicSourceList, y => y.songSelected == false);
 
         if (sound == null)
         {
@@ -61,7 +68,11 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            source.playing = true;
+            source.musicSource.volume = sound.volume;
+            source.musicSource.pitch = sound.pitch;
+            source.musicSource.panStereo = sound.panning;
+
+            source.songSelected = true;
             source.songName = sound.name;
             source.musicSource.clip = sound.clip;
             source.musicSource.Play();
@@ -85,7 +96,7 @@ public class AudioManager : MonoBehaviour
         {
             source.musicSource.Stop();
             source.songName = MusicSource.defaultName;
-            source.playing = false;
+            source.songSelected = false;
         }
     }
 
@@ -95,11 +106,11 @@ public class AudioManager : MonoBehaviour
 
         foreach (MusicSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.playing;
+            playingCheck = playingCheck | source.songSelected;
             
             source.musicSource.Stop();
             source.songName = MusicSource.defaultName;
-            source.playing = false;
+            source.songSelected = false;
         }
 
         if (playingCheck)
@@ -108,7 +119,41 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string name)
+    public void PauseAllMusic()
+    {
+        bool playingCheck = false;
+
+        foreach (MusicSource source in musicSourceList)
+        {
+            playingCheck = playingCheck | source.songSelected;
+
+            source.musicSource.Pause();
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Error, no music to pause!");
+        }
+    }
+
+    public void PlayAllMusic()
+    {
+        bool playingCheck = false;
+
+        foreach (MusicSource source in musicSourceList)
+        {
+            playingCheck = playingCheck | source.songSelected;
+
+            source.musicSource.UnPause();
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Error, no music to resume!");
+        }
+    }
+
+    public void PlaySFX(string name, bool isOneShot)
     {
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
 
@@ -118,13 +163,35 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfxSource.PlayOneShot(sound.clip);
+            if (isOneShot)
+            {
+                sfxSource.PlayOneShot(sound.clip);
+            }
+            else
+            {
+                sfxSource.clip = sound.clip;
+                sfxSource.Play();
+            }
         }
     }
     
+    public void StopSFX()
+    {
+        sfxSource.Stop();
+    }
+
     public void SFXToggleMute()
     {
         sfxSource.mute = !sfxSource.mute;
     }
 
+    //Functions:
+    //    - PlayMusic(string name)                  Plays sound with 'name' on loop
+    //    - StopMusic(string name)                  Stops sound with 'name'
+    //    - StopAllMusic()                          Stops all looping tracks
+    //    - PauseAllMusic()                         Pauses all looping tracks
+    //    - PlayAllMusic()                          Resumes all looping tracks
+    //
+    //    - PlaySFX(string name, bool isOneShot)    Plays sound with 'name' once (with a 'OneShot' option)
+    //    - StopSFX()                               Stops sound with 'name' that isn't looped
 }

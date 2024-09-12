@@ -10,6 +10,6 @@ public class MusicSource
     [Header("---- Source Settings ----\n")]
     public string songName;
     public AudioSource musicSource;
-    public bool playing = false;
+    public bool songSelected = false;
 
 }

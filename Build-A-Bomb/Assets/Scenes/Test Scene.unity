@@ -514,24 +514,24 @@ MonoBehaviour:
     panning: 0
   sfxSource: {fileID: 745183994}
   musicSourceList:
-  - name: Empty
+  - songName: 
     musicSource: {fileID: 902821552}
-    playing: 0
-  - name: Empty
+    songSelected: 0
+  - songName: 
     musicSource: {fileID: 1543782667}
-    playing: 0
-  - name: Empty
+    songSelected: 0
+  - songName: 
     musicSource: {fileID: 1851865322}
-    playing: 0
-  - name: Empty
+    songSelected: 0
+  - songName: 
     musicSource: {fileID: 1969897714}
-    playing: 0
-  - name: Empty
+    songSelected: 0
+  - songName: 
     musicSource: {fileID: 1285328403}
-    playing: 0
-  - name: Empty
+    songSelected: 0
+  - songName: 
     musicSource: {fileID: 1758151584}
-    playing: 0
+    songSelected: 0
 --- !u!4 &1021742949
 Transform:
   m_ObjectHideFlags: 0

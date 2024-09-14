@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 {
     //          ++++++ Description at the bottom! ++++++
 
-    public static AudioManager Instance;
+    public static AudioManager instance;
 
     [Header("---- Audio Clips ----\n")]
     public Sound[] musicSounds;
@@ -19,10 +19,16 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (GetComponent<MixerFXManager>() == null)
+            {
+                Debug.LogWarning("MixerFXManager component is missing!");
+                Debug.LogWarning("Please add component before running!");
+            }
 
             // From here, sets up audio sources.
 

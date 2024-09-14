@@ -13,6 +13,7 @@ public class TaskStatus : MonoBehaviour
 
     // Shared between all tasks
     public static bool AnyTaskFocused;
+    public static bool AnyTaskBeingSolved;
 
     // Current state of the task
     public bool isSolved = false;

@@ -20,15 +20,17 @@ public class HammerTask : MonoBehaviour
 
     public void NailHit(BaseEventData data)
     {
-        Debug.Log("HERERERERE");
-        PointerEventData newData = (PointerEventData)data;
-        if (newData.button.Equals(PointerEventData.InputButton.Left))
+        if (statInteract.isBeingSolved)
         {
-            numOfHits++;
-            statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
-            if (numOfHits >= numOfHitsNeeded)
+            PointerEventData newData = (PointerEventData)data;
+            if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
-                statInteract.TaskCompleted();
+                numOfHits++;
+                statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
+                if (numOfHits >= numOfHitsNeeded)
+                {
+                    statInteract.TaskCompleted();
+                }
             }
         }
     }

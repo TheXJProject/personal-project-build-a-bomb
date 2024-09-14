@@ -5,6 +5,10 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    readonly bool debugTests = false; // 'true' for debugging only!!!!!
+
+    readonly bool gamePaused = false; // This temporarily is used in place of a global variable
+
     //          ++++++ Description at the bottom! ++++++
 
     public static AudioManager instance;
@@ -14,8 +18,10 @@ public class AudioManager : MonoBehaviour
     public Sound[] sfxSounds;
     
     [Header("---- Audio Sources ----\n")]
-    public AudioSource sfxSource;
-    public MusicSource[] musicSourceList;
+    public SoundSource[] sfxSourceList;
+    public SoundSource[] musicSourceList;
+
+    private TempSoundAspectsStorage[] tempSoundAspectsList;
 
     private void Awake()
     {
@@ -24,31 +30,61 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            if (GetComponent<MixerFXManager>() == null)
+            if (GetComponent<MixerFXManager>() == null) // (Yu Gui Oh fusion solution)
             {
                 Debug.LogWarning("MixerFXManager component is missing!");
                 Debug.LogWarning("Please add component before running!");
             }
 
+            // Initialise sound aspect array.
+
+            for (int i = 0; i < sfxSourceList.Length; i++)
+            {
+                tempSoundAspectsList[i].volume = sfxSourceList[i].audioSource.volume;
+                tempSoundAspectsList[i].pitch = sfxSourceList[i].audioSource.pitch;
+                tempSoundAspectsList[i].panning = sfxSourceList[i].audioSource.panStereo;
+            }
+
             // From here, sets up audio sources.
 
-            sfxSource.loop = false;
+            // Set up SFX audio sources:
 
-            foreach (MusicSource i in musicSourceList)
+            foreach (SoundSource sfxSource in sfxSourceList)
             {
-                i.songName = MusicSource.defaultName;
-                i.musicSource.loop = true;
+                sfxSource.soundName = SoundSource.defaultName;
+                sfxSource.audioSource.loop = false;
 
-                foreach (MusicSource j in musicSourceList)
+                foreach (SoundSource j in sfxSourceList)
                 {
-                    if (i == j)
+                    if (sfxSource == j)
                     {
                         continue;
                     }
 
-                    if (i.musicSource == j.musicSource)
+                    if (sfxSource.audioSource == j.audioSource)
                     {
-                        Debug.LogWarning("Error, music source duplicate found!");
+                        Debug.LogWarning("Error, SFX source " + sfxSource.audioSource.name + " duplicate found!");
+                    }
+                }
+            }
+
+            // Set up Music audio sources:
+
+            foreach (SoundSource musicSource in musicSourceList)
+            {
+                musicSource.soundName = SoundSource.defaultName;
+                musicSource.audioSource.loop = true;
+
+                foreach (SoundSource j in musicSourceList)
+                {
+                    if (musicSource == j)
+                    {
+                        continue;
+                    }
+
+                    if (musicSource.audioSource == j.audioSource)
+                    {
+                        Debug.LogWarning("Error, music source " + musicSource.audioSource.name + " duplicate found!");
                     }
                 }
             }
@@ -59,14 +95,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Functions for music sources.
+
     public void PlayMusic(string name)
     {
         Sound sound = Array.Find(musicSounds, x => x.name == name);
-        MusicSource source = Array.Find(musicSourceList, y => y.songSelected == false);
+        SoundSource source = Array.Find(musicSourceList, y => y.soundIsSelected == false);
 
         if (sound == null)
         {
-            Debug.LogWarning("Error, music sound " + sound + " not found!");
+            Debug.LogWarning("Error, music sound " + name + " not found!");
         }
         else if (source == null)
         {
@@ -74,35 +112,39 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            source.musicSource.volume = sound.volume;
-            source.musicSource.pitch = sound.pitch;
-            source.musicSource.panStereo = sound.panning;
+            source.audioSource.volume = sound.volume;
+            source.audioSource.pitch = sound.pitch;
+            source.audioSource.panStereo = sound.panning;
 
-            source.songSelected = true;
-            source.songName = sound.name;
-            source.musicSource.clip = sound.clip;
-            source.musicSource.Play();
+            source.soundIsSelected = true;
+            source.soundName = sound.name;
+            source.audioSource.clip = sound.clip;
+            source.audioSource.Play();
+
+            if (debugTests) Debug.Log("Music Played: " + source.soundName);
+            if (debugTests) Debug.Log("Name Check: " + sound.clip.name);
+            if (debugTests) Debug.Log("Source Used: " + source.audioSource.name);
         }
     }
 
     public void StopMusic(string name)
     {
         Sound sound = Array.Find(musicSounds, x => x.name == name);
-        MusicSource source = Array.Find(musicSourceList, y => y.songName == name);
+        SoundSource source = Array.Find(musicSourceList, y => y.soundName == name);
 
         if (sound == null)
         {
-            Debug.LogWarning("Error, music sound " + sound + " not found!");
+            Debug.LogWarning("Error, music sound " + name + " not found!");
         }
         else if (source == null)
         {
-            Debug.LogWarning("Error, no music source found playing " + sound + "!");
+            Debug.LogWarning("Error, no music source found playing " + name + "!");
         }
         else
         {
-            source.musicSource.Stop();
-            source.songName = MusicSource.defaultName;
-            source.songSelected = false;
+            source.audioSource.Stop();
+            source.soundName = SoundSource.defaultName;
+            source.soundIsSelected = false;
         }
     }
 
@@ -110,13 +152,13 @@ public class AudioManager : MonoBehaviour
     {
         bool playingCheck = false;
 
-        foreach (MusicSource source in musicSourceList)
+        foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.songSelected;
+            playingCheck = playingCheck | source.soundIsSelected;
             
-            source.musicSource.Stop();
-            source.songName = MusicSource.defaultName;
-            source.songSelected = false;
+            source.audioSource.Stop();
+            source.soundName = SoundSource.defaultName;
+            source.soundIsSelected = false;
         }
 
         if (playingCheck)
@@ -129,11 +171,11 @@ public class AudioManager : MonoBehaviour
     {
         bool playingCheck = false;
 
-        foreach (MusicSource source in musicSourceList)
+        foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.songSelected;
+            playingCheck = playingCheck | source.soundIsSelected;
 
-            source.musicSource.Pause();
+            source.audioSource.Pause();
         }
 
         if (playingCheck)
@@ -142,15 +184,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayAllMusic()
+    public void ResumeAllMusic()
     {
         bool playingCheck = false;
 
-        foreach (MusicSource source in musicSourceList)
+        foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.songSelected;
+            playingCheck = playingCheck | source.soundIsSelected;
 
-            source.musicSource.UnPause();
+            source.audioSource.UnPause();
         }
 
         if (playingCheck)
@@ -159,45 +201,164 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string name, bool isOneShot)
+    // Functions for SFX sources.
+
+    public void PlaySFX(string name, float? volumeTemp = null)
     {
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
+        SoundSource source = Array.Find(sfxSourceList, y => y.audioSource.isPlaying == false);
+
+        float volume = volumeTemp.HasValue ? volumeTemp.Value : sound.volume;
+
+        if (volume > 1 || volume < 0)
+        {
+            Debug.LogWarning("Error, volume, " + volume + ", is outside of range!");
+            return;
+        }
 
         if (sound == null)
         {
-            Debug.LogWarning("Error, sfx sound " + sound + " not found!");
+            Debug.LogWarning("Error, sfx sound " + name + " not found!");
+        }
+        else if (source == null)
+        {
+            Debug.LogWarning("Error, no sfx source available!");
         }
         else
         {
-            if (isOneShot)
+            source.audioSource.volume = volume;
+            source.audioSource.pitch = sound.pitch;
+            source.audioSource.panStereo = sound.panning;
+
+            if (gamePaused)
             {
-                sfxSource.PlayOneShot(sound.clip);
+                source.audioSource.PlayOneShot(sound.clip, volume);
             }
             else
             {
-                sfxSource.clip = sound.clip;
-                sfxSource.Play();
+                source.soundName = sound.name;
+                source.audioSource.clip = sound.clip;
+                source.audioSource.Play();
             }
+
+            if (debugTests) Debug.Log("Music Played: " + source.soundName);
+            if (debugTests) Debug.Log("Name Check: " + sound.clip.name);
+            if (debugTests && gamePaused) Debug.Log("(Game should be paused, so these above two may be different!)");
+            if (debugTests) Debug.Log("Source Used: " + source.audioSource.name);
         }
     }
+
     
     public void StopSFX()
     {
-        sfxSource.Stop();
+        bool playingCheck = true;
+
+        foreach (SoundSource source in sfxSourceList)
+        {
+            source.audioSource.Stop();
+            
+            if (source.soundName != SoundSource.defaultName)
+            {
+                playingCheck = false;
+            }
+
+            source.soundName = SoundSource.defaultName;
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
+        }
     }
 
-    public void SFXToggleMute()
+    public void PauseSFX()
     {
-        sfxSource.mute = !sfxSource.mute;
+        bool playingCheck = true;
+
+        if (gamePaused)
+        {
+            for (int i = 0; i < sfxSourceList.Length; i++)
+            {
+                tempSoundAspectsList[i].volume = sfxSourceList[i].audioSource.volume;
+                tempSoundAspectsList[i].pitch = sfxSourceList[i].audioSource.pitch;
+                tempSoundAspectsList[i].panning = sfxSourceList[i].audioSource.panStereo;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Error, game not currently paused!");
+            return;
+        }
+
+        foreach (SoundSource source in sfxSourceList)
+        {
+            source.audioSource.Pause();
+
+            if (source.soundName != SoundSource.defaultName)
+            {
+                playingCheck = false;
+            }
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
+        }
     }
+
+    public void ResumeSFX()
+    {
+        bool playingCheck = true;
+
+        if (!gamePaused)
+        {
+            for (int i = 0; i < sfxSourceList.Length; i++)
+            {
+                sfxSourceList[i].audioSource.volume = tempSoundAspectsList[i].volume;
+                sfxSourceList[i].audioSource.pitch = tempSoundAspectsList[i].pitch;
+                sfxSourceList[i].audioSource.panStereo = tempSoundAspectsList[i].panning;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Error, game is still paused!");
+            return;
+        }
+
+        foreach (SoundSource source in sfxSourceList)
+        {
+            source.audioSource.UnPause();
+
+            if (source.soundName != SoundSource.defaultName)
+            {
+                playingCheck = false;
+            }
+        }
+
+        if (playingCheck)
+        {
+            Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
+        }
+    }
+
+    // The AudioManager functions affect the basic elements of the sounds.
+    // They change only the most fundamental aspects such as, whether a sound
+    // is playing, stopped or it's base volume.
 
     //Functions:
+    //  Functions for music sources.
     //    - PlayMusic(string name)                  Plays sound with 'name' on loop
     //    - StopMusic(string name)                  Stops sound with 'name'
     //    - StopAllMusic()                          Stops all looping tracks
-    //    - PauseAllMusic()                         Pauses all looping tracks
-    //    - PlayAllMusic()                          Resumes all looping tracks
+    //    - PauseAllMusic()                         Pauses all music
+    //    - ResumeAllMusic()                        Resumes all music
     //
-    //    - PlaySFX(string name, bool isOneShot)    Plays sound with 'name' once (with a 'OneShot' option)
-    //    - StopSFX()                               Stops sound with 'name' that isn't looped
+    //  Functions for SFX sources.
+    //    - PlaySFX(string name, float? volumeTemp = null)
+    //                                              Plays sound with 'name' once at 'volumeTemp'
+    //                                              (if 'volumeTemp' is null the sound will play
+    //                                              at default volume set in inspecter)
+    //    - StopSFX()                               Stops all SFX and clears the names in the SFX sources
+    //    - PauseSFX()                              Pauses all current playing  SFX
+    //    - ResumeSFX()                             Resumes all previously paused SFX
 }

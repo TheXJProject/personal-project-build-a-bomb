@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MusicSource
+public class SoundSource
 {
     public const string defaultName  = "Empty";
 
     [Header("---- Source Settings ----\n")]
-    public string songName;
-    public AudioSource musicSource;
-    public bool songSelected = false;
-
+    public string soundName = defaultName;
+    public AudioSource audioSource;
+    public bool soundIsSelected = false;
 }

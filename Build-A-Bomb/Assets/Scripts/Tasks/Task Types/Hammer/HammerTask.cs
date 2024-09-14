@@ -18,6 +18,16 @@ public class HammerTask : MonoBehaviour
         statInteract = GetComponent<TaskInteractStatus>();
     }
 
+    private void OnEnable()
+    {
+        TaskInteractStatus.onTaskFailed += ResetTask;
+    }
+
+    private void OnDisable()
+    {
+        TaskInteractStatus.onTaskFailed -= ResetTask;
+    }
+
     public void NailHit(BaseEventData data)
     {
         if (statInteract.isBeingSolved)
@@ -33,5 +43,11 @@ public class HammerTask : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ResetTask()
+    {
+        Debug.Log("Reseting");
+        numOfHits = 0;
     }
 }

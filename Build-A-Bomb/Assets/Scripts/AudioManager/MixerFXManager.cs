@@ -63,9 +63,11 @@ public class MixerFXManager : MonoBehaviour
         }
         else
         {
+            isFading = true;
             //do fade
         }
     }
+
     public void FadeAllOut()
     {
         if (isFading)
@@ -75,8 +77,14 @@ public class MixerFXManager : MonoBehaviour
         }
         else
         {
+            isFading = true;
             //do fade
         }
+    }
+
+    IEnumerator Fader(bool fadeIn)
+    {
+        yield return null;
     }
 
     public void MuteMusic(bool mute)
@@ -89,9 +97,8 @@ public class MixerFXManager : MonoBehaviour
         //do mute/unmute
     }
 
-    // The AudioManager functions affect the basic elements of the sounds.
-    // They change only the most fundamental aspects such as, whether a sound
-    // is playing, stopped or it's base volume.
+    // The MixerFXManager functions affect the various channels in the audio mixer.
+    // They change the pre-master volume and can apply FX to the channels.
 
     //Functions:
     //  Functions for mix.

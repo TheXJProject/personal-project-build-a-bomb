@@ -512,25 +512,43 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     panning: 0
-  sfxSourceList: []
+  sfxSourceList:
+  - soundName: 
+    audioSource: {fileID: 745183994}
+    soundIsSelected: 0
+  - soundName: 
+    audioSource: {fileID: 1299435467}
+    soundIsSelected: 0
+  - soundName: 
+    audioSource: {fileID: 1593827799}
+    soundIsSelected: 0
+  - soundName: 
+    audioSource: {fileID: 1043333985}
+    soundIsSelected: 0
+  - soundName: 
+    audioSource: {fileID: 1763102208}
+    soundIsSelected: 0
+  - soundName: 
+    audioSource: {fileID: 1955390059}
+    soundIsSelected: 0
   musicSourceList:
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 902821552}
     soundIsSelected: 0
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1543782667}
     soundIsSelected: 0
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1851865322}
     soundIsSelected: 0
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1969897714}
     soundIsSelected: 0
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1285328403}
     soundIsSelected: 0
   - soundName: Empty
-    audioSource: {fileID: 0}
+    audioSource: {fileID: 1758151584}
     soundIsSelected: 0
 --- !u!4 &1021742949
 Transform:

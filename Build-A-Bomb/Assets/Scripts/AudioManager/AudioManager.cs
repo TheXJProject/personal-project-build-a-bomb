@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
     public SoundSource[] sfxSourceList;
     public SoundSource[] musicSourceList;
 
-    private TempSoundAspectsStorage[] tempSoundAspectsList;
+    TempSoundAspectsStorage[] tempSoundAspectsList;
 
     private void Awake()
     {
@@ -36,7 +36,9 @@ public class AudioManager : MonoBehaviour
                 Debug.LogWarning("Please add component before running!");
             }
 
-            // Initialise sound aspect array.
+            // Initialise sound aspect array and it's elements.
+
+            tempSoundAspectsList = new TempSoundAspectsStorage[sfxSourceList.Length];
 
             for (int i = 0; i < sfxSourceList.Length; i++)
             {
@@ -154,7 +156,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.soundIsSelected;
+            playingCheck |= source.soundIsSelected;
             
             source.audioSource.Stop();
             source.soundName = SoundSource.defaultName;
@@ -173,7 +175,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.soundIsSelected;
+            playingCheck |= source.soundIsSelected;
 
             source.audioSource.Pause();
         }
@@ -190,7 +192,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (SoundSource source in musicSourceList)
         {
-            playingCheck = playingCheck | source.soundIsSelected;
+            playingCheck |= source.soundIsSelected;
 
             source.audioSource.UnPause();
         }
@@ -208,7 +210,7 @@ public class AudioManager : MonoBehaviour
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
         SoundSource source = Array.Find(sfxSourceList, y => y.audioSource.isPlaying == false);
 
-        float volume = volumeTemp.HasValue ? volumeTemp.Value : sound.volume;
+        float volume = volumeTemp ?? sound.volume;
 
         if (volume > 1 || volume < 0)
         {

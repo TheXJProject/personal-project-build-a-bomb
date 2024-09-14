@@ -1,11 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TaskInteractStatus : MonoBehaviour
 {
+    // Function that resets the task should be activated whenever the following event is called
+    public static event Action onTaskFailed;
+
     public TaskStatus task;
     public bool isBeingSolved;
+
+    private void OnEnable()
+    {
+        TaskStatus.onTaskFailed += TaskFailed;
+    }
+
+    private void OnDisable()
+    {
+        TaskStatus.onTaskFailed -= TaskFailed;
+    }
 
     public void SetTaskCompletion(float amount) // Function should be ran whenever the player progresses task completion
     {
@@ -15,6 +29,12 @@ public class TaskInteractStatus : MonoBehaviour
     public void TaskCompleted() // Function should be ran when task has been completed
     {
         task.TaskCompleted();
+    }
+
+    public void TaskFailed(GameObject gameObject)
+    {
+        Debug.Log("Calling Fail");
+        onTaskFailed?.Invoke();
     }
 
     private void Update()

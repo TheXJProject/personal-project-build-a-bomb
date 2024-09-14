@@ -9,6 +9,9 @@ public class PlayerKeyInput : MonoBehaviour
 {
     public static PlayerKeyInput instance;
 
+    public static event Action<int> onKeyPressed;
+    public static event Action<int> onKeyReleased;
+
     public PlayerInputActions playerControls;
     public InputAction[] keys = new InputAction[26];
     public int[] keysDown = new int[26];
@@ -56,6 +59,7 @@ public class PlayerKeyInput : MonoBehaviour
             if (String.Equals(context.action.name, alphabet[i]))
             {
                 keysDown[i] = 1;
+                onKeyPressed?.Invoke(i);
                 break;
             }
         }
@@ -68,6 +72,7 @@ public class PlayerKeyInput : MonoBehaviour
             if (String.Equals(context.action.name, alphabet[i]))
             {
                 keysDown[i] = 0;
+                onKeyReleased?.Invoke(i);
                 break;
             }
         }

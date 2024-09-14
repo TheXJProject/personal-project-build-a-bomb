@@ -9,6 +9,7 @@ public class TaskStatus : MonoBehaviour
     // Events from this class
     public static event Action<GameObject> onTaskSelected;
     public static event Action<GameObject> onTaskDeSelected;
+    public static event Action<GameObject> onTaskFailed;
     public static event Action<GameObject> onTaskCompleted;
 
     // Shared between all tasks
@@ -25,7 +26,19 @@ public class TaskStatus : MonoBehaviour
     // To be set from outside sources 
     public List<int> keys = new List<int>(); // letters of the alphabet are assigned between 0 and 25 for A to Z
     public int taskLayer;
-    
+
+    private void OnEnable()
+    {
+        PlayerKeyInput.onKeyPressed += CheckKeysHeld;
+        PlayerKeyInput.onKeyReleased += CheckKeysReleased;
+    }
+
+    private void OnDisable()
+    {
+        PlayerKeyInput.onKeyPressed -= CheckKeysHeld;
+        PlayerKeyInput.onKeyReleased -= CheckKeysReleased;
+    }
+
     public void SetKeysRequired(List<int> newKeys)
     {
         keys.Clear();
@@ -74,5 +87,31 @@ public class TaskStatus : MonoBehaviour
     {
         isSolved = false;
         isGoingWrong = true;
+    }
+
+    public void CheckKeysHeld(int keyJustPressed)
+    {
+        if (isSelected)
+        {
+            foreach (int key in keys)
+            {
+                if (PlayerKeyInput.instance.keysDown[key] == 0) { return; }
+            }
+            isBeingSolved = true;
+        }
+    }
+
+    public void CheckKeysReleased(int keyJustReleased)
+    {
+        if (isBeingSolved)
+        {
+            foreach (int key in keys)
+            {
+                if (PlayerKeyInput.instance.keysDown[key] == 1) { return; }
+            }
+            isBeingSolved = false;
+            Debug.Log("Initialising");
+            onTaskFailed?.Invoke(gameObject);
+        }
     }
 }

@@ -6,11 +6,13 @@ public class TaskDisplay : MonoBehaviour
 {
     private void OnEnable()
     {
+        TaskStatus.onTaskCompleted += UnDisplayTask;
         TaskStatus.onTaskSelected += DisplayTask;
         TaskStatus.onTaskDeSelected += UnDisplayTask;
     }
     private void OnDisable()
     {
+        TaskStatus.onTaskCompleted -= UnDisplayTask;
         TaskStatus.onTaskSelected -= DisplayTask;
         TaskStatus.onTaskDeSelected -= UnDisplayTask;
     }

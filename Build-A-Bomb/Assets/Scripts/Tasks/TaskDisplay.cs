@@ -21,14 +21,14 @@ public class TaskDisplay : MonoBehaviour
     {
         if (task == gameObject)
         {
-            task.transform.GetChild(0).gameObject.SetActive(true);
+            task.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         }
     }
     void UnDisplayTask(GameObject task)
     {
         if (task == gameObject)
         {
-            task.transform.GetChild(0).gameObject.SetActive(false);
+            task.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         }
     }
 }

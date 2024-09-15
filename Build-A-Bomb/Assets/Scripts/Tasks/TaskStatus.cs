@@ -9,6 +9,7 @@ public class TaskStatus : MonoBehaviour
     // Events from this class
     public static event Action<GameObject> onTaskSelected;
     public static event Action<GameObject> onTaskDeSelected;
+    public static event Action<GameObject> onTaskBegan;
     public static event Action<GameObject> onTaskFailed;
     public static event Action<GameObject> onTaskCompleted;
 
@@ -98,6 +99,7 @@ public class TaskStatus : MonoBehaviour
                 if (PlayerKeyInput.instance.keysDown[key] == 0) { return; }
             }
             isBeingSolved = true;
+            onTaskBegan?.Invoke(gameObject);
         }
     }
 
@@ -110,7 +112,6 @@ public class TaskStatus : MonoBehaviour
                 if (PlayerKeyInput.instance.keysDown[key] == 1) { return; }
             }
             isBeingSolved = false;
-            Debug.Log("Initialising");
             onTaskFailed?.Invoke(gameObject);
         }
     }

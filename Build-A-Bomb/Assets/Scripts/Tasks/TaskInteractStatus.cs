@@ -33,7 +33,6 @@ public class TaskInteractStatus : MonoBehaviour
 
     public void TaskFailed(GameObject gameObject)
     {
-        Debug.Log("Calling Fail");
         onTaskFailed?.Invoke();
     }
 

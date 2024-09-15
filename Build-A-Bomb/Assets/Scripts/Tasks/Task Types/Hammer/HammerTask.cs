@@ -47,7 +47,6 @@ public class HammerTask : MonoBehaviour
 
     void ResetTask()
     {
-        Debug.Log("Reseting");
         numOfHits = 0;
     }
 }

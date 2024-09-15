@@ -8,6 +8,7 @@ public class MixerFXManager : MonoBehaviour
     public static MixerFXManager instance;
 
     public AudioMixer audioMixer;
+    public MixerGroup[] groups;
 
     private bool isFading = false;
 

@@ -223,7 +223,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AudioMixer
+  m_Name: Music
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -232,20 +232,22 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 47bc7e44fc2f4d041905b47804bc5f04
+    name: MyExposedParam
   m_AudioMixerGroupViews:
   - guids:
     - ef9a054234c4c6d47bd9f48662148d3c
-    - 658e4508fb5694a4b8dea14fbc84dca6
     - fc15e00ede7528744820cf268dabc781
+    - bc349cc3ea9df5744a4ba55ff74dce75
+    - 658e4508fb5694a4b8dea14fbc84dca6
+    - c2d5b6eda791ca44191c4b0d3b1ec5f1
     - 6bccc8782c441794e8a0684427320d6f
     - 63f49df0eb528a14cb83578e1fc43039
     - 73c6cfaa485f3b0409d0805ea92058cf
     - 31af953ad4c8a2e41bf6046d05bd26fe
     - 82269202c2185ff47a7d64d04d08f08a
     - 0a15aa5d206419341b52acc040357150
-    - c2d5b6eda791ca44191c4b0d3b1ec5f1
-    - bc349cc3ea9df5744a4ba55ff74dce75
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}

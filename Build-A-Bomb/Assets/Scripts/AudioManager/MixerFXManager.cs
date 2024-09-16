@@ -5,9 +5,13 @@ using UnityEngine.Audio;
 
 public class MixerFXManager : MonoBehaviour
 {
+    //          ++++++ Description at the bottom! ++++++
+
     public static MixerFXManager instance;
 
-    public AudioMixer audioMixer;
+    public AudioMixer SFXaudioMixer;
+    public AudioMixer musicAudioMixer;
+
     public MixerGroup[] groups;
 
     private bool isFading = false;

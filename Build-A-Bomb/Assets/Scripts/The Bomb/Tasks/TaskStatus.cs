@@ -12,6 +12,7 @@ public class TaskStatus : MonoBehaviour
     public static event Action<GameObject> onTaskBegan;
     public static event Action<GameObject> onTaskFailed;
     public static event Action<GameObject> onTaskCompleted;
+    public static event Action<GameObject> onTaskGoneWrong;
 
     // Shared between all tasks
     public static bool AnyTaskFocused;
@@ -53,28 +54,27 @@ public class TaskStatus : MonoBehaviour
     public bool TaskSelected()
     {
         if (AnyTaskFocused || isSolved) return false;
-        onTaskSelected?.Invoke(gameObject);
 
         isSelected = true;
         AnyTaskFocused = true;
 
+        onTaskSelected?.Invoke(gameObject);
         return true;
     }
 
     public bool TaskDeselected()
     {
         if (!isSelected) return false;
-        onTaskDeSelected?.Invoke(gameObject);
 
         isSelected = false;
         AnyTaskFocused = false;
 
+        onTaskDeSelected?.Invoke(gameObject);
         return true;
     }
 
     public void TaskCompleted()
     {
-        onTaskCompleted?.Invoke(gameObject);
         AnyTaskFocused = false;
 
         isSolved = true;
@@ -82,12 +82,16 @@ public class TaskStatus : MonoBehaviour
         isSelected = false;
         isGoingWrong = false;
         taskCompletion = 1f;
+
+        onTaskCompleted?.Invoke(gameObject);
     }
 
     public void TaskGoneWrong()
     {
         isSolved = false;
         isGoingWrong = true;
+
+        onTaskGoneWrong?.Invoke(gameObject);
     }
 
     public void CheckKeysHeld(int keyJustPressed)

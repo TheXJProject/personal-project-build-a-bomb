@@ -9,14 +9,14 @@ public class MixerFXManager : MonoBehaviour
 
     public static MixerFXManager instance;
 
-    public AudioMixer SFXaudioMixer;
-    public AudioMixer musicAudioMixer;
+    public AudioMixer audioMixer;
 
-    public MixerGroup[] groups;
+    [Header("---- Mixer Groups ----")]
+    public MixerGroupsInfo[] groups;
 
     private bool isFading = false;
 
-    private void Awake()
+private void Awake()
     {
         if (instance == null)
         {
@@ -30,6 +30,33 @@ public class MixerFXManager : MonoBehaviour
             }
 
             // From here, sets up audio channels.
+
+            foreach (MixerGroupsInfo g in groups)
+            {
+                if (g.group == null)
+                {
+                    Debug.LogWarning("Error, group reference missing in 'Mixer Groups'!");
+                    
+                    g.name = MixerGroupsInfo.errorName;
+                    g.parameters.volume = MixerGroupExpoParameters.errorName;
+                    g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
+                    // (Add in extra parameters if added to!)
+                }
+                else
+                {
+                    g.name = g.group.name;
+
+                    if (g.parameters.volume == null)
+                    {
+                        g.parameters.volume = MixerGroupExpoParameters.defaultName;
+                    }
+                    else //if (exists on group)
+                    {
+
+                    }
+                }
+                // rest
+            }
 
             // Set up mixing channels:
 
@@ -55,7 +82,10 @@ public class MixerFXManager : MonoBehaviour
 
     // Functions for mix.
 
-    //funcitons
+    public void FadeInMusicChannel(string name)
+    {
+
+    }
 
     // Functions for post mix.
 
@@ -92,16 +122,6 @@ public class MixerFXManager : MonoBehaviour
         yield return null;
     }
 
-    public void MuteMusic(bool mute)
-    {
-        //do mute/unmute
-    }
-
-    public void MuteSFX(bool mute)
-    {
-        //do mute/unmute
-    }
-
     // The MixerFXManager functions affect the various channels in the audio mixer.
     // They change the pre-master volume and can apply FX to the channels.
 
@@ -112,6 +132,4 @@ public class MixerFXManager : MonoBehaviour
     //  Functions for post mix.
     //    - FadeAllIn()                             Fades in all sound if previously faded out (doesn't affect other FX)
     //    - FadeAllOut()                            Fades out all sound if previously faded in (doesn't affect other FX)
-    //    - MuteMusic(bool mute)                    Mutes all music (mute = true/ mute = false)
-    //    - MuteSFX(bool mute)                      Mutes all SFX (mute = true/ mute = false)
 }

@@ -48,7 +48,6 @@ public class AudioManager : MonoBehaviour
             }
 
             // From here, sets up audio sources.
-
             // Set up SFX audio sources:
 
             foreach (SoundSource sfxSource in sfxSourceList)

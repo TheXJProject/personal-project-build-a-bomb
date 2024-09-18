@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +19,14 @@ public class LayerStatus : MonoBehaviour
     // To be set when spawned
     public int layer;
     public int noOfKeysPerTask = 1;
-    public float layerRadius = 4.75f;
-    public float taskRadius = 0.6f * 0.8f; // CHANGE THIS LATER FOR CHANGEABLE VALUES
+    public float layerMinRadius = 2f;
+    public float layerMaxRadius = 4.75f;
+    public float taskRadius = 0.48f;
     public List<GameObject> tasks = new List<GameObject>();
 
     // Other variables for miscellaneous purposes
     System.Random rnd = new System.Random();
+    public int infiniteLoopPrevention = 100;
 
     private void OnEnable()
     {
@@ -43,23 +46,33 @@ public class LayerStatus : MonoBehaviour
         tasks.Add(task);
     }
 
-    Vector2 GetTaskSpawnPos(float layerRadius, float taskRadius)
+    Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius)
     {
-        bool tasksOverlap = false;
-        Vector2 newLocation; 
+        bool tasksOverlap;
+        bool taskWithinInner;
+        int count = 0;
+        Vector2 newLocation;
         do
         {
-            newLocation = UnityEngine.Random.insideUnitCircle * (layerRadius - taskRadius);
+            count++;
+            newLocation = UnityEngine.Random.insideUnitCircle * (layerMaxRadius - taskRadius);
             tasksOverlap = false;
+            taskWithinInner = false;
+            if (Vector2.Distance(newLocation, Vector2.zero) <= (layerMinRadius + taskRadius))
+            {
+                taskWithinInner = true;
+                continue;
+            }
             foreach (var task in tasks)
             {
-                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius)) 
-                { 
-                    tasksOverlap = true; 
+                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius))
+                {
+                    tasksOverlap = true;
                     break;
                 }
             }
-        } while (tasksOverlap);
+        } while (taskWithinInner || (tasksOverlap && count < infiniteLoopPrevention));
+        if (count >= infiniteLoopPrevention) { Debug.LogWarning("Couldn't find good location for new task"); }
 
         return newLocation;
     }
@@ -68,7 +81,7 @@ public class LayerStatus : MonoBehaviour
     {
         for (int i = 0; i < noOfTasksSpawned; i++)
         {
-            SpawnTask(GetTaskSpawnPos(layerRadius, taskRadius));
+            SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskRadius));
         }
     }
 
@@ -147,6 +160,7 @@ public class LayerStatus : MonoBehaviour
                 validTasks.Add(task);
             }
         }
-        return validTasks[rnd.Next(validTasks.Count)];
+        if (validTasks.Count > 0) { return validTasks[rnd.Next(validTasks.Count)]; }
+        else { return null; }
     }
 }

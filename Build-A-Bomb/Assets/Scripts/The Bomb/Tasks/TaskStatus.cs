@@ -25,7 +25,7 @@ public class TaskStatus : MonoBehaviour
     public bool isGoingWrong = false;
     public float taskCompletion = 0f;
 
-    // To be set from outside sources 
+    // To be set during or after the tasks creation to affect gameplay of task 
     public List<int> keys = new List<int>(); // letters of the alphabet are assigned between 0 and 25 for A to Z
     public int taskLayer;
 
@@ -48,6 +48,7 @@ public class TaskStatus : MonoBehaviour
         foreach (var key in newKeys)
         {
             keys.Add(key);
+            Debug.Log(PlayerKeyInput.instance.alphabet[key]);
         }
     }
 

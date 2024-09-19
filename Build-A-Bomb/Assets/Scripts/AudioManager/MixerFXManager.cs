@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.Audio;
 
 public class MixerFXManager : MonoBehaviour
@@ -11,12 +12,12 @@ public class MixerFXManager : MonoBehaviour
 
     public AudioMixer audioMixer;
 
-    [Header("---- Mixer Groups ----")]
+    [Header("---- Mixer Groups ----\n")]
     public MixerGroupsInfo[] groups;
 
     private bool isFading = false;
 
-private void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -30,6 +31,7 @@ private void Awake()
             }
 
             // From here, sets up audio channels.
+            // Check if correct group info has been filled in and if it is valid.
 
             foreach (MixerGroupsInfo g in groups)
             {
@@ -40,25 +42,63 @@ private void Awake()
                     g.name = MixerGroupsInfo.errorName;
                     g.parameters.volume = MixerGroupExpoParameters.errorName;
                     g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
-                    // (Add in extra parameters if added to!)
+                    // ===== (Add in extra parameters if added to!) =====
                 }
                 else
                 {
                     g.name = g.group.name;
 
-                    if (g.parameters.volume == null)
+                    // Check if parameters have been filled in.
+
+                    if (g.parameters.volume == "") // ===== Volume =====
                     {
                         g.parameters.volume = MixerGroupExpoParameters.defaultName;
                     }
-                    else //if (exists on group)
+                    else if (!audioMixer.GetFloat(g.parameters.volume, out g.parameters.startVolume))
                     {
+                        Debug.LogWarning("Error, parameter with name, " + ((g.parameters.volume == "") ? "none" : g.parameters.volume) + ", cannot be found in the mixer!");
+                        g.parameters.volume = MixerGroupExpoParameters.errorName;
+                    }
 
+                    if (g.parameters.lowPassEQ == "") // ===== LowPassEQ =====
+                    {
+                        g.parameters.lowPassEQ = MixerGroupExpoParameters.defaultName;
+                    }
+                    else if (!audioMixer.GetFloat(g.parameters.lowPassEQ, out g.parameters.startLowPassEQ))
+                    {
+                        Debug.LogWarning("Error, parameter with name, " + ((g.parameters.lowPassEQ == "") ? "none" : g.parameters.lowPassEQ) + ", cannot be found in the mixer!");
+                        g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
+                    }
+                    // ===== (Add in extra parameters if added to!) =====
+
+                    // Check if audiosources exist in Audio Manager.
+
+                    foreach (AudioSource audioSource in g.LinkedAudioSources.audioSources)
+                    {
+                        SoundSource sourceMusic = Array.Find(AudioManager.instance.musicSourceList, y => y.audioSource == audioSource);
+                        if(sourceMusic == null)
+                        {
+                            SoundSource sourceSFX = Array.Find(AudioManager.instance.sfxSourceList, y => y.audioSource == audioSource);
+                            if (sourceSFX == null)
+                            {
+                                Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not found in Audio Manager!");
+                            }
+                        }
+
+                        // Check if audiosources are linked correctly.
+                        if (audioSource != null)
+                        {
+                            if (audioSource.outputAudioMixerGroup.name != g.group.name)
+                            {
+                                Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not outputting to this group, " + g.group.name + "!");
+                            }
+                        }
                     }
                 }
                 // rest
             }
 
-            // Set up mixing channels:
+            // Set up mixing channels initial settings:
 
             //foreach (var group in audioMixer.groups)
             //{
@@ -66,7 +106,7 @@ private void Awake()
             //    group.audioMixer.SetFloat(group.name + "_Mute", 0);
             //}
 
-            // Set up post mix channels:
+            // Set up post mix channels initial settings:
 
             //foreach (group in audioMixer.groups)
             //{

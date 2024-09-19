@@ -21,7 +21,7 @@ public class TaskInteractStatus : MonoBehaviour
         TaskStatus.onTaskFailed -= TaskFailed;
     }
 
-    public void SetTaskCompletion(float amount) // Function should be ran whenever the player progresses task completion
+    public void SetTaskCompletion(float amount) // Function should be ran whenever the player progresses task completion (between 0 and 1)
     {
         task.taskCompletion = amount;
     }

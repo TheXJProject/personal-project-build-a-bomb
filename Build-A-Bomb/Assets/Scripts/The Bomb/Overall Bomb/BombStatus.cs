@@ -18,7 +18,7 @@ public class BombStatus : MonoBehaviour
     {
         TaskStatus.onTaskCompleted += TryLayerFinished;
 
-        SpawnCoreLayer();
+        //SpawnCoreLayer();
     }
 
     private void OnDisable()

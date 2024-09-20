@@ -50,7 +50,10 @@ public class SwitchLogic : MonoBehaviour
 
     void ResetTask(GameObject trigger)
     {
-        
+        if (trigger == gameObject)
+        {
+
+        }
     }
 
     void SetDifficulty(float difficulty)

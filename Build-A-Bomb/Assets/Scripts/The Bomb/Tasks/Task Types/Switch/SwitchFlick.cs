@@ -8,6 +8,16 @@ public class SwitchFlick : MonoBehaviour
 {
     public bool flicked = false;
 
+    private void OnEnable()
+    {
+        TaskInteractStatus.onTaskFailed += ResetSwitch;
+    }
+
+    private void OnDisable()
+    {
+        TaskInteractStatus.onTaskFailed -= ResetSwitch;
+    }
+
     public void FlickSwitch(BaseEventData data)
     {
         PointerEventData newData = (PointerEventData)data;
@@ -21,12 +31,15 @@ public class SwitchFlick : MonoBehaviour
         }
     }
 
-    public void ResetSwitch()
+    public void ResetSwitch(GameObject trigger)
     {
-        flicked = false;
+        if (trigger == gameObject.transform.parent.parent)
+        {
+            flicked = false;
 
-        // Replace both with call for animation!!!!
-        gameObject.GetComponent<Image>().color = Color.red;
-        //
+            // Replace both with call for animation!!!!
+            gameObject.GetComponent<Image>().color = Color.red;
+            //
+        }
     }
 }

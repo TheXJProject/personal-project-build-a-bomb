@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 
 public class HammerTask : MonoBehaviour
 {
-    public int numOfHitsNeeded = 5;
-    public int numOfHits = 0;
+    int hardestDifficulty = 25;
+    int numOfHitsNeeded;
+    int numOfHits = 0;
     
     TaskInteractStatus statInteract;
     
@@ -21,11 +22,13 @@ public class HammerTask : MonoBehaviour
     private void OnEnable()
     {
         TaskInteractStatus.onTaskFailed += ResetTask;
+        TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
     }
 
     private void OnDisable()
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
+        TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
     }
 
     public void NailHit(BaseEventData data)
@@ -48,5 +51,10 @@ public class HammerTask : MonoBehaviour
     void ResetTask()
     {
         numOfHits = 0;
+    }
+
+    void SetDifficulty(float difficulty)
+    {
+        numOfHitsNeeded = (int)(hardestDifficulty * 0.5);
     }
 }

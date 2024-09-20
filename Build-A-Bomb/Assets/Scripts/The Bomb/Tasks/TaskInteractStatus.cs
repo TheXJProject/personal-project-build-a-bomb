@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class TaskInteractStatus : MonoBehaviour
 {
-    // Functions that resets the task should be activated whenever the following event is called
-    public static event Action onTaskFailed;
+    // Event actions calls
+    public static event Action onTaskFailed; // Function should be made that resets the task when this action is called
+    public static event Action<float> onChangeTaskDifficulty; // Function should be made that sets the task difficulty when this action is called
 
     public TaskStatus task;
     public bool isBeingSolved;
@@ -31,6 +32,11 @@ public class TaskInteractStatus : MonoBehaviour
         task.TaskCompleted();
     }
 
+    public void ChangeTaskDifficulty(float difficulty)
+    {
+        onChangeTaskDifficulty?.Invoke(difficulty);
+    }
+    
     public void TaskFailed(GameObject gameObject)
     {
         onTaskFailed?.Invoke();

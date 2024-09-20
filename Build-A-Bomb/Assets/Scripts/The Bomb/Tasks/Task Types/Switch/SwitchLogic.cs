@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SwitchLogic : MonoBehaviour
 {
+    int hardestDifficulty = 20;
+    int numOfSwitches;
+    
     TaskInteractStatus statInteract;
 
     private void Awake()
@@ -15,11 +18,13 @@ public class SwitchLogic : MonoBehaviour
     private void OnEnable()
     {
         TaskInteractStatus.onTaskFailed += ResetTask;
+        TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
     }
 
     private void OnDisable()
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
+        TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
     }
 
     //public void NailHit(BaseEventData data)   ---- This comment is if you are using EventTrigger components
@@ -34,5 +39,10 @@ public class SwitchLogic : MonoBehaviour
     void ResetTask()
     {
         
+    }
+
+    void SetDifficulty(float difficulty)
+    {
+        numOfSwitches = (int)((hardestDifficulty * difficulty) + 0.5f);
     }
 }

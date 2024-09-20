@@ -10,7 +10,7 @@ public class HammerTask : MonoBehaviour
 {
     [Header("(Don't Change!!)")]
     public int hardestDifficulty = 25;
-    int numOfHitsNeeded;
+    int numOfHitsNeeded = 5;
     int numOfHits = 0;
     
     TaskInteractStatus statInteract;

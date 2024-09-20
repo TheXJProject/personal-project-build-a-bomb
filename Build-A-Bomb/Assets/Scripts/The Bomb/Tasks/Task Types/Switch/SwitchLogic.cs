@@ -48,7 +48,7 @@ public class SwitchLogic : MonoBehaviour
         Instantiate(switchObject, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
     }
 
-    void ResetTask()
+    void ResetTask(GameObject trigger)
     {
         
     }

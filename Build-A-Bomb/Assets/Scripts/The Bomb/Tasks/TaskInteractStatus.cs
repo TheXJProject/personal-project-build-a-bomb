@@ -37,9 +37,9 @@ public class TaskInteractStatus : MonoBehaviour
         onChangeTaskDifficulty?.Invoke(difficulty);
     }
     
-    public void TaskFailed(GameObject gameObject)
+    public void TaskFailed(GameObject trigger)
     {
-        if (gameObject.transform.GetChild(0) == gameObject)
+        if (trigger.transform.GetChild(0).gameObject == gameObject)
         {
             onTaskFailed?.Invoke(gameObject);
         }

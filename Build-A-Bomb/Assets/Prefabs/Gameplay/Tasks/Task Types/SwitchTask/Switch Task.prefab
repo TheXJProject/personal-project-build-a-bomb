@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 177503003606955824, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: isBeingSolved
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2976914063285642572, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_Name
       value: Switch Task
@@ -109,5 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f99a86e6bb9a1f4bb16cd398bc57a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchObject: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
-  hardestDifficulty: 20
+  currentHardestDifficulty: 60
+  switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
+  canBeSolved: 0

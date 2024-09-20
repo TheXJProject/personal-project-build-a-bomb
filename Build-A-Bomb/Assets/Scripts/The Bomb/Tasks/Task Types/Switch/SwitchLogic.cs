@@ -6,58 +6,89 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    [SerializeField]
-    GameObject switchObject;
+    const int maxPossibleDifficultly = 60;
+    const int minPossibleDifficultly = 1;
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)]
+    public int currentHardestDifficulty = maxPossibleDifficultly;
 
-    [Header("(Don't Change!!)")]
-    public int hardestDifficulty = 20;
-    int numOfSwitches;
+    int numOfSwitchesNeeded = minPossibleDifficultly;
     int numFlickedSwitches = 0;
     
+    [SerializeField]
+    GameObject switchPrefab;
+    GameObject[] switches;
+    Vector2[] switchPositions;
+
+    public bool canBeSolved = false;
+
     TaskInteractStatus statInteract;
 
     private void Awake()
     {
         statInteract = GetComponent<TaskInteractStatus>();
+        SwitchPositionCreator();
         SpawnSwitches();
     }
 
     private void OnEnable()
     {
-        TaskInteractStatus.onTaskFailed += ResetTask;
+        TaskInteractStatus.onTaskFailed += ResetSwitch;
         TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
     }
 
     private void OnDisable()
     {
-        TaskInteractStatus.onTaskFailed -= ResetTask;
+        TaskInteractStatus.onTaskFailed -= ResetSwitch;
         TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
     }
 
-    public void Swit(BaseEventData data)
+    private void Update()
     {
-        PointerEventData newData = (PointerEventData)data;
-        if (newData.button.Equals(PointerEventData.InputButton.Left))
-        {
+        canBeSolved = statInteract.isBeingSolved;
+    }
 
+    public void CheckSwitches()
+    {
+        int totalOn = 0;
+
+        foreach (GameObject s in switches)
+        {
+            if (s.GetComponent<SwitchFlick>().flicked)
+            {
+                totalOn++;
+            }
         }
+
+        numFlickedSwitches = totalOn;
+        statInteract.SetTaskCompletion(numFlickedSwitches / numOfSwitchesNeeded);
+        
+        if (numFlickedSwitches >= numOfSwitchesNeeded)
+        {
+            statInteract.TaskCompleted();
+        }
+    }
+
+    void SwitchPositionCreator()
+    {
+        // Use switchPositions
     }
 
     void SpawnSwitches()
     {
-        Instantiate(switchObject, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-    }
-
-    void ResetTask(GameObject trigger)
-    {
-        if (trigger == gameObject)
+        for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
-
+            switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
         }
     }
 
     void SetDifficulty(float difficulty)
     {
-        numOfSwitches = (int)((hardestDifficulty * difficulty) + 0.5f);
+        numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+        numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+    }
+
+    void ResetSwitch(GameObject trigger)
+    {
+        numFlickedSwitches = 0;
     }
 }

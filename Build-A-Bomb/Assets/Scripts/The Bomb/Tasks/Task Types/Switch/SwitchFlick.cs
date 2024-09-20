@@ -23,11 +23,16 @@ public class SwitchFlick : MonoBehaviour
         PointerEventData newData = (PointerEventData)data;
         if (newData.button.Equals(PointerEventData.InputButton.Left))
         {
-            flicked = true;
+            if (gameObject.transform.parent.parent.GetComponent<SwitchLogic>().canBeSolved)
+            {
+                flicked = true;
 
-            // Replace both with call for animation!!!!
-            gameObject.GetComponent<Image>().color = Color.green;
-            //
+                // Replace both with call for animation!!!!
+                gameObject.GetComponent<Image>().color = Color.green;
+                //
+
+                gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
+            }
         }
     }
 

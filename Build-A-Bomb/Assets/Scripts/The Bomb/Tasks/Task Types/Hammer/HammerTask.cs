@@ -8,9 +8,12 @@ using UnityEngine.InputSystem;
 
 public class HammerTask : MonoBehaviour
 {
-    [Header("(Don't Change!!)")]
-    public int hardestDifficulty = 25;
-    int numOfHitsNeeded = 5;
+    const int maxPossibleDifficultly = 150;
+    const int minPossibleDifficultly = 1;
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)]
+    public int currentHardestDifficulty = maxPossibleDifficultly;
+
+    int numOfHitsNeeded = minPossibleDifficultly;
     int numOfHits = 0;
     
     TaskInteractStatus statInteract;
@@ -59,6 +62,7 @@ public class HammerTask : MonoBehaviour
 
     void SetDifficulty(float difficulty)
     {
-        numOfHitsNeeded = (int)((hardestDifficulty * difficulty) + 0.5f);
+        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
     }
 }

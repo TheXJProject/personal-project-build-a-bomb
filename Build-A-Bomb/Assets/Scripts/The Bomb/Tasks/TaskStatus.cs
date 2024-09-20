@@ -41,7 +41,7 @@ public class TaskStatus : MonoBehaviour
         PlayerKeyInput.onKeyReleased -= CheckKeysReleased;
     }
 
-    public void SetKeysRequired(List<int> newKeys)
+    public void SetKeysRequired(List<int> newKeys) 
     {
         keys.Clear();
 
@@ -52,7 +52,7 @@ public class TaskStatus : MonoBehaviour
         }
     }
 
-    public bool TaskSelected()
+    public bool TaskSelected() // Called when the task is selected and correctly sets the status of the task
     {
         if (AnyTaskFocused || isSolved) return false;
 
@@ -63,7 +63,7 @@ public class TaskStatus : MonoBehaviour
         return true;
     }
 
-    public bool TaskDeselected()
+    public bool TaskDeselected() // Called when the task is deselected and correctly sets the status of the task
     {
         if (!isSelected) return false;
 
@@ -74,7 +74,7 @@ public class TaskStatus : MonoBehaviour
         return true;
     }
 
-    public void TaskCompleted()
+    public void TaskCompleted() // Called when the task is completed and correctly sets the status of the task
     {
         AnyTaskFocused = false;
 
@@ -87,7 +87,7 @@ public class TaskStatus : MonoBehaviour
         onTaskCompleted?.Invoke(gameObject);
     }
 
-    public void TaskGoneWrong()
+    public void TaskGoneWrong() // Called when the task has gone wrong and correctly sets the status of the task
     {
         isSolved = false;
         isGoingWrong = true;
@@ -95,7 +95,7 @@ public class TaskStatus : MonoBehaviour
         onTaskGoneWrong?.Invoke(gameObject);
     }
 
-    public void CheckKeysHeld(int keyJustPressed)
+    public void CheckKeysHeld(int keyJustPressed) // Checks that the keys for this task are all being held and is called whenever a key is pressed
     {
         if (isSelected)
         {
@@ -108,7 +108,7 @@ public class TaskStatus : MonoBehaviour
         }
     }
 
-    public void CheckKeysReleased(int keyJustReleased)
+    public void CheckKeysReleased(int keyJustReleased) // Checks if any of the keys for this task have been released and is called whenever a key is released
     {
         if (isBeingSolved)
         {

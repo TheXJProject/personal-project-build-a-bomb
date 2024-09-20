@@ -25,7 +25,7 @@ public class BombStatus : MonoBehaviour
 
     private void Awake()
     {
-        finalLayer = layersToBeSpawned.Count - 1;
+        finalLayer = layersToBeSpawned.Count - 1; // Game is won if final layer is reached which is set to be the last layer in layersToBeSpawned
     }
 
     private void OnEnable()
@@ -40,7 +40,7 @@ public class BombStatus : MonoBehaviour
         LayerStatus.onLayerCompleted -= AttemptNextLayer;
     }
 
-    void SpawnCoreLayer()
+    void SpawnCoreLayer() // Core layer is already set so not many programatic changes should be made to it
     {
         GameObject coreLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
@@ -52,7 +52,7 @@ public class BombStatus : MonoBehaviour
         layersSpawned++;
     }
 
-    void SpawnNextLayer()
+    void SpawnNextLayer() // Whenever a new layer is spawned it is a different size to other layers so it needs to be programmatically adjusted accordingly
     {
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
         nextLayer.GetComponent<LayerStatus>().layer = layersSpawned;
@@ -64,17 +64,19 @@ public class BombStatus : MonoBehaviour
         nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease;
         layers.Add(nextLayer);
 
+        // Event action which is mainly used to indicate when all the pre-task setup is complete so that tasks can spawn with the required settings
         onLayerSettingsSet?.Invoke(layersSpawned);
 
+        // Increases all the variables to increase sizeings by so that it is proportional for the next layer
         layerSizeIncrease *= layerSizeAcceleration;
         taskSizeDecrease -= taskSizeDeceleration;
-        taskSizeDeceleration /= 2;
+        taskSizeDeceleration /= 2; // size of tasks decreases by half the amount each time a new layer spawns them
         currentLayer = layersSpawned;
         sortingLayerDecrease++;
         layersSpawned++;
     }
 
-    bool CheckAllLayersComplete()
+    bool CheckAllLayersComplete() // Checks that every layer is set equal to isCompleted
     {
         foreach (var layer in layers)
         {
@@ -86,7 +88,7 @@ public class BombStatus : MonoBehaviour
         return true;
     }
 
-    void AttemptNextLayer(GameObject triggerLayer)
+    void AttemptNextLayer(GameObject triggerLayer) // Decision function which decides whether to create a new level or call victory - can be used for other layer dependant triggers
     {
         if (CheckAllLayersComplete())
         {

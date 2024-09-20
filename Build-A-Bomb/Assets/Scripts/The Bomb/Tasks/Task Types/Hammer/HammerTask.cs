@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class HammerTask : MonoBehaviour
 {
     int hardestDifficulty = 25;
-    int numOfHitsNeeded;
+    int numOfHitsNeeded = 5;
     int numOfHits = 0;
     
     TaskInteractStatus statInteract;
@@ -48,9 +48,12 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    void ResetTask()
+    void ResetTask(GameObject trigger)
     {
-        numOfHits = 0;
+        if (trigger == gameObject)
+        {
+            numOfHits = 0;
+        }
     }
 
     void SetDifficulty(float difficulty)

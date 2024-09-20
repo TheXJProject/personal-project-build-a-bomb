@@ -6,7 +6,7 @@ using UnityEngine;
 public class TaskInteractStatus : MonoBehaviour
 {
     // Event actions calls
-    public static event Action onTaskFailed; // Function should be made that resets the task when this action is called
+    public static event Action<GameObject> onTaskFailed; // Function should be made that resets the task when this action is called
     public static event Action<float> onChangeTaskDifficulty; // Function should be made that sets the task difficulty when this action is called
 
     public TaskStatus task;
@@ -39,7 +39,10 @@ public class TaskInteractStatus : MonoBehaviour
     
     public void TaskFailed(GameObject gameObject)
     {
-        onTaskFailed?.Invoke();
+        if (gameObject.transform.GetChild(0) == gameObject)
+        {
+            onTaskFailed?.Invoke(gameObject);
+        }
     }
 
     private void Update()

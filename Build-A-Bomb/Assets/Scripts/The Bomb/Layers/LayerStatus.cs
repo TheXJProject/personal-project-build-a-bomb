@@ -47,7 +47,7 @@ public class LayerStatus : MonoBehaviour
         BombStatus.onLayerSettingsSet -= SpawnAllTasks;
     }
 
-    void SpawnTask(Vector2 spawnPos)
+    void SpawnTask(Vector2 spawnPos) // Spawns in one tasks using a Vector2
     {
         GameObject task = Instantiate(typeOfTasks[rnd.Next(typeOfTasks.Count)], spawnPos, Quaternion.identity, transform);
         task.GetComponent<TaskStatus>().taskLayer = layer;
@@ -55,7 +55,7 @@ public class LayerStatus : MonoBehaviour
         tasks.Add(task);
     }
 
-    Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius)
+    Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius) // Gets the next tasks spawn position based on the sizings of the current layer
     {
         bool tasksOverlap;
         bool taskWithinInner;
@@ -67,20 +67,20 @@ public class LayerStatus : MonoBehaviour
             newLocation = UnityEngine.Random.insideUnitCircle * (layerMaxRadius - taskRadius);
             tasksOverlap = false;
             taskWithinInner = false;
-            if (Vector2.Distance(newLocation, Vector2.zero) <= (layerMinRadius + taskRadius))
+            if (Vector2.Distance(newLocation, Vector2.zero) <= (layerMinRadius + taskRadius)) // Determines if the task would spawn on top of the previous layers (the inner circle)
             {
                 taskWithinInner = true;
                 continue;
             }
             foreach (var task in tasks)
             {
-                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius))
+                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius)) // Determines if the task would overlap with any existing tasks
                 {
                     tasksOverlap = true;
                     break;
                 }
-            }
-        } while (taskWithinInner || (tasksOverlap && count < infiniteLoopPrevention));
+            } // After a set number of attempts to find a non-overlapping position, it decides just to find one that isn't within the centre but might overlap a task
+        } while (taskWithinInner || (tasksOverlap && count < infiniteLoopPrevention)); 
         if (count >= infiniteLoopPrevention) { Debug.LogWarning("Couldn't find good location for new task"); }
 
         return newLocation;
@@ -97,7 +97,7 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    void SetTaskKeys(GameObject task)
+    void SetTaskKeys(GameObject task) // The keys for a task are decided when a player clicks onto a task
     {
         if (!task.GetComponent<TaskStatus>().isBeingSolved)
         {
@@ -106,20 +106,19 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    bool IsLayerCompleted()
+    bool IsLayerCompleted() // Loops through overy task in the layer and returns true if they are all completed
     {
-        bool completed = true;
         foreach (var task in tasks)
         {
             if (!task.GetComponent<TaskStatus>().isSolved)
             {
-                completed = false;
+                return false;
             }
         }
-        return completed;
+        return true;
     }
 
-    void LayerCompleted(GameObject triggerTask)
+    void LayerCompleted(GameObject triggerTask) // Called whenever a task is completed
     {
         if (IsLayerCompleted())
         {
@@ -128,7 +127,7 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    bool ContainsTaskGoneWrong()
+    bool ContainsTaskGoneWrong() // Loops through overy task in the layer and sets status of the 
     {
         bool taskGoneWrong = false;
         foreach (var task in tasks)

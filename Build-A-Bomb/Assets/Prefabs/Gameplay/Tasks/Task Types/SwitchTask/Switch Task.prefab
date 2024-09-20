@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Switch Task
       objectReference: {fileID: 0}
+    - target: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7727398054371499831, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

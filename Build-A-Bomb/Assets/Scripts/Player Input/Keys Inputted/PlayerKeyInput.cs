@@ -29,7 +29,7 @@ public class PlayerKeyInput : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null) // Instantiate singleton instance
         {
             instance = this;
             playerControls = new PlayerInputActions();
@@ -46,7 +46,7 @@ public class PlayerKeyInput : MonoBehaviour
         TaskStatus.onTaskFailed += RemoveKeysUsed;
         TaskStatus.onTaskCompleted += RemoveKeysUsed;
 
-        for (int i = 0; i < 26; i++)
+        for (int i = 0; i < 26; i++) // Instantiate Input actions for all the keys
         {
             keys[i] = playerControls.FindAction(alphabet[i]);
             keys[i].Enable();
@@ -69,7 +69,7 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void KeyDown(InputAction.CallbackContext context)
+    void KeyDown(InputAction.CallbackContext context) // Depending on key calling this function, sets that key to down (0)
     {
         for (int i = 0; i < 26; i++)
         {
@@ -82,7 +82,7 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void KeyUp(InputAction.CallbackContext context)
+    void KeyUp(InputAction.CallbackContext context) // Depending on key calling this function, sets that key to up (1)
     {
         for (int i = 0; i < 26; i++)
         {
@@ -95,7 +95,7 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void AddKeysUsed(GameObject task)
+    void AddKeysUsed(GameObject task) // This function and the following function keep track of which keys are currently being used for tasks
     {
         foreach (var key in task.GetComponent<TaskStatus>().keys)
         {
@@ -111,7 +111,7 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    public List<int> DetermineFreeKeys(int keysRequired)
+    public List<int> DetermineFreeKeys(int keysRequired) // Returns a list of keys (between 0 and 25) which arn't currently being used for tasks and are unique (if possible)
     {
         List<int> freeKeys = new List<int>();
         List<int> uniqueUnpressed = new List<int>();

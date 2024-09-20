@@ -50,19 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372658217246493955, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Name
-      value: Bomb Layer 2
+      value: Bomb Layer 4
       objectReference: {fileID: 0}
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Color.b
-      value: 0.5453453
+      value: 0.7724007
       objectReference: {fileID: 0}
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Color.g
-      value: 0.8962264
+      value: 0.8980392
       objectReference: {fileID: 0}
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Color.r
-      value: 0.60780567
+      value: 0.54509807
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

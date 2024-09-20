@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LayerStatus : MonoBehaviour
 {
+    // Layer Event Actions
+    public static event Action<GameObject> onLayerCompleted;
+
     // To be adjusted as seen fit
     public int noOfTasksSpawned = 4;
     public List<GameObject> typeOfTasks = new List<GameObject>();
@@ -16,12 +19,14 @@ public class LayerStatus : MonoBehaviour
     public bool isBeingSolved = false; // Contains a task that is being solved by the player
     public bool isBeingFocused = false; // Contains the task that is currently dispayed and being solved by the player
 
-    // To be set when spawned
+    // To be set when spawned (values given below are the default values)
     public int layer;
     public int noOfKeysPerTask = 1;
-    public float layerMinRadius = 2f;
-    public float layerMaxRadius = 4.75f;
-    public float taskRadius = 0.48f;
+    public float layerMinRadius = 1f;
+    public float layerMaxRadius = 3f;
+    public float taskSize = 0.6f;
+    public float taskScaleUp = 1f;
+    public float taskColliderRadius = 0.8f;
     public List<GameObject> tasks = new List<GameObject>();
 
     // Other variables for miscellaneous purposes
@@ -31,18 +36,22 @@ public class LayerStatus : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskSelected += SetTaskKeys;
-        SpawnAllTasks();
+        TaskStatus.onTaskCompleted += LayerCompleted;
+        BombStatus.onLayerSettingsSet += SpawnAllTasks;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskSelected -= SetTaskKeys;
+        TaskStatus.onTaskCompleted -= LayerCompleted;
+        BombStatus.onLayerSettingsSet -= SpawnAllTasks;
     }
 
     void SpawnTask(Vector2 spawnPos)
     {
         GameObject task = Instantiate(typeOfTasks[rnd.Next(typeOfTasks.Count)], spawnPos, Quaternion.identity, transform);
         task.GetComponent<TaskStatus>().taskLayer = layer;
+        task.transform.localScale = new Vector2(taskSize, taskSize);
         tasks.Add(task);
     }
 
@@ -77,11 +86,14 @@ public class LayerStatus : MonoBehaviour
         return newLocation;
     }
 
-    void SpawnAllTasks()
+    void SpawnAllTasks(int spawningLayer)
     {
-        for (int i = 0; i < noOfTasksSpawned; i++)
+        if (layer == spawningLayer)
         {
-            SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskRadius));
+            for (int i = 0; i < noOfTasksSpawned; i++)
+            {
+                SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));
+            }
         }
     }
 
@@ -104,8 +116,16 @@ public class LayerStatus : MonoBehaviour
                 completed = false;
             }
         }
-        isCompleted = completed;
         return completed;
+    }
+
+    void LayerCompleted(GameObject triggerTask)
+    {
+        if (IsLayerCompleted())
+        {
+            isCompleted = true;
+            onLayerCompleted?.Invoke(gameObject);
+        }
     }
 
     bool ContainsTaskGoneWrong()

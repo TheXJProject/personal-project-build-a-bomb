@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TaskInteractStatus : MonoBehaviour
 {
-    // Function that resets the task should be activated whenever the following event is called
+    // Functions that resets the task should be activated whenever the following event is called
     public static event Action onTaskFailed;
 
     public TaskStatus task;

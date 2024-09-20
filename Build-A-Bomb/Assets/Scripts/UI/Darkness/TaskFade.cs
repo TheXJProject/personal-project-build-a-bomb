@@ -10,7 +10,7 @@ public class TaskFade : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
     }
-    private void OnEnable()
+    private void OnEnable() // Task fade and the ordering of the fade should be toggled in all the situations that tasks are selected or deselected
     {
         TaskStatus.onTaskSelected += ToggleFadeOrder;
         TaskStatus.onTaskSelected += ToggleFade;
@@ -30,7 +30,7 @@ public class TaskFade : MonoBehaviour
         TaskStatus.onTaskCompleted -= ToggleFade;
     }
 
-    void ToggleFade(GameObject task)
+    void ToggleFade(GameObject task) // Fade is toggled on or off depending on wheterh the task is selected or deselected
     {
         if (task.GetComponent<TaskStatus>().isSelected)
         {
@@ -42,7 +42,7 @@ public class TaskFade : MonoBehaviour
         }
     }
 
-    void ToggleFadeOrder(GameObject task)
+    void ToggleFadeOrder(GameObject task) // task is sorted to appear in front or behind the task depending on whether it is being solved
     {
         if (task.GetComponent<TaskStatus>().isBeingSolved)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TaskDisplay : MonoBehaviour
 {
-    private void OnEnable()
+    private void OnEnable() // Tasks displays are enabled/disabled when the play selected/unselects the task - Additionally they are disabled when the task is complete
     {
         TaskStatus.onTaskCompleted += UnDisplayTask;
         TaskStatus.onTaskSelected += DisplayTask;
@@ -17,7 +17,7 @@ public class TaskDisplay : MonoBehaviour
         TaskStatus.onTaskDeSelected -= UnDisplayTask;
     }
 
-    void DisplayTask(GameObject task)
+    void DisplayTask(GameObject task) // Canvas to display to player child gameobject of the child gameobject of the main gameobject for the task
     {
         if (task == gameObject)
         {

@@ -11,7 +11,7 @@ public class TaskVisuals : MonoBehaviour
 
     private void Awake()
     {
-        normalColour = GetComponent<SpriteRenderer>().color;
+        normalColour = GetComponent<SpriteRenderer>().color; // Normal colour is set to whatever the colour is when the games starts
     }
 
     private void OnEnable()
@@ -30,13 +30,13 @@ public class TaskVisuals : MonoBehaviour
         TaskStatus.onTaskGoneWrong -= TaskGoneWrong;
     }
 
-    void TaskBeingSolved(GameObject task)
+    void TaskBeingSolved(GameObject task) // Sets the colour for when the task is being solved
     {
         if (task != gameObject) { return; }
         GetComponent<SpriteRenderer>().color = beingSolvedColour;
     }
     
-    void TaskFailed(GameObject task)
+    void TaskFailed(GameObject task) // Sets the tasks colour back to the orignal colour for when the task went wrong
     {
         if (task != gameObject) { return; }
         if (task.GetComponent<TaskStatus>().isGoingWrong) 
@@ -49,13 +49,13 @@ public class TaskVisuals : MonoBehaviour
         }
     }
 
-    void TaskCompleted(GameObject task)
+    void TaskCompleted(GameObject task) // Sets the colour for when the task is completed
     {
         if (task != gameObject) { return; }
         GetComponent<SpriteRenderer>().color = solvedColour;
     }
 
-    void TaskGoneWrong(GameObject task)
+    void TaskGoneWrong(GameObject task) // Sets the colour for when the task goes wrong
     {
         if (task != gameObject) { return; }
         GetComponent<SpriteRenderer>().color = goneWrongColour;

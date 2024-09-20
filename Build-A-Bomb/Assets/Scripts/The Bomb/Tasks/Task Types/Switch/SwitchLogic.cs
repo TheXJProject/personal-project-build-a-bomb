@@ -2,17 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    int hardestDifficulty = 20;
+    [SerializeField]
+    GameObject switchObject;
+
+    [Header("(Don't Change!!)")]
+    public int hardestDifficulty = 20;
     int numOfSwitches;
+    int numFlickedSwitches = 0;
     
     TaskInteractStatus statInteract;
 
     private void Awake()
     {
         statInteract = GetComponent<TaskInteractStatus>();
+        SpawnSwitches();
     }
 
     private void OnEnable()
@@ -27,14 +34,19 @@ public class SwitchLogic : MonoBehaviour
         TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
     }
 
-    //public void NailHit(BaseEventData data)   ---- This comment is if you are using EventTrigger components
-    //{
-    //  PointerEventData newData = (PointerEventData)data;
-    //  if (newData.button.Equals(PointerEventData.InputButton.Left))
-    //  {
-    //
-    //  }
-    //}
+    public void Swit(BaseEventData data)
+    {
+        PointerEventData newData = (PointerEventData)data;
+        if (newData.button.Equals(PointerEventData.InputButton.Left))
+        {
+
+        }
+    }
+
+    void SpawnSwitches()
+    {
+        Instantiate(switchObject, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+    }
 
     void ResetTask()
     {

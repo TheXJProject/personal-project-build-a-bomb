@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 
 public class HammerTask : MonoBehaviour
 {
-    int hardestDifficulty = 25;
-    int numOfHitsNeeded = 5;
+    [Header("(Don't Change!!)")]
+    public int hardestDifficulty = 25;
+    int numOfHitsNeeded;
     int numOfHits = 0;
     
     TaskInteractStatus statInteract;

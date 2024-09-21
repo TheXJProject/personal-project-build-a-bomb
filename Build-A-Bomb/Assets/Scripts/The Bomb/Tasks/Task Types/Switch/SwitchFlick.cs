@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class SwitchFlick : MonoBehaviour
 {
+    readonly bool Msg = true; // ==== For Debugging! ====
+
     public bool flicked = false;
 
     private void OnEnable()
@@ -33,6 +35,8 @@ public class SwitchFlick : MonoBehaviour
 
                 gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
             }
+            
+            if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);
         }
     }
 

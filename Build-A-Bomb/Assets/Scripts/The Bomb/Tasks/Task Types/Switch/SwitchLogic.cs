@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
+    readonly bool Msg = true; // ==== For Debugging! ====
+
     const int maxPossibleDifficultly = 60;
     const int minPossibleDifficultly = 1;
     [Range(minPossibleDifficultly, maxPossibleDifficultly)]
@@ -26,7 +28,6 @@ public class SwitchLogic : MonoBehaviour
     private void Awake()
     {
         statInteract = GetComponent<TaskInteractStatus>();
-        SwitchPositionCreator();
         SpawnSwitches();
     }
 
@@ -70,13 +71,20 @@ public class SwitchLogic : MonoBehaviour
 
     void SwitchPositionCreator()
     {
-        // Use switchPositions
+        switchPositions = new Vector2[numOfSwitchesNeeded];
+
+        // set positions
     }
 
     void SpawnSwitches()
     {
+        SwitchPositionCreator();
+
+        switches = new GameObject[numOfSwitchesNeeded];
+
         for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
+            Debug.Log("Spawned Switch");
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
         }
     }

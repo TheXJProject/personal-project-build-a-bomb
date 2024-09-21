@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class HammerTask : MonoBehaviour
 {
-    readonly bool Msg = true; // ==== For Debugging! ====
+    readonly bool Msg = false; // ==== For Debugging! ====
 
     const int maxPossibleDifficultly = 150;
     const int minPossibleDifficultly = 1;

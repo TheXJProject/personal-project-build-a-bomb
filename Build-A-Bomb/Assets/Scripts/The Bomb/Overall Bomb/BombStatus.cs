@@ -7,7 +7,7 @@ public class BombStatus : MonoBehaviour
 {
     // Bomb event actions
     public static event Action onBombFinished;
-    public static event Action<int> onLayerSettingsSet;
+    public static event Action<int> onLayerSettingsSet; //So layers know to spawn tasks after they have been correctly set
 
     // To be adjusted as seen fit
     public List<GameObject> layersToBeSpawned = new List<GameObject>();

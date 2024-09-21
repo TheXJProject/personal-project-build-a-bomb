@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 public class SwitchLogic : MonoBehaviour
 {
     readonly bool Msg = true; // ==== For Debugging! ====
+    
+    [SerializeField]
+    GameObject switchPrefab;
 
     const int maxPossibleDifficultly = 60;
     const int minPossibleDifficultly = 1;
@@ -16,19 +19,23 @@ public class SwitchLogic : MonoBehaviour
     int numOfSwitchesNeeded = minPossibleDifficultly;
     int numFlickedSwitches = 0;
     
-    [SerializeField]
-    GameObject switchPrefab;
+    [Range(4,400)]
+    public float spawnBoxHeight;
+
+    [Range(8, 800)]
+    public float spawnBoxWidth;
+
     GameObject[] switches;
     Vector2[] switchPositions;
-
+    
     public bool canBeSolved = false;
 
     TaskInteractStatus statInteract;
 
     private void Awake()
     {
+        if (Msg) Debug.Log("Script Awake().");
         statInteract = GetComponent<TaskInteractStatus>();
-        SpawnSwitches();
     }
 
     private void OnEnable()
@@ -43,29 +50,28 @@ public class SwitchLogic : MonoBehaviour
         TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
     }
 
-    private void Update()
-    {
-        canBeSolved = statInteract.isBeingSolved;
-    }
-
     public void CheckSwitches()
     {
         int totalOn = 0;
+        canBeSolved = statInteract.isBeingSolved;
 
-        foreach (GameObject s in switches)
+        if (canBeSolved)
         {
-            if (s.GetComponent<SwitchFlick>().flicked)
+            foreach (GameObject s in switches)
             {
-                totalOn++;
+                if (s.GetComponent<SwitchFlick>().flicked)
+                {
+                    totalOn++;
+                }
             }
-        }
 
-        numFlickedSwitches = totalOn;
-        statInteract.SetTaskCompletion(numFlickedSwitches / numOfSwitchesNeeded);
-        
-        if (numFlickedSwitches >= numOfSwitchesNeeded)
-        {
-            statInteract.TaskCompleted();
+            numFlickedSwitches = totalOn;
+            statInteract.SetTaskCompletion(numFlickedSwitches / numOfSwitchesNeeded);
+
+            if (numFlickedSwitches >= numOfSwitchesNeeded)
+            {
+                statInteract.TaskCompleted();
+            }
         }
     }
 
@@ -73,7 +79,7 @@ public class SwitchLogic : MonoBehaviour
     {
         switchPositions = new Vector2[numOfSwitchesNeeded];
 
-        // set positions
+        
     }
 
     void SpawnSwitches()
@@ -86,6 +92,7 @@ public class SwitchLogic : MonoBehaviour
         {
             Debug.Log("Spawned Switch");
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+            switches[i].transform.localPosition = switchPositions[i];
         }
     }
 
@@ -93,6 +100,7 @@ public class SwitchLogic : MonoBehaviour
     {
         numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
         numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+        SpawnSwitches();
     }
 
     void ResetSwitch(GameObject trigger)

@@ -22,6 +22,9 @@ public class SwitchFlick : MonoBehaviour
 
     public void FlickSwitch(BaseEventData data)
     {
+        if (Msg) Debug.Log("FlickedSwitch Called.");
+        gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
+
         PointerEventData newData = (PointerEventData)data;
         if (newData.button.Equals(PointerEventData.InputButton.Left))
         {
@@ -32,12 +35,12 @@ public class SwitchFlick : MonoBehaviour
                 // Replace both with call for animation!!!!
                 gameObject.GetComponent<Image>().color = Color.green;
                 //
-
-                gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
             }
             
             if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);
         }
+        
+        gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
     }
 
     public void ResetSwitch(GameObject trigger)

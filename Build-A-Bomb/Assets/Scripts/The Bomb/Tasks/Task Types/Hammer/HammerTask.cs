@@ -22,6 +22,7 @@ public class HammerTask : MonoBehaviour
     
     private void Awake()
     {
+        if (Msg) Debug.Log("Script Awake().");
         statInteract = GetComponent<TaskInteractStatus>();
     }
 

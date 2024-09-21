@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoltingLogic : MonoBehaviour
 {
-    readonly bool Msg = true; // ==== For Debugging! ====
+    readonly bool Msg = false; // ==== For Debugging! ====
 
     const int maxPossibleDifficultly = 6;
     const int minPossibleDifficultly = 1;
@@ -23,46 +23,50 @@ public class BoltingLogic : MonoBehaviour
         statInteract = GetComponent<TaskInteractStatus>();
     }
 
-    private void OnEnable()
-    {
-        TaskInteractStatus.onTaskFailed += ResetTask;
-        TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
-    }
+    //private void OnEnable()
+    //{
+    //    TaskInteractStatus.onTaskFailed += ResetTask;
+    //    TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
+    //}
 
-    private void OnDisable()
-    {
-        TaskInteractStatus.onTaskFailed -= ResetTask;
-        TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
-    }
+    //private void OnDisable()
+    //{
+    //    TaskInteractStatus.onTaskFailed -= ResetTask;
+    //    TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
+    //}
 
-    public void NailHit(BaseEventData data)
-    {
-        if (statInteract.isBeingSolved)
-        {
-            PointerEventData newData = (PointerEventData)data;
-            if (newData.button.Equals(PointerEventData.InputButton.Left))
-            {
-                numOfHits++;
-                statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
-                if (numOfHits >= numOfHitsNeeded)
-                {
-                    statInteract.TaskCompleted();
-                }
-            }
-        }
-    }
+    //public void NailHit(BaseEventData data)
+    //{
+    //    if (statInteract.isBeingSolved)
+    //    {
+    //        PointerEventData newData = (PointerEventData)data;
+    //        if (newData.button.Equals(PointerEventData.InputButton.Left))
+    //        {
+    //            numOfHits++;
+    //            statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
+    //            if (numOfHits >= numOfHitsNeeded)
+    //            {
+    //                statInteract.TaskCompleted();
+    //            }
+    //        }
+    //    }
+    //}
 
-    void ResetTask(GameObject trigger)
-    {
-        if (trigger == gameObject)
-        {
-            numOfHits = 0;
-        }
-    }
+    //void ResetTask(GameObject trigger)
+    //{
+    //    if (trigger == gameObject)
+    //    {
+    //        numOfHits = 0;
+    //    }
+    //}
 
-    void SetDifficulty(float difficulty)
-    {
-        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
-        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
-    }
+    //void SetDifficulty(GameObject triggerTask)
+    //{
+    //    if (triggerTask == gameObject.transform.parent.gameObject)
+    //    {
+    //        float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+    //        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+    //        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+    //    }
+    //}
 }

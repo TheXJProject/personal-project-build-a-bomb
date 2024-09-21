@@ -13,7 +13,7 @@ public class HammerTask : MonoBehaviour
     const int maxPossibleDifficultly = 150;
     const int minPossibleDifficultly = 1;
     [Range(minPossibleDifficultly, maxPossibleDifficultly)]
-    public int currentHardestDifficulty = maxPossibleDifficultly;
+    public int currentHardestDifficulty;
 
     int numOfHitsNeeded = minPossibleDifficultly;
     int numOfHits = 0;
@@ -63,9 +63,13 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    void SetDifficulty(float difficulty)
+    void SetDifficulty(GameObject triggerTask)
     {
-        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
-        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+            numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+        }
     }
 }

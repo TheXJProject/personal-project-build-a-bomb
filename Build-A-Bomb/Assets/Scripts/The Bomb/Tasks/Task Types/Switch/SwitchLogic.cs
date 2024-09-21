@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,7 +15,7 @@ public class SwitchLogic : MonoBehaviour
     const int maxPossibleDifficultly = 60;
     const int minPossibleDifficultly = 1;
     [Range(minPossibleDifficultly, maxPossibleDifficultly)]
-    public int currentHardestDifficulty = maxPossibleDifficultly;
+    public int currentHardestDifficulty;
 
     int numOfSwitchesNeeded = minPossibleDifficultly;
     int numFlickedSwitches = 0;
@@ -132,9 +133,10 @@ public class SwitchLogic : MonoBehaviour
             for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++)
             {
                 xCurrent += xIncrement;
-
+                Debug.Log("Size is; " + missPositions.Count );
                 foreach (int i in missPositions)
                 {
+                    Debug.Log(i);
                     if (i == switchIndex)
                     {
                         missPositions.Remove(i);
@@ -168,12 +170,17 @@ public class SwitchLogic : MonoBehaviour
         }
     }
 
-    void SetDifficulty(float difficulty)
+    void SetDifficulty(GameObject triggerTask)
     {
-        numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
-        numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+        if (triggerTask = gameObject.transform.parent.gameObject)
+        {
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+
+            numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
         
-        SpawnSwitches();
+            SpawnSwitches();
+        }
     }
 
     void ResetSwitch(GameObject trigger)

@@ -28,7 +28,8 @@ public class TaskStatus : MonoBehaviour
     // To be set during or after the tasks creation to affect gameplay of task 
     public List<int> keys = new List<int>(); // letters of the alphabet are assigned between 0 and 25 for A to Z
     public int taskLayer;
-
+    public float difficulty;
+    
     private void OnEnable()
     {
         PlayerKeyInput.onKeyPressed += CheckKeysHeld;

@@ -7,10 +7,13 @@ public class LayerStatus : MonoBehaviour
 {
     // Layer Event Actions
     public static event Action<GameObject> onLayerCompleted;
+    public static event Action<GameObject> onTaskCreated;
 
     // To be adjusted as seen fit
     public int noOfTasksSpawned = 4;
-    public List<GameObject> typeOfTasks = new List<GameObject>();
+    public List<GameObject> typeOfTasks;
+    public List<int> taskMinDifficulty;
+    public List<int> taskMaxDifficulty;
 
     // Stats of the layer
     public bool isSelected = false; // Whether it is the layer the player has currently got selected
@@ -49,10 +52,13 @@ public class LayerStatus : MonoBehaviour
 
     void SpawnTask(Vector2 spawnPos) // Spawns in one tasks using a Vector2
     {
-        GameObject task = Instantiate(typeOfTasks[rnd.Next(typeOfTasks.Count)], spawnPos, Quaternion.identity, transform);
+        int i = rnd.Next(typeOfTasks.Count);
+        GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
+        task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i])) / 100f;
         task.GetComponent<TaskStatus>().taskLayer = layer;
         task.transform.localScale = new Vector2(taskSize, taskSize);
         tasks.Add(task);
+        onTaskCreated?.Invoke(task);
     }
 
     Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius) // Gets the next tasks spawn position based on the sizings of the current layer

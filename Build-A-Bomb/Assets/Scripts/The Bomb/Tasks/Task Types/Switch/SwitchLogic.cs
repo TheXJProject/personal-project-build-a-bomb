@@ -176,7 +176,7 @@ public class SwitchLogic : MonoBehaviour
     {
         if (triggerTask = gameObject.transform.parent.gameObject)
         {
-            Debug.Log("Correct comparison");
+            if (Msg) Debug.Log("Correct comparison");
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);

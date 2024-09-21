@@ -10,16 +10,6 @@ public class SwitchFlick : MonoBehaviour
 
     public bool flicked = false;
 
-    private void OnEnable()
-    {
-        TaskInteractStatus.onTaskFailed += ResetSwitch;
-    }
-
-    private void OnDisable()
-    {
-        TaskInteractStatus.onTaskFailed -= ResetSwitch;
-    }
-
     public void FlickSwitch(BaseEventData data)
     {
         if (Msg) Debug.Log("FlickedSwitch Called.");
@@ -43,15 +33,12 @@ public class SwitchFlick : MonoBehaviour
         gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
     }
 
-    public void ResetSwitch(GameObject trigger)
+    public void ResetSwitch()
     {
-        if (trigger == gameObject.transform.parent.parent)
-        {
-            flicked = false;
+        flicked = false;
 
-            // Replace both with call for animation!!!!
-            gameObject.GetComponent<Image>().color = Color.red;
-            //
-        }
+        // Replace both with call for animation!!!!
+        gameObject.GetComponent<Image>().color = Color.red;
+        //
     }
 }

@@ -65,7 +65,7 @@ public class HammerTask : MonoBehaviour
 
     void SetDifficulty(float difficulty)
     {
-        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+        numOfHitsNeeded = (int)((float)(currentHardestDifficulty * difficulty) + 0.5f);
         numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
     }
 }

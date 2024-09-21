@@ -25,6 +25,9 @@ public class SwitchLogic : MonoBehaviour
     [Range(8, 800)]
     public float spawnBoxWidth;
 
+    [Range(3, 60)]
+    public int maxNumberSwitchesRow;
+
     GameObject[] switches;
     Vector2[] switchPositions;
     
@@ -75,16 +78,22 @@ public class SwitchLogic : MonoBehaviour
         }
     }
 
-    void SwitchPositionCreator()
+    void SwitchPositionCreator(int maxNumRow)
     {
         switchPositions = new Vector2[numOfSwitchesNeeded];
 
-        
+        int maxNumColumn = (int)((float)(numOfSwitchesNeeded / maxNumRow) + 0.5f);
+
+        if (numOfSwitchesNeeded % )
+        {
+
+        }
+        int rows = (int)(numOfSwitchesNeeded / maxNumberSwitchesRow);
     }
 
     void SpawnSwitches()
     {
-        SwitchPositionCreator();
+        SwitchPositionCreator(maxNumberSwitchesRow);
 
         switches = new GameObject[numOfSwitchesNeeded];
 
@@ -98,13 +107,22 @@ public class SwitchLogic : MonoBehaviour
 
     void SetDifficulty(float difficulty)
     {
-        numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+        numOfSwitchesNeeded = (int)((float)(currentHardestDifficulty * difficulty) + 0.5f);
         numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+        
         SpawnSwitches();
     }
 
     void ResetSwitch(GameObject trigger)
     {
-        numFlickedSwitches = 0;
+        if (trigger == gameObject)
+        {
+            numFlickedSwitches = 0;
+
+            foreach (GameObject s in switches)
+            {
+                s.GetComponent<SwitchFlick>().ResetSwitch();
+            }
+        }
     }
 }

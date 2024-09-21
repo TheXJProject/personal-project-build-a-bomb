@@ -132,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727398054371499831, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.x
@@ -218,10 +218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f99a86e6bb9a1f4bb16cd398bc57a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHardestDifficulty: 60
   switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
-  spawnBoxHeight: 25
-  spawnBoxWidth: 50
+  currentHardestDifficulty: 60
+  spawnBoxHeight: 275
+  spawnBoxWidth: 360
+  maxNumberSwitchesRow: 37
   canBeSolved: 0
 --- !u!224 &1877792038077966146 stripped
 RectTransform:

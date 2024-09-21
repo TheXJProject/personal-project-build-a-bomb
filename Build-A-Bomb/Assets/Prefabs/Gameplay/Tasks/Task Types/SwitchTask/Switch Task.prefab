@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
-  currentHardestDifficulty: 60
+  currentHardestDifficulty: 13
   spawnBoxHeight: 275
   spawnBoxWidth: 360
-  maxNumberSwitchesRow: 12
+  maxNumberSwitchesRow: 6
   canBeSolved: 0

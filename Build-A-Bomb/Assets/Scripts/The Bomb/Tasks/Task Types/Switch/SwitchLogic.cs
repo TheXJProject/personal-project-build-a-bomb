@@ -26,7 +26,7 @@ public class SwitchLogic : MonoBehaviour
     [Range(8, 800)]
     public float spawnBoxWidth;
 
-    [Range(3, 60)]
+    [Range(2, 60)]
     public int maxNumberSwitchesRow;
 
     GameObject[] switches;
@@ -126,6 +126,11 @@ public class SwitchLogic : MonoBehaviour
         List<int> missPositions = GenerateUniqueRandomNumbers(unused, numOfSwitchesNeeded);
         bool doAssign = true;
 
+        if (Msg) Debug.Log("Num Of Switches Needed: " + numOfSwitchesNeeded);
+        if (Msg) Debug.Log("Max Num Switches: " + maxNumberSwitchesRow);
+        if (Msg) Debug.Log("Rows: " + rows);
+        if (Msg) Debug.Log("Unused Values: " + unused);
+
         for (int row = 1; row <= rows; row++)
         {
             yCurrent += yIncrement;
@@ -147,12 +152,17 @@ public class SwitchLogic : MonoBehaviour
                     missPositions.Remove(switchIndex);
                     switchPositions[switchIndex].y = yCurrent;
                     switchPositions[switchIndex].x = xCurrent;
+
+                    if (Msg) Debug.Log("YCurrent: " + yCurrent);
+                    if (Msg) Debug.Log("Switch Position: " + switchPositions[switchIndex] + " at index: " + switchIndex);
+                    
                     switchIndex++;
                 }
+
+                doAssign = true;
             }
 
             xCurrent = -spawnBoxWidth / 2;
-            doAssign = true;
         }
     }
 
@@ -166,7 +176,6 @@ public class SwitchLogic : MonoBehaviour
 
         for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
-            if (Msg) Debug.Log(switchPositions[i]);
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
             switches[i].transform.localPosition = switchPositions[i];
         }

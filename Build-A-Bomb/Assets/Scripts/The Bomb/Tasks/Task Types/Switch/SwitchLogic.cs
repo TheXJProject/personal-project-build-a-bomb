@@ -78,12 +78,31 @@ public class SwitchLogic : MonoBehaviour
         }
     }
 
+    public List<int> GenerateUniqueRandomNumbers(int numUnused, int maxPosition)
+    {
+        System.Random rand = new();
+        HashSet<int> uniqueNumbers = new();
+        List<int> randomNumbers = new();
+
+        while (uniqueNumbers.Count < numUnused)
+        {
+            int randomNumber = rand.Next(maxPosition + 1);
+            if (uniqueNumbers.Add(randomNumber))
+            {
+                randomNumbers.Add(randomNumber);
+            }
+        }
+
+        return randomNumbers;
+    }
+
     void SwitchPositionCreator()
     {
         switchPositions = new Vector2[numOfSwitchesNeeded];
 
-        int rows = 0;
-
+        int rows;
+        int switchIndex = 0;
+        
         if (numOfSwitchesNeeded % maxNumberSwitchesRow == 0)
         {
             rows = numOfSwitchesNeeded / maxNumberSwitchesRow;
@@ -92,35 +111,46 @@ public class SwitchLogic : MonoBehaviour
         {
             rows = (int)(numOfSwitchesNeeded / maxNumberSwitchesRow) + 1;
         }
-
+        
         if (rows == 0)
         {
             Debug.LogWarning("Error, Number of Rows is zero!");
         }
 
-        int switchCount = 0;
+        float yCurrent = - spawnBoxHeight / 2;
+        float xCurrent = - spawnBoxWidth / 2;
+        float yIncrement = spawnBoxHeight / rows;
+        float xIncrement = spawnBoxWidth / maxNumberSwitchesRow;
+        int unused = (rows * maxNumberSwitchesRow) - numOfSwitchesNeeded;
+        List<int> missPositions = GenerateUniqueRandomNumbers(unused, numOfSwitchesNeeded);
+        bool doAssign = true;
 
         for (int row = 1; row <= rows; row++)
         {
-            // Y position
+            yCurrent += yIncrement;
 
             for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++)
             {
-                if (switchCount > numOfSwitchesNeeded)
-                {
+                xCurrent += xIncrement;
 
-                }
-
-                if ((row == rows) && (numOfSwitchesNeeded - switchCount < maxNumberSwitchesRow))
+                foreach (int i in missPositions)
                 {
-                    if (Msg) Debug.Log("Using Remainder positioning method.");
+                    if (i == switchIndex)
+                    {
+                        missPositions.Remove(i);
+                        doAssign = false;
+                    }
                 }
-                else
+                if (doAssign)
                 {
-                    // X position
+                    switchPositions[switchIndex].y = yCurrent;
+                    switchPositions[switchIndex].x = xCurrent;
+                    switchIndex++;
                 }
-                switchCount++;
             }
+
+            xCurrent = -spawnBoxWidth / 2;
+            doAssign = true;
         }
     }
 

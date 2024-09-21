@@ -434,6 +434,8 @@ MonoBehaviour:
   - {fileID: 6816818605743534807, guid: 139399783f59b0741b1de768e88570dd, type: 3}
   - {fileID: 6816818605743534807, guid: d7ac920ae638c1a4ebcb7e2ea4549c2e, type: 3}
   layerSizeAcceleration: 3
+  taskSizeDeceleration: 0.1
+  layerSizeIncrease: 3
   layers: []
 --- !u!1 &449356587
 GameObject:
@@ -514,6 +516,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -595,6 +598,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64aca11530cee1145855db9d9bc17414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bomb: {fileID: 442478352}
+  coreLayer: {fileID: 5776476794578718226, guid: 8bb1d57b25d449a45b50e1e277c2aa4e, type: 3}
+  initialSize: 0
+  layerSizeIncrease: 0
+  layerSizeAcceleration: 0
 --- !u!1 &830830286
 GameObject:
   m_ObjectHideFlags: 0

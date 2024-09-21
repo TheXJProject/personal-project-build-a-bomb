@@ -10,7 +10,8 @@ public class LayerStatus : MonoBehaviour
     public static event Action<GameObject> onTaskCreated;
 
     // To be adjusted as seen fit
-    public int noOfTasksSpawned = 4;
+    public int minNoOfTasksSpawned = 4;
+    public int maxNoOfTasksSpawned = 4;
     public List<GameObject> typeOfTasks;
     public List<int> taskMinDifficulty;
     public List<int> taskMaxDifficulty;
@@ -96,7 +97,7 @@ public class LayerStatus : MonoBehaviour
     {
         if (layer == spawningLayer)
         {
-            for (int i = 0; i < noOfTasksSpawned; i++)
+            for (int i = 0; i < rnd.Next(minNoOfTasksSpawned, maxNoOfTasksSpawned + 1); i++)
             {
                 SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));
             }

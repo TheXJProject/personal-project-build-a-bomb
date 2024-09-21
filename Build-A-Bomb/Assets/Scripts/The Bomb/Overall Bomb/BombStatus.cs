@@ -15,7 +15,7 @@ public class BombStatus : MonoBehaviour
     public float taskSizeDeceleration = 0.1f;
 
     // Current information
-    float layerSizeIncrease = 3f;
+    public float layerSizeIncrease = 3f;
     float taskSizeDecrease = 0.85f;
     int sortingLayerDecrease = 1;
     int layersSpawned = 0;

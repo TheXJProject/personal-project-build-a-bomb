@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff1ae3158021494ca727eef4d2d0665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHardestDifficulty: 150
+  currentHardestDifficulty: 60
 --- !u!224 &6178418637545224869 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}

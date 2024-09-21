@@ -78,28 +78,61 @@ public class SwitchLogic : MonoBehaviour
         }
     }
 
-    void SwitchPositionCreator(int maxNumRow)
+    void SwitchPositionCreator()
     {
         switchPositions = new Vector2[numOfSwitchesNeeded];
 
-        int maxNumColumn = (int)((float)(numOfSwitchesNeeded / maxNumRow) + 0.5f);
+        int rows = 0;
 
-        if (numOfSwitchesNeeded % )
+        if (numOfSwitchesNeeded % maxNumberSwitchesRow == 0)
         {
-
+            rows = numOfSwitchesNeeded / maxNumberSwitchesRow;
         }
-        int rows = (int)(numOfSwitchesNeeded / maxNumberSwitchesRow);
+        else
+        {
+            rows = (int)(numOfSwitchesNeeded / maxNumberSwitchesRow) + 1;
+        }
+
+        if (rows == 0)
+        {
+            Debug.LogWarning("Error, Number of Rows is zero!");
+        }
+
+        int switchCount = 0;
+
+        for (int row = 1; row <= rows; row++)
+        {
+            // Y position
+
+            for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++)
+            {
+                if (switchCount > numOfSwitchesNeeded)
+                {
+
+                }
+
+                if ((row == rows) && (numOfSwitchesNeeded - switchCount < maxNumberSwitchesRow))
+                {
+                    if (Msg) Debug.Log("Using Remainder positioning method.");
+                }
+                else
+                {
+                    // X position
+                }
+                switchCount++;
+            }
+        }
     }
 
     void SpawnSwitches()
     {
-        SwitchPositionCreator(maxNumberSwitchesRow);
+        SwitchPositionCreator();
 
         switches = new GameObject[numOfSwitchesNeeded];
 
         for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
-            Debug.Log("Spawned Switch");
+            if (Msg) Debug.Log("Spawned Switch");
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
             switches[i].transform.localPosition = switchPositions[i];
         }
@@ -107,7 +140,7 @@ public class SwitchLogic : MonoBehaviour
 
     void SetDifficulty(float difficulty)
     {
-        numOfSwitchesNeeded = (int)((float)(currentHardestDifficulty * difficulty) + 0.5f);
+        numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
         numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
         
         SpawnSwitches();

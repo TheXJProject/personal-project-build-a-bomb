@@ -55,7 +55,7 @@ public class LayerStatus : MonoBehaviour
     {
         int i = rnd.Next(typeOfTasks.Count);
         GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
-        task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i])) / 100f;
+        task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i] + 1)) / 100f;
         task.GetComponent<TaskStatus>().taskLayer = layer;
         task.transform.localScale = new Vector2(taskSize, taskSize);
         tasks.Add(task);

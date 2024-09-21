@@ -67,6 +67,7 @@ public class HammerTask : MonoBehaviour
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
+            Debug.Log("Correct comparison");
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
             numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
             numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);

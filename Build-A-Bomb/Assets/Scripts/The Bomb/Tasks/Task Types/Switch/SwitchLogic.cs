@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    readonly bool Msg = false; // ==== For Debugging! ====
+    readonly bool Msg = true; // ==== For Debugging! ====
     
     [SerializeField]
     GameObject switchPrefab;
@@ -133,18 +133,18 @@ public class SwitchLogic : MonoBehaviour
             for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++)
             {
                 xCurrent += xIncrement;
-                Debug.Log("Size is; " + missPositions.Count );
+
                 foreach (int i in missPositions)
                 {
-                    Debug.Log(i);
                     if (i == switchIndex)
-                    {
-                        missPositions.Remove(i);
+                    { 
                         doAssign = false;
                     }
                 }
+
                 if (doAssign)
                 {
+                    missPositions.Remove(switchIndex);
                     switchPositions[switchIndex].y = yCurrent;
                     switchPositions[switchIndex].x = xCurrent;
                     switchIndex++;
@@ -162,9 +162,11 @@ public class SwitchLogic : MonoBehaviour
 
         switches = new GameObject[numOfSwitchesNeeded];
 
+        if (Msg) Debug.Log("Spawned Switchs");
+
         for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
-            if (Msg) Debug.Log("Spawned Switch");
+            if (Msg) Debug.Log(switchPositions[i]);
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
             switches[i].transform.localPosition = switchPositions[i];
         }
@@ -174,11 +176,12 @@ public class SwitchLogic : MonoBehaviour
     {
         if (triggerTask = gameObject.transform.parent.gameObject)
         {
+            Debug.Log("Correct comparison");
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
             numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
-        
+
             SpawnSwitches();
         }
     }

@@ -60,9 +60,13 @@ public class BoltingLogic : MonoBehaviour
     //    }
     //}
 
-    //void SetDifficulty(float difficulty)
+    //void SetDifficulty(GameObject triggerTask)
     //{
-    //    numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
-    //    numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+    //    if (triggerTask == gameObject.transform.parent.gameObject)
+    //    {
+    //        float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+    //        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+    //        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+    //    }
     //}
 }

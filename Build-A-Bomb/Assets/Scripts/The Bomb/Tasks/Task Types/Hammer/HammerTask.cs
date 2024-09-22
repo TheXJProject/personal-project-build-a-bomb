@@ -46,7 +46,7 @@ public class HammerTask : MonoBehaviour
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
                 numOfHits++;
-                statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
+                statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
                 if (numOfHits >= numOfHitsNeeded)
                 {
                     statInteract.TaskCompleted();

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    readonly bool Msg = false; // ==== For Debugging! ====
+    readonly bool Msg = true; // ==== For Debugging! ====
     
     [SerializeField]
     GameObject switchPrefab;
@@ -61,16 +61,27 @@ public class SwitchLogic : MonoBehaviour
 
         if (canBeSolved)
         {
-            foreach (GameObject s in switches)
+            if (switches != null)
             {
-                if (s.GetComponent<SwitchFlick>().flicked)
+                foreach (GameObject s in switches)
                 {
-                    totalOn++;
+                    if (s.GetComponent<SwitchFlick>().flicked)
+                    {
+                        totalOn++;
+                    }
                 }
+            }
+            else
+            {
+                Debug.LogWarning("Error, switches not instantiated. (CheckSwitches)");
             }
 
             numFlickedSwitches = totalOn;
-            statInteract.SetTaskCompletion(numFlickedSwitches / numOfSwitchesNeeded);
+            statInteract.SetTaskCompletion((float)numFlickedSwitches / numOfSwitchesNeeded);
+
+            if (Msg) Debug.Log("Task Complete: " + (float)numFlickedSwitches / numOfSwitchesNeeded);
+            if (Msg) Debug.Log("Switches Needed: " + numOfSwitchesNeeded);
+            if (Msg) Debug.Log("Switches Flicked: " + numFlickedSwitches);
 
             if (numFlickedSwitches >= numOfSwitchesNeeded)
             {
@@ -161,14 +172,16 @@ public class SwitchLogic : MonoBehaviour
 
     void SpawnSwitches()
     {
-        SwitchPositionCreator();
-
         switches = new GameObject[numOfSwitchesNeeded];
+
+        SwitchPositionCreator();
 
         if (Msg) Debug.Log("Spawned Switchs");
 
         for (int i = 0; i < numOfSwitchesNeeded; i++)
         {
+            if (Msg) Debug.Log("i = " + i);
+            
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
             switches[i].transform.localPosition = switchPositions[i];
         }
@@ -192,11 +205,18 @@ public class SwitchLogic : MonoBehaviour
     {
         if (trigger == gameObject)
         {
-            numFlickedSwitches = 0;
-
-            foreach (GameObject s in switches)
+            if (switches != null)
             {
-                s.GetComponent<SwitchFlick>().ResetSwitch();
+                numFlickedSwitches = 0;
+
+                foreach (GameObject s in switches)
+                {
+                    s.GetComponent<SwitchFlick>().ResetSwitch();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Error, switches not instantiated. (ResetSwitch)");
             }
         }
     }

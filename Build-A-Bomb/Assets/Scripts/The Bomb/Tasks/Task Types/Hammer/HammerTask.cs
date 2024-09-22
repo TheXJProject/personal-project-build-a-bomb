@@ -29,13 +29,13 @@ public class HammerTask : MonoBehaviour
     private void OnEnable()
     {
         TaskInteractStatus.onTaskFailed += ResetTask;
-        TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
+        TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
     }
 
     private void OnDisable()
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
-        TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
+        TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
     public void NailHit(BaseEventData data)
@@ -55,22 +55,23 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    void ResetTask(GameObject trigger)
-    {
-        if (trigger == gameObject)
-        {
-            numOfHits = 0;
-        }
-    }
-
     void SetDifficulty(GameObject triggerTask)
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            if (Msg) Debug.Log("Correct comparison");
+            if (Msg) Debug.Log("Set Difficultly");
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
             numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
             numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+        }
+    }
+
+    void ResetTask(GameObject trigger)
+    {
+        if (trigger == gameObject)
+        {
+            if (Msg) Debug.Log("Reset Task");
+            numOfHits = 0;
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    readonly bool Msg = true; // ==== For Debugging! ====
+    readonly bool Msg = false; // ==== For Debugging! ====
     
     [SerializeField]
     GameObject switchPrefab;
@@ -38,20 +38,20 @@ public class SwitchLogic : MonoBehaviour
 
     private void Awake()
     {
-        if (Msg) Debug.Log("Script Awake().");
+        if (true) Debug.Log("Script Awake().");
         statInteract = GetComponent<TaskInteractStatus>();
     }
 
     private void OnEnable()
     {
         TaskInteractStatus.onTaskFailed += ResetSwitch;
-        TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
+        TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
     }
 
     private void OnDisable()
     {
         TaskInteractStatus.onTaskFailed -= ResetSwitch;
-        TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
+        TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
     public void CheckSwitches()
@@ -79,10 +79,6 @@ public class SwitchLogic : MonoBehaviour
             numFlickedSwitches = totalOn;
             statInteract.SetTaskCompletion((float)numFlickedSwitches / numOfSwitchesNeeded);
 
-            if (Msg) Debug.Log("Task Complete: " + (float)numFlickedSwitches / numOfSwitchesNeeded);
-            if (Msg) Debug.Log("Switches Needed: " + numOfSwitchesNeeded);
-            if (Msg) Debug.Log("Switches Flicked: " + numFlickedSwitches);
-
             if (numFlickedSwitches >= numOfSwitchesNeeded)
             {
                 statInteract.TaskCompleted();
@@ -104,6 +100,8 @@ public class SwitchLogic : MonoBehaviour
                 randomNumbers.Add(randomNumber);
             }
         }
+
+        randomNumbers.Sort();
 
         return randomNumbers;
     }
@@ -135,11 +133,6 @@ public class SwitchLogic : MonoBehaviour
         switchPositions = new List<Vector2>(rows * maxNumberSwitchesRow);
         Vector2 toAdd = Vector2.zero;
 
-        if (Msg) Debug.Log("Num Of Switches Needed: " + numOfSwitchesNeeded);
-        if (Msg) Debug.Log("Max Num Switches: " + maxNumberSwitchesRow);
-        if (Msg) Debug.Log("Rows: " + rows);
-        if (Msg) Debug.Log("Unused Values: " + unused);
-
         for (int row = 1; row <= rows; row++)
         {
             yCurrent += yIncrement;
@@ -164,7 +157,6 @@ public class SwitchLogic : MonoBehaviour
         {
             if (missPositions.Contains(i))
             {
-                if (Msg) Debug.Log("Miss Position: " + i);
                 switchPositions.RemoveAt(i);
             }
         }
@@ -177,11 +169,12 @@ public class SwitchLogic : MonoBehaviour
         SwitchPositionCreator();
 
         if (Msg) Debug.Log("Spawned Switchs");
+        if (Msg) Debug.Log("same " + numOfSwitchesNeeded);
+        if (Msg) Debug.Log("same " + switches.Length);
+        if (Msg) Debug.Log("same " + switchPositions.Count);
 
-        for (int i = 0; i < numOfSwitchesNeeded; i++)
+        for (int i = 0; i < switches.Length; i++)
         {
-            if (Msg) Debug.Log("i = " + i);
-            
             switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
             switches[i].transform.localPosition = switchPositions[i];
         }
@@ -189,9 +182,9 @@ public class SwitchLogic : MonoBehaviour
 
     void SetDifficulty(GameObject triggerTask)
     {
-        if (triggerTask = gameObject.transform.parent.gameObject)
+        if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            if (Msg) Debug.Log("Correct comparison");
+            if (true) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
@@ -205,6 +198,8 @@ public class SwitchLogic : MonoBehaviour
     {
         if (trigger == gameObject)
         {
+            if (Msg) Debug.Log("Reset Task");
+
             if (switches != null)
             {
                 numFlickedSwitches = 0;

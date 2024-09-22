@@ -7,7 +7,7 @@ public class TaskInteractStatus : MonoBehaviour
 {
     // Event actions calls
     public static event Action<GameObject> onTaskFailed; // Function should be made that resets the task when this action is called
-    public static event Action<GameObject> onChangeTaskDifficulty; // Function should be made that sets the task difficulty when this action is called
+    public static event Action<GameObject> onTaskDifficultySet; // Function should be made that sets the task difficulty when this action is called
 
     public TaskStatus task;
     public bool isBeingSolved;
@@ -15,13 +15,13 @@ public class TaskInteractStatus : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskFailed += TaskFailed;
-        LayerStatus.onTaskCreated += ChangeTaskDifficulty;
+        LayerStatus.onTaskCreated += SetTaskDifficulty;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskFailed -= TaskFailed;
-        LayerStatus.onTaskCreated -= ChangeTaskDifficulty;
+        LayerStatus.onTaskCreated -= SetTaskDifficulty;
     }
 
     public void SetTaskCompletion(float amount) // Function should be ran whenever the player progresses task completion (between 0 and 1)
@@ -34,11 +34,12 @@ public class TaskInteractStatus : MonoBehaviour
         task.TaskCompleted();
     }
 
-    public void ChangeTaskDifficulty(GameObject triggerTask)
+    public void SetTaskDifficulty(GameObject triggerTask)
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            onChangeTaskDifficulty?.Invoke(triggerTask);
+            Debug.Log("Anything" + gameObject.transform.parent.gameObject);
+            onTaskDifficultySet?.Invoke(triggerTask);
         }
     }
     

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    readonly bool Msg = true; // ==== For Debugging! ====
+    readonly bool Msg = false; // ==== For Debugging! ====
     
     [SerializeField]
     GameObject switchPrefab;
@@ -30,7 +30,7 @@ public class SwitchLogic : MonoBehaviour
     public int maxNumberSwitchesRow;
 
     GameObject[] switches;
-    Vector2[] switchPositions;
+    List<Vector2> switchPositions;
     
     public bool canBeSolved = false;
 
@@ -99,11 +99,9 @@ public class SwitchLogic : MonoBehaviour
 
     void SwitchPositionCreator()
     {
-        switchPositions = new Vector2[numOfSwitchesNeeded];
-
         int rows;
         int switchIndex = 0;
-        
+
         if (numOfSwitchesNeeded % maxNumberSwitchesRow == 0)
         {
             rows = numOfSwitchesNeeded / maxNumberSwitchesRow;
@@ -112,19 +110,19 @@ public class SwitchLogic : MonoBehaviour
         {
             rows = (int)(numOfSwitchesNeeded / maxNumberSwitchesRow) + 1;
         }
-        
+
         if (rows == 0)
         {
             Debug.LogWarning("Error, Number of Rows is zero!");
         }
 
-        float yCurrent = - spawnBoxHeight / 2;
-        float xCurrent = - spawnBoxWidth / 2;
-        float yIncrement = spawnBoxHeight / rows;
-        float xIncrement = spawnBoxWidth / maxNumberSwitchesRow;
+        float yCurrent = -spawnBoxHeight / 2;
+        float xCurrent = -spawnBoxWidth / 2;
+        float yIncrement = spawnBoxHeight / (rows + 1);
+        float xIncrement = spawnBoxWidth / (maxNumberSwitchesRow + 1);
         int unused = (rows * maxNumberSwitchesRow) - numOfSwitchesNeeded;
-        List<int> missPositions = GenerateUniqueRandomNumbers(unused, numOfSwitchesNeeded);
-        bool doAssign = true;
+        switchPositions = new List<Vector2>(rows * maxNumberSwitchesRow);
+        Vector2 toAdd = Vector2.zero;
 
         if (Msg) Debug.Log("Num Of Switches Needed: " + numOfSwitchesNeeded);
         if (Msg) Debug.Log("Max Num Switches: " + maxNumberSwitchesRow);
@@ -139,30 +137,25 @@ public class SwitchLogic : MonoBehaviour
             {
                 xCurrent += xIncrement;
 
-                foreach (int i in missPositions)
-                {
-                    if (i == switchIndex)
-                    { 
-                        doAssign = false;
-                    }
-                }
+                toAdd.y = yCurrent;
+                toAdd.x = xCurrent;
+                switchPositions.Insert(switchIndex, toAdd);
 
-                if (doAssign)
-                {
-                    missPositions.Remove(switchIndex);
-                    switchPositions[switchIndex].y = yCurrent;
-                    switchPositions[switchIndex].x = xCurrent;
-
-                    if (Msg) Debug.Log("YCurrent: " + yCurrent);
-                    if (Msg) Debug.Log("Switch Position: " + switchPositions[switchIndex] + " at index: " + switchIndex);
-                    
-                    switchIndex++;
-                }
-
-                doAssign = true;
+                switchIndex++;
             }
 
             xCurrent = -spawnBoxWidth / 2;
+        }
+
+        List<int> missPositions = GenerateUniqueRandomNumbers(unused, switchPositions.Count);
+
+        for (int i = switchIndex - 1; i >= 0; i--)
+        {
+            if (missPositions.Contains(i))
+            {
+                if (Msg) Debug.Log("Miss Position: " + i);
+                switchPositions.RemoveAt(i);
+            }
         }
     }
 

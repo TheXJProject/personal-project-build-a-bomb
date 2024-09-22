@@ -106,7 +106,8 @@ public class LayerStatus : MonoBehaviour
 
     void SetTaskKeys(GameObject task) // The keys for a task are decided when a player clicks onto a task
     {
-        if (!task.GetComponent<TaskStatus>().isBeingSolved)
+        TaskStatus status = task.GetComponent<TaskStatus>();
+        if (!status.isBeingSolved && status.taskLayer == layer)
         {
             List<int> keys = PlayerKeyInput.instance.DetermineFreeKeys(noOfKeysPerTask);
             task.GetComponent<TaskStatus>().SetKeysRequired(keys);

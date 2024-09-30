@@ -7,7 +7,7 @@ public class BombStatus : MonoBehaviour
 {
     // Bomb event actions
     public static event Action onBombFinished;
-    public static event Action<int> onLayerSettingsSet; //So layers know to spawn tasks after they have been correctly set
+    public static event Action<GameObject> onLayerCreated; 
 
     // To be adjusted as seen fit
     public List<GameObject> layersToBeSpawned = new List<GameObject>();
@@ -43,18 +43,20 @@ public class BombStatus : MonoBehaviour
     void SpawnCoreLayer() // Core layer is already set so not many programatic changes should be made to it
     {
         GameObject coreLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
+        coreLayer.GetComponent<LayerStatus>().isSelected = true;
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
         layers.Add(coreLayer);
 
-        onLayerSettingsSet?.Invoke(layersSpawned);
-
         currentLayer = 0;
         layersSpawned++;
+
+        onLayerCreated?.Invoke(coreLayer);
     }
 
     void SpawnNextLayer() // Whenever a new layer is spawned it is a different size to other layers so it needs to be programmatically adjusted accordingly
     {
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
+        nextLayer.GetComponent<LayerStatus>().isSelected = true;
         nextLayer.GetComponent<LayerStatus>().layer = layersSpawned;
         nextLayer.GetComponent<LayerStatus>().layerMinRadius *= layerSizeIncrease;
         nextLayer.GetComponent<LayerStatus>().layerMaxRadius *= layerSizeIncrease;
@@ -64,9 +66,6 @@ public class BombStatus : MonoBehaviour
         nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease;
         layers.Add(nextLayer);
 
-        // Event action which is mainly used to indicate when all the pre-task setup is complete so that tasks can spawn with the required settings
-        onLayerSettingsSet?.Invoke(layersSpawned);
-
         // Increases all the variables to increase sizeings by so that it is proportional for the next layer
         layerSizeIncrease *= layerSizeAcceleration;
         taskSizeDecrease -= taskSizeDeceleration;
@@ -74,6 +73,9 @@ public class BombStatus : MonoBehaviour
         currentLayer = layersSpawned;
         sortingLayerDecrease++;
         layersSpawned++;
+
+        // Event action which is mainly used to indicate when all the pre-task setup is complete so that tasks can spawn with the required settings
+        onLayerCreated?.Invoke(nextLayer);
     }
 
     bool CheckAllLayersComplete() // Checks that every layer is set equal to isCompleted

@@ -49,17 +49,20 @@ public class BombCameraLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        BombStatus.onLayerSettingsSet += ChangeFocusedLayer;
+        BombStatus.onLayerCreated += ChangeFocusedLayer;
+        LayerButtonPress.onLayerButtonPressed += ChangeFocusedLayer;
     }
 
     private void OnDisable()
     {
-        BombStatus.onLayerSettingsSet -= ChangeFocusedLayer;
+        BombStatus.onLayerCreated -= ChangeFocusedLayer;
+        LayerButtonPress.onLayerButtonPressed -= ChangeFocusedLayer;
     }
 
     // Needs to be called whenever the player changes the layer they are looking at 
-    void ChangeFocusedLayer(int layerToFocus)
+    void ChangeFocusedLayer(GameObject triggerLayer)
     {
+        int layerToFocus = triggerLayer.GetComponent<LayerStatus>().layer;
         currentLayer = layerToFocus;
         cameraControl.NewCameraSize(cameraSizes[layerToFocus], layerToFocus);
     }

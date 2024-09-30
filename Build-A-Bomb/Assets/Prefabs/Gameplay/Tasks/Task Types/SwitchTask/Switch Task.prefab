@@ -117,5 +117,5 @@ MonoBehaviour:
   currentHardestDifficulty: 60
   spawnBoxHeight: 400
   spawnBoxWidth: 400
-  maxNumberSwitchesRow: 50
+  maxNumberSwitchesRow: 12
   canBeSolved: 0

@@ -40,11 +40,14 @@ public class HammerTask : MonoBehaviour
 
     public void NailHit(BaseEventData data)
     {
+        Debug.Log("Called function");
         if (statInteract.isBeingSolved)
         {
+            Debug.Log("Task is being solved");
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
+                Debug.Log("Left click is being pressed");
                 numOfHits++;
                 statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
                 if (numOfHits >= numOfHitsNeeded)

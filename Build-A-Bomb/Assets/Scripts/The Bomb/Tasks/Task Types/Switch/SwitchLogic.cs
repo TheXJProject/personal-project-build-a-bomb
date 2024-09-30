@@ -38,7 +38,7 @@ public class SwitchLogic : MonoBehaviour
 
     private void Awake()
     {
-        if (true) Debug.Log("Script Awake().");
+        if (Msg) Debug.Log("Script Awake().");
         statInteract = GetComponent<TaskInteractStatus>();
     }
 
@@ -184,7 +184,7 @@ public class SwitchLogic : MonoBehaviour
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            if (true) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
+            if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);

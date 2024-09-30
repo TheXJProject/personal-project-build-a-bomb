@@ -38,7 +38,6 @@ public class TaskInteractStatus : MonoBehaviour
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            Debug.Log("Anything" + gameObject.transform.parent.gameObject);
             onTaskDifficultySet?.Invoke(triggerTask);
         }
     }

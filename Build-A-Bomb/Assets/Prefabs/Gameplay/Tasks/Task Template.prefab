@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4366864411769910915}
   m_Layer: 0
   m_Name: Task Template
-  m_TagString: Untagged
+  m_TagString: Task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,9 +165,11 @@ MonoBehaviour:
   isBeingSolved: 0
   isSelected: 0
   isGoingWrong: 0
+  isOnCurrentLayer: 0
   taskCompletion: 0
   keys: 
   taskLayer: 0
+  difficulty: 0
 --- !u!114 &4366864411769910915
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,20 +17,31 @@ public class TaskSelection : MonoBehaviour
     }
     private void OnEnable()
     {
+        LayerButtonPress.onLayerButtonPressed += PressLayerButtonDeselect;
+
         rightMouseDown = playerControls.Mouse.RightClick;
         rightMouseDown.Enable();
-        rightMouseDown.performed += Deselect;
+        rightMouseDown.performed += RightClickDeselect;
     }
     private void OnDisable()
     {
+        LayerButtonPress.onLayerButtonPressed -= PressLayerButtonDeselect;
         rightMouseDown.Disable();
     }
     private void OnMouseDown()
     {
-        task.TaskSelected();
+        if (task.isOnCurrentLayer)
+        {
+            task.TaskSelected();
+        }
     }
 
-    private void Deselect(InputAction.CallbackContext context)
+    private void RightClickDeselect(InputAction.CallbackContext context)
+    {
+        task.TaskDeselected();
+    }
+
+    private void PressLayerButtonDeselect(GameObject triggerLayer)
     {
         task.TaskDeselected();
     }

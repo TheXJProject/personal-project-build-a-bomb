@@ -93,7 +93,7 @@ public class SwitchLogic : MonoBehaviour
 
         while (uniqueNumbers.Count < numUnused)
         {
-            int randomNumber = rand.Next(maxPosition + 1);
+            int randomNumber = rand.Next(maxPosition);
             if (uniqueNumbers.Add(randomNumber))
             {
                 randomNumbers.Add(randomNumber);
@@ -129,7 +129,7 @@ public class SwitchLogic : MonoBehaviour
         float yIncrement = spawnBoxHeight / (rows + 1);
         float xIncrement = spawnBoxWidth / (maxNumberSwitchesRow + 1);
         int unused = (rows * maxNumberSwitchesRow) - numOfSwitchesNeeded;
-        switchPositions = new List<Vector2>(rows * maxNumberSwitchesRow);
+        switchPositions = new List<Vector2>();
         Vector2 toAdd = Vector2.zero;
 
         for (int row = 1; row <= rows; row++)
@@ -152,11 +152,17 @@ public class SwitchLogic : MonoBehaviour
 
         List<int> missPositions = GenerateUniqueRandomNumbers(unused, switchPositions.Count);
 
+        if (Msg) Debug.Log("Unused: " + unused);
+        if (Msg) Debug.Log("missPositions Size: " + missPositions.Count);
+        if (Msg) Debug.Log("Max index for array: " + switchPositions.Count);
+
         for (int i = switchIndex - 1; i >= 0; i--)
         {
             if (missPositions.Contains(i))
             {
                 switchPositions.RemoveAt(i);
+
+                if (Msg) Debug.Log("Miss position: " + i);
             }
         }
     }
@@ -168,14 +174,21 @@ public class SwitchLogic : MonoBehaviour
         SwitchPositionCreator();
 
         if (Msg) Debug.Log("Spawned Switchs");
-        if (Msg) Debug.Log("same " + numOfSwitchesNeeded);
-        if (Msg) Debug.Log("same " + switches.Length);
-        if (Msg) Debug.Log("same " + switchPositions.Count);
+        if (Msg) Debug.Log("Num of Switches needed: " + numOfSwitchesNeeded);
+        if (Msg) Debug.Log("Num of switch gameobjects: " + switches.Length);
+        if (Msg) Debug.Log("Num of switch positions: " + switchPositions.Count);
 
-        for (int i = 0; i < switches.Length; i++)
+        if ((switches.Length != numOfSwitchesNeeded) || (switchPositions.Count != numOfSwitchesNeeded))
         {
-            switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-            switches[i].transform.localPosition = switchPositions[i];
+            Debug.LogWarning("Error, incorrect number of switches/positions spawned!");
+        }
+        else
+        {
+            for (int i = 0; i < switches.Length; i++)
+            {
+                switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+                switches[i].transform.localPosition = switchPositions[i];
+            }
         }
     }
 

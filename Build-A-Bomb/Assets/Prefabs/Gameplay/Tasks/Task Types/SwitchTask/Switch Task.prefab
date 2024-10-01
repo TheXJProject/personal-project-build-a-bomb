@@ -115,11 +115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnBoxHeight: 400
   spawnBoxWidth: 400
-  maxNumberSwitchesRow: 10
-  currentHardestDifficulty: 60
+  maxNumberSwitchesRow: 9
+  currentHardestDifficulty: 20
   switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
-  canBeSolved: 0
   statInteract: {fileID: 3658859345300909803}
+  canBeSolved: 0
 --- !u!114 &3658859345300909803 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 177503003606955824, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}

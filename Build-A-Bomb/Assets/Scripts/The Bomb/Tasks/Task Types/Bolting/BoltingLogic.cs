@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoltingLogic : MonoBehaviour
 {
-    //readonly bool Msg = true; // ==== For Debugging! ====
+    //readonly bool Msg = true; // !! For Debugging !!
 
     //const int maxPossibleDifficultly = 6;
     //const int minPossibleDifficultly = 1;

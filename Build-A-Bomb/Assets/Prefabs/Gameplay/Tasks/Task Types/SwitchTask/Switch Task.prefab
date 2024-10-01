@@ -113,9 +113,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f99a86e6bb9a1f4bb16cd398bc57a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
-  currentHardestDifficulty: 60
   spawnBoxHeight: 400
   spawnBoxWidth: 400
-  maxNumberSwitchesRow: 50
+  maxNumberSwitchesRow: 10
+  currentHardestDifficulty: 60
+  switchPrefab: {fileID: 2716009486299261796, guid: 4bef5ce50b6146646bb20c03ef0d14a7, type: 3}
   canBeSolved: 0
+  statInteract: {fileID: 3658859345300909803}
+--- !u!114 &3658859345300909803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 177503003606955824, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+  m_PrefabInstance: {fileID: 3508444000888150491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556107394053132186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545b0dcf54f744148a7ab65a19caabca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

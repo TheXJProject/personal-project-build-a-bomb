@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SwitchFlick : MonoBehaviour
 {
-    readonly bool Msg = false; // ==== For Debugging! ====
+    readonly bool Msg = false; // !! For Debugging !!
 
     public bool flicked = false;
 

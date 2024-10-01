@@ -7,39 +7,33 @@ using UnityEngine.EventSystems;
 
 public class SwitchLogic : MonoBehaviour
 {
-    readonly bool Msg = false; // ==== For Debugging! ====
-    
-    [SerializeField]
-    GameObject switchPrefab;
+    // ==== For Debugging ====
+    readonly bool Msg = false;
 
+    // Constant Values:
     const int maxPossibleDifficultly = 60;
     const int minPossibleDifficultly = 1;
-    [Range(minPossibleDifficultly, maxPossibleDifficultly)]
-    public int currentHardestDifficulty;
 
+    // Inspector Adjustable Values:
+    [Range(4,400)] public float spawnBoxHeight;
+    [Range(8, 800)] public float spawnBoxWidth;
+    [Range(2, 60)] public int maxNumberSwitchesRow;
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+
+    // Initialise In Inspector:
+    [SerializeField] GameObject switchPrefab;
+    [SerializeField] TaskInteractStatus statInteract;
+
+    // Runtime Variables:
+    [HideInInspector] public bool canBeSolved = false;
     int numOfSwitchesNeeded = minPossibleDifficultly;
     int numFlickedSwitches = 0;
-    
-    [Range(4,400)]
-    public float spawnBoxHeight;
-
-    [Range(8, 800)]
-    public float spawnBoxWidth;
-
-    [Range(2, 60)]
-    public int maxNumberSwitchesRow;
-
     GameObject[] switches;
     List<Vector2> switchPositions;
     
-    public bool canBeSolved = false;
-
-    TaskInteractStatus statInteract;
-
     private void Awake()
     {
-        if (true) Debug.Log("Script Awake().");
-        statInteract = GetComponent<TaskInteractStatus>();
+        if (Msg) Debug.Log("Script Awake().");
     }
 
     private void OnEnable()
@@ -54,10 +48,13 @@ public class SwitchLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
+    /// FUNCTION DESCRIPTION <summary>
+    /// TODO: WRITE LATER!
+    /// </summary>
     public void CheckSwitches()
     {
         int totalOn = 0;
-        canBeSolved = statInteract.isBeingSolved;
+        canBeSolved = statInteract.isBeingSolved; // whatevers
 
         if (canBeSolved)
         {
@@ -85,6 +82,8 @@ public class SwitchLogic : MonoBehaviour
             }
         }
     }
+
+
 
     public List<int> GenerateUniqueRandomNumbers(int numUnused, int maxPosition)
     {
@@ -184,7 +183,7 @@ public class SwitchLogic : MonoBehaviour
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
         {
-            if (true) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
+            if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);

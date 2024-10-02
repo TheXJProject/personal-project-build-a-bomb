@@ -23,6 +23,7 @@ public class TaskStatus : MonoBehaviour
     public bool isBeingSolved = false;
     public bool isSelected = false;
     public bool isGoingWrong = false;
+    public bool isOnCurrentLayer = false;
     public float taskCompletion = 0f;
 
     // To be set during or after the tasks creation to affect gameplay of task 

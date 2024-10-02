@@ -8,6 +8,8 @@ public class LayerStatus : MonoBehaviour
     // Layer Event Actions
     public static event Action<GameObject> onLayerCompleted;
     public static event Action<GameObject> onTaskCreated;
+    public static event Action<GameObject> onLayerSelected;
+    public static event Action<GameObject> onLayerUnSelected;
 
     // To be adjusted as seen fit
     public int minNoOfTasksSpawned = 4;
@@ -41,14 +43,18 @@ public class LayerStatus : MonoBehaviour
     {
         TaskStatus.onTaskSelected += SetTaskKeys;
         TaskStatus.onTaskCompleted += LayerCompleted;
-        BombStatus.onLayerSettingsSet += SpawnAllTasks;
+        BombStatus.onLayerCreated += SpawnAllTasks;
+        BombStatus.onLayerCreated += SetCurrentLayer;
+        LayerButtonPress.onLayerButtonPressed += SetCurrentLayer;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskSelected -= SetTaskKeys;
         TaskStatus.onTaskCompleted -= LayerCompleted;
-        BombStatus.onLayerSettingsSet -= SpawnAllTasks;
+        BombStatus.onLayerCreated -= SpawnAllTasks;
+        BombStatus.onLayerCreated -= SetCurrentLayer;
+        LayerButtonPress.onLayerButtonPressed -= SetCurrentLayer;
     }
 
     void SpawnTask(Vector2 spawnPos) // Spawns in one tasks using a Vector2
@@ -57,6 +63,7 @@ public class LayerStatus : MonoBehaviour
         GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
         task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i] + 1)) / 100f;
         task.GetComponent<TaskStatus>().taskLayer = layer;
+        task.GetComponent<TaskStatus>().isOnCurrentLayer = true;
         task.transform.localScale = new Vector2(taskSize, taskSize);
         tasks.Add(task);
         onTaskCreated?.Invoke(task);
@@ -93,8 +100,9 @@ public class LayerStatus : MonoBehaviour
         return newLocation;
     }
 
-    void SpawnAllTasks(int spawningLayer)
+    void SpawnAllTasks(GameObject triggerLayer)
     {
+        int spawningLayer = triggerLayer.GetComponent<LayerStatus>().layer;
         if (layer == spawningLayer)
         {
             for (int i = 0; i < rnd.Next(minNoOfTasksSpawned, maxNoOfTasksSpawned + 1); i++)
@@ -114,7 +122,7 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    bool IsLayerCompleted() // Loops through overy task in the layer and returns true if they are all completed
+    public bool IsLayerCompleted() // Loops through overy task in the layer and returns true if they are all completed
     {
         foreach (var task in tasks)
         {
@@ -135,7 +143,7 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    bool ContainsTaskGoneWrong() // Loops through overy task in the layer and sets status of the 
+    public bool ContainsTaskGoneWrong() // Loops through overy task in the layer and sets status of the layer to if it is going wrong
     {
         bool taskGoneWrong = false;
         foreach (var task in tasks)
@@ -149,7 +157,7 @@ public class LayerStatus : MonoBehaviour
         return taskGoneWrong;
     }
 
-    bool ContainsTaskBeingSolved()
+    public bool ContainsTaskBeingSolved()
     {
         bool taskBeingSolved = false;
         foreach (var task in tasks)
@@ -163,12 +171,12 @@ public class LayerStatus : MonoBehaviour
         return taskBeingSolved;
     }
 
-    bool ContainsTaskBeingFocused()
+    public bool ContainsTaskBeingFocused()
     {
         bool taskBeingFocused = false;
         foreach (var task in tasks)
         {
-            if (task.GetComponent<TaskStatus>().isSelected && task.GetComponent<TaskStatus>().isBeingSolved)
+            if (task.GetComponent<TaskStatus>().isSelected)
             {
                 taskBeingFocused = true;
             }
@@ -189,5 +197,27 @@ public class LayerStatus : MonoBehaviour
         }
         if (validTasks.Count > 0) { return validTasks[rnd.Next(validTasks.Count)]; }
         else { return null; }
+    }
+
+    void SetCurrentLayer(GameObject triggerLayer)
+    {
+        if (triggerLayer == gameObject)
+        {
+            isSelected = true;
+            foreach (var task in tasks)
+            {
+                task.GetComponent<TaskStatus>().isOnCurrentLayer = true;
+            }
+            onLayerSelected?.Invoke(gameObject);
+        }
+        else
+        {
+            isSelected = false;
+            foreach (var task in tasks)
+            {
+                task.GetComponent<TaskStatus>().isOnCurrentLayer = false;
+            }
+            onLayerUnSelected?.Invoke(gameObject);
+        }
     }
 }

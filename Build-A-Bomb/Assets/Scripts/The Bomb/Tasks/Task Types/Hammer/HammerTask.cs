@@ -58,6 +58,11 @@ public class HammerTask : MonoBehaviour
         }
     }
 
+    void SetupTask()
+    {
+
+    }
+
     void SetDifficulty(GameObject triggerTask)
     {
         if (triggerTask == gameObject.transform.parent.gameObject)
@@ -66,6 +71,8 @@ public class HammerTask : MonoBehaviour
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
             numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
             numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+
+            SetupTask();
         }
     }
 

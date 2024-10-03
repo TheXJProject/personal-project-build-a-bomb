@@ -30,10 +30,14 @@ public class SwitchLogic : MonoBehaviour
     int numFlickedSwitches = 0;
     GameObject[] switches;
     List<Vector2> switchPositions;
-    
+    bool isSetup;
+
     private void Awake()
     {
         if (Msg) Debug.Log("Script Awake().");
+
+        // This instance is not set up yet
+        isSetup = false;
     }
 
     private void OnEnable()
@@ -58,7 +62,8 @@ public class SwitchLogic : MonoBehaviour
         int totalOn = 0;
         canBeSolved = statInteract.isBeingSolved;
 
-        if (canBeSolved) // This function only works if the task canBeSolved
+        // This function only works if the task canBeSolved
+        if (canBeSolved) 
         {
             if (switches != null)
             {
@@ -66,7 +71,8 @@ public class SwitchLogic : MonoBehaviour
                 {
                     if (s.GetComponent<SwitchFlick>().flicked)
                     {
-                        totalOn++; // Getting the total number of switches flicked on
+                        // Getting the total number of switches flicked on
+                        totalOn++; 
                     }
                 }
             }
@@ -76,9 +82,12 @@ public class SwitchLogic : MonoBehaviour
             }
 
             numFlickedSwitches = totalOn;
-            statInteract.SetTaskCompletion((float)numFlickedSwitches / numOfSwitchesNeeded); // Set the completion level
 
-            if (numFlickedSwitches >= numOfSwitchesNeeded) // Check if task is completed
+            // Set the completion level
+            statInteract.SetTaskCompletion((float)numFlickedSwitches / numOfSwitchesNeeded);
+
+            // Check if task is completed
+            if (numFlickedSwitches >= numOfSwitchesNeeded)
             {
                 statInteract.TaskCompleted();
             }
@@ -93,15 +102,22 @@ public class SwitchLogic : MonoBehaviour
     List<int> GenerateUniqueRandomNumbers(int numUnused, int maxPosition)
     {
         System.Random rand = new();
+
+        // Using HashSet since each element must be unique
         HashSet<int> uniqueNumbers = new();
         List<int> randomNumbers = new();
 
-        while (uniqueNumbers.Count < numUnused) // Keep going until we fill the requirements
+        // Keep going until we fill the requirements
+        while (uniqueNumbers.Count < numUnused)
         {
-            int randomNumber = rand.Next(maxPosition); // Generates new number
-            if (uniqueNumbers.Add(randomNumber)) // Checks for unique number
+            // Generates new number
+            int randomNumber = rand.Next(maxPosition);
+
+            // Checks for unique number
+            if (uniqueNumbers.Add(randomNumber))
             {
-                randomNumbers.Add(randomNumber); // Adds new integer to list
+                // Adds new integer to list
+                randomNumbers.Add(randomNumber);
             }
         }
 
@@ -120,7 +136,8 @@ public class SwitchLogic : MonoBehaviour
         int rows;
         int switchIndex = 0;
 
-        if (numOfSwitchesNeeded % maxNumberSwitchesRow == 0) // This if statement allows for calculating the required number of rows
+        // This if statement allows for calculating the required number of rows
+        if (numOfSwitchesNeeded % maxNumberSwitchesRow == 0)
         {
             rows = numOfSwitchesNeeded / maxNumberSwitchesRow;
         }
@@ -134,7 +151,8 @@ public class SwitchLogic : MonoBehaviour
             Debug.LogWarning("Error, Number of Rows is zero!");
         }
 
-        float yCurrent = -spawnBoxHeight / 2; // Variables for calculating the shape and layout of the box containing the switches
+        // Variables for calculating the shape and layout of the box containing the switches
+        float yCurrent = -spawnBoxHeight / 2;
         float xCurrent = -spawnBoxWidth / 2;
         float yIncrement = spawnBoxHeight / (rows + 1);
         float xIncrement = spawnBoxWidth / (maxNumberSwitchesRow + 1);
@@ -142,17 +160,21 @@ public class SwitchLogic : MonoBehaviour
         switchPositions = new List<Vector2>();
         Vector2 toAdd = Vector2.zero;
 
-        for (int row = 1; row <= rows; row++) // For each row we have, find the y positions of switches in the row
+        // For each row we have, find the y positions of switches in the row
+        for (int row = 1; row <= rows; row++)
         {
             yCurrent += yIncrement;
 
-            for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++) // For each space in a row, find the x positions of switches in the row
+            // For each space in a row, find the x positions of switches in the row
+            for (int numInRow = 1; numInRow <= maxNumberSwitchesRow; numInRow++)
             {
                 xCurrent += xIncrement;
 
                 toAdd.y = yCurrent;
                 toAdd.x = xCurrent;
-                switchPositions.Insert(switchIndex, toAdd); // Contain all the coordinates in a list
+
+                // Contain all the coordinates in a list
+                switchPositions.Insert(switchIndex, toAdd);
 
                 switchIndex++;
             }
@@ -160,7 +182,8 @@ public class SwitchLogic : MonoBehaviour
             xCurrent = -spawnBoxWidth / 2;
         }
 
-        List<int> missPositions = GenerateUniqueRandomNumbers(unused, switchPositions.Count); // Generate the random positions to remove
+        // Generate the random positions to remove
+        List<int> missPositions = GenerateUniqueRandomNumbers(unused, switchPositions.Count);
 
         if (Msg) Debug.Log("Unused: " + unused);
         if (Msg) Debug.Log("missPositions Size: " + missPositions.Count);
@@ -170,7 +193,8 @@ public class SwitchLogic : MonoBehaviour
         {
             if (missPositions.Contains(i))
             {
-                switchPositions.RemoveAt(i); // Remove the positions generated
+                // Remove the positions generated
+                switchPositions.RemoveAt(i);
 
                 if (Msg) Debug.Log("Miss position: " + i);
             }
@@ -183,9 +207,11 @@ public class SwitchLogic : MonoBehaviour
     /// </summary>
     void SpawnSwitches()
     {
-        switches = new GameObject[numOfSwitchesNeeded]; // Number of switch gameobjects required
+        // Number of switch gameobjects required
+        switches = new GameObject[numOfSwitchesNeeded];
 
-        SwitchPositionCreator(); // Generates positions for each of the gameobjects
+        // Generates positions for each of the gameobjects
+        SwitchPositionCreator();
 
         if (Msg) Debug.Log("Spawned Switchs");
         if (Msg) Debug.Log("Num of Switches needed: " + numOfSwitchesNeeded);
@@ -198,7 +224,8 @@ public class SwitchLogic : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < switches.Length; i++) // Instantiates each switch at the correct location
+            // Instantiates each switch at the correct location
+            for (int i = 0; i < switches.Length; i++)
             {
                 switches[i] = Instantiate(switchPrefab, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
                 switches[i].transform.localPosition = switchPositions[i];
@@ -209,12 +236,22 @@ public class SwitchLogic : MonoBehaviour
     /// FUNCTION DESCRIPTION <summary>
     /// Called by SetDifficulty method only! <br />
     /// Starts required setup for the task. <br />
-    /// <br />
-    /// (Some tasks require minimal or no additional code here.)
     /// </summary>
     void SetupTask()
     {
-        SpawnSwitches(); // Spawn all required switches
+        // This function can only be activated once
+        if (isSetup)
+        {
+            Debug.LogWarning("Error, this task is already set up!");
+        }
+        else
+        {
+            // This instance is now setup
+            isSetup = true;
+
+            // Spawn all required switches
+            SpawnSwitches();
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -224,13 +261,19 @@ public class SwitchLogic : MonoBehaviour
     /// </summary>
     void SetDifficulty(GameObject triggerTask)
     {
-        if (triggerTask == gameObject.transform.parent.gameObject) // TODO: correct comment
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (triggerTask == gameObject.transform.parent.gameObject)
         {
             if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
-            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty; // Retrieves difficulty
 
-            numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f); // Sets difficulty level (the number of switches in this case)
-            numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly); // The number of switches cannot be zero
+            // Retrieves difficulty
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+
+            // Sets difficulty level (the number of switches in this case)
+            numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+
+            // The number of switches cannot be zero
+            numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
 
             SetupTask();
         }
@@ -243,14 +286,17 @@ public class SwitchLogic : MonoBehaviour
     /// </summary>
     void ResetSwitch(GameObject trigger)
     {
-        if (trigger == gameObject) // TODO: correct comment
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (trigger == gameObject)
         {
             if (Msg) Debug.Log("Reset Task");
 
             if (switches != null)
             {
+                // Set the number of flicked switches to zero
                 numFlickedSwitches = 0;
 
+                // Set all switch gameobjects to off
                 foreach (GameObject s in switches)
                 {
                     s.GetComponent<SwitchFlick>().ResetSwitch();

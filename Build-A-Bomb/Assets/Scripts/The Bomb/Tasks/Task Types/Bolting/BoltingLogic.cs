@@ -4,69 +4,106 @@ using UnityEngine;
 
 public class BoltingLogic : MonoBehaviour
 {
-    //readonly bool Msg = true; // !! For Debugging !!
+    // ==== For Debugging ====
+    readonly bool Msg = false;
 
-    //const int maxPossibleDifficultly = 6;
-    //const int minPossibleDifficultly = 1;
-    //[Range(minPossibleDifficultly, maxPossibleDifficultly)]
-    //public int currentHardestDifficulty = maxPossibleDifficultly;
+    // Constant Values:
+    const int maxPossibleDifficultly = 15;
+    const int minPossibleDifficultly = 1;
 
-    //int numOfLayersNeeded = minPossibleDifficultly;
-    //int numOfBoltsNeeded;
-    //int numOfBolts = 0;
+    // Inspector Adjustable Values:
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
 
-    //TaskInteractStatus statInteract;
+    // Initialise In Inspector:
+    [SerializeField] TaskInteractStatus statInteract;
 
-    //private void Awake()
-    //{
-    //    if (Msg) Debug.Log("Script Awake().");
-    //    statInteract = GetComponent<TaskInteractStatus>();
-    //}
+    // Runtime Variables:
+    [HideInInspector] public bool canBeSolved = false;
+    int numOfSwitchesNeeded = minPossibleDifficultly; // TODO: adjust variable names
+    int numFlickedSwitches = 0; // TODO: adjust variable names
+    bool isSetup;
 
-    //private void OnEnable()
-    //{
-    //    TaskInteractStatus.onTaskFailed += ResetTask;
-    //    TaskInteractStatus.onChangeTaskDifficulty += SetDifficulty;
-    //}
+    private void Awake()
+    {
+        if (Msg) Debug.Log("Script Awake().");
 
-    //private void OnDisable()
-    //{
-    //    TaskInteractStatus.onTaskFailed -= ResetTask;
-    //    TaskInteractStatus.onChangeTaskDifficulty -= SetDifficulty;
-    //}
+        // This instance is not set up yet
+        isSetup = false;
+    }
 
-    //public void NailHit(BaseEventData data)
-    //{
-    //    if (statInteract.isBeingSolved)
-    //    {
-    //        PointerEventData newData = (PointerEventData)data;
-    //        if (newData.button.Equals(PointerEventData.InputButton.Left))
-    //        {
-    //            numOfHits++;
-    //            statInteract.SetTaskCompletion(numOfHits / numOfHitsNeeded);
-    //            if (numOfHits >= numOfHitsNeeded)
-    //            {
-    //                statInteract.TaskCompleted();
-    //            }
-    //        }
-    //    }
-    //}
+    private void OnEnable()
+    {
+        TaskInteractStatus.onTaskFailed += ResestBolts;
+        TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
+    }
 
-    //void ResetTask(GameObject trigger)
-    //{
-    //    if (trigger == gameObject)
-    //    {
-    //        numOfHits = 0;
-    //    }
-    //}
+    private void OnDisable()
+    {
+        TaskInteractStatus.onTaskFailed -= ResestBolts;
+        TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+    }
 
-    //void SetDifficulty(GameObject triggerTask)
-    //{
-    //    if (triggerTask == gameObject.transform.parent.gameObject)
-    //    {
-    //        float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
-    //        numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
-    //        numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
-    //    }
-    //}
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by SetDifficulty method only! <br />
+    /// Starts required setup for the task. <br />
+    /// </summary>
+    void SetupTask()
+    {
+        // This function can only be activated once
+        if (isSetup)
+        {
+            Debug.LogWarning("Error, this task is already set up!");
+        }
+        else
+        {
+            // This instance is now setup
+            isSetup = true;
+
+            // TODO: Enter required Setup
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskDifficultySet event only! <br />
+    /// Retrieves a difficult setting and applies it to this task <br />
+    /// instance. Then calls for the task to be setup.
+    /// </summary>
+    void SetDifficulty(GameObject triggerTask)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
+
+            // Retrieves difficulty
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+
+            // Sets difficulty level (the number of switches in this case)
+            numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+
+            // The number of switches cannot be zero
+            numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+
+            SetupTask();
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskFailed event only! <br />
+    /// Resets the task back to its state just after SetupTask <br />
+    /// has been called.
+    /// </summary>
+    void ResestBolts(GameObject trigger)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (trigger == gameObject)
+        {
+            if (Msg) Debug.Log("Reset Task");
+
+            // Set the number of flicked switches to zero
+            numFlickedSwitches = 0;
+
+            // TODO: Add in required reset measures
+        }
+    }
 }

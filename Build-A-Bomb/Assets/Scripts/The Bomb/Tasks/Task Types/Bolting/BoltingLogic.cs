@@ -8,7 +8,7 @@ public class BoltingLogic : MonoBehaviour
     readonly bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 15;
+    const int maxPossibleDifficultly = 30;
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:

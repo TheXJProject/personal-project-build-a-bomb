@@ -19,8 +19,8 @@ public class BoltingLogic : MonoBehaviour
 
     // Runtime Variables:
     [HideInInspector] public bool canBeSolved = false;
-    int numOfSwitchesNeeded = minPossibleDifficultly; // TODO: adjust variable names
-    int numFlickedSwitches = 0; // TODO: adjust variable names
+    int numBoltsNeeded = minPossibleDifficultly; // TODO: adjust variable names
+    int numBoltsCompleted = 0; // TODO: adjust variable names
     bool isSetup;
 
     private void Awake()
@@ -79,10 +79,10 @@ public class BoltingLogic : MonoBehaviour
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             // Sets difficulty level (the number of switches in this case)
-            numOfSwitchesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            numBoltsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
             // The number of switches cannot be zero
-            numOfSwitchesNeeded = Mathf.Max(numOfSwitchesNeeded, minPossibleDifficultly);
+            numBoltsNeeded = Mathf.Max(numBoltsNeeded, minPossibleDifficultly);
 
             SetupTask();
         }
@@ -101,7 +101,7 @@ public class BoltingLogic : MonoBehaviour
             if (Msg) Debug.Log("Reset Task");
 
             // Set the number of flicked switches to zero
-            numFlickedSwitches = 0;
+            numBoltsCompleted = 0;
 
             // TODO: Add in required reset measures
         }

@@ -8,19 +8,23 @@ public class BoltingLogic : MonoBehaviour
     readonly bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 30;
+    const int maxPossibleDifficultly = 15;
     const int minPossibleDifficultly = 1;
+    const int multipleFactor = 2;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
 
     // Initialise In Inspector:
-    [SerializeField] TaskInteractStatus statInteract;
+    [SerializeField] GameObject variation1;
+    [SerializeField] GameObject variation2;
+    [SerializeField] GameObject variation3;
 
     // Runtime Variables:
     [HideInInspector] public bool canBeSolved = false;
-    int numBoltsNeeded = minPossibleDifficultly; // TODO: adjust variable names
-    int numBoltsCompleted = 0; // TODO: adjust variable names
+    int numBoltsNeeded = minPossibleDifficultly * multipleFactor;
+    int numBoltsCompleted = 0;
+    GameObject variationInUse;
     bool isSetup;
 
     private void Awake()
@@ -59,7 +63,29 @@ public class BoltingLogic : MonoBehaviour
             // This instance is now setup
             isSetup = true;
 
-            // TODO: Enter required Setup
+            // Choose a random number between 1 and 3
+            int randomNumber = Random.Range(1, 4); // Random.Range's upper bound is exclusive for integers
+            if (Msg) Debug.Log("Random Number: " + randomNumber);
+
+            // Use the random number to decide which variation to spawn
+            switch (randomNumber)
+            {
+                case 1:
+                    // Spawn variation 1 of the task
+                    variationInUse = Instantiate(variation1, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+                    break;
+                case 2:
+                    // Spawn variation 2 of the task
+                    variationInUse = Instantiate(variation2, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+                    break;
+                case 3:
+                    // Spawn variation 3 of the task
+                    variationInUse = Instantiate(variation3, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+                    break;
+                default:
+                    Debug.LogWarning("Error, random number, " + randomNumber + " out of range!");
+                    break;
+            }
         }
     }
 
@@ -79,10 +105,10 @@ public class BoltingLogic : MonoBehaviour
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             // Sets difficulty level (the number of switches in this case)
-            numBoltsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            numBoltsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f) * multipleFactor;
 
             // The number of switches cannot be zero
-            numBoltsNeeded = Mathf.Max(numBoltsNeeded, minPossibleDifficultly);
+            numBoltsNeeded = Mathf.Max(numBoltsNeeded, (minPossibleDifficultly * multipleFactor));
 
             SetupTask();
         }

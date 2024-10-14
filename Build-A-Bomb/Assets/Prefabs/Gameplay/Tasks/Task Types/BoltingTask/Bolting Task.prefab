@@ -1061,22 +1061,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14222d0142f955b4f9d95a2b0c2f33e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHardestDifficulty: 20
-  statInteract: {fileID: 8087669420947635049}
+  currentHardestDifficulty: 15
+  variation1: {fileID: 0}
+  variation2: {fileID: 0}
+  variation3: {fileID: 0}
   canBeSolved: 0
 --- !u!224 &6409902806868275904 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
   m_PrefabInstance: {fileID: 8235872565144439897}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8087669420947635049 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 177503003606955824, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
-  m_PrefabInstance: {fileID: 8235872565144439897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993504586256439832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545b0dcf54f744148a7ab65a19caabca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

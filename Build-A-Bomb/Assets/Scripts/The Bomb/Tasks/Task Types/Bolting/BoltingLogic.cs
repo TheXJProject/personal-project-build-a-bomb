@@ -19,9 +19,9 @@ public class BoltingLogic : MonoBehaviour
     [SerializeField] GameObject variation1;
     [SerializeField] GameObject variation2;
     [SerializeField] GameObject variation3;
+    public TaskInteractStatus statInteract;
 
     // Runtime Variables:
-    [HideInInspector] public bool canBeSolved = false;
     int numBoltsNeeded = minPossibleDifficultly * multipleFactor;
     int numBoltsCompleted = 0;
     GameObject variationInUse;

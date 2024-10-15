@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2672320262020648602}
   - component: {fileID: 6648733768078706832}
   - component: {fileID: 6555240124246637876}
+  - component: {fileID: 1340448798849851148}
   m_Layer: 0
   m_Name: Bolt
   m_TagString: Untagged
@@ -89,6 +90,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boltTime: 1
+--- !u!114 &1340448798849851148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46350144128207191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6555240124246637876}
+          m_TargetAssemblyTypeName: Bolt, Assembly-CSharp
+          m_MethodName: CompleteBolt
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &558169438648653923
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +1021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727398054371499831, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1065,9 +1095,20 @@ MonoBehaviour:
   variation1: {fileID: 0}
   variation2: {fileID: 0}
   variation3: {fileID: 0}
-  canBeSolved: 0
+  statInteract: {fileID: 8087669420947635049}
 --- !u!224 &6409902806868275904 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
   m_PrefabInstance: {fileID: 8235872565144439897}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8087669420947635049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 177503003606955824, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+  m_PrefabInstance: {fileID: 8235872565144439897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993504586256439832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545b0dcf54f744148a7ab65a19caabca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

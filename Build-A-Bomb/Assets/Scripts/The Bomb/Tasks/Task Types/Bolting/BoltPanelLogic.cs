@@ -12,6 +12,6 @@ public class BoltPanelLogic : MonoBehaviour
         if (Msg) Debug.Log("Script Awake().");
 
         // This instance is not set up yet
-        complete = false;
+        //complete = false;
     }
 }

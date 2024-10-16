@@ -33,10 +33,12 @@ public class Bolt : MonoBehaviour
         if (gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolved && !complete)
         {
             PointerEventData newData = (PointerEventData)data;
+            // Check left click is pressed
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
                 if (Msg) Debug.Log("Bolting in!");
 
+                // Start checking that left click is held
                 StartCoroutine(CheckIfLeftButtonHeld());
             }
         }

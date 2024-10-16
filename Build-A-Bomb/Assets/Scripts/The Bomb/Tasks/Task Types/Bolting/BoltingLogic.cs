@@ -130,6 +130,11 @@ public class BoltingLogic : MonoBehaviour
             numBoltsCompleted = 0;
 
             // TODO: Add in required reset measures
+
+            // Reset Bolts first 
+            // Then reset bolting panels
+
+            //variationInUse.
         }
     }
 }

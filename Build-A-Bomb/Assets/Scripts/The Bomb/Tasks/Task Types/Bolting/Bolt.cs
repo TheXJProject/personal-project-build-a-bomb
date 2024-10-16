@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Bolt : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
 
     // Inspector Adjustable Values:
     public float boltTime = 1;
@@ -19,7 +19,7 @@ public class Bolt : MonoBehaviour
     {
         if (Msg) Debug.Log("Script Awake().");
 
-        // This instance is not set up yet
+        // This instance is not complete when just spawned
         complete = false;
     }
 
@@ -60,7 +60,7 @@ public class Bolt : MonoBehaviour
             while (timeElapsed < boltTime)
             {
                 // If the task can't still be solved
-                if (gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolved)
+                if (!gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolved)
                 {
                     if (Msg) Debug.Log("Task isn't being solved.");
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 661074493817820624}
   - component: {fileID: 5524770437368843581}
   - component: {fileID: 5342800573077476957}
+  - component: {fileID: 4019413880838957156}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -93,15 +94,28 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
+        - m_Target: {fileID: 4019413880838957156}
+          m_TargetAssemblyTypeName: KeyLogic, Assembly-CSharp
+          m_MethodName: PressKey
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4019413880838957156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3643554456545123747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68ed6b79166ec943a99241f0f58c1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTime: 0.1

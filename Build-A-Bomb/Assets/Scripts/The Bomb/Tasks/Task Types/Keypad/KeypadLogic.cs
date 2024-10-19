@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class KeypadLogic : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class KeypadLogic : MonoBehaviour
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
 
     // Initialise In Inspector:
-    [SerializeField] TaskInteractStatus statInteract;
+    public TaskInteractStatus statInteract;
     [SerializeField] TextLogic display;
 
     // Runtime Variables:

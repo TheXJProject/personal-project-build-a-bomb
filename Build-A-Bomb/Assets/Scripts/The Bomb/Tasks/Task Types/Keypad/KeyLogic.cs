@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class KeyLogic : MonoBehaviour
+{
+    // ==== For Debugging ====
+    readonly bool Msg = false;
+
+    // Inspector Adjustable Values:
+    public float onTime = 1;
+
+    private void Awake()
+    {
+        if (Msg) Debug.Log("Script Awake().");
+
+        // TODO: Replace with call for animation!
+        gameObject.GetComponent<Image>().color = Color.red;
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by the Key gameobject. Will show a keypad press. <br />
+    /// </summary>
+    public void PressKey(BaseEventData data)
+    {
+        // Check if the task can be solved
+        if (gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().statInteract.isBeingSolved)
+        {
+            PointerEventData newData = (PointerEventData)data;
+            // Check left click is pressed
+            if (newData.button.Equals(PointerEventData.InputButton.Left))
+            {
+                if (Msg) Debug.Log("Key pressed.");
+
+                // Hold the colour for a set time
+                StartCoroutine(HoldTime());
+            }
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Shows that the Key has been pressed for a set amount of time. <br />
+    /// </summary>
+    IEnumerator HoldTime()
+    {
+        // Check if the left button is pressed initially
+        if (Input.GetMouseButton(0))
+        {
+            // TODO: Replace with call for animation!
+            gameObject.GetComponent<Image>().color = Color.green;
+
+            float timeElapsed = 0f;
+
+            // Wait for set amount of time
+            while (timeElapsed < onTime)
+            {
+                // TODO: Replace with call for animation!
+                gameObject.GetComponent<Image>().color = Color.green;
+
+                // Increment the time elapsed and continue
+                timeElapsed += Time.deltaTime;
+
+                // Wait for the next frame
+                yield return null;
+            }
+
+            // TODO: Replace with call for animation!
+            gameObject.GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            Debug.LogWarning("Error, Left button was not pressed initially.");
+        }
+    }
+}

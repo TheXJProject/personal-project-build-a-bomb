@@ -111,8 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHardestDifficulty: 15
   variation1: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
-  variation2: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
-  variation3: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
+  variation2: {fileID: 5985467074216699917, guid: 8c94b25d5d2bbda42b2a171af92513ab, type: 3}
+  variation3: {fileID: 5985467074216699917, guid: 30d456e222bde4843a8771b710393e42, type: 3}
   statInteract: {fileID: 8087669420947635049}
 --- !u!114 &8087669420947635049 stripped
 MonoBehaviour:

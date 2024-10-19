@@ -55,7 +55,7 @@ public class BoltingLogic : MonoBehaviour
     public void CheckIfComplete()
     {
         // Set the number of completed bolts to zero
-        numBoltsCompleted = 0;
+        //numBoltsCompleted = ;
 
         // TODO: fill funciton
     }

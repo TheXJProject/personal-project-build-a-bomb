@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class KeypadLogic : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class KeypadLogic : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
-    public Text keyDisplay;
+    [SerializeField] TextLogic display;
 
     // Runtime Variables:
     int numOfPressesNeeded = minPossibleDifficultly;
@@ -46,11 +47,16 @@ public class KeypadLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    // Method to count common elements from left to right
+    /// FUNCTION DESCRIPTION<summary>
+    /// Return the amount of common elements in each list. <br />
+    /// Parameter 1: The list the player is trying to match. <br />
+    /// Parameter 2: The list inputted by the player.
+    /// </summary>
     int CountCommonElements(List<int> code, List<int> player)
     {
-        int count = 0;
+        //Use the smaller size list to compare
         int minLength = System.Math.Min(code.Count, player.Count);
+        int count = 0;
 
         // For each element in the shortest length list
         for (int i = 0; i < minLength; i++)
@@ -62,6 +68,7 @@ public class KeypadLogic : MonoBehaviour
             }
         }
 
+        // Return number of similar elements
         return count;
     }
 
@@ -107,7 +114,7 @@ public class KeypadLogic : MonoBehaviour
     /// This function resets any input the player has entered. <br />
     /// Then it sets the task completion level and if the task is completed respectively.
     /// </summary>
-    public void ResetSequences()
+    public void ResetPlayerSequence()
     {
         // Check the playerSequence is instantiated
         if (playerSequence == null)
@@ -207,7 +214,8 @@ public class KeypadLogic : MonoBehaviour
         {
             if (Msg) Debug.Log("Reset Task");
 
-            ResetSequences();
+            // Reset anything the player has entered
+            ResetPlayerSequence();
         }
     }
 }

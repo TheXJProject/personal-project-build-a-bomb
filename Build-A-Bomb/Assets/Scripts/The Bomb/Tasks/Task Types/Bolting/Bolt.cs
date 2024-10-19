@@ -97,6 +97,8 @@ public class Bolt : MonoBehaviour
 
             // TODO: Replace with call for animation!
             gameObject.GetComponent<Image>().color = Color.green;
+
+            // TODO: call check completion level
         }
         else
         {

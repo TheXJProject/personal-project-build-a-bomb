@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BoltingLogic : MonoBehaviour
 {
@@ -48,6 +49,18 @@ public class BoltingLogic : MonoBehaviour
     }
 
     /// FUNCTION DESCRIPTION <summary>
+    /// Called when a bolt is completed. <br />
+    /// Check if the task is completed and sets task completion. <br />
+    /// </summary>
+    public void CheckIfComplete()
+    {
+        // Set the number of completed bolts to zero
+        numBoltsCompleted = 0;
+
+        // TODO: fill funciton
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
     /// Called by SetDifficulty method only! <br />
     /// Starts required setup for the task. <br />
     /// </summary>
@@ -64,7 +77,7 @@ public class BoltingLogic : MonoBehaviour
             isSetup = true;
 
             // Choose a random number between 1 and 3
-            int randomNumber = Random.Range(1, 4); // Random.Range's upper bound is exclusive for integers
+            int randomNumber = UnityEngine.Random.Range(1, 4); // Random.Range's upper bound is exclusive for integers
             if (Msg) Debug.Log("Random Number: " + randomNumber);
 
             // Use the random number to decide which variation to spawn
@@ -87,6 +100,9 @@ public class BoltingLogic : MonoBehaviour
                     break;
             }
         }
+
+        // Make sure only the correct panels are showing for the given difficulty
+        variationInUse.GetComponent<BoltingVarInfoAndSetup>().SetupTwoo(numBoltsNeeded);
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -110,6 +126,15 @@ public class BoltingLogic : MonoBehaviour
             // The number of switches cannot be zero
             numBoltsNeeded = Mathf.Max(numBoltsNeeded, (minPossibleDifficultly * multipleFactor));
 
+            if (numBoltsNeeded % 2 == 0)
+            {
+                if (Msg) Debug.Log("Number of bolts needed: " + numBoltsNeeded);
+            }
+            else
+            {
+                Debug.LogWarning("Error, number of bolt needed is not even! : " + numBoltsNeeded);
+            }
+
             SetupTask();
         }
     }
@@ -126,15 +151,19 @@ public class BoltingLogic : MonoBehaviour
         {
             if (Msg) Debug.Log("Reset Task");
 
-            // Set the number of flicked switches to zero
-            numBoltsCompleted = 0;
-
-            // TODO: Add in required reset measures
-
-            // Reset Bolts first 
             // Then reset bolting panels
+            foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
+            {
+                // If the panel isn't removed from the setuptwoo function
+                if (panel.panel != null)
+                {
+                    // Reset the panel
+                    panel.panel.GetComponent<BoltPanelLogic>().ResetPanel();
+                }
+            }
 
-            //variationInUse.
+            // Check for completion level after reset
+            CheckIfComplete();
         }
     }
 }

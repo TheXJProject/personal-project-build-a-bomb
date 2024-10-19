@@ -58,9 +58,13 @@ public class BoltPanelLogic : MonoBehaviour
         // Set each Gameobject to inactive
         panel.SetActive(false);
 
-        // Each bolt inactive
+        // Reset and hide each bolt
         foreach (GameObject bolt in bolts)
         {
+            // Reset each bolt
+            bolt.GetComponent<Bolt>().ResetBolt();
+
+            // Each bolt inactive
             bolt.SetActive(false);
         }
     }

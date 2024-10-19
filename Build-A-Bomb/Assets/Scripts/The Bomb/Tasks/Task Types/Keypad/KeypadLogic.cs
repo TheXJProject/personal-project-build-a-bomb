@@ -50,17 +50,15 @@ public class KeypadLogic : MonoBehaviour
     int CountCommonElements(List<int> code, List<int> player)
     {
         int count = 0;
-        int minLength = Math.Min(list1.Count, list2.Count);
+        int minLength = System.Math.Min(code.Count, player.Count);
 
+        // For each element in the shortest length list
         for (int i = 0; i < minLength; i++)
         {
-            if (list1[i] == list2[i])
+            // If we have a matching element increase the count
+            if (code[i] == player[i])
             {
                 count++;
-            }
-            else
-            {
-                break; // Stop counting when elements are not equal
             }
         }
 

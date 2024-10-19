@@ -1,0 +1,193 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class KeypadLogic : MonoBehaviour
+{
+    // ==== For Debugging ====
+    readonly bool Msg = true;
+
+    // Constant Values:
+    const int maxPossibleDifficultly = 30;
+    const int minPossibleDifficultly = 1;
+
+    // Inspector Adjustable Values:
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+
+    // Initialise In Inspector:
+    [SerializeField] TaskInteractStatus statInteract;
+    public Text keyDisplay;
+
+    // Runtime Variables:
+    int numOfPressesNeeded = minPossibleDifficultly;
+    int numCorrectPresses = 0;
+    List<int> codeSequence;
+    List<int> playerSequence;
+    bool isSetup;
+
+    private void Awake()
+    {
+        if (Msg) Debug.Log("Script Awake().");
+
+        // This instance is not set up yet
+        isSetup = false;
+    }
+
+    private void OnEnable()
+    {
+        TaskInteractStatus.onTaskFailed += ResetSwitch;
+        TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
+    }
+
+    private void OnDisable()
+    {
+        TaskInteractStatus.onTaskFailed -= ResetSwitch;
+        TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+    }
+
+    /// FUNCTION DESCRIPTION<summary>
+    /// When called by the hash button, this checks if the inputted code is correct. <br />
+    /// Then it sets the task completion level and if the task is completed respectively.
+    /// </summary>
+    public void CheckCode()
+    {
+        // This function only works if the task canBeSolved
+        if (statInteract.isBeingSolved)
+        {
+            // Check the playerSequence is instantiated
+            if (playerSequence == null)
+            {
+                Debug.LogWarning("Error, playerSequence not instantiated!");
+            }
+            else if (codeSequence == null)
+            {
+                Debug.LogWarning("Error, codeSequence not instantiated!");
+            }
+            else
+            {
+                // TODO: check the current input
+
+                // TODO: calculate number correctly pressed
+                numCorrectPresses = 0;
+
+                // Set the completion level
+                statInteract.SetTaskCompletion((float)numCorrectPresses / numOfPressesNeeded);
+
+                // Check if task is completed
+                if (numCorrectPresses >= numOfPressesNeeded)
+                {
+                    statInteract.TaskCompleted();
+                }
+            }
+        }
+    }
+
+    /// FUNCTION DESCRIPTION<summary>
+    /// When called by the hash button, this checks if the inputted code is correct. <br />
+    /// Then it sets the task completion level and if the task is completed respectively.
+    /// </summary>
+    public void ResetSequences()
+    {
+        // Check the playerSequence is instantiated
+        if (playerSequence == null)
+        {
+            Debug.LogWarning("Error, playerSequence not instantiated! (Reset attempted)");
+        }
+        else
+        {
+            // Reset playerSequence to empty
+            playerSequence = new();
+
+            // Show Reset
+            CheckCode();
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Returns a list of randomly generated intergers. <br />
+    /// Parameter: Number of elements in the list.
+    /// </summary>
+    List<int> GenerateRandomNumbers(int numNeeded)
+    {
+        // Our list to return
+        List<int> randomNumbers = new();
+        System.Random rand = new();
+
+        // Keep going until we fill the requirements
+        while (randomNumbers.Count < numNeeded)
+        {
+            // Adds new random integer to list
+            randomNumbers.Add(rand.Next(10));
+        }
+
+        // Returns the list
+        return randomNumbers;
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by SetDifficulty method only! <br />
+    /// Starts required setup for the task. <br />
+    /// </summary>
+    void SetupTask()
+    {
+        // This function can only be activated once
+        if (isSetup)
+        {
+            Debug.LogWarning("Error, this task is already set up!");
+        }
+        else
+        {
+            // This instance is now setup
+            isSetup = true;
+
+            // Instantiate and generate keypad sequence
+            codeSequence = new();
+            codeSequence = GenerateRandomNumbers(numOfPressesNeeded);
+
+            // Instantiate player sequence list
+            playerSequence = new();
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskDifficultySet event only! <br />
+    /// Retrieves a difficult setting and applies it to this task <br />
+    /// instance. Then calls for the task to be setup.
+    /// </summary>
+    void SetDifficulty(GameObject triggerTask)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
+
+            // Retrieves difficulty
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+
+            // Sets difficulty level (the number of switches in this case)
+            numOfPressesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+
+            // The number of switches cannot be zero
+            numOfPressesNeeded = Mathf.Max(numOfPressesNeeded, minPossibleDifficultly);
+
+            SetupTask();
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskFailed event only! <br />
+    /// Resets the task back to its state just after SetupTask <br />
+    /// has been called.
+    /// </summary>
+    void ResetSwitch(GameObject trigger)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (trigger == gameObject)
+        {
+            if (Msg) Debug.Log("Reset Task");
+
+            ResetSequences();
+        }
+    }
+}

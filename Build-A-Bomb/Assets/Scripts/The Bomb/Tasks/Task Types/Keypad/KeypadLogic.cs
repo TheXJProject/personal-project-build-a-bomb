@@ -46,6 +46,27 @@ public class KeypadLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
+    // Method to count common elements from left to right
+    int CountCommonElements(List<int> code, List<int> player)
+    {
+        int count = 0;
+        int minLength = Math.Min(list1.Count, list2.Count);
+
+        for (int i = 0; i < minLength; i++)
+        {
+            if (list1[i] == list2[i])
+            {
+                count++;
+            }
+            else
+            {
+                break; // Stop counting when elements are not equal
+            }
+        }
+
+        return count;
+    }
+
     /// FUNCTION DESCRIPTION<summary>
     /// When called by the hash button, this checks if the inputted code is correct. <br />
     /// Then it sets the task completion level and if the task is completed respectively.
@@ -66,13 +87,14 @@ public class KeypadLogic : MonoBehaviour
             }
             else
             {
-                // TODO: check the current input
+                // calculate number correctly pressed
+                numCorrectPresses = CountCommonElements(codeSequence, playerSequence);
 
-                // TODO: calculate number correctly pressed
-                numCorrectPresses = 0;
+                // Set the number to compare the number of correct presses to
+                int numToCompare = System.Math.Max(1, playerSequence.Count);
 
                 // Set the completion level
-                statInteract.SetTaskCompletion((float)numCorrectPresses / numOfPressesNeeded);
+                statInteract.SetTaskCompletion((float)numCorrectPresses / numToCompare);
 
                 // Check if task is completed
                 if (numCorrectPresses >= numOfPressesNeeded)
@@ -84,7 +106,7 @@ public class KeypadLogic : MonoBehaviour
     }
 
     /// FUNCTION DESCRIPTION<summary>
-    /// When called by the hash button, this checks if the inputted code is correct. <br />
+    /// This function resets any input the player has entered. <br />
     /// Then it sets the task completion level and if the task is completed respectively.
     /// </summary>
     public void ResetSequences()

@@ -10,7 +10,7 @@ public class BoltPanelLogic : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] GameObject panel;
-    [SerializeField] GameObject[] bolts;
+    public GameObject[] bolts;
 
     private void Awake()
     {

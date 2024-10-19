@@ -54,10 +54,43 @@ public class BoltingLogic : MonoBehaviour
     /// </summary>
     public void CheckIfComplete()
     {
-        // Set the number of completed bolts to zero
-        //numBoltsCompleted = ;
+        // Number of complete bolts
+        int totalComplete = 0;
 
-        // TODO: fill funciton
+        // We need to gather infomation about each panel
+        foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
+        {
+            // If the panel hasn't been removed by the setuptwoo function
+            if (panel.panel != null)
+            {
+                // Within each panel we need to get each bolt
+                foreach (GameObject bolt in panel.panel.GetComponent<BoltPanelLogic>().bolts)
+                {
+                    // Is that bolt complete?
+                    if (bolt.GetComponent<Bolt>().complete)
+                    {
+                        // Add to total
+                        totalComplete++;
+                    }
+                }
+            }
+        }
+
+        // Set the number of completed bolts to total
+        numBoltsCompleted = totalComplete;
+
+        // Set the completion level
+        statInteract.SetTaskCompletion((float)numBoltsCompleted / numBoltsNeeded);
+
+        // Check if task is completed
+        if (numBoltsCompleted >= numBoltsNeeded)
+        {
+            statInteract.TaskCompleted();
+        }
+
+        if (Msg) Debug.Log("Num complete bolts: " + numBoltsCompleted);
+        if (Msg) Debug.Log("Num bolts needed: " + numBoltsNeeded);
+        if (Msg) Debug.Log("Complete fraction: " + (float)numBoltsCompleted / numBoltsNeeded);
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -154,7 +187,7 @@ public class BoltingLogic : MonoBehaviour
             // Then reset bolting panels
             foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
             {
-                // If the panel isn't removed from the setuptwoo function
+                // If the panel hasn't been removed by the setuptwoo function
                 if (panel.panel != null)
                 {
                     // Reset the panel

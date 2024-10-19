@@ -11,6 +11,7 @@ public class KeyLogic : MonoBehaviour
 
     // Inspector Adjustable Values:
     public float onTime = 1;
+    public int keynumber;
 
     private void Awake()
     {

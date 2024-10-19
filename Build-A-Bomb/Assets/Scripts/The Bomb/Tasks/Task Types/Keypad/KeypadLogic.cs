@@ -143,9 +143,14 @@ public class KeypadLogic : MonoBehaviour
         // Keep going until we fill the requirements
         while (randomNumbers.Count < numNeeded)
         {
+            // Get a random number between 0 and 9
+            int newNumb = rand.Next(10);
+
             // Adds new random integer to list
-            randomNumbers.Add(rand.Next(10));
+            randomNumbers.Add(newNumb);
         }
+
+        if (Msg) Debug.Log("New Sequence(" + numNeeded + " long): " + string.Join(" ", randomNumbers));
 
         // Returns the list
         return randomNumbers;

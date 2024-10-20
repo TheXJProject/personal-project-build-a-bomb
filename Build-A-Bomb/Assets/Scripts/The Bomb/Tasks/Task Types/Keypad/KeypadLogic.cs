@@ -57,7 +57,9 @@ public class KeypadLogic : MonoBehaviour
     {
         // if -10 or -20 do something
         // TODO: Call the correct functions if input is allowed
-        
+
+        display.DisplayText("..Incorrect..");
+
         // checkcode
         // Show Sequence
         // Addto player sequence
@@ -67,15 +69,43 @@ public class KeypadLogic : MonoBehaviour
     {
         float timeElapsed = 0f;
 
-        // TODO: this
-        for (int i = 0; i < playerSequence.Count; i++)
+        display.DisplayText("..Please");
+
+        // Wait for set amount of time
+        while (timeElapsed < showTime)
         {
+            // Increment the time elapsed and continue
+            timeElapsed += Time.deltaTime;
+
+            // Wait for the next frame
+            yield return null;
+        }
+
+        // reset timer
+        timeElapsed = 0;
+
+        display.DisplayText("Enter: ");
+
+        // Wait for set amount of time
+        while (timeElapsed < showTime)
+        {
+            // Increment the time elapsed and continue
+            timeElapsed += Time.deltaTime;
+
+            // Wait for the next frame
+            yield return null;
+        }
+
+        // TODO: this
+        for (int i = 0; i < codeSequence.Count; i++)
+        {
+            timeElapsed = 0f;
+
+            display.DisplayText(" : ", codeSequence[i]);
+
             // Wait for set amount of time
             while (timeElapsed < showTime)
             {
-                // TODO: Replace with call for animation!
-                gameObject.GetComponent<Image>().color = Color.green;
-
                 // Increment the time elapsed and continue
                 timeElapsed += Time.deltaTime;
 
@@ -155,6 +185,11 @@ public class KeypadLogic : MonoBehaviour
                 if (numCorrectPresses >= numOfPressesNeeded)
                 {
                     statInteract.TaskCompleted();
+                }
+                else
+                {
+                    // Otherwise show incorrect to player
+                    display.DisplayText("..Incorrect..");
                 }
 
                 // Reset sequence if additional attempts needed

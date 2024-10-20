@@ -10,7 +10,8 @@ public class KeyLogic : MonoBehaviour
     readonly bool Msg = false;
 
     // Inspector Adjustable Values:
-    public float onTime = 1;
+    public float onTimePressed = 1;
+    public float onTimeShow = 1;
     public int keynumber;
 
     private void Awake()
@@ -56,7 +57,7 @@ public class KeyLogic : MonoBehaviour
         float timeElapsed = 0f;
 
         // Wait for set amount of time
-        while (timeElapsed < onTime)
+        while (timeElapsed < onTimePressed)
         {
             // TODO: Replace with call for animation!
             gameObject.GetComponent<Image>().color = Color.green;

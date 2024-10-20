@@ -35,8 +35,11 @@ public class KeyLogic : MonoBehaviour
             {
                 if (Msg) Debug.Log("Key pressed.");
 
+                // Signal which key has been pressed
+                KeyPressed();
+
                 // Hold the colour for a set time
-                StartCoroutine(HoldTime());
+                StartCoroutine(AnimationHoldTime());
             }
         }
     }
@@ -44,7 +47,7 @@ public class KeyLogic : MonoBehaviour
     /// FUNCTION DESCRIPTION <summary>
     /// Shows that the Key has been pressed for a set amount of time. <br />
     /// </summary>
-    IEnumerator HoldTime()
+    IEnumerator AnimationHoldTime()
     {
         // Check if the left button is pressed initially
         if (Input.GetMouseButton(0))
@@ -74,5 +77,16 @@ public class KeyLogic : MonoBehaviour
         {
             Debug.LogWarning("Error, Left button was not pressed initially.");
         }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by the Key gameobject. Tells keypad logic what has been pressed. <br />
+    /// </summary>
+    void KeyPressed ()
+    {
+        // Find the keypad logic and call what key to process
+        gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().KeyToProcess(keynumber);
+
+        if (Msg) Debug.Log("Pressed Key: " + keynumber);
     }
 }

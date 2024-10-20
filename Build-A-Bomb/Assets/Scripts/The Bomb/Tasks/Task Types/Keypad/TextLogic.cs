@@ -10,6 +10,14 @@ public class TextLogic : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI keypadDisplay;
+    public string startingMessage = "Hi :)";
+
+    private void Awake()
+    {
+        if (Msg) Debug.Log("Script Awake().");
+
+        keypadDisplay.text = startingMessage;
+    }
 
     /// FUNCTION DESCRIPTION<summary>
     /// Displays given number in the keypad display. <br />
@@ -17,6 +25,8 @@ public class TextLogic : MonoBehaviour
     /// </summary>
     public void DisplayText (int number)
     {
+        if (Msg) Debug.Log(" Number entered: " + number);
+
         // TODO: display number
     }
 
@@ -28,6 +38,19 @@ public class TextLogic : MonoBehaviour
     /// </summary>
     public void DisplayText (string text, int number = -1)
     {
+        if (Msg) Debug.Log("String entered: " + text + " Number entered: " + number);
+
         // TODO: display number
+    }
+
+    /// FUNCTION DESCRIPTION<summary>
+    /// Displays the default message in the keypad display. <br />
+    /// </summary>
+    public void DisplayDefault ()
+    {
+        if (Msg) Debug.Log("Showing starting message.");
+
+        // Showing initial starting message
+        keypadDisplay.text = startingMessage;
     }
 }

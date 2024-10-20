@@ -46,6 +46,12 @@ public class KeypadLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
+    public void KeyToProcess (int keyNumber)
+    {
+        // if -10 or -20 do something
+        // TODO: Call the correct functions if input is allowed
+    }
+
     /// FUNCTION DESCRIPTION<summary>
     /// Return the amount of common elements in each list. <br />
     /// Parameter 1: The list the player is trying to match. <br />
@@ -124,9 +130,6 @@ public class KeypadLogic : MonoBehaviour
         {
             // Reset playerSequence to empty
             playerSequence = new();
-
-            // Show Reset
-            CheckCode();
         }
     }
 
@@ -220,6 +223,9 @@ public class KeypadLogic : MonoBehaviour
 
             // Reset anything the player has entered
             ResetPlayerSequence();
+
+            // Show Reset
+            CheckCode();
         }
     }
 }

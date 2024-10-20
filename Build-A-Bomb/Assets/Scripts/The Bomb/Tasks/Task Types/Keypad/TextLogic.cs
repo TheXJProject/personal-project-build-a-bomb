@@ -6,16 +6,19 @@ using TMPro;
 public class TextLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
+
+    // Inspector Adjustable Values:
+    public string startingMessage = "Hi :)";
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI keypadDisplay;
-    public string startingMessage = "Hi :)";
 
     private void Awake()
     {
         if (Msg) Debug.Log("Script Awake().");
 
+        // Starts with set starting message
         keypadDisplay.text = startingMessage;
     }
 
@@ -23,7 +26,7 @@ public class TextLogic : MonoBehaviour
     /// Displays given number in the keypad display. <br />
     /// Parameter: The number to display.
     /// </summary>
-    public void DisplayText (int number)
+    public void DisplayText(int number)
     {
         if (Msg) Debug.Log(" Number entered: " + number);
 
@@ -37,16 +40,19 @@ public class TextLogic : MonoBehaviour
     /// Parameter 1: The string. <br />
     /// Parameter 2: The number.
     /// </summary>
-    public void DisplayText (string text, int number = -1)
+    public void DisplayText(string text, int number = -1)
     {
         if (Msg) Debug.Log("String entered: " + text + " Number entered: " + number);
 
+        // If no number was entered
         if (number == -1)
         {
+            // Display text entered
             keypadDisplay.text = text;
         }
         else
         {
+            // Display text and number entered
             keypadDisplay.text = text + " " + number.ToString();
         }
     }
@@ -54,7 +60,7 @@ public class TextLogic : MonoBehaviour
     /// FUNCTION DESCRIPTION<summary>
     /// Displays the default message in the keypad display. <br />
     /// </summary>
-    public void DisplayDefault ()
+    public void DisplayDefault()
     {
         if (Msg) Debug.Log("Showing starting message.");
 

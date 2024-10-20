@@ -27,7 +27,8 @@ public class KeyLogic : MonoBehaviour
     public void PressKey(BaseEventData data)
     {
         // Check if the task can be solved
-        if (gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().statInteract.isBeingSolved)
+        if (gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().statInteract.isBeingSolved &&
+            gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().canClickKeys)
         {
             PointerEventData newData = (PointerEventData)data;
             // Check left click is pressed
@@ -49,40 +50,44 @@ public class KeyLogic : MonoBehaviour
     /// </summary>
     IEnumerator AnimationHoldTime()
     {
-        // Check if the left button is pressed initially
-        if (Input.GetMouseButton(0))
+        // TODO: Replace with call for animation!
+        gameObject.GetComponent<Image>().color = Color.green;
+
+        float timeElapsed = 0f;
+
+        // Wait for set amount of time
+        while (timeElapsed < onTime)
         {
             // TODO: Replace with call for animation!
             gameObject.GetComponent<Image>().color = Color.green;
 
-            float timeElapsed = 0f;
+            // Increment the time elapsed and continue
+            timeElapsed += Time.deltaTime;
 
-            // Wait for set amount of time
-            while (timeElapsed < onTime)
-            {
-                // TODO: Replace with call for animation!
-                gameObject.GetComponent<Image>().color = Color.green;
-
-                // Increment the time elapsed and continue
-                timeElapsed += Time.deltaTime;
-
-                // Wait for the next frame
-                yield return null;
-            }
-
-            // TODO: Replace with call for animation!
-            gameObject.GetComponent<Image>().color = Color.red;
+            // Wait for the next frame
+            yield return null;
         }
-        else
-        {
-            Debug.LogWarning("Error, Left button was not pressed initially.");
-        }
+
+        // TODO: Replace with call for animation!
+        gameObject.GetComponent<Image>().color = Color.red;
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Show this key without it being pressed. This is used when <br />
+    /// the player wants to see the code sequence order.
+    /// </summary>
+    public void ShowKey()
+    {
+        if (Msg) Debug.Log("Showing Key: " + keynumber);
+
+        // Show this key
+        StartCoroutine(AnimationHoldTime());
     }
 
     /// FUNCTION DESCRIPTION <summary>
     /// Called by the Key gameobject. Tells keypad logic what has been pressed. <br />
     /// </summary>
-    void KeyPressed ()
+    void KeyPressed()
     {
         // Find the keypad logic and call what key to process
         gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().KeyToProcess(keynumber);

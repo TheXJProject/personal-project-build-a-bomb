@@ -14,6 +14,7 @@ public class KeypadLogic : MonoBehaviour
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+    [SerializeField] float showTime = 1;
 
     // Initialise In Inspector:
     public TaskInteractStatus statInteract;
@@ -24,6 +25,7 @@ public class KeypadLogic : MonoBehaviour
     int numCorrectPresses = 0;
     List<int> codeSequence;
     List<int> playerSequence;
+    [HideInInspector] public bool canClickKeys;
     bool isSetup;
 
     private void Awake()
@@ -32,6 +34,7 @@ public class KeypadLogic : MonoBehaviour
 
         // This instance is not set up yet
         isSetup = false;
+        canClickKeys = false;
     }
 
     private void OnEnable()
@@ -46,11 +49,52 @@ public class KeypadLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    public void KeyToProcess (int keyNumber)
+    /// FUNCTION DESCRIPTION<summary>
+    /// Called when a key is pressed. This function decides what <br />
+    /// to do with the given input. <br />
+    /// </summary>
+    public void KeyToProcess(int keyNumber)
     {
         // if -10 or -20 do something
         // TODO: Call the correct functions if input is allowed
-        display.DisplayText("Showing", keyNumber);
+        
+        // checkcode
+        // Show Sequence
+        // Addto player sequence
+    }
+
+    IEnumerator ShowSequence()
+    {
+        float timeElapsed = 0f;
+
+        // TODO: this
+        for (int i = 0; i < playerSequence.Count; i++)
+        {
+            // Wait for set amount of time
+            while (timeElapsed < showTime)
+            {
+                // TODO: Replace with call for animation!
+                gameObject.GetComponent<Image>().color = Color.green;
+
+                // Increment the time elapsed and continue
+                timeElapsed += Time.deltaTime;
+
+                // Wait for the next frame
+                yield return null;
+            }
+        }
+    }
+
+    void StartShowSequence()
+    {
+        // Prevent any player interaction
+        canClickKeys = false;
+
+        // Show the required code sequence
+        StartCoroutine(ShowSequence());
+
+        // Allow the player to interact again
+        canClickKeys = true;
     }
 
     /// FUNCTION DESCRIPTION<summary>
@@ -82,7 +126,7 @@ public class KeypadLogic : MonoBehaviour
     /// When called by the hash button, this checks if the inputted code is correct. <br />
     /// Then it sets the task completion level and if the task is completed respectively.
     /// </summary>
-    public void CheckCode()
+    void CheckCode()
     {
         // This function only works if the task canBeSolved
         if (statInteract.isBeingSolved)
@@ -112,6 +156,9 @@ public class KeypadLogic : MonoBehaviour
                 {
                     statInteract.TaskCompleted();
                 }
+
+                // Reset sequence if additional attempts needed
+                ResetPlayerSequence();
             }
         }
     }
@@ -182,6 +229,9 @@ public class KeypadLogic : MonoBehaviour
 
             // Instantiate player sequence list
             playerSequence = new();
+
+            // The player can now interact
+            canClickKeys = true;
         }
     }
 

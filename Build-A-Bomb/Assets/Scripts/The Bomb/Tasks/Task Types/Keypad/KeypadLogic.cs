@@ -129,11 +129,11 @@ public class KeypadLogic : MonoBehaviour
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {
-                ShowKey(showTime);
+                keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime);
             }
             else
             {
-
+                Debug.LogWarning("Error, Code Sequence was not between 0 and 10!");
             }
 
             // Wait for set amount of time

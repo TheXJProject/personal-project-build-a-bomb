@@ -118,5 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68ed6b79166ec943a99241f0f58c1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTime: 0.1
+  onPressedTime: 0.15
   keynumber: 0

@@ -10,8 +10,7 @@ public class KeyLogic : MonoBehaviour
     readonly bool Msg = false;
 
     // Inspector Adjustable Values:
-    public float onTimePressed = 1;
-    public float onTimeShow = 1;
+    public float onPressedTime = 1;
     public int keynumber;
 
     private void Awake()
@@ -41,15 +40,16 @@ public class KeyLogic : MonoBehaviour
                 KeyPressed();
 
                 // Hold the colour for a set time
-                StartCoroutine(AnimationHoldTime());
+                StartCoroutine(AnimationHoldTime(onPressedTime));
             }
         }
     }
 
     /// FUNCTION DESCRIPTION <summary>
     /// Shows that the Key has been pressed for a set amount of time. <br />
+    /// Parameter 1: Time the key will be shown for
     /// </summary>
-    IEnumerator AnimationHoldTime()
+    IEnumerator AnimationHoldTime(float time)
     {
         // TODO: Replace with call for animation!
         gameObject.GetComponent<Image>().color = Color.green;
@@ -57,7 +57,7 @@ public class KeyLogic : MonoBehaviour
         float timeElapsed = 0f;
 
         // Wait for set amount of time
-        while (timeElapsed < onTimePressed)
+        while (timeElapsed < time)
         {
             // TODO: Replace with call for animation!
             gameObject.GetComponent<Image>().color = Color.green;
@@ -75,14 +75,15 @@ public class KeyLogic : MonoBehaviour
 
     /// FUNCTION DESCRIPTION <summary>
     /// Show this key without it being pressed. This is used when <br />
-    /// the player wants to see the code sequence order.
+    /// the player wants to see the code sequence order. <br />
+    /// Parameter 1: Time the key will be shown for
     /// </summary>
-    public void ShowKey()
+    public void ShowKey(float showTime)
     {
         if (Msg) Debug.Log("Showing Key: " + keynumber);
 
         // Show this key
-        StartCoroutine(AnimationHoldTime());
+        StartCoroutine(AnimationHoldTime(showTime));
     }
 
     /// FUNCTION DESCRIPTION <summary>

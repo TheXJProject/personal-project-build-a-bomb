@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHardestDifficulty: 5
-  showTime: 1
+  showTime: 0.3
   statInteract: {fileID: 3440205935563209349}
   display: {fileID: 3978027946700000474}
   canClickKeys: 0

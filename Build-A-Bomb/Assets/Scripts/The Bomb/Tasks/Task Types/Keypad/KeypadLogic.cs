@@ -26,6 +26,7 @@ public class KeypadLogic : MonoBehaviour
     List<int> codeSequence;
     List<int> playerSequence;
     [HideInInspector] public bool canClickKeys;
+    bool stopKeyShow;
     bool isSetup;
 
     private void Awake()
@@ -35,6 +36,7 @@ public class KeypadLogic : MonoBehaviour
         // This instance is not set up yet
         isSetup = false;
         canClickKeys = false;
+        stopKeyShow = false;
     }
 
     private void OnEnable()
@@ -58,15 +60,16 @@ public class KeypadLogic : MonoBehaviour
         // if -10 or -20 do something
         // TODO: Call the correct functions if input is allowed
 
-        display.DisplayText("..Incorrect..");
-
-        // checkcode
-        // Show Sequence
+        // CheckCode();
+        // StartCoroutine(ShowSequence);
         // Addto player sequence
     }
 
     IEnumerator ShowSequence()
     {
+        // Prevent any player interaction
+        canClickKeys = false;
+
         float timeElapsed = 0f;
 
         display.DisplayText("..Please");
@@ -96,12 +99,14 @@ public class KeypadLogic : MonoBehaviour
             yield return null;
         }
 
-        // TODO: this
+        // For each number in the code sequence, show it in order
         for (int i = 0; i < codeSequence.Count; i++)
         {
             timeElapsed = 0f;
 
             display.DisplayText(" : ", codeSequence[i]);
+            // TODO: find the right key and call its function
+            // ShowKey(showTime);
 
             // Wait for set amount of time
             while (timeElapsed < showTime)
@@ -113,15 +118,8 @@ public class KeypadLogic : MonoBehaviour
                 yield return null;
             }
         }
-    }
 
-    void StartShowSequence()
-    {
-        // Prevent any player interaction
-        canClickKeys = false;
-
-        // Show the required code sequence
-        StartCoroutine(ShowSequence());
+        display.DisplayDefault();
 
         // Allow the player to interact again
         canClickKeys = true;
@@ -213,6 +211,8 @@ public class KeypadLogic : MonoBehaviour
         {
             // Reset playerSequence to empty
             playerSequence = new();
+            //stopKeyShow
+            // TODO: Stop key show if reset
         }
     }
 

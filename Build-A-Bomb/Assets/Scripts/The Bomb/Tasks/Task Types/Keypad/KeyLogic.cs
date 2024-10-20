@@ -36,11 +36,11 @@ public class KeyLogic : MonoBehaviour
             {
                 if (Msg) Debug.Log("Key pressed.");
 
-                // Signal which key has been pressed
-                KeyPressed();
-
                 // Hold the colour for a set time
                 StartCoroutine(AnimationHoldTime(onPressedTime));
+
+                // Signal which key has been pressed
+                KeyPressed();
             }
         }
     }

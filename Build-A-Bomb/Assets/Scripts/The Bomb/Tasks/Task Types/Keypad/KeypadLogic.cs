@@ -73,7 +73,9 @@ public class KeypadLogic : MonoBehaviour
         {
             // Add number to player sequence and display it
             playerSequence.Add(keyNumber);
-            display.DisplayText(0);
+            display.DisplayText(keyNumber);
+
+            if (Msg) Debug.Log("Key entered into player sequence: " + keyNumber);
         }
         else
         {

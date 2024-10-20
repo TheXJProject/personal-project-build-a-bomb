@@ -26,7 +26,7 @@ public class KeypadLogic : MonoBehaviour
     List<int> codeSequence;
     List<int> playerSequence;
     [HideInInspector] public bool canClickKeys;
-    bool stopKeyShow;
+    Coroutine myCoroutine;
     bool isSetup;
 
     private void Awake()
@@ -36,7 +36,6 @@ public class KeypadLogic : MonoBehaviour
         // This instance is not set up yet
         isSetup = false;
         canClickKeys = false;
-        stopKeyShow = false;
     }
 
     private void OnEnable()
@@ -54,17 +53,37 @@ public class KeypadLogic : MonoBehaviour
     /// FUNCTION DESCRIPTION<summary>
     /// Called when a key is pressed. This function decides what <br />
     /// to do with the given input. <br />
+    /// Parameter: key number to be processed.
     /// </summary>
     public void KeyToProcess(int keyNumber)
     {
-        // if -10 or -20 do something
-        // TODO: Call the correct functions if input is allowed
+        // Depending on keyNumber, began correct function
+        switch (keyNumber)
+        {
+            // Start showing code sequence required
+            case -10:
+                myCoroutine = StartCoroutine(ShowSequence());
+                break;
 
-        // CheckCode();
-        // StartCoroutine(ShowSequence);
-        // Addto player sequence
+            // Check the player sequence is correct
+            case -20:
+                CheckCode();
+                break;
+
+            // Key 0 was pressed
+            case 0:
+                display.DisplayText(0);
+                // Enternumberintoplayerseq()
+                break;
+            default:
+                Debug.LogWarning("Error, key number incorrect value: " + keyNumber);
+                break;
+        }
     }
 
+    /// FUNCTION DESCRIPTION<summary>
+    /// Coroutine that shows the code the player needs to enter.<br />
+    /// </summary>
     IEnumerator ShowSequence()
     {
         // Prevent any player interaction
@@ -75,7 +94,7 @@ public class KeypadLogic : MonoBehaviour
         display.DisplayText("..Please");
 
         // Wait for set amount of time
-        while (timeElapsed < showTime)
+        while (timeElapsed < (showTime * 1.5))
         {
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
@@ -87,10 +106,10 @@ public class KeypadLogic : MonoBehaviour
         // reset timer
         timeElapsed = 0;
 
-        display.DisplayText("Enter: ");
+        display.DisplayText("Enter.. ");
 
         // Wait for set amount of time
-        while (timeElapsed < showTime)
+        while (timeElapsed < (showTime * 1.5))
         {
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
@@ -104,7 +123,7 @@ public class KeypadLogic : MonoBehaviour
         {
             timeElapsed = 0f;
 
-            display.DisplayText(" : ", codeSequence[i]);
+            display.DisplayText("  : ", codeSequence[i]);
             // TODO: find the right key and call its function
             // ShowKey(showTime);
 
@@ -119,6 +138,7 @@ public class KeypadLogic : MonoBehaviour
             }
         }
 
+        ResetPlayerSequence();
         display.DisplayDefault();
 
         // Allow the player to interact again
@@ -144,6 +164,8 @@ public class KeypadLogic : MonoBehaviour
             {
                 count++;
             }
+
+            if (Msg) Debug.Log("Code: " + code[i] + " Player: " + player[i]);
         }
 
         // Return number of similar elements
@@ -179,6 +201,8 @@ public class KeypadLogic : MonoBehaviour
                 // Set the completion level
                 statInteract.SetTaskCompletion((float)numCorrectPresses / numToCompare);
 
+                if (Msg) Debug.Log(100 * ((float)numCorrectPresses / numToCompare) + "% Complete");
+
                 // Check if task is completed
                 if (numCorrectPresses >= numOfPressesNeeded)
                 {
@@ -211,8 +235,6 @@ public class KeypadLogic : MonoBehaviour
         {
             // Reset playerSequence to empty
             playerSequence = new();
-            //stopKeyShow
-            // TODO: Stop key show if reset
         }
     }
 
@@ -313,8 +335,19 @@ public class KeypadLogic : MonoBehaviour
             // Show Reset
             CheckCode();
 
+            // If the code sequence is being shown cancel it
+            if (myCoroutine != null)
+            {
+                // Stop showing code
+                StopCoroutine(myCoroutine);
+                myCoroutine = null;
+            }
+
             // Showing starting message
             display.DisplayDefault();
+
+            // The player can interact with the task
+            canClickKeys = true;
         }
     }
 }

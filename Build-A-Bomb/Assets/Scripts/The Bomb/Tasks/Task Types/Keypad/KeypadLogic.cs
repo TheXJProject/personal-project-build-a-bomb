@@ -19,6 +19,7 @@ public class KeypadLogic : MonoBehaviour
     // Initialise In Inspector:
     public TaskInteractStatus statInteract;
     [SerializeField] TextLogic display;
+    [SerializeField] GameObject[] keys;
 
     // Runtime Variables:
     int numOfPressesNeeded = minPossibleDifficultly;
@@ -106,7 +107,7 @@ public class KeypadLogic : MonoBehaviour
         // reset timer
         timeElapsed = 0;
 
-        display.DisplayText("Enter.. ");
+        display.DisplayText("..Enter");
 
         // Wait for set amount of time
         while (timeElapsed < (showTime * 1.5))
@@ -123,9 +124,17 @@ public class KeypadLogic : MonoBehaviour
         {
             timeElapsed = 0f;
 
-            display.DisplayText("  : ", codeSequence[i]);
-            // TODO: find the right key and call its function
-            // ShowKey(showTime);
+            // Show element in code sequence
+            display.DisplayText(".. ", codeSequence[i]);
+
+            if (0 <= codeSequence[i] && codeSequence[i] < 10)
+            {
+                ShowKey(showTime);
+            }
+            else
+            {
+
+            }
 
             // Wait for set amount of time
             while (timeElapsed < showTime)
@@ -211,7 +220,7 @@ public class KeypadLogic : MonoBehaviour
                 else
                 {
                     // Otherwise show incorrect to player
-                    display.DisplayText("..Incorrect..");
+                    display.DisplayText("..Err");
                 }
 
                 // Reset sequence if additional attempts needed

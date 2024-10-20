@@ -206,7 +206,7 @@ public class KeypadLogic : MonoBehaviour
                 numCorrectPresses = CountCommonElements(codeSequence, playerSequence);
 
                 // Set the number to compare the number of correct presses to
-                int numToCompare = System.Math.Max(1, playerSequence.Count);
+                int numToCompare = System.Math.Max(numOfPressesNeeded, playerSequence.Count);
 
                 // Set the completion level
                 statInteract.SetTaskCompletion((float)numCorrectPresses / numToCompare);

@@ -50,8 +50,7 @@ public class KeypadLogic : MonoBehaviour
     {
         // if -10 or -20 do something
         // TODO: Call the correct functions if input is allowed
-
-        display.DisplayDefault();
+        display.DisplayText("Showing", keyNumber);
     }
 
     /// FUNCTION DESCRIPTION<summary>
@@ -228,6 +227,9 @@ public class KeypadLogic : MonoBehaviour
 
             // Show Reset
             CheckCode();
+
+            // Showing starting message
+            display.DisplayDefault();
         }
     }
 }

@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keypadDisplay: {fileID: 4475175224733714397}
+  startingMessage: Hello World
 --- !u!1 &8449487046982608892
 GameObject:
   m_ObjectHideFlags: 0

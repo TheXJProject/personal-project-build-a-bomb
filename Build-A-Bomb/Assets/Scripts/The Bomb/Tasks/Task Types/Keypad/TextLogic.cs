@@ -27,7 +27,8 @@ public class TextLogic : MonoBehaviour
     {
         if (Msg) Debug.Log(" Number entered: " + number);
 
-        // TODO: display number
+        // Display number entered
+        keypadDisplay.text = number.ToString();
     }
 
     /// FUNCTION DESCRIPTION<summary>
@@ -40,7 +41,14 @@ public class TextLogic : MonoBehaviour
     {
         if (Msg) Debug.Log("String entered: " + text + " Number entered: " + number);
 
-        // TODO: display number
+        if (number == -1)
+        {
+            keypadDisplay.text = text;
+        }
+        else
+        {
+            keypadDisplay.text = text + " " + number.ToString();
+        }
     }
 
     /// FUNCTION DESCRIPTION<summary>

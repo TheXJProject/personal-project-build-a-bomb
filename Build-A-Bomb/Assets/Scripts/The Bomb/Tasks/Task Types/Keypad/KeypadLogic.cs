@@ -50,6 +50,8 @@ public class KeypadLogic : MonoBehaviour
     {
         // if -10 or -20 do something
         // TODO: Call the correct functions if input is allowed
+
+        display.DisplayDefault();
     }
 
     /// FUNCTION DESCRIPTION<summary>

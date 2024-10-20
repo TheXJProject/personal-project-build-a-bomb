@@ -214,7 +214,7 @@ public class KeypadLogic : MonoBehaviour
                 if (Msg) Debug.Log(100 * ((float)numCorrectPresses / numToCompare) + "% Complete");
 
                 // Check if task is completed
-                if (numCorrectPresses >= numOfPressesNeeded)
+                if ((numCorrectPresses >= numOfPressesNeeded) && (playerSequence.Count == numOfPressesNeeded))
                 {
                     statInteract.TaskCompleted();
                 }

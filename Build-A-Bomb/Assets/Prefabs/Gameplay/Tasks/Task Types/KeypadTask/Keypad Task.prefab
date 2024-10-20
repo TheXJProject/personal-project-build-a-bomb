@@ -2849,7 +2849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae210ec89bef8549938eb2ec10e8d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHardestDifficulty: 30
+  currentHardestDifficulty: 10
   showTime: 0.6
   statInteract: {fileID: 3440205935563209349}
   display: {fileID: 3978027946700000474}

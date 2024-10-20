@@ -59,26 +59,25 @@ public class KeypadLogic : MonoBehaviour
     public void KeyToProcess(int keyNumber)
     {
         // Depending on keyNumber, began correct function
-        switch (keyNumber)
+        if (keyNumber == -10)
         {
             // Start showing code sequence required
-            case -10:
-                myCoroutine = StartCoroutine(ShowSequence());
-                break;
-
+            myCoroutine = StartCoroutine(ShowSequence());
+        }
+        else if (keyNumber == -20)
+        {
             // Check the player sequence is correct
-            case -20:
-                CheckCode();
-                break;
-
-            // Key 0 was pressed
-            case 0:
-                display.DisplayText(0);
-                // Enternumberintoplayerseq()
-                break;
-            default:
-                Debug.LogWarning("Error, key number incorrect value: " + keyNumber);
-                break;
+            CheckCode();
+        }
+        else if (0 <= keyNumber && keyNumber < 10)
+        {
+            // Add number to player sequence and display it
+            playerSequence.Add(keyNumber);
+            display.DisplayText(0);
+        }
+        else
+        {
+            Debug.LogWarning("Error, key number incorrect value: " + keyNumber);
         }
     }
 
@@ -129,7 +128,7 @@ public class KeypadLogic : MonoBehaviour
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {
-                keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime);
+                keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime * 0.6f);
             }
             else
             {

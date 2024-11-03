@@ -9,7 +9,7 @@ public class ValveLogic : MonoBehaviour
     readonly bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 150;
+    const int maxPossibleDifficultly = 200;
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:
@@ -19,8 +19,8 @@ public class ValveLogic : MonoBehaviour
     [SerializeField] TaskInteractStatus statInteract;
 
     // Runtime Variables:
-    int numOfHitsNeeded = minPossibleDifficultly;
-    int numOfHits = 0;
+    int valveResistanceTotal = minPossibleDifficultly;
+    int valveResistancePassed = 0;
     bool isSetup;
 
     private void Awake()
@@ -43,38 +43,40 @@ public class ValveLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    /// FUNCTION DESCRIPTION <summary>
-    /// Called by Nail Head gameobject. When the player <br />
-    /// clicks on the Nail Head the remaining number of <br />
-    /// times the player needs to click is reduced by one.
-    /// </summary>
-    public void NailHit(BaseEventData data)
-    {
-        if (Msg) Debug.Log("Called function");
+    // TODO: Create Function for detecting movement of mouse
 
-        // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
-        {
-            if (Msg) Debug.Log("Task is being solved");
-            PointerEventData newData = (PointerEventData)data;
-            if (newData.button.Equals(PointerEventData.InputButton.Left))
-            {
-                if (Msg) Debug.Log("Left click is being pressed");
+    ///// FUNCTION DESCRIPTION <summary>
+    ///// Called by Nail Head gameobject. When the player <br />
+    ///// clicks on the Nail Head the remaining number of <br />
+    ///// times the player needs to click is reduced by one.
+    ///// </summary>
+    //public void NailHit(BaseEventData data)
+    //{
+    //    if (Msg) Debug.Log("Called function");
 
-                // Increases the total number of times Nail Head has been hit by one
-                numOfHits++;
+    //    // Checks if the task can be solved
+    //    if (statInteract.isBeingSolved)
+    //    {
+    //        if (Msg) Debug.Log("Task is being solved");
+    //        PointerEventData newData = (PointerEventData)data;
+    //        if (newData.button.Equals(PointerEventData.InputButton.Left))
+    //        {
+    //            if (Msg) Debug.Log("Left click is being pressed");
 
-                // Set the completion level
-                statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+    //            // Increases the total number of times Nail Head has been hit by one
+    //            numOfHits++;
 
-                // Check if task is completed
-                if (numOfHits >= numOfHitsNeeded)
-                {
-                    statInteract.TaskCompleted();
-                }
-            }
-        }
-    }
+    //            // Set the completion level
+    //            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+
+    //            // Check if task is completed
+    //            if (numOfHits >= numOfHitsNeeded)
+    //            {
+    //                statInteract.TaskCompleted();
+    //            }
+    //        }
+    //    }
+    //}
 
     /// FUNCTION DESCRIPTION <summary>
     /// Called by SetDifficulty method only! <br />
@@ -110,10 +112,10 @@ public class ValveLogic : MonoBehaviour
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             // Sets difficulty level (the number of hits needed in this case)
-            numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            valveResistanceTotal = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
             // The number of hits needed cannot be zero
-            numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+            valveResistanceTotal = Mathf.Max(valveResistanceTotal, minPossibleDifficultly);
 
             SetupTask();
         }
@@ -132,7 +134,9 @@ public class ValveLogic : MonoBehaviour
             if (Msg) Debug.Log("Reset Task");
 
             // Reset the number of times the player has hit
-            numOfHits = 0;
+            valveResistancePassed = 0;
+
+            // TODO: Reset Valve position and any effects (like vibration)
         }
     }
 }

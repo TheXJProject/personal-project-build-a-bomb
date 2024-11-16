@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5994853916373433516}
   - component: {fileID: 4284540932557937833}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

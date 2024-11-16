@@ -6,21 +6,23 @@ using UnityEngine.EventSystems;
 public class ValveLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    readonly bool Msg = true;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 200;
-    const int minPossibleDifficultly = 1;
+    const int maxPossibleDifficultly = 2000;
+    const int minPossibleDifficultly = 10;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
+    [SerializeField] Transform valve;
 
     // Runtime Variables:
     int valveResistanceTotal = minPossibleDifficultly;
     int valveResistancePassed = 0;
+    Vector2 lastMousePos;
     bool isSetup;
 
     private void Awake()
@@ -41,6 +43,49 @@ public class ValveLogic : MonoBehaviour
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (statInteract.isBeingSolved)
+        {
+            CheckMouseSpeed();
+        }
+    }
+
+
+    /// <summary>
+    /// Temp
+    /// </summary>
+    public void MoveValve()
+    {
+        valve.rotation *= Quaternion.Euler(0, 0, 10);
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by Nail Head gameobject. When the player <br />
+    /// clicks on the Nail Head the remaining number of <br />
+    /// times the player needs to click is reduced by one.
+    /// </summary>
+    float CheckMouseSpeed()
+    {
+        // Get current mouse position
+        Vector2 currentMousePos = Input.mousePosition;
+
+        // Calculate the difference in position
+        Vector2 mousePosDifference = currentMousePos - lastMousePos;
+
+        // Calculate mouse speed using magnitude of the position difference
+        float mouseSpeed = mousePosDifference.magnitude / Time.deltaTime;
+
+        if (Msg) Debug.Log("Mouse Speed is: " + mouseSpeed);
+
+        // Set new previous mouse position
+        lastMousePos = currentMousePos;
+
+        // Return the speed of the mouse
+        return mouseSpeed;
     }
 
     // TODO: Create Function for detecting movement of mouse

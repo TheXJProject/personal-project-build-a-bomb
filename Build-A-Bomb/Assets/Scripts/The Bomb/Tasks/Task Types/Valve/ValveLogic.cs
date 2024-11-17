@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class ValveLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    readonly bool Msg = true;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 2000;
-    const int minPossibleDifficultly = 10;
+    const int maxPossibleDifficultly = 20000;
+    const int minPossibleDifficultly = 100;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
@@ -25,6 +25,7 @@ public class ValveLogic : MonoBehaviour
     int valveResistancePassed = 0;
     Vector2 lastMousePos;
     bool holdingValve = false;
+    Quaternion startingRotation;
     bool isSetup;
 
     private void Awake()
@@ -49,19 +50,21 @@ public class ValveLogic : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If we are holding left click and we can complete the task
+        // If we are holding left click and we can complete the task and we are holding the valve
         if (Input.GetMouseButton(0) && statInteract.isBeingSolved && holdingValve)
         {
-            // Move the valve a set amount
-            MoveValve(CheckMouseSpeed());
+            // Move the valve a set amount and adjust completeness level
+            ValveCompletenessCheck(MoveValve(CheckMouseSpeed()));
 
-            // TODO: set completeness
+            // TODO: reduce vibration animation depending on valveResistancePassed
 
-            // If we are holding holdingValve but mouse if not over the valve
-            if (!valve.GetComponent<MousePositionLogic>().isMouseOver)
+            // If we are not over the valve or left click is not held
+            if (!valve.GetComponent<MousePositionLogic>().isMouseOver || !Input.GetMouseButton(0))
             {
                 // We are no londer holding the valve
                 holdingValve = false;
+
+                // Rest mouse position
                 lastMousePos = Vector2.zero;
             }
         }
@@ -78,25 +81,58 @@ public class ValveLogic : MonoBehaviour
         {
             // We are holding the valve
             holdingValve = true;
+            // Rest mouse position
+            lastMousePos = Input.mousePosition;
         }
     }
 
     /// FUNCTION DESCRIPTION <summary>
     /// Rotates the valve by an amount calculated using mouse speed. <br />
     /// </summary>
-    void MoveValve(float mouseSpeed)
+    float MoveValve(float mouseSpeed)
     {
-        // Factorially decrease the amount the valve rotates depending on completeness
-        float decreasingAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / (float)valveResistanceTotal)) * mouseSpeed;
+        float moveAmount;
+
+        // If we are less than 50% complete
+        if (((float)valveResistancePassed / (float)valveResistanceTotal) <= (1f / 2f))
+        {
+            // Valve move amount is set depending on mouse speed
+            moveAmount = valveVisualSpeed * (1f / 2f) * mouseSpeed;
+        }
+        else
+        {
+            // Factorially decrease the amount the valve rotates depending on completeness
+            moveAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / (float)valveResistanceTotal)) * mouseSpeed;
+            
+            // If completeness is over three quaters
+            if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (3f / 4f))
+            {
+                // If in the last 2%
+                if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (98f / 100f))
+                {
+                    moveAmount = 0f;
+                }
+                else
+                {
+                    // increase visual resistance
+                    moveAmount *= (1 - (((float)valveResistancePassed / (float)valveResistanceTotal) - 0.75f) * 0.9f);
+                }
+            }
+        }
 
         // Apply rotation
-        valve.transform.rotation *= Quaternion.Euler(0, 0, decreasingAmount);
+        valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount);
+
+        if (Msg) Debug.Log("Valve moved: " + moveAmount);
+
+        // Returns back inputted mouse speed
+        return mouseSpeed;
     }
 
     /// FUNCTION DESCRIPTION <summary>
-    /// Called by Nail Head gameobject. When the player <br />
-    /// clicks on the Nail Head the remaining number of <br />
-    /// times the player needs to click is reduced by one.
+    /// Gets the current mouse position and compares it <br />
+    /// with the previous mouse position. Then calculates <br />
+    /// the speed of the mouse.
     /// </summary>
     float CheckMouseSpeed()
     {
@@ -118,40 +154,29 @@ public class ValveLogic : MonoBehaviour
         return mouseSpeed;
     }
 
-    // TODO: Create Function for detecting movement of mouse
+    /// FUNCTION DESCRIPTION <summary>
+    /// Checks for valve completeness level. <br />
+    /// </summary>
+    void ValveCompletenessCheck(float mouseSpeed)
+    {
+        // Checks if the task can be solved
+        if (statInteract.isBeingSolved)
+        {
+            // Increase amount of valve has been completed
+            valveResistancePassed += (int)(mouseSpeed / 30);
 
-    ///// FUNCTION DESCRIPTION <summary>
-    ///// Called by Nail Head gameobject. When the player <br />
-    ///// clicks on the Nail Head the remaining number of <br />
-    ///// times the player needs to click is reduced by one.
-    ///// </summary>
-    //public void NailHit(BaseEventData data)
-    //{
-    //    if (Msg) Debug.Log("Called function");
+            if (Msg) Debug.Log("Task is being solved. Completeness: " + valveResistancePassed + " Out of: " + valveResistanceTotal);
 
-    //    // Checks if the task can be solved
-    //    if (statInteract.isBeingSolved)
-    //    {
-    //        if (Msg) Debug.Log("Task is being solved");
-    //        PointerEventData newData = (PointerEventData)data;
-    //        if (newData.button.Equals(PointerEventData.InputButton.Left))
-    //        {
-    //            if (Msg) Debug.Log("Left click is being pressed");
+            // Set the completion level
+            statInteract.SetTaskCompletion((float)valveResistancePassed / valveResistanceTotal);
 
-    //            // Increases the total number of times Nail Head has been hit by one
-    //            numOfHits++;
-
-    //            // Set the completion level
-    //            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
-
-    //            // Check if task is completed
-    //            if (numOfHits >= numOfHitsNeeded)
-    //            {
-    //                statInteract.TaskCompleted();
-    //            }
-    //        }
-    //    }
-    //}
+            // Check if task is completed
+            if (valveResistancePassed >= valveResistanceTotal)
+            {
+                statInteract.TaskCompleted();
+            }
+        }
+    }
 
     /// FUNCTION DESCRIPTION <summary>
     /// Called by SetDifficulty method only! <br />
@@ -168,6 +193,10 @@ public class ValveLogic : MonoBehaviour
         {
             // This instance is now setup
             isSetup = true;
+
+            startingRotation = valve.transform.rotation;
+
+            // TODO: Start Vibration animation
         }
     }
 
@@ -211,7 +240,11 @@ public class ValveLogic : MonoBehaviour
             // Reset the number of times the player has hit
             valveResistancePassed = 0;
 
-            // TODO: Reset Valve position and any effects (like vibration)
+            holdingValve = false;
+
+            valve.transform.rotation = startingRotation;
+
+            // TODO: Reset any effects (like vibration)
         }
     }
 }

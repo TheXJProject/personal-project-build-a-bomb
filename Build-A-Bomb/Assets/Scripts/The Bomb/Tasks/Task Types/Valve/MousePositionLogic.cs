@@ -9,7 +9,7 @@ public class MousePositionLogic : MonoBehaviour, IPointerEnterHandler, IPointerE
     readonly bool Msg = false;
 
     // Runtime Variables:
-    public bool isMouseOver = false;
+    [HideInInspector] public bool isMouseOver = false;
 
     /// FUNCTION DESCRIPTION <summary>
     /// Triggered when the mouse enteres the object's area. <br />

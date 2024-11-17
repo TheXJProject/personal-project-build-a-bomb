@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7793314039076800744}
   - component: {fileID: 904486330660830747}
   - component: {fileID: 897426726633452576}
+  - component: {fileID: 962597182850070749}
   m_Layer: 0
   m_Name: Valve
   m_TagString: Untagged
@@ -96,7 +97,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 6803213118798107355}
           m_TargetAssemblyTypeName: ValveLogic, Assembly-CSharp
-          m_MethodName: MoveValve
+          m_MethodName: HoldValve
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -106,6 +107,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &962597182850070749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380994498847392142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b004835ea9a06f841ad39c532a58ca56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMouseOver: 0
 --- !u!1 &5234312998302759447
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7727398054371499831, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.x
@@ -376,5 +390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHardestDifficulty: 2000
+  valveVisualSpeed: 0.01
   statInteract: {fileID: 5175822060464950714}
-  valve: {fileID: 3155250694877169764}
+  valve: {fileID: 1380994498847392142}

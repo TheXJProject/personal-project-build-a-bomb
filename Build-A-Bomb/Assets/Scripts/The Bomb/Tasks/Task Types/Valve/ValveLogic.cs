@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ValveLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 2000;
@@ -14,15 +14,17 @@ public class ValveLogic : MonoBehaviour
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+    [SerializeField] [Range(0.0001f,0.1f)] float valveVisualSpeed;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
-    [SerializeField] Transform valve;
+    [SerializeField] GameObject valve;
 
     // Runtime Variables:
     int valveResistanceTotal = minPossibleDifficultly;
     int valveResistancePassed = 0;
     Vector2 lastMousePos;
+    bool holdingValve = false;
     bool isSetup;
 
     private void Awake()
@@ -45,22 +47,50 @@ public class ValveLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-
     private void FixedUpdate()
     {
-        if (statInteract.isBeingSolved)
+        // If we are holding left click and we can complete the task
+        if (Input.GetMouseButton(0) && statInteract.isBeingSolved && holdingValve)
         {
-            CheckMouseSpeed();
+            // Move the valve a set amount
+            MoveValve(CheckMouseSpeed());
+
+            // TODO: set completeness
+
+            // If we are holding holdingValve but mouse if not over the valve
+            if (!valve.GetComponent<MousePositionLogic>().isMouseOver)
+            {
+                // We are no londer holding the valve
+                holdingValve = false;
+                lastMousePos = Vector2.zero;
+            }
         }
     }
 
-
-    /// <summary>
-    /// Temp
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by valve is clicked on. <br />
     /// </summary>
-    public void MoveValve()
+    public void HoldValve(BaseEventData data)
     {
-        valve.rotation *= Quaternion.Euler(0, 0, 10);
+        // If left click was pressed
+        PointerEventData newData = (PointerEventData)data;
+        if (newData.button.Equals(PointerEventData.InputButton.Left))
+        {
+            // We are holding the valve
+            holdingValve = true;
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Rotates the valve by an amount calculated using mouse speed. <br />
+    /// </summary>
+    void MoveValve(float mouseSpeed)
+    {
+        // Factorially decrease the amount the valve rotates depending on completeness
+        float decreasingAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / (float)valveResistanceTotal)) * mouseSpeed;
+
+        // Apply rotation
+        valve.transform.rotation *= Quaternion.Euler(0, 0, decreasingAmount);
     }
 
     /// FUNCTION DESCRIPTION <summary>

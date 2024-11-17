@@ -14,7 +14,7 @@ public class ValveLogic : MonoBehaviour
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
-    [SerializeField] [Range(0.00001f,0.01f)] float valveVisualSpeed;
+    [SerializeField] [Range(0.00001f,0.1f)] float valveVisualSpeed;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
@@ -63,9 +63,6 @@ public class ValveLogic : MonoBehaviour
             {
                 // We are no londer holding the valve
                 holdingValve = false;
-
-                // Rest mouse position
-                lastMousePos = Vector2.zero;
             }
         }
     }
@@ -75,6 +72,8 @@ public class ValveLogic : MonoBehaviour
     /// </summary>
     public void HoldValve(BaseEventData data)
     {
+        if (Msg) Debug.Log("Holding Mouse!");
+
         // If left click was pressed
         PointerEventData newData = (PointerEventData)data;
         if (newData.button.Equals(PointerEventData.InputButton.Left))
@@ -123,8 +122,6 @@ public class ValveLogic : MonoBehaviour
         // Apply rotation
         valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount);
 
-        if (Msg) Debug.Log("Valve moved: " + moveAmount);
-
         // Returns back inputted mouse speed
         return mouseSpeed;
     }
@@ -139,6 +136,12 @@ public class ValveLogic : MonoBehaviour
         // Get current mouse position
         Vector2 currentMousePos = Input.mousePosition;
 
+        //Normalise mouse positions
+        currentMousePos.x /= ((float)Screen.width * 0.01f);
+        currentMousePos.y /= ((float)Screen.height * 0.01f);
+        lastMousePos.x /= ((float)Screen.width * 0.01f);
+        lastMousePos.y /= ((float)Screen.height * 0.01f);
+
         // Calculate the difference in position
         Vector2 mousePosDifference = currentMousePos - lastMousePos;
 
@@ -148,7 +151,7 @@ public class ValveLogic : MonoBehaviour
         if (Msg) Debug.Log("Mouse Speed is: " + mouseSpeed);
 
         // Set new previous mouse position
-        lastMousePos = currentMousePos;
+        lastMousePos = Input.mousePosition;
 
         // Return the speed of the mouse
         return mouseSpeed;

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ValveLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 20000;
@@ -14,7 +14,7 @@ public class ValveLogic : MonoBehaviour
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
-    [SerializeField] [Range(0.0001f,0.1f)] float valveVisualSpeed;
+    [SerializeField] [Range(0.00001f,0.01f)] float valveVisualSpeed;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;

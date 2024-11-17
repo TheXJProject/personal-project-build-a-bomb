@@ -542,6 +542,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHardestDifficulty: 10000
-  valveVisualSpeed: 0.01
+  valveVisualSpeed: 0.002
   statInteract: {fileID: 5175822060464950714}
   valve: {fileID: 1380994498847392142}

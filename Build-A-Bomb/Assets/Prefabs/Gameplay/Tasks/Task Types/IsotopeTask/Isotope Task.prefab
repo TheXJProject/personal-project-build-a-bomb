@@ -1223,7 +1223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseFanSpeed: 2
   fanMaxSpeedMultiplier: 1
-  timeToFullCharged: 0.01
+  fanSpeedScaler: 0.00001
+  timeToChargeMaxLimit: 0.01
   timeToCharge: 0.01
   fan: {fileID: 5487527414520326806}
   canSpool: 0
@@ -1249,7 +1250,7 @@ MonoBehaviour:
         - m_Target: {fileID: 4911261942798430629}
           m_TargetAssemblyTypeName: ReactorLogic, Assembly-CSharp
           m_MethodName: StartChargeReactor
-          m_Mode: 1
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

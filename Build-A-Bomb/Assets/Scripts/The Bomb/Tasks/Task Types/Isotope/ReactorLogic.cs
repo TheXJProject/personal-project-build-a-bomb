@@ -12,7 +12,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // Inspector Adjustable Values:
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
-    [SerializeField] [Range(0.01f, 40f)] float timeToFullCharged;
+    [SerializeField] [Range(0.00001f, 1f)] float fanSpeedScaler;
+    [SerializeField] [Range(0.01f, 40f)] float timeToChargeMaxLimit;
     [SerializeField] [Range(0.01f, 40f)] float timeToCharge;
 
     // Initialise In Inspector:
@@ -31,7 +32,10 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (Msg) Debug.Log("Reactor Script Awake.");
 
+        // TODO: change canspool back to false
         canSpool = true;
+
+        // The fan start off with no charge and still
         charged = false;
         fanCompletePercentage = 0;
         timeHeld = 0;
@@ -50,29 +54,35 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             // If the player started holding the reactor, is holding left mouse and the pointer is over the reactor
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {
-                // The reactor is being charged
+                // Increase charge
 
+
+                // Increase fan speed
+                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
             }
             // Otherwise, if current speed is less that base
             else if (currentFanSpeed < baseFanSpeed)
             {
-                // Increase fan speed to base
+                // Player is not charging reactor
+                holdingReactor = false;
 
+                // Reduce charge
+
+                // Increase fan speed to base
+                ChangeFanSpeed(baseFanSpeed);
             }
             else
             {
                 // Player is not charging reactor
                 holdingReactor = false;
 
+                // Reduce charge
+
                 // If fan is spooled up without being held
                 if (currentFanSpeed > baseFanSpeed)
                 {
                     // Slowly reduce fan speed
-                }
-                else
-                {
-                    // Otherwise, hold base fan speed
-                    fan.transform.Rotate(0, 0, baseFanSpeed);
+                    ChangeFanSpeed(baseFanSpeed);
                 }
             }
         }
@@ -81,6 +91,9 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             holdingReactor = false;
         }
 
+        // Rotate the fan at the correct speed
+        fan.transform.Rotate(0, 0, currentFanSpeed);
+
         // TODO: check charged, complete percnetage etc
 
         // Figure out what colour the fan should be
@@ -88,10 +101,38 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     /// FUNCTION DESCRIPTION <summary>
+    /// Sets Fan Speed. Calculate what the speed could be <br />
+    /// based on how long the player has help the reactor <br />
+    /// and the speed the fan is aiming to get to.
+    /// Parameter 1: The speed to be reached. <br />
+    /// </summary>
+    void ChangeFanSpeed(float targetSpeed)
+    {
+        // If the fan speed is greater than the target
+        if (currentFanSpeed > targetSpeed)
+        {
+            // reduce speed
+            currentFanSpeed -= fanSpeedScaler * Mathf.Sqrt(currentFanSpeed - targetSpeed);
+
+            // Make sure we don't reduce past the target
+            currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);
+        }
+        else
+        {
+            // increase speed
+            currentFanSpeed += fanSpeedScaler  Mathf.Sqrt(targetSpeed - currentFanSpeed);
+
+            // Make sure we don't increase past the target
+            currentFanSpeed = Mathf.Min(currentFanSpeed, targetSpeed);
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
     /// Sets fan inner colour depending on current conditions. <br />
     /// </summary>
     void FanHueAlteration()
     {
+        // TODO: fill function
         fan.GetComponent<Image>().color = Color.cyan;
     }
 

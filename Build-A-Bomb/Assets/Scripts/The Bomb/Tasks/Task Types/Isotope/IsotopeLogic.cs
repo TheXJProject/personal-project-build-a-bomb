@@ -183,6 +183,7 @@ public class IsotopeLogic : MonoBehaviour
     //    {
     //        if (Msg) Debug.Log("Reset Task");
 
+    //        // TODO: Reset chargetime and canspool is false
     //        // Then reset bolting panels
     //        foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
     //        {

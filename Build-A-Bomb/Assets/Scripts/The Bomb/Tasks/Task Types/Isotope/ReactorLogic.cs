@@ -7,12 +7,12 @@ using UnityEngine.EventSystems;
 public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    readonly bool Msg = true;
 
     // Inspector Adjustable Values:
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
-    [SerializeField] [Range(0.00001f, 1f)] float fanSpeedScaler;
+    [SerializeField] [Range(0.00001f, 0.05f)] float fanSpeedScaler;
     [SerializeField] [Range(0.01f, 40f)] float timeToChargeMaxLimit;
     [SerializeField] [Range(0.01f, 40f)] float timeToCharge;
 
@@ -32,10 +32,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (Msg) Debug.Log("Reactor Script Awake.");
 
-        // TODO: change canspool back to false
-        canSpool = true;
-
         // The fan start off with no charge and still
+        canSpool = false;
         charged = false;
         fanCompletePercentage = 0;
         timeHeld = 0;
@@ -55,7 +53,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {
                 // Increase charge
-
+                timeHeld = Mathf.Min(timeToChargeMaxLimit, timeHeld + Time.fixedDeltaTime);
 
                 // Increase fan speed
                 ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
@@ -67,6 +65,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 holdingReactor = false;
 
                 // Reduce charge
+                timeHeld = Mathf.Max(0f, timeHeld - Time.fixedDeltaTime);
 
                 // Increase fan speed to base
                 ChangeFanSpeed(baseFanSpeed);
@@ -77,6 +76,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 holdingReactor = false;
 
                 // Reduce charge
+                timeHeld = Mathf.Max(0f, timeHeld - Time.fixedDeltaTime);
 
                 // If fan is spooled up without being held
                 if (currentFanSpeed > baseFanSpeed)
@@ -89,15 +89,31 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
             holdingReactor = false;
+
+            // Reduce charge
+            timeHeld = Mathf.Max(0f, timeHeld - Time.fixedDeltaTime);
         }
 
         // Rotate the fan at the correct speed
         fan.transform.Rotate(0, 0, currentFanSpeed);
 
-        // TODO: check charged, complete percnetage etc
+        // Completeness check for this reactor
+        fanCompletePercentage = Mathf.Min(100f, (timeHeld * 100f / timeToCharge));
+
+        // Is the reactor charged?
+        charged = (fanCompletePercentage == 100f);
 
         // Figure out what colour the fan should be
         FanHueAlteration();
+
+        // TODO: apply animation to fan, motion blur depending on speed
+
+        // For debugging
+        if (holdingReactor)
+        {
+            if (Msg) Debug.Log("Time Held: " + timeHeld);
+            if (Msg) Debug.Log("Charged: " + charged + ", Percentage: " + fanCompletePercentage);
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -112,7 +128,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (currentFanSpeed > targetSpeed)
         {
             // reduce speed
-            currentFanSpeed -= fanSpeedScaler * Mathf.Sqrt(currentFanSpeed - targetSpeed);
+            currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - targetSpeed);
 
             // Make sure we don't reduce past the target
             currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);
@@ -120,7 +136,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
             // increase speed
-            currentFanSpeed += fanSpeedScaler  Mathf.Sqrt(targetSpeed - currentFanSpeed);
+            currentFanSpeed += fanSpeedScaler * Mathf.Sqrt(targetSpeed - currentFanSpeed);
 
             // Make sure we don't increase past the target
             currentFanSpeed = Mathf.Min(currentFanSpeed, targetSpeed);
@@ -132,8 +148,28 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /// </summary>
     void FanHueAlteration()
     {
-        // TODO: fill function
-        fan.GetComponent<Image>().color = Color.cyan;
+        // TODO: Use this function for animations instead of colours?
+
+        // If completely uncharged
+        if (fanCompletePercentage == 0f)
+        {
+            fan.GetComponent<Image>().color = Color.red;
+        }
+        // If we are at the charge limit
+        else if (timeHeld == timeToChargeMaxLimit)
+        {
+            fan.GetComponent<Image>().color = Color.cyan;
+        }
+        // If we are at required charge
+        else if (fanCompletePercentage == 100f)
+        {
+            fan.GetComponent<Image>().color = Color.green;
+        }
+        // Otherwise we are idling
+        else
+        {
+            fan.GetComponent<Image>().color = Color.yellow;
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>

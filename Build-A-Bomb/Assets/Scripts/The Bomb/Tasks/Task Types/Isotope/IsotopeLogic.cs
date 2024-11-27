@@ -4,199 +4,198 @@ using UnityEngine;
 
 public class IsotopeLogic : MonoBehaviour
 {
-    //// ==== For Debugging ====
-    //readonly bool Msg = false;
+    // ==== For Debugging ====
+    readonly bool Msg = false;
 
-    //// Constant Values:
-    //const int maxPossibleDifficultly = 15;
-    //const int minPossibleDifficultly = 1;
-    //const int multipleFactor = 2;
+    // Constant Values:
+    const int maxPossibleDifficultly = 6;
+    const int minPossibleDifficultly = 1;
 
-    //// Inspector Adjustable Values:
-    //[Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+    // Inspector Adjustable Values:
+    [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
 
-    //// Initialise In Inspector:
-    //[SerializeField] GameObject variation1;
-    //[SerializeField] GameObject variation2;
-    //[SerializeField] GameObject variation3;
-    //public TaskInteractStatus statInteract;
+    // Initialise In Inspector:
+    [SerializeField] GameObject[] reactors;
+    [SerializeField] GameObject[] grates;
+    public TaskInteractStatus statInteract;
 
-    //// Runtime Variables:
-    //int numBoltsNeeded = minPossibleDifficultly * multipleFactor;
-    //int numBoltsCompleted = 0;
-    //GameObject variationInUse;
-    //bool isSetup;
+    // Runtime Variables:
+    int numReactorsNeeded = minPossibleDifficultly;
+    int numReactorsCompleted = 0;
+    List<int> activeReactors;
+    bool isSetup;
 
-    //private void Awake()
-    //{
-    //    if (Msg) Debug.Log("Script Awake().");
+    private void Awake()
+    {
+        if (Msg) Debug.Log("Script Awake().");
 
-    //    // This instance is not set up yet
-    //    isSetup = false;
-    //}
+        // This instance is not set up yet
+        isSetup = false;
+    }
 
-    //private void OnEnable()
-    //{
-    //    TaskInteractStatus.onTaskFailed += ResestBolts;
-    //    TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
-    //}
+    private void OnEnable()
+    {
+        TaskInteractStatus.onTaskFailed += ResestTask;
+        TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
+    }
 
-    //private void OnDisable()
-    //{
-    //    TaskInteractStatus.onTaskFailed -= ResestBolts;
-    //    TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
-    //}
+    private void OnDisable()
+    {
+        TaskInteractStatus.onTaskFailed -= ResestTask;
+        TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+    }
 
-    ///// FUNCTION DESCRIPTION <summary>
-    ///// Called when a bolt is completed. <br />
-    ///// Check if the task is completed and sets task completion. <br />
-    ///// </summary>
-    //public void CheckIfComplete()
-    //{
-    //    // Number of complete bolts
-    //    int totalComplete = 0;
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called when a bolt is completed. <br />
+    /// Check if the task is completed and sets task completion. <br />
+    /// </summary>
+    public void CheckIfComplete()
+    {
+       
+        // TODO: completeness check and number addition
 
-    //    // We need to gather infomation about each panel
-    //    foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
-    //    {
-    //        // If the panel hasn't been removed by the setuptwoo function
-    //        if (panel.panel != null)
-    //        {
-    //            // Within each panel we need to get each bolt
-    //            foreach (GameObject bolt in panel.panel.GetComponent<BoltPanelLogic>().bolts)
-    //            {
-    //                // Is that bolt complete?
-    //                if (bolt.GetComponent<Bolt>().complete)
-    //                {
-    //                    // Add to total
-    //                    totalComplete++;
-    //                }
-    //            }
-    //        }
-    //    }
+        // Set the completion level
+        statInteract.SetTaskCompletion((float)numReactorsCompleted / numReactorsNeeded);
 
-    //    // Set the number of completed bolts to total
-    //    numBoltsCompleted = totalComplete;
+        // Check if task is completed
+        if (numReactorsCompleted >= numReactorsNeeded)
+        {
+            statInteract.TaskCompleted();
+        }
 
-    //    // Set the completion level
-    //    statInteract.SetTaskCompletion((float)numBoltsCompleted / numBoltsNeeded);
+        if (Msg) Debug.Log("Num complete reactors: " + numReactorsCompleted);
+        if (Msg) Debug.Log("Num reactors needed: " + numReactorsNeeded);
+        if (Msg) Debug.Log("Complete fraction: " + (float)numReactorsCompleted / numReactorsNeeded);
+    }
 
-    //    // Check if task is completed
-    //    if (numBoltsCompleted >= numBoltsNeeded)
-    //    {
-    //        statInteract.TaskCompleted();
-    //    }
+    /// FUNCTION DESCRIPTION <summary>
+    /// Returns a list of randomly generated, ordered integers. <br />
+    /// Parameter 1: Number of elements in the list. <br />
+    /// </summary>
+    List<int> GenerateUniqueRandomNumbers(int numUnused)
+    {
+        System.Random rand = new();
 
-    //    if (Msg) Debug.Log("Num complete bolts: " + numBoltsCompleted);
-    //    if (Msg) Debug.Log("Num bolts needed: " + numBoltsNeeded);
-    //    if (Msg) Debug.Log("Complete fraction: " + (float)numBoltsCompleted / numBoltsNeeded);
-    //}
+        // Using HashSet since each element must be unique
+        HashSet<int> uniqueNumbers = new();
+        List<int> randomNumbers = new();
 
-    ///// FUNCTION DESCRIPTION <summary>
-    ///// Called by SetDifficulty method only! <br />
-    ///// Starts required setup for the task. <br />
-    ///// </summary>
-    //void SetupTask()
-    //{
-    //    // This function can only be activated once
-    //    if (isSetup)
-    //    {
-    //        Debug.LogWarning("Error, this task is already set up!");
-    //    }
-    //    else
-    //    {
-    //        // This instance is now setup
-    //        isSetup = true;
+        // Keep going until we fill the requirements
+        while (uniqueNumbers.Count < numUnused)
+        {
+            // Generates new number between max and min possible difficulty
+            int randomNumber = rand.Next(maxPossibleDifficultly);
 
-    //        // Choose a random number between 1 and 3
-    //        int randomNumber = UnityEngine.Random.Range(1, 4); // Random.Range's upper bound is exclusive for integers
-    //        if (Msg) Debug.Log("Random Number: " + randomNumber);
+            // Checks for unique number
+            if (uniqueNumbers.Add(randomNumber))
+            {
+                // Adds new integer to list
+                randomNumbers.Add(randomNumber);
+            }
+        }
 
-    //        // Use the random number to decide which variation to spawn
-    //        switch (randomNumber)
-    //        {
-    //            case 1:
-    //                // Spawn variation 1 of the task
-    //                variationInUse = Instantiate(variation1, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-    //                break;
-    //            case 2:
-    //                // Spawn variation 2 of the task
-    //                variationInUse = Instantiate(variation2, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-    //                break;
-    //            case 3:
-    //                // Spawn variation 3 of the task
-    //                variationInUse = Instantiate(variation3, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-    //                break;
-    //            default:
-    //                Debug.LogWarning("Error, random number, " + randomNumber + " out of range!");
-    //                break;
-    //        }
-    //    }
+        randomNumbers.Sort();
 
-    //    // Make sure only the correct panels are showing for the given difficulty
-    //    variationInUse.GetComponent<BoltingVarInfoAndSetup>().SetupTwoo(numBoltsNeeded);
-    //}
+        return randomNumbers;
+    }
 
-    ///// FUNCTION DESCRIPTION <summary>
-    ///// Called by onTaskDifficultySet event only! <br />
-    ///// Retrieves a difficult setting and applies it to this task <br />
-    ///// instance. Then calls for the task to be setup.
-    ///// </summary>
-    //void SetDifficulty(GameObject triggerTask)
-    //{
-    //    // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
-    //    if (triggerTask == gameObject.transform.parent.gameObject)
-    //    {
-    //        if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by SetDifficulty method only! <br />
+    /// Starts required setup for the task. <br />
+    /// </summary>
+    void SetupTask()
+    {
+        // This function can only be activated once
+        if (isSetup)
+        {
+            Debug.LogWarning("Error, this task is already set up!");
+        }
+        else
+        {
+            // This instance is now setup
+            isSetup = true;
 
-    //        // Retrieves difficulty
-    //        float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
+            // If we are using all the reactors
+            if (numReactorsNeeded == maxPossibleDifficultly)
+            {
+                // All reactors are active
+                activeReactors = new List<int> { 0, 1, 2, 3, 4, 5 };
 
-    //        // Sets difficulty level (the number of switches in this case)
-    //        numBoltsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f) * multipleFactor;
+                // We don't need to remove any reactors
+                // Instead remove all grates
+                for (int i = 0; i < grates.Length; i++)
+                {
+                    Destroy(grates[i]);
+                    grates[i] = null;
+                }
+            }
+            else
+            {
+                // Set some reactors to active randomly
+                activeReactors = GenerateUniqueRandomNumbers(numReactorsNeeded);
 
-    //        // The number of switches cannot be zero
-    //        numBoltsNeeded = Mathf.Max(numBoltsNeeded, (minPossibleDifficultly * multipleFactor));
+                // Remove required grates and reactors
+                for (int i = 0; i < maxPossibleDifficultly; i++)
+                {
+                    // If we are using reactor i
+                    if (activeReactors.Contains(i))
+                    {
+                        // Remove the grate
+                        Destroy(grates[i]);
+                        grates[i] = null;
+                    }
+                    else
+                    {
+                        // Otherwise remove the grate
+                        Destroy(reactors[i]);
+                        reactors[i] = null;
+                    }
+                }
+            }
+        }
+    }
 
-    //        if (numBoltsNeeded % 2 == 0)
-    //        {
-    //            if (Msg) Debug.Log("Number of bolts needed: " + numBoltsNeeded);
-    //        }
-    //        else
-    //        {
-    //            Debug.LogWarning("Error, number of bolt needed is not even! : " + numBoltsNeeded);
-    //        }
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskDifficultySet event only! <br />
+    /// Retrieves a difficult setting and applies it to this task <br />
+    /// instance. Then calls for the task to be setup.
+    /// </summary>
+    void SetDifficulty(GameObject triggerTask)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            if (Msg) Debug.Log("Set Difficultly " + gameObject.transform.parent.gameObject);
 
-    //        SetupTask();
-    //    }
-    //}
+            // Retrieves difficulty
+            float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
-    ///// FUNCTION DESCRIPTION <summary>
-    ///// Called by onTaskFailed event only! <br />
-    ///// Resets the task back to its state just after SetupTask <br />
-    ///// has been called.
-    ///// </summary>
-    //void ResestBolts(GameObject trigger)
-    //{
-    //    // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
-    //    if (trigger == gameObject)
-    //    {
-    //        if (Msg) Debug.Log("Reset Task");
+            // Sets difficulty level (the number of switches in this case)
+            numReactorsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
-    //        // TODO: Reset chargetime and canspool is false
-    //        // Then reset bolting panels
-    //        foreach (PanelInfo panel in variationInUse.GetComponent<BoltingVarInfoAndSetup>().panels)
-    //        {
-    //            // If the panel hasn't been removed by the setuptwoo function
-    //            if (panel.panel != null)
-    //            {
-    //                // Reset the panel
-    //                panel.panel.GetComponent<BoltPanelLogic>().ResetPanel();
-    //            }
-    //        }
+            // The number of reactors cannot be zero
+            numReactorsNeeded = Mathf.Max(numReactorsNeeded, minPossibleDifficultly);
 
-    //        // Check for completion level after reset
-    //        CheckIfComplete();
-    //    }
-    //}
+            SetupTask();
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called by onTaskFailed event only! <br />
+    /// Resets the task back to its state just after SetupTask <br />
+    /// has been called.
+    /// </summary>
+    void ResestTask(GameObject trigger)
+    {
+        // When the onTaskDifficultySet event is called, check whether the triggering gameobject is itself
+        if (trigger == gameObject)
+        {
+            if (Msg) Debug.Log("Reset Task");
+
+            // TODO: Reset chargetime and canspool is false
+
+            // Check for completion level after reset
+            CheckIfComplete();
+        }
+    }
 }

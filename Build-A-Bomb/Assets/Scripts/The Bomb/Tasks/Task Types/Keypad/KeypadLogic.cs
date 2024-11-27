@@ -356,7 +356,7 @@ public class KeypadLogic : MonoBehaviour
             // Sets difficulty level (the number of switches in this case)
             numOfPressesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
-            // The number of switches cannot be zero
+            // The number of keys needed cannot be zero
             numOfPressesNeeded = Mathf.Max(numOfPressesNeeded, minPossibleDifficultly);
 
             SetupTask();

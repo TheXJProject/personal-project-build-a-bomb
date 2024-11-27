@@ -221,7 +221,7 @@ public class ValveLogic : MonoBehaviour
             // Sets difficulty level (the number of hits needed in this case)
             valveResistanceTotal = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
-            // The number of hits needed cannot be zero
+            // The number needed cannot be zero
             valveResistanceTotal = Mathf.Max(valveResistanceTotal, minPossibleDifficultly);
 
             SetupTask();

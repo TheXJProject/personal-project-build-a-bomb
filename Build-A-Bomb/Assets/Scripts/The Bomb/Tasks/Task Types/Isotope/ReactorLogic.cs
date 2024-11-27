@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
 
     // Inspector Adjustable Values:
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
@@ -15,6 +15,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] [Range(0.00001f, 0.05f)] float fanSpeedScaler;
     [SerializeField] [Range(0.01f, 40f)] float timeToChargeMaxLimit;
     [SerializeField] [Range(0.01f, 40f)] float timeToCharge;
+    [SerializeField] [Range(0.01f, 20f)] float chargeIncreaseSpeed;
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
@@ -33,7 +34,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Msg) Debug.Log("Reactor Script Awake.");
 
         // The fan start off with no charge and still
-        canSpool = false;
+        canSpool = true;
         charged = false;
         fanCompletePercentage = 0;
         timeHeld = 0;
@@ -53,10 +54,10 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {
                 // Increase charge
-                timeHeld = Mathf.Min(timeToChargeMaxLimit, timeHeld + Time.fixedDeltaTime);
+                timeHeld = Mathf.Min(timeToChargeMaxLimit, timeHeld + (Time.fixedDeltaTime * chargeIncreaseSpeed));
 
                 // Increase fan speed
-                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
+                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier * chargeIncreaseSpeed);
             }
             // Otherwise, if current speed is less that base
             else if (currentFanSpeed < baseFanSpeed)

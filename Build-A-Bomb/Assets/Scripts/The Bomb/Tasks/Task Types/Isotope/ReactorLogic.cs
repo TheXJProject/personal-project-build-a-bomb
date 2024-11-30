@@ -24,7 +24,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [HideInInspector] public bool canSpool;
     [HideInInspector] public bool charged;
     [HideInInspector] public float fanCompletePercentage;
-    float timeHeld;
+    [HideInInspector] public float timeHeld;
     float currentFanSpeed;
     bool holdingReactor = false;
     bool isMouseOver = false;
@@ -34,7 +34,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Msg) Debug.Log("Reactor Script Awake.");
 
         // The fan start off with no charge and still
-        canSpool = true;
+        canSpool = false;
         charged = false;
         fanCompletePercentage = 0;
         timeHeld = 0;
@@ -57,7 +57,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 timeHeld = Mathf.Min(timeToChargeMaxLimit, timeHeld + (Time.fixedDeltaTime * chargeIncreaseSpeed));
 
                 // Increase fan speed
-                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier * chargeIncreaseSpeed);
+                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
             }
             // Otherwise, if current speed is less that base
             else if (currentFanSpeed < baseFanSpeed)
@@ -93,6 +93,9 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
             // Reduce charge
             timeHeld = Mathf.Max(0f, timeHeld - Time.fixedDeltaTime);
+
+            // Slowly reduce fan speed to zero
+            ChangeFanSpeed(0f);
         }
 
         // Rotate the fan at the correct speed

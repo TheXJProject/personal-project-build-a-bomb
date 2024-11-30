@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class IsotopeLogic : MonoBehaviour
 {
@@ -17,12 +19,14 @@ public class IsotopeLogic : MonoBehaviour
     // Initialise In Inspector:
     [SerializeField] GameObject[] reactors;
     [SerializeField] GameObject[] grates;
+    [SerializeField] Image chargedLight;
     public TaskInteractStatus statInteract;
 
     // Runtime Variables:
     int numReactorsNeeded = minPossibleDifficultly;
     int numReactorsCompleted = 0;
     List<int> activeReactors;
+    bool reactorState = false;
     bool isSetup;
 
     private void Awake()
@@ -45,27 +49,117 @@ public class IsotopeLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    /// FUNCTION DESCRIPTION <summary>
-    /// Called when a bolt is completed. <br />
-    /// Check if the task is completed and sets task completion. <br />
-    /// </summary>
-    public void CheckIfComplete()
+    private void FixedUpdate()
     {
-       
-        // TODO: completeness check and number addition
-
-        // Set the completion level
-        statInteract.SetTaskCompletion((float)numReactorsCompleted / numReactorsNeeded);
-
-        // Check if task is completed
-        if (numReactorsCompleted >= numReactorsNeeded)
+        // If we can complete the task set its completion level
+        if (statInteract.isBeingSolved)
         {
-            statInteract.TaskCompleted();
+            // Set completion level
+            CompletionLevel();
+
+            // If the reactors are off, change them to on
+            if (!reactorState)
+            {
+                // Each reactor can now spool up
+                foreach (int reactorIdx in activeReactors)
+                {
+                    reactors[reactorIdx].GetComponent<ReactorLogic>().canSpool = true;
+                }
+
+                reactorState = true;
+            }
+        }
+        else
+        {
+            chargedLight.color = Color.red;
+
+            // If the reactors are on, turn them off
+            if (reactorState)
+            {
+                // Each reactor is off
+                foreach (int reactorIdx in activeReactors)
+                {
+                    reactors[reactorIdx].GetComponent<ReactorLogic>().canSpool = false;
+                }
+
+                reactorState = false;
+            }
+        }
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Sets the task completion level.
+    /// </summary>
+    void CompletionLevel()
+    {
+        float totalPercentage = 0;
+        int reactorNumCharged = 0;
+
+        // Add up all percentage complete components
+        foreach (int reactorIdx in activeReactors)
+        {
+            totalPercentage += reactors[reactorIdx].GetComponent<ReactorLogic>().fanCompletePercentage;
+
+            // If the reactor is charged
+            if (reactors[reactorIdx].GetComponent<ReactorLogic>().charged)
+            {
+                reactorNumCharged++;
+            }
         }
 
-        if (Msg) Debug.Log("Num complete reactors: " + numReactorsCompleted);
-        if (Msg) Debug.Log("Num reactors needed: " + numReactorsNeeded);
-        if (Msg) Debug.Log("Complete fraction: " + (float)numReactorsCompleted / numReactorsNeeded);
+        // TODO: Replace with animations
+        // Adjust colour of light depending on number of charged reactors
+        if (reactorNumCharged == numReactorsNeeded)
+        {
+            chargedLight.color = Color.green;
+        }
+        else if (reactorNumCharged > 0)
+        {
+            chargedLight.color = Color.yellow;
+        }
+        else
+        {
+            chargedLight.color = Color.red;
+        }
+
+        // Set the completion level
+        statInteract.SetTaskCompletion(totalPercentage / (numReactorsNeeded * 100f));
+
+        if (Msg) Debug.Log("Complete Percentage: " + (totalPercentage / numReactorsNeeded) + "%");
+    }
+
+    /// FUNCTION DESCRIPTION <summary>
+    /// Called when button is pressed. <br />
+    /// Check if the task is completed. <br />
+    /// </summary>
+    public void CheckIfComplete(BaseEventData data)
+    {
+        // If left mouse button was pressed
+        PointerEventData newData = (PointerEventData)data;
+        if (newData.button.Equals(PointerEventData.InputButton.Left))
+        {
+            numReactorsCompleted = 0;
+
+            // For every reactor in use
+            foreach (int reactorIdx in activeReactors)
+            {
+                // If the reactor is charged
+                if (reactors[reactorIdx].GetComponent<ReactorLogic>().charged)
+                {
+                    // Increase the number of reactors completed
+                    numReactorsCompleted++;
+                }
+            }
+
+            // Check if task is completed
+            if (numReactorsCompleted >= numReactorsNeeded)
+            {
+                statInteract.TaskCompleted();
+            }
+
+            if (Msg) Debug.Log("Num complete reactors: " + numReactorsCompleted);
+            if (Msg) Debug.Log("Num reactors needed: " + numReactorsNeeded);
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -192,10 +286,16 @@ public class IsotopeLogic : MonoBehaviour
         {
             if (Msg) Debug.Log("Reset Task");
 
-            // TODO: Reset chargetime and canspool is false
+            // For each reactor in use
+            foreach (int reactorIdx in activeReactors)
+            {
+                // Set to uncharged and time held to zero
+                reactors[reactorIdx].GetComponent<ReactorLogic>().charged = false;
+                reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld = 0f;
+            }
 
-            // Check for completion level after reset
-            CheckIfComplete();
+            // No reactors are completed
+            numReactorsCompleted = 0;
         }
     }
 }

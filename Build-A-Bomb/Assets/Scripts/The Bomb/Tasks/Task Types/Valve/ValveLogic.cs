@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ValveLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    readonly bool Msg = true;
 
     // Constant Values:
     const int maxPossibleDifficultly = 20000;
@@ -23,7 +23,9 @@ public class ValveLogic : MonoBehaviour
     // Runtime Variables:
     int valveResistanceTotal = minPossibleDifficultly;
     int valveResistancePassed = 0;
-    Vector2 lastMousePos;
+    Vector3 lastMouseWorldPos = Vector3.zero;
+    Vector2 lastMousePos = Vector2.zero;
+    Vector3 valvePos = Vector3.zero;
     bool holdingValve = false;
     Quaternion startingRotation;
     bool isSetup;
@@ -136,22 +138,46 @@ public class ValveLogic : MonoBehaviour
         // Get current mouse position
         Vector2 currentMousePos = Input.mousePosition;
 
+        // Get current mouse world position
+        Vector3 currentMouseWorldPos = Camera.main.ScreenToWorldPoint(currentMousePos);
+        currentMouseWorldPos.z = 0f;
+
+        // Get normalised vector of current and previous mouse position
+        Vector3 valveCurrentMouseVec = (currentMouseWorldPos - valvePos).normalized;
+        Vector3 valveLastMouseVec = (lastMouseWorldPos - valvePos).normalized;
+
         //Normalise mouse positions
         currentMousePos.x /= ((float)Screen.width * 0.01f);
         currentMousePos.y /= ((float)Screen.height * 0.01f);
         lastMousePos.x /= ((float)Screen.width * 0.01f);
         lastMousePos.y /= ((float)Screen.height * 0.01f);
 
-        // Calculate the difference in position
-        Vector2 mousePosDifference = currentMousePos - lastMousePos;
+        // Get cross product which points 90 degrees to the left of the vector towards last mouse pos
+        Vector3 crossProduct = Vector3.Cross(valveLastMouseVec, Vector3.back);
 
-        // Calculate mouse speed using magnitude of the position difference
-        float mouseSpeed = mousePosDifference.magnitude / Time.deltaTime;
+        // Use dot product to determine if the new mouse pos is in the ccw direction of the old one
+        float dotProduct = Vector3.Dot(crossProduct, valveCurrentMouseVec);
+
+        // Mouse speed is zero unless player is moving mouse in correct direction
+        float mouseSpeed = 0;
+        
+        // If the player is moving the mouse in the correct direction
+        if (dotProduct > 0)
+        {
+            // Calculate the difference in position
+            Vector2 mousePosDifference = currentMousePos - lastMousePos;
+
+            // Calculate mouse speed using magnitude of the position difference
+            mouseSpeed = mousePosDifference.magnitude / Time.deltaTime;
+        }
 
         if (Msg) Debug.Log("Mouse Speed is: " + mouseSpeed);
 
         // Set new previous mouse position
         lastMousePos = Input.mousePosition;
+
+        // Set new previous mouse world position
+        lastMouseWorldPos = currentMouseWorldPos;
 
         // Return the speed of the mouse
         return mouseSpeed;

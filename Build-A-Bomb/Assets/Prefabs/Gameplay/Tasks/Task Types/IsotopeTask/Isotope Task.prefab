@@ -2048,7 +2048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7783dc18d833e741add6cdaf5ce99bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHardestDifficulty: 4
+  currentHardestDifficulty: 6
   reactors:
   - {fileID: 3335336573994267314}
   - {fileID: 4363244078649161018}

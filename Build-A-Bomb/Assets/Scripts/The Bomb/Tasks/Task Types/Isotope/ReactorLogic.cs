@@ -50,6 +50,9 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // If we canSpool and we have clicked on the reactor
         if (canSpool)
         {
+            // (Added so player can hold click)
+            holdingReactor = Input.GetMouseButton(0);
+
             // If the player started holding the reactor, is holding left mouse and the pointer is over the reactor
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {

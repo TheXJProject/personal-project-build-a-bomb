@@ -22,6 +22,12 @@ public class TextLogic : MonoBehaviour
         keypadDisplay.text = startingMessage;
     }
 
+    private void OnEnable()
+    {
+        // Start with Default text whenever returning to task
+        DisplayDefault();
+    }
+
     /// FUNCTION DESCRIPTION<summary>
     /// Displays given number in the keypad display. <br />
     /// Parameter: The number to display.

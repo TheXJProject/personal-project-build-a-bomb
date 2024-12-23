@@ -156,7 +156,7 @@ public class BoltingLogic : MonoBehaviour
             // Sets difficulty level (the number of switches in this case)
             numBoltsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f) * multipleFactor;
 
-            // The number of switches cannot be zero
+            // The number of bolts cannot be zero
             numBoltsNeeded = Mathf.Max(numBoltsNeeded, (minPossibleDifficultly * multipleFactor));
 
             if (numBoltsNeeded % 2 == 0)

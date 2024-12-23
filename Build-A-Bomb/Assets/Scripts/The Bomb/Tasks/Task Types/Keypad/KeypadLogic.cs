@@ -18,6 +18,7 @@ public class KeypadLogic : MonoBehaviour
 
     // Initialise In Inspector:
     public TaskInteractStatus statInteract;
+    [SerializeField] GameObject TaskDisplay;
     [SerializeField] TextLogic display;
     [SerializeField] GameObject[] keys;
 
@@ -84,6 +85,30 @@ public class KeypadLogic : MonoBehaviour
     }
 
     /// FUNCTION DESCRIPTION<summary>
+    /// If the player right clicks out of the task, stop the coroutine.<br />
+    /// </summary>
+    void CoroutineCheck()
+    {
+        // If the TaskDisplay isn't active begin check
+        if (!TaskDisplay.activeSelf)
+        {
+            if (Msg) Debug.Log("TaskDisplay is " + TaskDisplay.activeSelf + ".");
+
+            // If the code sequence is being shown cancel it
+            if (myCoroutine != null)
+            {
+                // Stop showing code
+                StopCoroutine(myCoroutine);
+                myCoroutine = null;
+
+                // Apply reset
+                ResetPlayerSequence();
+                canClickKeys = true;
+            }
+        }
+    }
+
+    /// FUNCTION DESCRIPTION<summary>
     /// Coroutine that shows the code the player needs to enter.<br />
     /// </summary>
     IEnumerator ShowSequence()
@@ -93,13 +118,17 @@ public class KeypadLogic : MonoBehaviour
 
         float timeElapsed = 0f;
 
-        display.DisplayText("..Please");
+        // Only alter text if task can be seen
+        if (TaskDisplay.activeSelf) display.DisplayText("..Please");
 
         // Wait for set amount of time
         while (timeElapsed < (showTime * 1.5))
         {
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
+
+            // Check if corountine can continue
+            CoroutineCheck();
 
             // Wait for the next frame
             yield return null;
@@ -108,13 +137,16 @@ public class KeypadLogic : MonoBehaviour
         // reset timer
         timeElapsed = 0;
 
-        display.DisplayText("..Enter");
+        if (display.enabled) display.DisplayText("..Enter");
 
         // Wait for set amount of time
         while (timeElapsed < (showTime * 1.5))
         {
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
+
+            // Check if corountine can continue
+            CoroutineCheck();
 
             // Wait for the next frame
             yield return null;
@@ -126,11 +158,12 @@ public class KeypadLogic : MonoBehaviour
             timeElapsed = 0f;
 
             // Show element in code sequence
-            display.DisplayText(".. ", codeSequence[i]);
+            if (TaskDisplay.activeSelf) display.DisplayText(".. ", codeSequence[i]);
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {
-                keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime * 0.6f);
+                // Only show key if task can be seen
+                if (TaskDisplay.activeSelf) keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime * 0.6f);
             }
             else
             {
@@ -143,13 +176,16 @@ public class KeypadLogic : MonoBehaviour
                 // Increment the time elapsed and continue
                 timeElapsed += Time.deltaTime;
 
+                // Check if corountine can continue
+                CoroutineCheck();
+
                 // Wait for the next frame
                 yield return null;
             }
         }
 
         ResetPlayerSequence();
-        display.DisplayDefault();
+        if (TaskDisplay.activeSelf) display.DisplayDefault();
 
         // Allow the player to interact again
         canClickKeys = true;
@@ -320,7 +356,7 @@ public class KeypadLogic : MonoBehaviour
             // Sets difficulty level (the number of switches in this case)
             numOfPressesNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
-            // The number of switches cannot be zero
+            // The number of keys needed cannot be zero
             numOfPressesNeeded = Mathf.Max(numOfPressesNeeded, minPossibleDifficultly);
 
             SetupTask();

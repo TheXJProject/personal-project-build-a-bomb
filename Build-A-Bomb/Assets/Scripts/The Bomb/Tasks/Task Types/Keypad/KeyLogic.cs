@@ -21,6 +21,12 @@ public class KeyLogic : MonoBehaviour
         gameObject.GetComponent<Image>().color = Color.red;
     }
 
+    private void OnEnable()
+    {
+        // Flicker Keypad on start
+        ShowKey(onPressedTime);
+    }
+
     /// FUNCTION DESCRIPTION <summary>
     /// Called by the Key gameobject. Will show a keypad press. <br />
     /// </summary>

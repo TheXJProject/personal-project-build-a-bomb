@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class KeypadLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = true;
+    readonly bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 30;

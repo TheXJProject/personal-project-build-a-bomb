@@ -301,6 +301,9 @@ public class SwitchLogic : MonoBehaviour
                 {
                     s.GetComponent<SwitchFlick>().ResetSwitch();
                 }
+
+                // Set task completetion level
+                CheckSwitches();
             }
             else
             {

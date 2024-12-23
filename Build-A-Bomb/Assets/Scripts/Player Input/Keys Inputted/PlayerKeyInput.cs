@@ -5,31 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerKeyInput : MonoBehaviour
 {
-    // Singleton instance
-    public static PlayerKeyInput instance;
-
-    // Reference alphabet
-    public readonly string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-
-    // Event Actions for key presses
+    // Event Actions:
     public static event Action<int> onKeyPressed;
     public static event Action<int> onKeyReleased;
 
-    // Input actions reference
+    // Constant values:
+    public readonly string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+    // Static values:
+    public static PlayerKeyInput instance;
+
+    // Initialise In Inspector:
     public PlayerInputActions playerControls;
 
-    // Arrays for tracking the keys the player uses
+    // Runtime Variables:
     public InputAction[] keys = new InputAction[26];
     public int[] keysDown = new int[26];
     public int[] keysInUse = new int[26];
-
-    // Miscellaneous variables
     System.Random rnd = new System.Random();
-    public int whileLoopLimit = 100;
 
     private void Awake()
     {
-        if (instance == null) // Instantiate singleton instance
+        // Instantiate singleton instance
+        if (instance == null) 
         {
             instance = this;
             playerControls = new PlayerInputActions();
@@ -46,7 +44,8 @@ public class PlayerKeyInput : MonoBehaviour
         TaskStatus.onTaskFailed += RemoveKeysUsed;
         TaskStatus.onTaskCompleted += RemoveKeysUsed;
 
-        for (int i = 0; i < 26; i++) // Instantiate Input actions for all the keys
+        // Instantiate Input actions for all the keys
+        for (int i = 0; i < 26; i++) 
         {
             keys[i] = playerControls.FindAction(alphabet[i]);
             keys[i].Enable();
@@ -69,7 +68,10 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void KeyDown(InputAction.CallbackContext context) // Depending on key calling this function, sets that key to down (0)
+    /// <summary>
+    /// Depending on key calling this function, sets that key to down (1)
+    /// </summary>
+    void KeyDown(InputAction.CallbackContext context)
     {
         for (int i = 0; i < 26; i++)
         {
@@ -82,7 +84,11 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void KeyUp(InputAction.CallbackContext context) // Depending on key calling this function, sets that key to up (1)
+    /// <summary>
+    /// Depending on key calling this function, sets that key to up (0)
+    /// </summary>
+    /// <param name="context"></param>
+    void KeyUp(InputAction.CallbackContext context)
     {
         for (int i = 0; i < 26; i++)
         {
@@ -95,7 +101,10 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    void AddKeysUsed(GameObject task) // This function and the following function keep track of which keys are currently being used for tasks
+    /// <summary>
+    /// Keeps track of which keys are currently in use for tasks
+    /// </summary>
+    void AddKeysUsed(GameObject task)
     {
         foreach (var key in task.GetComponent<TaskStatus>().keys)
         {
@@ -103,6 +112,9 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Keeps track of which keys are currently NOT in use for tasks
+    /// </summary>
     void RemoveKeysUsed(GameObject task)
     {
         foreach (var key in task.GetComponent<TaskStatus>().keys)
@@ -111,7 +123,10 @@ public class PlayerKeyInput : MonoBehaviour
         }
     }
 
-    public List<int> DetermineFreeKeys(int keysRequired) // Returns a list of keys (between 0 and 25) which arn't currently being used for tasks and are unique (if possible)
+    /// <summary>
+    /// Returns a list of keys (between 0 and 25) by checking which arn't currently being used for tasks and if they are unique (if possible)
+    /// </summary>
+    public List<int> DetermineFreeKeys(int keysRequired) 
     {
         List<int> freeKeys = new List<int>();
         List<int> uniqueUnpressed = new List<int>();

@@ -5,24 +5,21 @@ using UnityEngine.UIElements;
 
 public class BombCameraLogic : MonoBehaviour
 {
-    // Initial layer to base scaling size on
+    // Inspector Adjustable Values:
+    public float sizeIncreaseFromLayer = 2; // The amount of space between edge of the first bomb layer and the top/bottom of the screen
+
+    // Initialise In Inspector:
     public GameObject bomb;
     public GameObject coreLayer;
     public GeneralCameraLogic cameraControl;
 
-    // Current information
+    // Runtime Variables:
     int currentLayer = 0;
     List<float> cameraSizes = new List<float>();
-
-    // Settable information for us to adjust camera settings
-    public float sizeIncreaseFromLayer = 2; // The amount that the camera is bigger than the first layer by above and below the task
-
-    // Information about camera sizes and amount to increase it by, taken from main bomb status script and other calculations made in Awake()
     float initialSize;
     float layerSizeIncrease;
     float layerSizeAcceleration;
     int totalNumOfLayers;
-
 
     private void Awake()
     {
@@ -59,7 +56,9 @@ public class BombCameraLogic : MonoBehaviour
         LayerButtonPress.onLayerButtonPressed -= ChangeFocusedLayer;
     }
 
-    // Needs to be called whenever the player changes the layer they are looking at 
+    /// <summary>
+    /// Should be called everytime the player changes the layer the camera is focusing on, it
+    /// </summary>
     void ChangeFocusedLayer(GameObject triggerLayer)
     {
         int layerToFocus = triggerLayer.GetComponent<LayerStatus>().layer;

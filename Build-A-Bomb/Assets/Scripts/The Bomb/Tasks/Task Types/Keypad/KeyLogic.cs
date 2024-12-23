@@ -23,8 +23,8 @@ public class KeyLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        // Flicker Keypad on start
-        ShowKey(onPressedTime);
+        // Key is red on start
+        gameObject.GetComponent<Image>().color = Color.red;
     }
 
     /// FUNCTION DESCRIPTION <summary>

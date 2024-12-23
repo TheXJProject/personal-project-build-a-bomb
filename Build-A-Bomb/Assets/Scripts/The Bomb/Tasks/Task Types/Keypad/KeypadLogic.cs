@@ -84,7 +84,7 @@ public class KeypadLogic : MonoBehaviour
         }
     }
 
-    /// FUNCTION DESCRIPTION<summary>
+    /// <summary>
     /// If the player right clicks out of the task, stop the coroutine.<br />
     /// </summary>
     void CoroutineCheck()
@@ -108,7 +108,7 @@ public class KeypadLogic : MonoBehaviour
         }
     }
 
-    /// FUNCTION DESCRIPTION<summary>
+    /// <summary>
     /// Coroutine that shows the code the player needs to enter.<br />
     /// </summary>
     IEnumerator ShowSequence()
@@ -117,40 +117,6 @@ public class KeypadLogic : MonoBehaviour
         canClickKeys = false;
 
         float timeElapsed = 0f;
-
-        // Only alter text if task can be seen
-        if (TaskDisplay.activeSelf) display.DisplayText("..Please");
-
-        // Wait for set amount of time
-        while (timeElapsed < (showTime * 1.5))
-        {
-            // Increment the time elapsed and continue
-            timeElapsed += Time.deltaTime;
-
-            // Check if corountine can continue
-            CoroutineCheck();
-
-            // Wait for the next frame
-            yield return null;
-        }
-
-        // reset timer
-        timeElapsed = 0;
-
-        if (display.enabled) display.DisplayText("..Enter");
-
-        // Wait for set amount of time
-        while (timeElapsed < (showTime * 1.5))
-        {
-            // Increment the time elapsed and continue
-            timeElapsed += Time.deltaTime;
-
-            // Check if corountine can continue
-            CoroutineCheck();
-
-            // Wait for the next frame
-            yield return null;
-        }
 
         // For each number in the code sequence, show it in order
         for (int i = 0; i < codeSequence.Count; i++)

@@ -42,13 +42,13 @@ public class TaskFade : MonoBehaviour
         }
     }
 
-    void ToggleFadeOrder(GameObject task) // task is sorted to appear in front or behind the task depending on whether it is being solved
+    void ToggleFadeOrder(GameObject task) // Fade is sorted to appear in front or behind the task depending on whether it is being solved
     {
         if (task.GetComponent<TaskStatus>().isBeingSolved)
         {
             canvas.sortingOrder = backOrder;
         }
-        else if (task.GetComponent<TaskStatus>().isBeingSolved == false)
+        else if (!task.GetComponent<TaskStatus>().isBeingSolved && task.GetComponent<TaskStatus>().isSelected)
         {
             canvas.sortingOrder = frontOrder;
         }

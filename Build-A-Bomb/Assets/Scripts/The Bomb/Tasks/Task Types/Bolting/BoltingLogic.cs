@@ -6,7 +6,7 @@ using System;
 public class BoltingLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 15;

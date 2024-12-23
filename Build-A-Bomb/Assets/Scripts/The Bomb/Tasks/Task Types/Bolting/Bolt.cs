@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Bolt : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
     public float boltTime = 1;

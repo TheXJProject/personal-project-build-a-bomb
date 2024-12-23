@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;

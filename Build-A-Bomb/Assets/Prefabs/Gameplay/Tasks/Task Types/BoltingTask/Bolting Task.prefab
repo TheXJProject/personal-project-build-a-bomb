@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14222d0142f955b4f9d95a2b0c2f33e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   currentHardestDifficulty: 15
   variation1: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
   variation2: {fileID: 5985467074216699917, guid: 8c94b25d5d2bbda42b2a171af92513ab, type: 3}

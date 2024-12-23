@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class IsotopeLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 6;

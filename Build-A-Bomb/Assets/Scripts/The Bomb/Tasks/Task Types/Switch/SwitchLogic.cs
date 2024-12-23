@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class SwitchLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 60;

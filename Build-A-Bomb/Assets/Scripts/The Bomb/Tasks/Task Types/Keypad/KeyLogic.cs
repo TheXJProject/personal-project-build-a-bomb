@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class KeyLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
     public float onPressedTime = 1;

@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class HammerTask : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Constant Values:
     const int maxPossibleDifficultly = 150;

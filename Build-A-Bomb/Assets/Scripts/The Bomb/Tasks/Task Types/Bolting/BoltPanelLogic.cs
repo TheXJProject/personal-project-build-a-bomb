@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class BoltPanelLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Initialise In Inspector:
     [SerializeField] GameObject panel;

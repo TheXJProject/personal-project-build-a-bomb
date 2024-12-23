@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SwitchFlick : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Runtime Variables:
     [HideInInspector] public bool flicked = false;

@@ -14,7 +14,7 @@ public class PanelInfo
 public class BoltingVarInfoAndSetup : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Initialise In Inspector:
     public PanelInfo[] panels;

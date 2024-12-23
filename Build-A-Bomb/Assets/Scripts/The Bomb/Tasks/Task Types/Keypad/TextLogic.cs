@@ -6,7 +6,7 @@ using TMPro;
 public class TextLogic : MonoBehaviour
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
     public string startingMessage = "Hi :)";

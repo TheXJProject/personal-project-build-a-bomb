@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class MousePositionLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // ==== For Debugging ====
-    readonly bool Msg = false;
+    [SerializeField] bool Msg = false;
 
     // Runtime Variables:
     [HideInInspector] public bool isMouseOver = false;

@@ -5,27 +5,18 @@ using UnityEngine;
 
 public class LayerStatus : MonoBehaviour
 {
-    // Layer Event Actions
+    // Event Actions:
     public static event Action<GameObject> onLayerCompleted;
     public static event Action<GameObject> onTaskCreated;
     public static event Action<GameObject> onLayerSelected;
     public static event Action<GameObject> onLayerUnSelected;
 
-    // To be adjusted as seen fit
+    // Inspector Adjustable Values:
     public int minNoOfTasksSpawned = 4;
     public int maxNoOfTasksSpawned = 4;
     public List<GameObject> typeOfTasks;
     public List<int> taskMinDifficulty;
     public List<int> taskMaxDifficulty;
-
-    // Stats of the layer
-    public bool isSelected = false; // Whether it is the layer the player has currently got selected
-    public bool isCompleted = false;
-    public bool isGoingWrong = false; // Contains a task that is going wrong
-    public bool isBeingSolved = false; // Contains a task that is being solved by the player
-    public bool isBeingFocused = false; // Contains the task that is currently dispayed and being solved by the player
-
-    // To be set when spawned (values given below are the default values)
     public int layer;
     public int noOfKeysPerTask = 1;
     public float layerMinRadius = 1f;
@@ -35,7 +26,12 @@ public class LayerStatus : MonoBehaviour
     public float taskColliderRadius = 0.8f;
     public List<GameObject> tasks = new List<GameObject>();
 
-    // Other variables for miscellaneous purposes
+    // Runtime Variables:
+    public bool isSelected = false; // Whether it is the layer the player has currently got selected
+    public bool isCompleted = false;
+    public bool isGoingWrong = false; // Contains a task that is going wrong
+    public bool isBeingSolved = false; // Contains a task that is being solved by the player
+    public bool isBeingFocused = false; // Contains the task that is currently dispayed and being solved by the player
     System.Random rnd = new System.Random();
     public int infiniteLoopPrevention = 100;
 
@@ -57,38 +53,62 @@ public class LayerStatus : MonoBehaviour
         LayerButtonPress.onLayerButtonPressed -= SetCurrentLayer;
     }
 
-    void SpawnTask(Vector2 spawnPos) // Spawns in one tasks using a Vector2
+    /// <summary>
+    /// Spawns in one tasks using a Vector2 spawn position
+    /// </summary>
+    void SpawnTask(Vector2 spawnPos)
     {
+        // Gets a random task types out of those available for that layer level
         int i = rnd.Next(typeOfTasks.Count);
+
+        // Instantiates a new task
         GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
+
+        // Sets the percentage difficulty to a random value between the min and max percentage difficulty for that task type on this layer
         task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i] + 1)) / 100f;
+
+        // Sets the task's assigned layer number
         task.GetComponent<TaskStatus>().taskLayer = layer;
+
+        // Tasks only spawn when the player advances to next level, so they spawn in on the current layer
         task.GetComponent<TaskStatus>().isOnCurrentLayer = true;
+
+        // Set the tasks size assigned 
         task.transform.localScale = new Vector2(taskSize, taskSize);
         tasks.Add(task);
         onTaskCreated?.Invoke(task);
     }
 
-    Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius) // Gets the next tasks spawn position based on the sizings of the current layer
+    /// <summary>
+    /// Gets the next task's spawn position based on the sizings of the current layer
+    /// </summary>
+    Vector2 GetTaskSpawnPos(float layerMinRadius, float layerMaxRadius,  float taskRadius) 
     {
         bool tasksOverlap;
         bool taskWithinInner;
         int count = 0;
         Vector2 newLocation;
+        // Do while a suitable spawn position hasn't been found (or it took too long, if so, choose a position that isn't within the centre spawn area)
         do
         {
             count++;
+
+            // Find a new location within the area of the layers radius
             newLocation = UnityEngine.Random.insideUnitCircle * (layerMaxRadius - taskRadius);
             tasksOverlap = false;
             taskWithinInner = false;
-            if (Vector2.Distance(newLocation, Vector2.zero) <= (layerMinRadius + taskRadius)) // Determines if the task would spawn on top of the previous layers (the inner circle)
+
+            // Determine if the task would spawn on top of the previous layers (the inner circle)
+            if (Vector2.Distance(newLocation, Vector2.zero) <= (layerMinRadius + taskRadius)) 
             {
                 taskWithinInner = true;
                 continue;
             }
+
+            // Determine if the task would overlap with any existing tasks
             foreach (var task in tasks)
             {
-                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius)) // Determines if the task would overlap with any existing tasks
+                if (Vector2.Distance(newLocation, task.transform.position) <= (2 * taskRadius)) 
                 {
                     tasksOverlap = true;
                     break;
@@ -100,6 +120,9 @@ public class LayerStatus : MonoBehaviour
         return newLocation;
     }
 
+    /// <summary>
+    /// Spawn all the tasks of a layer into the game using the function to get the next task spawn position
+    /// </summary>
     void SpawnAllTasks(GameObject triggerLayer)
     {
         int spawningLayer = triggerLayer.GetComponent<LayerStatus>().layer;
@@ -112,7 +135,11 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    void SetTaskKeys(GameObject task) // The keys for a task are decided when a player clicks onto a task
+    /// <summary>
+    /// Function that decides the keys for a task. should be used when a player clicks on a task
+    /// </summary>
+    /// <param name="task"></param>
+    void SetTaskKeys(GameObject task)
     {
         TaskStatus status = task.GetComponent<TaskStatus>();
         if (!status.isBeingSolved && status.taskLayer == layer)
@@ -122,7 +149,11 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    public bool IsLayerCompleted() // Loops through overy task in the layer and returns true if they are all completed
+    /// <summary>
+    /// Loops through overy task in the layer and returns true if they are all completed
+    /// </summary>
+    /// <returns></returns>
+    public bool IsLayerCompleted() 
     {
         foreach (var task in tasks)
         {
@@ -134,7 +165,10 @@ public class LayerStatus : MonoBehaviour
         return true;
     }
 
-    void LayerCompleted(GameObject triggerTask) // Called whenever a task is completed
+    /// <summary>
+    /// Called whenever a task is completed to check whether the layer is completed
+    /// </summary>
+    void LayerCompleted(GameObject triggerTask)
     {
         if (IsLayerCompleted())
         {
@@ -143,7 +177,10 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
-    public bool ContainsTaskGoneWrong() // Loops through overy task in the layer and sets status of the layer to if it is going wrong
+    /// <summary>
+    /// Loops through every task in the layer and sets status of the layer accordingly if it is going wrong
+    /// </summary>
+    public bool ContainsTaskGoneWrong()
     {
         bool taskGoneWrong = false;
         foreach (var task in tasks)
@@ -157,6 +194,9 @@ public class LayerStatus : MonoBehaviour
         return taskGoneWrong;
     }
 
+    /// <summary>
+    /// Loops through every task in the layer and sets status of the layer accordingly if it contains a task currently being solved by the player
+    /// </summary>
     public bool ContainsTaskBeingSolved()
     {
         bool taskBeingSolved = false;
@@ -171,6 +211,9 @@ public class LayerStatus : MonoBehaviour
         return taskBeingSolved;
     }
 
+    /// <summary>
+    /// Loops through every task in the layer and sets status of the layer accordingly if it containts a task that the player has focused
+    /// </summary>
     public bool ContainsTaskBeingFocused()
     {
         bool taskBeingFocused = false;
@@ -185,6 +228,9 @@ public class LayerStatus : MonoBehaviour
         return taskBeingFocused;
     }
 
+    /// <summary>
+    /// Loops through every task in the layer and finds every valid task which isn't already going wrong, returning one of them at random
+    /// </summary>
     GameObject FindTaskToGoWrong()
     {
         List<GameObject> validTasks = new List<GameObject>();
@@ -199,6 +245,9 @@ public class LayerStatus : MonoBehaviour
         else { return null; }
     }
 
+    /// <summary>
+    /// Called when a new layer needs to be set as the current layer, checks if it is the current layer, and sets its tasks accordingly
+    /// </summary>
     void SetCurrentLayer(GameObject triggerLayer)
     {
         if (triggerLayer == gameObject)

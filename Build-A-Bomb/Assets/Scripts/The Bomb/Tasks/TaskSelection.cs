@@ -5,10 +5,12 @@ using UnityEngine.InputSystem;
 
 public class TaskSelection : MonoBehaviour
 {
-    public PlayerInputActions playerControls;
-
+    // Inspector Adjustable Values:
     InputAction rightMouseDown;
     TaskStatus task;
+
+    // Runtime Variables
+    public PlayerInputActions playerControls;
 
     private void Awake()
     {
@@ -28,19 +30,27 @@ public class TaskSelection : MonoBehaviour
         LayerButtonPress.onLayerButtonPressed -= PressLayerButtonDeselect;
         rightMouseDown.Disable();
     }
+
     private void OnMouseDown()
     {
+        // Selects a task when it is clicked
         if (task.isOnCurrentLayer)
         {
             task.TaskSelected();
         }
     }
 
+    /// <summary>
+    /// Called when right click is pressed, deselects the task
+    /// </summary>
     private void RightClickDeselect(InputAction.CallbackContext context)
     {
         task.TaskDeselected();
     }
 
+    /// <summary>
+    /// Called when a layer button is pressed, deselects the task
+    /// </summary>
     private void PressLayerButtonDeselect(GameObject triggerLayer)
     {
         task.TaskDeselected();

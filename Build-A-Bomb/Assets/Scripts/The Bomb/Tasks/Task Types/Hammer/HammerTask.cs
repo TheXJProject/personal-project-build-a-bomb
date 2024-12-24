@@ -46,7 +46,7 @@ public class HammerTask : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    /// FUNCTION DESCRIPTION <summary>
+    /// <summary>
     /// Called by Nail Head gameobject. When the player <br />
     /// clicks on the Nail Head the remaining number of <br />
     /// times the player needs to click is reduced by one.
@@ -79,7 +79,7 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    /// FUNCTION DESCRIPTION <summary>
+    /// <summary>
     /// Called by SetDifficulty method only! <br />
     /// Starts required setup for the task. <br />
     /// </summary>
@@ -97,7 +97,7 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    /// FUNCTION DESCRIPTION <summary>
+    /// <summary>
     /// Called by onTaskDifficultySet event only! <br />
     /// Retrieves a difficult setting and applies it to this task <br />
     /// instance. Then calls for the task to be setup.
@@ -122,7 +122,7 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    /// FUNCTION DESCRIPTION <summary>
+    /// <summary>
     /// Called by onTaskFailed event only! <br />
     /// Resets the task back to its state just after SetupTask <br />
     /// has been called.

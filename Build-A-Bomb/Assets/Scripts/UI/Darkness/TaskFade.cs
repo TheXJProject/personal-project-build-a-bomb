@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class TaskFade : MonoBehaviour
 {
+    // Initialise In Inspector:
     public int frontOrder = 10, backOrder = 2;
+
+    // Runtime Variables:
     Canvas canvas;
     private void Awake()
     {
@@ -30,7 +33,10 @@ public class TaskFade : MonoBehaviour
         TaskStatus.onTaskCompleted -= ToggleFade;
     }
 
-    void ToggleFade(GameObject task) // Fade is toggled on or off depending on wheterh the task is selected or deselected
+    /// <summary>
+    /// Fade is toggled on or off depending on whether the task is selected or (deselected or solved)
+    /// </summary>
+    void ToggleFade(GameObject task)
     {
         if (task.GetComponent<TaskStatus>().isSelected)
         {
@@ -42,7 +48,11 @@ public class TaskFade : MonoBehaviour
         }
     }
 
-    void ToggleFadeOrder(GameObject task) // Fade is sorted to appear in front or behind the task depending on whether it is being solved
+    /// <summary>
+    /// Fade is sorted to appear in front or behind the task depending on whether it is being solved.  <br/>
+    /// (If the task is being solved but isn't selected, then it shouldn't affect the fade, and so doesn't do anything)
+    /// </summary>
+    void ToggleFadeOrder(GameObject task)
     {
         if (task.GetComponent<TaskStatus>().isBeingSolved)
         {

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TaskStatus : MonoBehaviour
 {
-    // Events from this class
+    // Event Actions:
     public static event Action<GameObject> onTaskSelected;
     public static event Action<GameObject> onTaskDeSelected;
     public static event Action<GameObject> onTaskBegan;
@@ -14,7 +14,7 @@ public class TaskStatus : MonoBehaviour
     public static event Action<GameObject> onTaskCompleted;
     public static event Action<GameObject> onTaskGoneWrong;
 
-    // Shared between all tasks
+    // Static values:
     public static bool AnyTaskFocused;
     public static bool AnyTaskBeingSolved;
 
@@ -25,8 +25,6 @@ public class TaskStatus : MonoBehaviour
     public bool isGoingWrong = false;
     public bool isOnCurrentLayer = false;
     public float taskCompletion = 0f;
-
-    // To be set during or after the tasks creation to affect gameplay of task 
     public List<int> keys = new List<int>(); // letters of the alphabet are assigned between 0 and 25 for A to Z
     public int taskLayer;
     public float difficulty;
@@ -43,6 +41,9 @@ public class TaskStatus : MonoBehaviour
         PlayerKeyInput.onKeyReleased -= CheckKeysReleased;
     }
 
+    /// <summary>
+    /// Sets the keys of a task to the keys given as a parameter
+    /// </summary>
     public void SetKeysRequired(List<int> newKeys) 
     {
         keys.Clear();
@@ -54,7 +55,10 @@ public class TaskStatus : MonoBehaviour
         }
     }
 
-    public bool TaskSelected() // Called when the task is selected and correctly sets the status of the task
+    /// <summary>
+    /// Called when the task is selected and correctly sets the status of the task
+    /// </summary>
+    public bool TaskSelected()
     {
         if (AnyTaskFocused || isSolved) return false;
 
@@ -65,7 +69,10 @@ public class TaskStatus : MonoBehaviour
         return true;
     }
 
-    public bool TaskDeselected() // Called when the task is deselected and correctly sets the status of the task
+    /// <summary>
+    /// Called when the task is deselected and correctly sets the status of the task
+    /// </summary>
+    public bool TaskDeselected()
     {
         if (!isSelected) return false;
 
@@ -76,7 +83,10 @@ public class TaskStatus : MonoBehaviour
         return true;
     }
 
-    public void TaskCompleted() // Called when the task is completed and correctly sets the status of the task
+    /// <summary>
+    /// Called when the task is completed and correctly sets the status of the task
+    /// </summary>
+    public void TaskCompleted() 
     {
         AnyTaskFocused = false;
 
@@ -89,7 +99,10 @@ public class TaskStatus : MonoBehaviour
         onTaskCompleted?.Invoke(gameObject);
     }
 
-    public void TaskGoneWrong() // Called when the task has gone wrong and correctly sets the status of the task
+    /// <summary>
+    /// Called when the task has gone wrong and correctly sets the status of the task
+    /// </summary>
+    public void TaskGoneWrong() 
     {
         isSolved = false;
         isGoingWrong = true;
@@ -97,7 +110,10 @@ public class TaskStatus : MonoBehaviour
         onTaskGoneWrong?.Invoke(gameObject);
     }
 
-    public void CheckKeysHeld(int keyJustPressed) // Checks that the keys for this task are all being held and is called whenever a key is pressed
+    /// <summary>
+    /// Checks that the keys for this task are all being held and is called whenever a key is pressed
+    /// </summary>
+    public void CheckKeysHeld(int keyJustPressed)
     {
         if (isSelected)
         {
@@ -110,7 +126,10 @@ public class TaskStatus : MonoBehaviour
         }
     }
 
-    public void CheckKeysReleased(int keyJustReleased) // Checks if any of the keys for this task have been released and is called whenever a key is released
+    /// <summary>
+    /// Checks if any of the keys for this task have been released and is called whenever a key is released
+    /// </summary>
+    public void CheckKeysReleased(int keyJustReleased)
     {
         if (isBeingSolved)
         {

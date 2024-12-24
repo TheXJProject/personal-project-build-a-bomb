@@ -133,11 +133,15 @@ public class PlayerKeyInput : MonoBehaviour
         int newKey;
         bool isUnique;
 
+        // While loop goes until it has the number of keys the function is required to return in a list
         while (freeKeys.Count < keysRequired)
         {
+            // For each letter in the alphabet
             for (global::System.Int32 i = 0; i < 26; i++)
             {
                 isUnique = true;
+
+                // If the letter is already in keys, then assign it to not being unique
                 foreach (var item in freeKeys)
                 {
                     if (item == i)
@@ -146,14 +150,19 @@ public class PlayerKeyInput : MonoBehaviour
                         break;
                     }
                 }
+
+                // If the letter isn't being pressed and is unique to every letter already in the list, then add it to the list
                 if (keysInUse[i] == 0 && isUnique)
                 {
                     uniqueUnpressed.Add(i);
                 }
             }
+
+            // Now that all the unique and unpresed keys are in a list, we generate a random key from one of these
             if (uniqueUnpressed.Count > 0) { newKey = uniqueUnpressed[rnd.Next(uniqueUnpressed.Count)]; }
             else 
-            { 
+            {
+                // Or just generate a random key if there doesn't exist any unpressed unique keys in uniqueUnpressed
                 newKey = rnd.Next(26);
                 Debug.LogWarning("All 26 keys are in use you flippin idiot");
             }

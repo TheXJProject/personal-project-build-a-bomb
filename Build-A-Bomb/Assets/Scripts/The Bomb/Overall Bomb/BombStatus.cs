@@ -7,14 +7,14 @@ public class BombStatus : MonoBehaviour
 {
     // Bomb event actions
     public static event Action onBombFinished;
-    public static event Action<GameObject> onLayerCreated; 
+    public static event Action<GameObject> onLayerCreated;
 
-    // To be adjusted as seen fit
+    // Inspector Adjustable Values:
     public List<GameObject> layersToBeSpawned = new List<GameObject>();
     public float layerSizeAcceleration = 3f;
     public float taskSizeDeceleration = 0.1f;
 
-    // Current information
+    // Runtime Variables
     public float layerSizeIncrease = 3f;
     float taskSizeDecrease = 0.85f;
     int sortingLayerDecrease = 1;
@@ -25,7 +25,8 @@ public class BombStatus : MonoBehaviour
 
     private void Awake()
     {
-        finalLayer = layersToBeSpawned.Count - 1; // Game is won if final layer is reached which is set to be the last layer in layersToBeSpawned
+        // Game is won if final layer is reached which is set to be the last layer in layersToBeSpawned
+        finalLayer = layersToBeSpawned.Count - 1; 
     }
 
     private void OnEnable()
@@ -40,30 +41,64 @@ public class BombStatus : MonoBehaviour
         LayerStatus.onLayerCompleted -= AttemptNextLayer;
     }
 
-    void SpawnCoreLayer() // Core layer is already set so not many programatic changes should be made to it
+    /// <summary>
+    /// Core layer is already set so not many programatic changes should be made to it
+    /// </summary>
+    void SpawnCoreLayer()
     {
+        // spawn the core layer
         GameObject coreLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
+
+        // Make the core layer selected
         coreLayer.GetComponent<LayerStatus>().isSelected = true;
+
+        // Set its layer number to the correct layer number (0 for core)
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
+
+        // Add it to the array of core layers
         layers.Add(coreLayer);
 
+        // Update variables
         currentLayer = 0;
         layersSpawned++;
 
+        // Signal a layer has been created and its settings set
         onLayerCreated?.Invoke(coreLayer);
     }
 
-    void SpawnNextLayer() // Whenever a new layer is spawned it is a different size to other layers so it needs to be programmatically adjusted accordingly
+    /// <summary>
+    /// Whenever a new layer is spawned it is a different size to other layers so it needs to be programmatically adjusted accordingly
+    /// </summary>
+    void SpawnNextLayer()
     {
+        // Spawn the next layer
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
+
+        // Make the layer selected
         nextLayer.GetComponent<LayerStatus>().isSelected = true;
+
+        // Set its layer number to the correct layer number
         nextLayer.GetComponent<LayerStatus>().layer = layersSpawned;
+
+        // Set the the radius of which the tasks cannot spawn within
         nextLayer.GetComponent<LayerStatus>().layerMinRadius *= layerSizeIncrease;
+
+        // Set the radius of the layer itself
         nextLayer.GetComponent<LayerStatus>().layerMaxRadius *= layerSizeIncrease;
+
+        // Set the value which increases the task size appropriately for the layer
         nextLayer.GetComponent<LayerStatus>().taskScaleUp *= layerSizeIncrease;
+
+        // Set the value which makes task appear smaller and smaller as each layer spawns
         nextLayer.GetComponent<LayerStatus>().taskSize *= taskSizeDecrease;
+
+        // Set the actual scale of the layer to the correct size
         nextLayer.transform.localScale *= layerSizeIncrease;
+
+        // Make sure the the layer is infront of the previous layers
         nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease;
+
+        // Add it to the array of core layers
         layers.Add(nextLayer);
 
         // Increases all the variables to increase sizeings by so that it is proportional for the next layer
@@ -74,11 +109,14 @@ public class BombStatus : MonoBehaviour
         sortingLayerDecrease++;
         layersSpawned++;
 
-        // Event action which is mainly used to indicate when all the pre-task setup is complete so that tasks can spawn with the required settings
+        // Signal a layer has been created and its settings set
         onLayerCreated?.Invoke(nextLayer);
     }
 
-    bool CheckAllLayersComplete() // Checks that every layer is set equal to isCompleted
+    /// <summary>
+    /// Checks that every layer is set equal to isCompleted
+    /// </summary>
+    bool CheckAllLayersComplete()
     {
         foreach (var layer in layers)
         {
@@ -90,7 +128,11 @@ public class BombStatus : MonoBehaviour
         return true;
     }
 
-    void AttemptNextLayer(GameObject triggerLayer) // Decision function which decides whether to create a new level or call victory - can be used for other layer dependant triggers
+    /// <summary>
+    /// Decision function which decides whether to create a new level or call victory <br/>
+    /// - Can write into this function to use it for other layer dependant triggers such as a an event happening when half the layers have spawned etc..
+    /// </summary>
+    void AttemptNextLayer(GameObject triggerLayer)
     {
         if (CheckAllLayersComplete())
         {

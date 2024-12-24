@@ -79,6 +79,19 @@ public class GeneralCameraLogic : MonoBehaviour
         //  - differenceCameraSize  -> the change in size from oldCameraSize to the new size (positive or negative depending on whether the camera is shrinking or growing)
         //  - timeSinceSet          -> the time in seconds since the camera changed size
         //  - transitionTime        -> the time it should take for a transition to be completed
-        return oldCameraSize + ((timeSinceSet / transitionTime) * differenceCameraSize);
+
+        // Set equation parameters
+        float a = oldCameraSize;
+        float b = (3 * differenceCameraSize) / (Mathf.Pow(transitionTime, 2));
+        float c = (-2 * differenceCameraSize) / (Mathf.Pow(transitionTime, 3));
+
+        // x is what changes
+        float x = timeSinceSet;
+
+        // Return value from new 3rd order equation
+        return a + b * Mathf.Pow(x, 2) + c * Mathf.Pow(x, 3);
+        
+        // Linear Original:
+        //return oldCameraSize + ((timeSinceSet / transitionTime) * differenceCameraSize);
     }
 }

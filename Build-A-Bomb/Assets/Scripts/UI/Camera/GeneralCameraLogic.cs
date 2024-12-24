@@ -23,13 +23,16 @@ public class GeneralCameraLogic : MonoBehaviour
         if (!showingCorrectLayer)
         {
             // Set the camera to what the current camera size should currently 
-            currentCameraSize = DetermineNewCameraSize();
-            gameObject.GetComponent<Camera>().orthographicSize = currentCameraSize;
-
+            if(timeSinceSet < transitionTime)
+            {
+                currentCameraSize = DetermineNewCameraSize();
+                gameObject.GetComponent<Camera>().orthographicSize = currentCameraSize;
+            }
             // Once the transition is finished
-            if (timeSinceSet > transitionTime)
+            else
             {
                 // Set the size of the camera to the exact size it should be, then set it to be showing the correct layer
+                currentCameraSize = newCameraSize;
                 gameObject.GetComponent<Camera>().orthographicSize = newCameraSize;
                 showingCorrectLayer = true;
             }

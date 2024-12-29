@@ -38,6 +38,7 @@ public class LayerStatus : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskSelected += SetTaskKeys;
+        TaskStatus.onTaskGoneWrong += SetGoneWrong;
         TaskStatus.onTaskCompleted += LayerCompleted;
         BombStatus.onLayerCreated += SpawnAllTasks;
         BombStatus.onLayerCreated += SetCurrentLayer;
@@ -47,6 +48,7 @@ public class LayerStatus : MonoBehaviour
     private void OnDisable()
     {
         TaskStatus.onTaskSelected -= SetTaskKeys;
+        TaskStatus.onTaskGoneWrong += SetGoneWrong;
         TaskStatus.onTaskCompleted -= LayerCompleted;
         BombStatus.onLayerCreated -= SpawnAllTasks;
         BombStatus.onLayerCreated -= SetCurrentLayer;
@@ -149,6 +151,14 @@ public class LayerStatus : MonoBehaviour
         }
     }
 
+    void SetGoneWrong(GameObject taskGoneWrong)
+    {
+        if (taskGoneWrong.GetComponent<TaskStatus>().taskLayer == layer)
+        {
+            isCompleted = false;
+        }
+    }
+
     /// <summary>
     /// Loops through overy task in the layer and returns true if they are all completed
     /// </summary>
@@ -188,6 +198,7 @@ public class LayerStatus : MonoBehaviour
             if (task.GetComponent<TaskStatus>().isGoingWrong)
             {
                 taskGoneWrong = true;
+                break;
             }
         }
         isGoingWrong = taskGoneWrong;
@@ -205,6 +216,7 @@ public class LayerStatus : MonoBehaviour
             if (task.GetComponent<TaskStatus>().isBeingSolved)
             {
                 taskBeingSolved = true;
+                break;
             }
         }
         isBeingSolved = taskBeingSolved;
@@ -222,6 +234,7 @@ public class LayerStatus : MonoBehaviour
             if (task.GetComponent<TaskStatus>().isSelected)
             {
                 taskBeingFocused = true;
+                break;
             }
         }
         isBeingFocused = taskBeingFocused;

@@ -9,7 +9,7 @@ public class CompletionVisualisation : MonoBehaviour
     [SerializeField] GameObject layerButton;
 
     // Set during runtime
-    [HideInInspector] public GameObject taskToVisualise;
+    public GameObject taskToVisualise;
 
     private void Update()
     {

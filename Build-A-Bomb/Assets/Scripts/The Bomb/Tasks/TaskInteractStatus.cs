@@ -15,12 +15,14 @@ public class TaskInteractStatus : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskFailed += TaskFailed;
+        TaskStatus.onTaskGoneWrong += TaskFailed;
         LayerStatus.onTaskCreated += SetTaskDifficulty;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskFailed -= TaskFailed;
+        TaskStatus.onTaskGoneWrong -= TaskFailed;
         LayerStatus.onTaskCreated -= SetTaskDifficulty;
     }
 

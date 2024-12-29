@@ -494,7 +494,6 @@ MonoBehaviour:
     m_Flags: 0
   keysDown: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   keysInUse: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  whileLoopLimit: 100
 --- !u!1 &442478352
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 442478353}
   - component: {fileID: 442478354}
+  - component: {fileID: 442478355}
   m_Layer: 0
   m_Name: The Bomb
   m_TagString: Untagged
@@ -552,8 +552,24 @@ MonoBehaviour:
   - {fileID: 6816818605743534807, guid: d7ac920ae638c1a4ebcb7e2ea4549c2e, type: 3}
   layerSizeAcceleration: 3
   taskSizeDeceleration: 0.1
+  layerToStartGoingWrong: 2
+  goneWrongController: {fileID: 442478355}
   layerSizeIncrease: 3
   layers: []
+--- !u!114 &442478355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442478352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3176313ca7ab7934ba38eeba9f0a44f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialIntervalTime: 5
+  layersToGoWrong: []
 --- !u!1 &449356587
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,10 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aca11530cee1145855db9d9bc17414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sizeIncreaseFromLayer: 0.5
   bomb: {fileID: 442478352}
   coreLayer: {fileID: 5776476794578718226, guid: 8bb1d57b25d449a45b50e1e277c2aa4e, type: 3}
   cameraControl: {fileID: 519420034}
-  sizeIncreaseFromLayer: 0.5
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

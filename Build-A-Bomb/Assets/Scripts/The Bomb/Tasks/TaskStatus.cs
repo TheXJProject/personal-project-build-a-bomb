@@ -19,6 +19,7 @@ public class TaskStatus : MonoBehaviour
     public static bool AnyTaskBeingSolved;
 
     // Current state of the task
+    public bool hasBeenSolved = false;
     public bool isSolved = false;
     public bool isBeingSolved = false;
     public bool isSelected = false;
@@ -97,6 +98,8 @@ public class TaskStatus : MonoBehaviour
         taskCompletion = 1f;
 
         onTaskCompleted?.Invoke(gameObject);
+        
+        hasBeenSolved = true;
     }
 
     /// <summary>
@@ -106,6 +109,7 @@ public class TaskStatus : MonoBehaviour
     {
         isSolved = false;
         isGoingWrong = true;
+        taskCompletion = 0f;
 
         onTaskGoneWrong?.Invoke(gameObject);
     }

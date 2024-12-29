@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BombStatus : MonoBehaviour
 {
-    // Bomb event actions
+    // Event actions:
     public static event Action onBombFinished;
     public static event Action<GameObject> onLayerCreated;
 
@@ -13,8 +13,12 @@ public class BombStatus : MonoBehaviour
     public List<GameObject> layersToBeSpawned = new List<GameObject>();
     public float layerSizeAcceleration = 3f;
     public float taskSizeDeceleration = 0.1f;
+    public int layerToStartGoingWrong = 2;
 
-    // Runtime Variables
+    // Initialise In Inspector:
+    [SerializeField] GoneWrongController goneWrongController;
+
+    // Runtime Variables:
     public float layerSizeIncrease = 3f;
     float taskSizeDecrease = 0.85f;
     int sortingLayerDecrease = 1;
@@ -55,7 +59,7 @@ public class BombStatus : MonoBehaviour
         // Set its layer number to the correct layer number (0 for core)
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
 
-        // Add it to the array of core layers
+        // Add it to the array of layers
         layers.Add(coreLayer);
 
         // Update variables
@@ -71,6 +75,9 @@ public class BombStatus : MonoBehaviour
     /// </summary>
     void SpawnNextLayer()
     {
+        // Add the previous layer to the goneWrongController so that it can use it to go wrong
+        goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
+
         // Spawn the next layer
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
 
@@ -136,12 +143,18 @@ public class BombStatus : MonoBehaviour
     {
         if (CheckAllLayersComplete())
         {
+            // If the layer that was just completed by the player was the final layer, signal the bomb is finished
             if (currentLayer == finalLayer)
             {
                 onBombFinished?.Invoke();
             }
             else
             {
+                // If the layer about to be spawned is the one where tasks start going wrong, then set it so
+                if (currentLayer+1 == layerToStartGoingWrong)
+                {
+                    goneWrongController.StartGoingWrong();
+                }
                 SpawnNextLayer();
             }
         }

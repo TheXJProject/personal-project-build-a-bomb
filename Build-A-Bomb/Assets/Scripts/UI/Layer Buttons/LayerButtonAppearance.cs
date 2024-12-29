@@ -22,7 +22,7 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskSelected += DetermineCorrectColour;
         TaskStatus.onTaskDeSelected += DetermineCorrectColour;
         TaskStatus.onTaskCompleted += DetermineCorrectColour;
-        // TODO: BOMBSTATUS.TASKGONEWRONG +=...
+        TaskStatus.onTaskGoneWrong += DetermineCorrectColour;
     }
     private void OnDisable()
     {
@@ -32,6 +32,7 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskSelected -= DetermineCorrectColour;
         TaskStatus.onTaskDeSelected -= DetermineCorrectColour;
         TaskStatus.onTaskCompleted -= DetermineCorrectColour;
+        TaskStatus.onTaskGoneWrong -= DetermineCorrectColour;
     }
 
     public void DetermineCorrectColour(GameObject trigger)
@@ -44,10 +45,13 @@ public class LayerButtonAppearance : MonoBehaviour
 
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingFocused() && trigger.tag.Equals("Task"))
         {
-            buttonIsFocused = true;
-            fill.SetActive(true);
-            fill.GetComponent<CompletionVisualisation>().taskToVisualise = trigger;
-            GetComponent<Image>().color = Color.blue;
+            if (correspondingLayer.GetComponent<LayerStatus>().layer == trigger.GetComponent<TaskStatus>().taskLayer)
+            {
+                buttonIsFocused = true;
+                fill.SetActive(true);
+                fill.GetComponent<CompletionVisualisation>().taskToVisualise = trigger;
+                GetComponent<Image>().color = Color.blue;
+            }
         }
         else if (correspondingLayer.GetComponent<LayerStatus>().isSelected)
         {

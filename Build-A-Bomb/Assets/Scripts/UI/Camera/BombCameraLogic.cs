@@ -29,6 +29,9 @@ public class BombCameraLogic : MonoBehaviour
         layerSizeAcceleration = bomb.GetComponent<BombStatus>().layerSizeAcceleration;
         totalNumOfLayers = bomb.GetComponent<BombStatus>().layersToBeSpawned.Count;
 
+        // Set layer acceleration info
+        cameraControl.layerAcceleration = layerSizeAcceleration;
+
         // Initial size of the camera is based on the initial layer size
         initialSize = sizeIncreaseFromLayer + (initialSize / 2);
         cameraSizes.Add(initialSize);

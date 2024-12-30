@@ -1,18 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GoneWrongController : MonoBehaviour
 {
+    // Inpector Adjustable Values:
+    [SerializeField] [Range(1,15)] int difficultyCurb; // Where difficultyCurb is c in equation, y = (-2 ^ (-cx)) + 1
+    [SerializeField] float initialIntervalTime = 20f;
+    [SerializeField] float finalIntervalTime = 7f;
+    [SerializeField] float intervalTimeVariation = 4f;
+    [SerializeField] float initialAmountFailing = 1f;
+    [SerializeField] float finalAmountFailing = 4f;
+
     // Initialise In Inspector:
-    [SerializeField] float initialIntervalTime = 5f;
+    [SerializeField] BombStatus bombStats;
 
     // Runtime Variables:
+    float currentIntervalTime;
+    float currentAmountFailing;
+    float intervalDiff;
+    float amountFailDiff;
+    float curbRes = 0f;
+    int currentLayer = 0;
+    int maxLayers;
     bool goingWrong = false;
     float timeSinceLastGoneWrong = 0f;
     System.Random rnd = new System.Random();
     [HideInInspector] public List<GameObject> tasksToGoWrong = new List<GameObject>();
     int numTasksGoingWrongNow = 0;
+
+    private void Awake()
+    {
+        maxLayers = bombStats.layersToBeSpawned.Count - (bombStats.layerToStartGoingWrong+1);
+        intervalDiff = finalIntervalTime - initialIntervalTime;
+        amountFailDiff = finalAmountFailing - initialAmountFailing;
+
+        float variance = (rnd.Next(-(int)(intervalTimeVariation * 10), (int)(intervalTimeVariation * 10))) / 10.0f;
+
+        currentIntervalTime = initialIntervalTime + variance;
+        currentAmountFailing = initialAmountFailing;
+    }
 
     private void OnEnable()
     {
@@ -34,10 +62,18 @@ public class GoneWrongController : MonoBehaviour
             timeSinceLastGoneWrong += Time.deltaTime;
 
             // So at every interval make tasks go wrong
-            if (timeSinceLastGoneWrong > initialIntervalTime)
+            if (timeSinceLastGoneWrong > currentIntervalTime)
             {
+                // Make the task(s) go wrong
                 MakeTasksGoWrong(HowManyTasksGoWrong());
+
+                // Reset variables for the next interval
                 timeSinceLastGoneWrong = 0f;
+
+                // Calculate variance of time intervals then the next time interval and number of tasks to go wrong
+                float variance = (rnd.Next(-(int)(intervalTimeVariation * 10), (int)(intervalTimeVariation * 10))) / 10.0f;
+                currentIntervalTime = initialIntervalTime + (intervalDiff * curbRes) - variance;
+                currentAmountFailing = initialAmountFailing + (amountFailDiff * curbRes);
             }
         }
     }
@@ -63,10 +99,18 @@ public class GoneWrongController : MonoBehaviour
         {
             tasksToGoWrong.Add(layerStats.tasks[i]);
         }
+
+        // Increase the difficulty per layer only once the bomb has started going wrong
+        if (goingWrong) 
+        {
+            ++currentLayer;
+            // Calculate difficulty between 0 and 1 based on y = (-2 ^ (-cx)) + 1, where c is the value used to control the shape of the curb
+            curbRes = -MathF.Pow(2.0f, -(difficultyCurb * ((float)currentLayer / maxLayers))) + 1.0f;
+        }
     }
 
     /// <summary>
-    /// 
+    /// Called whenever a task is completed, if that task is a task that was previously completed, then it went wrong but is now fixed
     /// </summary>
     public void CheckTasksGoingWrong(GameObject taskCompleted)
     {
@@ -81,8 +125,15 @@ public class GoneWrongController : MonoBehaviour
     /// </summary>
     int HowManyTasksGoWrong()
     {
-        // TODO: Make the number of tasks going wrong a better number
-        return 1;
+        // The value of the number of tasks to go wrong is a float, so calculate the probability that the value to use rounds up or down
+        int probPlusOne = (int)((currentAmountFailing - (int)currentAmountFailing) * 100.0f);
+        
+        // Set to add one to the value used if using that probability value
+        int plusOne = (rnd.Next(1, 100) < probPlusOne) ? 1 : 0;
+
+        // Return a number between1 and the current value rounded down (+ plusOne)
+        int returnVal = (rnd.Next(1, (int)currentAmountFailing) + plusOne);
+        return returnVal;
     }
 
     /// <summary>

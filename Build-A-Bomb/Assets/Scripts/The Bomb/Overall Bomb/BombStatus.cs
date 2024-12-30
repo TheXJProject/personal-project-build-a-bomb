@@ -151,11 +151,11 @@ public class BombStatus : MonoBehaviour
             else
             {
                 // If the layer about to be spawned is the one where tasks start going wrong, then set it so
-                if (currentLayer+1 == layerToStartGoingWrong)
+                SpawnNextLayer();
+                if (currentLayer == layerToStartGoingWrong)
                 {
                     goneWrongController.StartGoingWrong();
                 }
-                SpawnNextLayer();
             }
         }
     }

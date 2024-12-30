@@ -132,7 +132,8 @@ public class GoneWrongController : MonoBehaviour
         int plusOne = (rnd.Next(1, 100) < probPlusOne) ? 1 : 0;
 
         // Return a number between1 and the current value rounded down (+ plusOne)
-        int returnVal = (rnd.Next(1, (int)currentAmountFailing) + plusOne);
+        int returnVal = (rnd.Next(1, ((int)currentAmountFailing + 1 + plusOne)) );
+        Debug.Log(returnVal);
         return returnVal;
     }
 

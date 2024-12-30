@@ -1901,7 +1901,6 @@ MonoBehaviour:
     m_Flags: 0
   keysDown: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   keysInUse: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  whileLoopLimit: 100
 --- !u!1 &1837466633
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,7 +2542,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd78b06163ebd54690af31a6bcb2171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionTime: 0.3
+  Msg: 1
+  zoomInIncreaseToTime: 0.1
+  zoomInDecreaseAfterTime: 0.9
+  zoomOutIncreaseToTime: 0.1
+  zoomOutDecreaseAfterTime: 0.9
+  vFluc: 1
+  transitionTime: 1
+  layerAcceleration: 0
 --- !u!114 &2104656277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2556,10 +2562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aca11530cee1145855db9d9bc17414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sizeIncreaseFromLayer: 0.5
   bomb: {fileID: 2119053789}
   coreLayer: {fileID: 5776476794578718226, guid: 8bb1d57b25d449a45b50e1e277c2aa4e, type: 3}
   cameraControl: {fileID: 2104656276}
-  sizeIncreaseFromLayer: 0.5
 --- !u!81 &2104656278
 AudioListener:
   m_ObjectHideFlags: 0

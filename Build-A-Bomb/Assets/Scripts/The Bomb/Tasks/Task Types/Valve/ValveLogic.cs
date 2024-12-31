@@ -273,6 +273,9 @@ public class ValveLogic : MonoBehaviour
 
             valve.transform.rotation = startingRotation;
 
+            // Reset visual progress
+            ValveCompletenessCheck(0);
+
             // TODO: Reset any effects (like vibration)
         }
     }

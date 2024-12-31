@@ -2542,7 +2542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd78b06163ebd54690af31a6bcb2171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 1
+  Msg: 0
   zoomInIncreaseToTime: 0.1
   zoomInDecreaseAfterTime: 0.9
   zoomOutIncreaseToTime: 0.1
@@ -2697,6 +2697,8 @@ MonoBehaviour:
   - {fileID: 6816818605743534807, guid: d7ac920ae638c1a4ebcb7e2ea4549c2e, type: 3}
   layerSizeAcceleration: 3
   taskSizeDeceleration: 0.1
+  layerToStartGoingWrong: 2
+  goneWrongController: {fileID: 0}
   layerSizeIncrease: 3
   layers: []
 --- !u!1660057539 &9223372036854775807

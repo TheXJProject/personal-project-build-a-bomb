@@ -6,6 +6,7 @@ using UnityEngine;
 public class GoneWrongController : MonoBehaviour
 {
     // Inpector Adjustable Values:
+    [SerializeField] bool tasksGoWrong = true;
     [SerializeField] [Range(1,15)] int difficultyCurb; // Where difficultyCurb is c in equation, y = (-2 ^ (-cx)) + 1
     [SerializeField] float initialIntervalTime = 20f;
     [SerializeField] float finalIntervalTime = 7f;
@@ -65,7 +66,7 @@ public class GoneWrongController : MonoBehaviour
             if (timeSinceLastGoneWrong > currentIntervalTime)
             {
                 // Make the task(s) go wrong
-                MakeTasksGoWrong(HowManyTasksGoWrong());
+                if (tasksGoWrong) MakeTasksGoWrong(HowManyTasksGoWrong());
 
                 // Reset variables for the next interval
                 timeSinceLastGoneWrong = 0f;
@@ -128,12 +129,11 @@ public class GoneWrongController : MonoBehaviour
         // The value of the number of tasks to go wrong is a float, so calculate the probability that the value to use rounds up or down
         int probPlusOne = (int)((currentAmountFailing - (int)currentAmountFailing) * 100.0f);
         
-        // Set to add one to the value used if using that probability value
+        // Using the probability value, determine whether to increase the max value that the return val could be by one
         int plusOne = (rnd.Next(1, 100) < probPlusOne) ? 1 : 0;
 
         // Return a number between1 and the current value rounded down (+ plusOne)
-        int returnVal = (rnd.Next(1, ((int)currentAmountFailing + 1 + plusOne)) );
-        Debug.Log(returnVal);
+        int returnVal = (rnd.Next(1, ((int)currentAmountFailing + 1 + plusOne)));
         return returnVal;
     }
 

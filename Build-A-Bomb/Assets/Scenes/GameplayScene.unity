@@ -771,7 +771,7 @@ MonoBehaviour:
   zoomInDecreaseAfterTime: 0.9
   zoomOutIncreaseToTime: 0.1
   zoomOutDecreaseAfterTime: 0.9
-  vFluc: 0.000001
+  vFluc: 1
   transitionTime: 0.3
   layerAcceleration: 0
 --- !u!1 &830830286

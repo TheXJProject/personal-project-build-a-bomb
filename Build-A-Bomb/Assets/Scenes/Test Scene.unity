@@ -2650,6 +2650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119053790}
   - component: {fileID: 2119053791}
+  - component: {fileID: 2119053792}
   m_Layer: 0
   m_Name: The Bomb
   m_TagString: Untagged
@@ -2698,9 +2699,29 @@ MonoBehaviour:
   layerSizeAcceleration: 3
   taskSizeDeceleration: 0.1
   layerToStartGoingWrong: 2
-  goneWrongController: {fileID: 0}
+  goneWrongController: {fileID: 2119053792}
   layerSizeIncrease: 3
   layers: []
+--- !u!114 &2119053792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119053789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3176313ca7ab7934ba38eeba9f0a44f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficultyCurb: 1
+  initialIntervalTime: 20
+  finalIntervalTime: 7
+  intervalTimeVariation: 4
+  initialAmountFailing: 0
+  finalAmountFailing: 0
+  bombStats: {fileID: 2119053791}
+  tasksToGoWrong: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

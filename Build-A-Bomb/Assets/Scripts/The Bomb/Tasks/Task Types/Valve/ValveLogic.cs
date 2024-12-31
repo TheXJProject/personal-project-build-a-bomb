@@ -273,7 +273,7 @@ public class ValveLogic : MonoBehaviour
 
             valve.transform.rotation = startingRotation;
 
-            // Reset visual progress
+            // Reset visual progress with "0" mouse speed
             ValveCompletenessCheck(0);
 
             // TODO: Reset any effects (like vibration)

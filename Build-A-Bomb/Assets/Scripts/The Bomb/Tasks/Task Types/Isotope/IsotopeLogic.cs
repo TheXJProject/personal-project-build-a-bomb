@@ -296,6 +296,9 @@ public class IsotopeLogic : MonoBehaviour
 
             // No reactors are completed
             numReactorsCompleted = 0;
+
+            // Set the completion level to "0"
+            statInteract.SetTaskCompletion(0);
         }
     }
 }

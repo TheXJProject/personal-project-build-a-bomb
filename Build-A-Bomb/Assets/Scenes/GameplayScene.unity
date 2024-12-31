@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyCurb: 3
-  initialIntervalTime: 8
+  initialIntervalTime: 20
   finalIntervalTime: 7
   intervalTimeVariation: 4
   initialAmountFailing: 1
@@ -766,7 +766,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd78b06163ebd54690af31a6bcb2171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
+  zoomInIncreaseToTime: 0.1
+  zoomInDecreaseAfterTime: 0.9
+  zoomOutIncreaseToTime: 0.1
+  zoomOutDecreaseAfterTime: 0.9
+  vFluc: 0.000001
   transitionTime: 0.3
+  layerAcceleration: 0
 --- !u!1 &830830286
 GameObject:
   m_ObjectHideFlags: 0

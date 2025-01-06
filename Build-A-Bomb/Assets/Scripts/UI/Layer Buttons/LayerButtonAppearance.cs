@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class LayerButtonAppearance : MonoBehaviour
 {
     // Set up before running
-    [SerializeField] GameObject fill; // CONTINUE WORKING ON THIS, MAKE A VARIABLE THAT KNOWS WHETHER THE BUTTON IS BEING FOCUSED OR NOT SO IT KNOWS WHEN TO ENABLE OR DISABLE
-                     // THE FILL BAR, THEN HAVE IT PASS A GAMEOBJECT TO THE FILL BAR WHEN IT ACTIVATES IT, THE GAMEOBJECT IS THE TASK THAT IS BEING FOCUSED
-                     // FILL BAR THEN IS CODED TO CONSTANTLY DISPLAY FILL AMOUNT WHEN IT IS ACTIVE 
+    [SerializeField] GameObject fill;
 
     // Current information
     public GameObject correspondingLayer;

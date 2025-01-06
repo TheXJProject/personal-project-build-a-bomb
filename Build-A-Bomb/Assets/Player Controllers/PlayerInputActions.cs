@@ -31,7 +31,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""A"",
                     ""type"": ""Button"",
                     ""id"": ""efbeabe9-d575-41c0-b303-6c7808c10b68"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -559,7 +559,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""LeftClick"",
                     ""type"": ""Button"",
                     ""id"": ""8d891360-acd6-4d36-8200-194990b74b54"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -568,7 +568,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""RightClick"",
                     ""type"": ""Button"",
                     ""id"": ""48af3381-d2d8-461c-ac61-c49aba550368"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff1ae3158021494ca727eef4d2d0665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   currentHardestDifficulty: 60
   statInteract: {fileID: 9040844158566134540}
 --- !u!224 &6178418637545224869 stripped

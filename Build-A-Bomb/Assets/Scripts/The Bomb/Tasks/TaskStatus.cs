@@ -13,6 +13,7 @@ public class TaskStatus : MonoBehaviour
     public static event Action<GameObject> onTaskFailed;
     public static event Action<GameObject> onTaskCompleted;
     public static event Action<GameObject> onTaskGoneWrong;
+    public static event Action<GameObject> onKeyDecided;
 
     // Static values:
     public static bool AnyTaskFocused;
@@ -52,6 +53,7 @@ public class TaskStatus : MonoBehaviour
         foreach (var key in newKeys)
         {
             keys.Add(key);
+            onKeyDecided?.Invoke(gameObject);
             Debug.Log(PlayerKeyInput.instance.alphabet[key]);
         }
     }

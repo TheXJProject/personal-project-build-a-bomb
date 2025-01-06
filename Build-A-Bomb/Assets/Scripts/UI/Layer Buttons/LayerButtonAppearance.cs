@@ -21,6 +21,7 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskDeSelected += DetermineCorrectColour;
         TaskStatus.onTaskCompleted += DetermineCorrectColour;
         TaskStatus.onTaskGoneWrong += DetermineCorrectColour;
+        TaskStatus.onTaskFailed += DetermineCorrectColour;
     }
     private void OnDisable()
     {
@@ -31,6 +32,7 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskDeSelected -= DetermineCorrectColour;
         TaskStatus.onTaskCompleted -= DetermineCorrectColour;
         TaskStatus.onTaskGoneWrong -= DetermineCorrectColour;
+        TaskStatus.onTaskFailed += DetermineCorrectColour;
     }
 
     public void DetermineCorrectColour(GameObject trigger)

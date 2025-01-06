@@ -21,6 +21,7 @@ public class DeathTimer : MonoBehaviour
     bool timerRunning = false;
     int minutesLeft;
     int goinWrongNotBeinSolved = 0;
+    int goinWrongBeinSolved = 0;
     float secondsLeft;
     float currentTimerSpeed = 1.0f;
     Color originalCol;
@@ -84,8 +85,7 @@ public class DeathTimer : MonoBehaviour
     public void TrackGoingWrong(GameObject triggerTask)
     {
         ++goinWrongNotBeinSolved;
-        currentTimerSpeed = timerSpeedIncrease;
-        timerText.color = Color.red;
+        DetermineTimerAggression();
     }
     
     public void TrackGoingWrongFailed(GameObject triggerTask)
@@ -94,8 +94,7 @@ public class DeathTimer : MonoBehaviour
         if (taskStat.hasBeenSolved)
         {
             ++goinWrongNotBeinSolved;
-            currentTimerSpeed = timerSpeedIncrease;
-            timerText.color = Color.red;
+            DetermineTimerAggression();
         }
     }
 
@@ -104,12 +103,23 @@ public class DeathTimer : MonoBehaviour
         TaskStatus taskStat = triggerTask.GetComponent<TaskStatus>();
         if (taskStat.hasBeenSolved)
         {
-            --goinWrongNotBeinSolved;
-            if (goinWrongNotBeinSolved == 0)
-            {
-                currentTimerSpeed = 1.0f;
-                timerText.color = originalCol;
-            }
+            ++goinWrongBeinSolved;
+            DetermineTimerAggression();
+        }
+    }
+
+    void DetermineTimerAggression()
+    {
+        int result = goinWrongNotBeinSolved - goinWrongBeinSolved;
+        if (result > 0)
+        {
+            currentTimerSpeed = timerSpeedIncrease;
+            timerText.color = Color.red;
+        }
+        else
+        {
+            currentTimerSpeed = 1.0f;
+            timerText.color = originalCol;
         }
     }
 

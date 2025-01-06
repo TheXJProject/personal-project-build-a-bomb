@@ -14,6 +14,7 @@ public class BombStatus : MonoBehaviour
     public float layerSizeAcceleration = 3f;
     public float taskSizeDeceleration = 0.1f;
     public int layerToStartGoingWrong = 2;
+    public int layerToStartTimer = 0;
 
     // Initialise In Inspector:
     [SerializeField] GoneWrongController goneWrongController;

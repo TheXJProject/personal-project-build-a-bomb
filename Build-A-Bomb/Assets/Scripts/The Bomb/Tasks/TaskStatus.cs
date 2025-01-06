@@ -54,7 +54,6 @@ public class TaskStatus : MonoBehaviour
         {
             keys.Add(key);
             onKeyDecided?.Invoke(gameObject);
-            Debug.Log(PlayerKeyInput.instance.alphabet[key]);
         }
     }
 

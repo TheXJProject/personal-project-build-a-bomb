@@ -40,7 +40,7 @@ public class LivesTracker : MonoBehaviour
     public void loseLife(GameObject triggerTask)
     {
         if (livesLeft == 0) return;
-        lives[--livesLeft].GetComponent<Image>().color = Color.red;
+        lives[--livesLeft].GetComponent<Animator>().SetBool("blown", true);
         if (livesLeft == 0)
         {
             onNoLives?.Invoke();

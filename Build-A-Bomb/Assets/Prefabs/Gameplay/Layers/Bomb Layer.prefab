@@ -129,20 +129,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d968a9727ff3aac4f8f412358b7468e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noOfTasksSpawned: 3
+  minNoOfTasksSpawned: 4
+  maxNoOfTasksSpawned: 4
   typeOfTasks:
   - {fileID: 6219759464492310896, guid: cd5021b46a0e97b4d84d2be9896f203c, type: 3}
+  taskMinDifficulty: 
+  taskMaxDifficulty: 
+  layer: 0
+  noOfKeysPerTask: 1
+  layerMinRadius: 1
+  layerMaxRadius: 3
+  taskSize: 0.5
+  taskScaleUp: 1
+  taskColliderRadius: 0.8
+  tasks: []
   isSelected: 0
   isCompleted: 0
   isGoingWrong: 0
   isBeingSolved: 0
   isBeingFocused: 0
-  layer: 0
-  noOfKeysPerTask: 1
-  layerMinRadius: 1
-  layerMaxRadius: 3
-  taskSize: 0.4
-  taskScaleUp: 1
-  taskColliderRadius: 0.8
-  tasks: []
   infiniteLoopPrevention: 1000

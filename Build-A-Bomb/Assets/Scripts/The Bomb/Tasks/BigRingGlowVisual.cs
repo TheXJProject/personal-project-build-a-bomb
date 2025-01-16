@@ -74,13 +74,13 @@ public class BigRingGlowVisual : MonoBehaviour
 
     void DetermineNextFlicker()
     {
-        int minTime = (int)((flickerInterval - flickerIntervalRandomness) * 100f);
-        int maxTime = (int)((flickerInterval + flickerIntervalRandomness) * 100f);
-        int minSize = (int)(minFlickerHeight * 100);
-        int maxSize = (int)(maxFlickerHeight * 100);
+        int minTime = (int)((flickerInterval - flickerIntervalRandomness) * 1000f);
+        int maxTime = (int)((flickerInterval + flickerIntervalRandomness) * 1000f);
+        int minSize = (int)(minFlickerHeight * 1000);
+        int maxSize = (int)(maxFlickerHeight * 1000);
         secondsTillNextFlicker = rnd.Next(minTime, maxTime + 1);
         heightOfNextFlicker = rnd.Next(minSize, maxSize + 1);
-        secondsTillNextFlicker /= 100f;
-        heightOfNextFlicker /= 100f;
+        secondsTillNextFlicker /= 1000f;
+        heightOfNextFlicker /= 1000f;
     }
 }

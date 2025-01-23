@@ -487,42 +487,42 @@ MonoBehaviour:
     pitch: 0
     panning: 0
   sfxSourceList:
-  - soundName: 
-    audioSource: {fileID: 745183994}
+  - audioSource: {fileID: 745183994}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1299435467}
+  - audioSource: {fileID: 1299435467}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1593827799}
+  - audioSource: {fileID: 1593827799}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1043333985}
+  - audioSource: {fileID: 1043333985}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1763102208}
+  - audioSource: {fileID: 1763102208}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1955390059}
+  - audioSource: {fileID: 1955390059}
+    soundName: Empty
     soundIsSelected: 0
   musicSourceList:
-  - soundName: 
-    audioSource: {fileID: 902821552}
+  - audioSource: {fileID: 902821552}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1543782667}
+  - audioSource: {fileID: 1543782667}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1851865322}
+  - audioSource: {fileID: 1851865322}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1969897714}
+  - audioSource: {fileID: 1969897714}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1285328403}
+  - audioSource: {fileID: 1285328403}
+    soundName: Empty
     soundIsSelected: 0
-  - soundName: 
-    audioSource: {fileID: 1758151584}
+  - audioSource: {fileID: 1758151584}
+    soundName: Empty
     soundIsSelected: 0
 --- !u!4 &1021742949
 Transform:
@@ -2714,6 +2714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3176313ca7ab7934ba38eeba9f0a44f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tasksGoWrong: 0
   difficultyCurb: 1
   initialIntervalTime: 20
   finalIntervalTime: 7

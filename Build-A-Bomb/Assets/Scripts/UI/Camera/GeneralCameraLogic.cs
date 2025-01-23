@@ -28,16 +28,15 @@ public class GeneralCameraLogic : MonoBehaviour
     float currentSpeed = 0;
     float averageSpeed = 0;
     float travelledDifference = 0;
-    float t = 0;
-    float t0 = 0;
-    float t1 = 0;
-    float t2 = 0;
-    float h0 = 0;
-    float h1 = 0;
-    float h2 = 0;
-    float a0 = 0;
-    float a1 = 0;
-    float a2 = 0;
+    float t = 0;        // Current transition position 0 - 1
+
+    float t0 = 0;       // Time to complete first section
+    float t1 = 0;       // Time to complete second section
+    float t2 = 0;       // Time to complete third section
+
+    float h0 = 0;       // Camera speed when time is zero
+    float h1 = 0;       // Camera speed at first time point
+    float h2 = 0;       // Camera speed at second time point
 
     void Awake()
     {
@@ -121,6 +120,8 @@ public class GeneralCameraLogic : MonoBehaviour
     /// </summary>
     float DetermineNewCameraSize()
     {
+        // ============== OLD ==============
+
         // The camera transition previously determined the current camera size based on a linear transition.
         // Variables:
         //  - oldCameraSize         -> the size of the camera at the start of the transition
@@ -131,49 +132,43 @@ public class GeneralCameraLogic : MonoBehaviour
         // Linear Original:
         //return oldCameraSize + ((timeSinceSet / transitionTime) * differenceCameraSize);
 
-        // New Method:
+        // =========== NEW METHOD ==========
+        
         // The camera movement is seperated up into three sections - first - second - third.
-        // First: Accelerate camera movement to set average speed.
-        // Second: Hold camera at average speed with potential for fluctuations.
-        // Third: Decelerate camera to a speed of zero.
 
+        //  - First: Accelerate camera movement to set average speed.
+        //  - Second: Hold camera at average speed with potential for fluctuations.
+        //  - Third: Decelerate camera to a speed of zero.
+
+        // Get current transition position
         t = timeSinceSet / transitionTime;
 
         // If we are in the first third
         if (t < t0)
         {
             // Calculate current speed
-            currentSpeed = a0 * t + h0;
+            currentSpeed = (Mathf.Pow(t, 3) / Mathf.Pow(t0, 3)) * (h1 - h0) + h0;
 
             // Calculate area (difference/ distance travelled since oldCameraSize)
-            travelledDifference = 0.5f * (
-                                (h0 + currentSpeed) * t
-                                );
+            travelledDifference = (Mathf.Pow(t, 4) / (4 * Mathf.Pow(t0, 3))) * (h1 - h0) + h0 * t;
         }
         // If we are in the second third
         else if (t < (t0 + t1))
         {
             // Calculate current speed
-            currentSpeed = a1 * (t - t0) + h1;
+            currentSpeed = ((h2 - h1) / t1) * (t - t0) + h1;
 
             // Calculate area (difference/ distance travelled since oldCameraSize)
-            travelledDifference = 0.5f * (
-                                    (h0 + h1) * t0 +
-                                    (h1 + currentSpeed) * (t - t0)
-                                    );
+            travelledDifference = (t0 / 4) * (3 * h0 + h1) + 0.5f * (h1 + currentSpeed) * (t - t0);
         }
         // If we are in the final third
         else
         {
             // Calculate current speed
-            currentSpeed = a2 * (t - t0 - t1) + h2;
+            currentSpeed = (-h2 / Mathf.Pow(t2, 3)) * Mathf.Pow((t - 1), 3);
 
             // Calculate area (difference/ distance travelled since oldCameraSize)
-            travelledDifference = 0.5f * (
-                                    (h0 + h1) * t0 +
-                                    (h1 + h2) * t1 +
-                                    (h2 + currentSpeed) * (t - t0 - t1)
-                                    );
+            travelledDifference = (t0 / 4) * (3 * h0 + h1) + 0.5f * (h1 + h2) * t1 + (h2 / (4 * Mathf.Pow(t2, 3))) * (Mathf.Pow(t2, 4) - Mathf.Pow((t - 1), 4));
         }
 
         if (Msg) Debug.Log("Current Speed: " + currentSpeed);
@@ -228,19 +223,15 @@ public class GeneralCameraLogic : MonoBehaviour
             t2 = 1 - zoomInDecreaseAfterTime;
         }
 
-        // Set average speed of second third using equation
-        averageSpeed = (2 * differenceCameraSize - currentSpeed * t0) /
-                        (vFluc * t0 + (vFluc + 1 / vFluc) * t1 + (1 / vFluc) * t2);
-
-        // Set h0, h1 and h2 considering V
+        // Set h0
         h0 = currentSpeed;
+
+        // Set average speed of second third using equation
+        averageSpeed = (4 * differenceCameraSize - 3 * h0 * t0) / (vFluc * (t0 + 2 * t1) + (1 / vFluc) * (2 * t1 + t2));
+
+        // Set h1 and h2 from averageSpeed considering fluctuation
         h1 = averageSpeed * vFluc;
         h2 = averageSpeed / vFluc;
-
-        // Set acceleration for each section, a0, a1 and a2
-        a0 = (h1 - h0) / t0;
-        a1 = (h2 - h1) / t1;
-        a2 = (0 - h2) / t2;
 
         if (Msg) Debug.Log("Average Speed Set: " + averageSpeed);
     }

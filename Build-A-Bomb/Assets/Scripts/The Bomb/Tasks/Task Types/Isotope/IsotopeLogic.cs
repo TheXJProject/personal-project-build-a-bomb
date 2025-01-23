@@ -27,6 +27,7 @@ public class IsotopeLogic : MonoBehaviour
     int numReactorsCompleted = 0;
     List<int> activeReactors;
     bool reactorState = false;
+    float removedTime = 0;
     bool isSetup;
 
     private void Awake()
@@ -54,23 +55,42 @@ public class IsotopeLogic : MonoBehaviour
         // If we can complete the task set its completion level
         if (statInteract.isBeingSolved)
         {
-            // Set completion level
-            CompletionLevel();
-
-            // If the reactors are off, change them to on
-            if (!reactorState)
+            // If the task is not selected
+            if (!statInteract.task.isSelected)
             {
-                // Each reactor can now spool up
+                // Increase the time accululated
+                removedTime += Time.fixedDeltaTime;
+            }
+            else
+            {
+                // Remove accumulated time from reactors
                 foreach (int reactorIdx in activeReactors)
                 {
-                    reactors[reactorIdx].GetComponent<ReactorLogic>().canSpool = true;
+                    reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld = Mathf.Max(reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld - removedTime, 0f);
                 }
 
-                reactorState = true;
+                removedTime = 0;
+
+                // Set completion level
+                CompletionLevel();
+
+                // If the reactors are off, change them to on
+                if (!reactorState)
+                {
+                    // Each reactor can now spool up
+                    foreach (int reactorIdx in activeReactors)
+                    {
+                        reactors[reactorIdx].GetComponent<ReactorLogic>().canSpool = true;
+                    }
+
+                    reactorState = true;
+                }
             }
         }
         else
         {
+            removedTime = 0;
+
             chargedLight.color = Color.red;
 
             // If the reactors are on, turn them off

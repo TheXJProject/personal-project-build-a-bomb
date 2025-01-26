@@ -1078,13 +1078,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd78b06163ebd54690af31a6bcb2171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 0
-  zoomInIncreaseToTime: 0.4
-  zoomInDecreaseAfterTime: 0.6
-  zoomOutIncreaseToTime: 0.4
-  zoomOutDecreaseAfterTime: 0.6
-  vFluc: 1
-  transitionTime: 0.5
+  transitionTime: 2
+  cImpact: 4.8
+  dGradient: 8.8
+  fPeakPosition: 3.5
   layerAcceleration: 0
 --- !u!114 &519420035
 MonoBehaviour:

@@ -184,7 +184,7 @@ public class GeneralCameraLogic : MonoBehaviour
 
         // =========== MK3 METHOD ==========
 
-        // We use y = a sech(cx) + b sech(dx - f) - h, to calculate speed for x = t (time), {0 <= t <= 1}
+        // We use y = a sech(cx) + b sech(dx - f) - h, to calculate speed, for x = t (time) {0 <= t <= 1}
         // c, d, f are adjustable in the inspector. 
         // We use a set of equations to calculate values for a, b, h.
 

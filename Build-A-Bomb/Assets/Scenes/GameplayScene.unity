@@ -1078,11 +1078,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd78b06163ebd54690af31a6bcb2171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionTime: 2
+  adjustPosition: 0
+  sizeIncreaseFromLayer: 0
+  startingCameraLayer: 0
+  transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8
   fPeakPosition: 3.5
+  coreLayer: {fileID: 0}
   layerAcceleration: 0
+  finalCameraPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

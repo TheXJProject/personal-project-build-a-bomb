@@ -7,14 +7,29 @@ using System;
 public class GeneralCameraLogic : MonoBehaviour
 {
     // Inspector Adjustable Values:
+    [Header("(Turn on 'Adjust Position' only when used for the main menu)")]
+    public bool adjustPosition = false;
+
+    [Header("(When, and only when, 'Adjust Position' is true, 'Size Increase \nFrom Layer' and 'Starting Camera Layer' are used)")]
+    public float sizeIncreaseFromLayer = 2; // The amount of space between edge of the first bomb layer and the top/bottom of the screen
+    public int startingCameraLayer = 1;
+
+    [Header("")]
+    [Header("(All values below should be above zero)")]
+    [Header("")]
     public float transitionTime = 0.3f;
-    [Header("All values should be above zero.")]
+    
     [Header("Impact: How sharp the change should be at the start.")]
     [SerializeField] double cImpact = 0;
+    
     [Header("Gradient: How sharp the remaining gradients should be.")]
     [SerializeField] double dGradient = 0;
+    
     [Header("PeakPosition: The position of the peak speed.")]
     [SerializeField] double fPeakPosition = 0;
+
+    // Initialise In Inspector:
+    public GameObject coreLayer;
 
     // Runtime Variables:
     [HideInInspector] public float layerAcceleration = 0;
@@ -37,6 +52,29 @@ public class GeneralCameraLogic : MonoBehaviour
     double d = 0; // Used to simplify dGradient
     double f = 0; // Used to simplify fPeakPosition
 
+    Vector3 startCameraPosition;
+    Vector3 currentCameraPosition;
+    [HideInInspector] public Vector3 finalCameraPosition;
+
+    private void Start()
+    {
+        // If in menu, setup initialise variables manually
+        if (adjustPosition)
+        {
+            // Get information about the initial sizings
+            float initialSize = coreLayer.transform.GetChild(0).localScale.x;
+            // Initial size of the camera is based on the initial layer size
+            initialSize = sizeIncreaseFromLayer + (initialSize / 2);
+
+            InitialiseCameraSize(initialSize, startingCameraLayer);
+        }
+
+        // Get where the camera is starting
+        startCameraPosition = gameObject.GetComponent<Camera>().transform.position;
+        currentCameraPosition = gameObject.GetComponent<Camera>().transform.position;
+        finalCameraPosition = gameObject.GetComponent<Camera>().transform.position;
+    }
+
     void Update()
     {
         // If we are not showing the correct layer
@@ -47,6 +85,14 @@ public class GeneralCameraLogic : MonoBehaviour
             {
                 currentCameraSize = DetermineNewCameraSize();
                 gameObject.GetComponent<Camera>().orthographicSize = currentCameraSize;
+
+                // If we are moving the camera
+                if (adjustPosition)
+                {
+                    // Get the required camera position and set the camera
+                    currentCameraPosition = DetermineNewCameraPosition();
+                    gameObject.GetComponent<Camera>().transform.position = currentCameraPosition;
+                }
             }
             // Once the transition is finished
             else
@@ -59,11 +105,42 @@ public class GeneralCameraLogic : MonoBehaviour
                 // When the camera transition is finished the speed of the camera will be zero and time will be 1
                 currentSpeed = 0;
                 time = 1;
+
+                // If we are moving the camera
+                if (adjustPosition)
+                {
+                    // Set the camera to the final camera position
+                    gameObject.GetComponent<Camera>().transform.position = finalCameraPosition;
+
+                    // The set the new starting position and current position for the camera to the final position
+                    startCameraPosition = finalCameraPosition;
+                    currentCameraPosition = finalCameraPosition;
+                }
             }
 
             // Increase the timer
             timeSinceSet += Time.deltaTime;
         }
+    }
+
+    /// <summary>
+    /// Used to calculate the current camera position, scaling against currentCameraSize.
+    /// </summary>
+    Vector3 DetermineNewCameraPosition()
+    {
+        // If we are not moving the camera, throw error
+        if (!adjustPosition)
+        {
+            Debug.LogWarning("Error, DetermineNewCameraPosition() shouldn't be called when not adjusting camera x,y position!");
+            return Vector3.zero;
+        }
+
+        // Get the current distance travelled in x and y and add to starting position
+        float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
+        float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
+
+        // Return the new position
+        return new Vector3(x, y, 0);
     }
 
     /// <summary>
@@ -87,6 +164,8 @@ public class GeneralCameraLogic : MonoBehaviour
 
         oldCameraSize = currentCameraSize;
         newCameraSize = cameraSize;
+
+        startCameraPosition = currentCameraPosition;
 
         // Converts the difference in camersize from a logorithmic system into a linear system.
         differenceCameraSize = ConvertDistanceDiffToLin(newCameraSize) - ConvertDistanceDiffToLin(oldCameraSize);

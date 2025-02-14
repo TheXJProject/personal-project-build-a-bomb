@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11bce93db25df4ab8a6997e4b803eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraObject: {fileID: 1423135762}
   pressed: 0
 --- !u!1 &429409102
 GameObject:
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   adjustPosition: 1
   sizeIncreaseFromLayer: 0.5
   startingCameraLayer: 1
+  startingLayerAcceleration: 3
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8

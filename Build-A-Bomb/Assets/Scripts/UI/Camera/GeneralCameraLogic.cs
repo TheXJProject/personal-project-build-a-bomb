@@ -6,13 +6,23 @@ using System;
 
 public class GeneralCameraLogic : MonoBehaviour
 {
+    [Header("IMPORTANT NOTE!")]
+    [Header("This script has the ability to move the camera around the scene\n" +
+        "if 'Adjust Position' is checked on. However, it will only move in\n" +
+        "this way if it is also travelling to a different layer.")]
+    [Header("Make sure that the player cannot click on a section where the\n" +
+        "camera would move around the scene without changing layers!\n")]
+
     // Inspector Adjustable Values:
     [Header("(Turn on 'Adjust Position' only when used for the main menu)")]
     public bool adjustPosition = false;
 
-    [Header("(When, and only when, 'Adjust Position' is true, 'Size Increase \nFrom Layer' and 'Starting Camera Layer' are used)")]
+    [Header("(When, and only when, 'Adjust Position' is true, 'Size Increase \n" +
+        "From Layer', 'Starting Camera Layer' and 'Starting Layer\n" +
+        "Acceleration'are used)")]
     public float sizeIncreaseFromLayer = 2; // The amount of space between edge of the first bomb layer and the top/bottom of the screen
     public int startingCameraLayer = 1;
+    public float startingLayerAcceleration = 3;
 
     [Header("")]
     [Header("(All values below should be above zero)")]
@@ -63,9 +73,11 @@ public class GeneralCameraLogic : MonoBehaviour
         {
             // Get information about the initial sizings
             float initialSize = coreLayer.transform.GetChild(0).localScale.x;
+
             // Initial size of the camera is based on the initial layer size
             initialSize = sizeIncreaseFromLayer + (initialSize / 2);
 
+            layerAcceleration = startingLayerAcceleration;
             InitialiseCameraSize(initialSize, startingCameraLayer);
         }
 
@@ -124,7 +136,7 @@ public class GeneralCameraLogic : MonoBehaviour
     }
 
     /// <summary>
-    /// Used to calculate the current camera position, scaling against currentCameraSize.
+    /// Used to calculate the current camera position, scaling using the currentCameraSize.
     /// </summary>
     Vector3 DetermineNewCameraPosition()
     {
@@ -136,11 +148,13 @@ public class GeneralCameraLogic : MonoBehaviour
         }
 
         // Get the current distance travelled in x and y and add to starting position
+        // TODO: use debug mode to see whats happening - then copy/adjust the scripts for position smoothness
         float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
         float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
+        float z = finalCameraPosition.z;
 
         // Return the new position
-        return new Vector3(x, y, 0);
+        return new Vector3(x, y, z);
     }
 
     /// <summary>
@@ -157,6 +171,7 @@ public class GeneralCameraLogic : MonoBehaviour
     /// Changes new, current and old camera sizes; resets the timer for camera transitions and finds the changes in <br />
     /// size between the original and next camera size. Doesn't do anything if it determines it is already looking at <br />
     /// the correct layer. Call this when the camera needs to be resized
+    /// (Additionally, get the position the camera needs to travel to and sets the start position to current)
     /// </summary>
     public void NewCameraSize(float cameraSize, int layer)
     {
@@ -164,8 +179,6 @@ public class GeneralCameraLogic : MonoBehaviour
 
         oldCameraSize = currentCameraSize;
         newCameraSize = cameraSize;
-
-        startCameraPosition = currentCameraPosition;
 
         // Converts the difference in camersize from a logorithmic system into a linear system.
         differenceCameraSize = ConvertDistanceDiffToLin(newCameraSize) - ConvertDistanceDiffToLin(oldCameraSize);
@@ -178,6 +191,26 @@ public class GeneralCameraLogic : MonoBehaviour
         showingCorrectLayer = false;
     }
 
+    public void NewCameraSizeAndPosition(float cameraSize, int layer, Vector3 newPosition)
+    {
+        // Show error if attempting to move camera position while layer is unchanged or when not adjusting position
+        if (!adjustPosition)
+        {
+            Debug.LogWarning("Error, camera cannot move position if 'Adjust Position' is not checked on!");
+            return;
+        }
+        else if (currentLayer == layer)
+        {
+            Debug.LogWarning("Error, camera cannot move position if layer is unchanged!");
+            return;
+        }
+
+        // Set start position to current, new camera final position and new camera size
+        startCameraPosition = currentCameraPosition;
+        finalCameraPosition = newPosition;
+        NewCameraSize(cameraSize, layer);
+    }
+
     /// <summary>
     /// Converts the camersize from a logorithmic system into a linear system.
     /// </summary>
@@ -187,9 +220,9 @@ public class GeneralCameraLogic : MonoBehaviour
     float ConvertDistanceDiffToLin(float distance)
     {
         // Check that we have a valid base
-        if (layerAcceleration <= 0)
+        if (layerAcceleration <= 1)
         {
-            Debug.LogWarning("Error, layerAcceleration is zero or less than zero!");
+            Debug.LogWarning("Error, layerAcceleration is one or less than one!");
             return 0;
         }
         else
@@ -207,9 +240,9 @@ public class GeneralCameraLogic : MonoBehaviour
     float ConvertDistanceDiffsToLog(float distance)
     {
         // Check that we have a valid base
-        if (layerAcceleration <= 0)
+        if (layerAcceleration <= 1)
         {
-            Debug.LogWarning("Error, layerAcceleration is zero or less than zero!");
+            Debug.LogWarning("Error, layerAcceleration is is one or less than one!");
             return 0;
         }
         // If we have zero distance
@@ -340,12 +373,6 @@ public class GeneralCameraLogic : MonoBehaviour
 
         // Finally calculate h
         h = a * theta1 + b * theta2;
-
-        // TODO: remove
-        double A1 = a * theta3;
-        double A2 = b * theta4;
-        double A3 = -h;
-        double A = A1 + A2 + A3;
     }
 
     /// <summary>

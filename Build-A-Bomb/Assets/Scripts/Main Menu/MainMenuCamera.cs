@@ -5,10 +5,20 @@ using UnityEngine;
 public class MainMenuCamera : MonoBehaviour
 {
     // Inspector Adjustable Values:
-    [Range(0, 10)] float exampleAdjustable;
+    public float startCameraSize;
+    public float mainMenuCameraSize;
+    public float SettingsCameraSize;
 
-    public Vector2 settings;
-    public float openingCameraSize;
-    [SerializeField] float nextCameraSize;
-    [SerializeField] float SettingsCameraSize, settingsYPos;
+    public Vector3 start;
+    public int startLayer;
+    public Vector3 mainMenu;
+    public int mainMenuLayer;
+    public Vector3 settings;
+    public int settingsLayer;
+    public Vector3 tutorial;
+    public int tutorialLayer;
+    public Vector3 normal;
+    public int normalLayer;
+    public Vector3 hard;
+    public int hardLayer;
 }

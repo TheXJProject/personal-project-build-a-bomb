@@ -1,31 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeginMainMenu : MonoBehaviour
 {
-    // Event Actions:
-    public static Action onBeginMainMenu;
-
     // Initialise In Inspector:
     [SerializeField] GameObject cameraObject;
+    [SerializeField] GameObject mainMenuLevel;
 
     // Runtime Variables:
-    [HideInInspector] public bool pressed = false;
-    
+    bool pressed = false;
+    [HideInInspector] MainMenuCamera cameraData;
+
+    void Start()
+    {
+        // Get the data to use
+        cameraData = cameraObject.GetComponent<MainMenuCamera>();
+    }
+
     private void OnMouseDown()
     {
+        // If we have not pressed the button
         if (!pressed)
         {
-            onBeginMainMenu?.Invoke();
+            // Prevent it being pressed again until reset elsewhere
             pressed = true;
-            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(6f, 2, new Vector3(1, 3, -10));
+
+            // Change the camera position
+            cameraObject.GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
+
+            // Activate the next layer
+            mainMenuLevel.SetActive(true);
         }
-        else if (pressed)
-        {
-            pressed = false;
-            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(3.5f, 1, new Vector3(-1, -3, -10));
-        }
+    }
+
+    public void ResetButton()
+    {
+        // We can now press the start button again
+        pressed = false;
+
+        // Activate the next layer
+        mainMenuLevel.SetActive(false);
     }
 }

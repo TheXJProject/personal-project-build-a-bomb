@@ -20,12 +20,12 @@ public class BeginMainMenu : MonoBehaviour
         {
             onBeginMainMenu?.Invoke();
             pressed = true;
-            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(6f, 2, new Vector3(0, 3, -10));
+            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(6f, 2, new Vector3(1, 3, -10));
         }
         else if (pressed)
         {
             pressed = false;
-            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(3.5f, 1, new Vector3(0, -3, -10));
+            cameraObject.GetComponent<Camera>().GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(3.5f, 1, new Vector3(-1, -3, -10));
         }
     }
 }

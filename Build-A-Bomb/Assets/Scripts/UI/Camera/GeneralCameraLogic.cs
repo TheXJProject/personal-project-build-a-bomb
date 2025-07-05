@@ -148,9 +148,8 @@ public class GeneralCameraLogic : MonoBehaviour
         }
 
         // Get the current distance travelled in x and y and add to starting position
-        // TODO: use debug mode to see whats happening - then copy/adjust the scripts for position smoothness
-        float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
-        float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * Mathf.Abs((float)travelledDifference / differenceCameraSize);
+        float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * (float)travelledDifference / differenceCameraSize;
+        float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * (float)travelledDifference / differenceCameraSize;
         float z = finalCameraPosition.z;
 
         // Return the new position
@@ -295,6 +294,9 @@ public class GeneralCameraLogic : MonoBehaviour
         // === (A reduced commented out version can be found at the bottom of the script) ===
 
         // =========== MK3 METHOD ==========
+
+        // Desmos model:
+        // https://www.desmos.com/calculator/ask6phhuyx
 
         // We use y = a sech(cx) + b sech(dx - f) - h, to calculate speed, for x = t (time) {0 <= t <= 1}
         // c, d, f are adjustable in the inspector. 

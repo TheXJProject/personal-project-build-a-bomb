@@ -1081,11 +1081,12 @@ MonoBehaviour:
   adjustPosition: 0
   sizeIncreaseFromLayer: 0
   startingCameraLayer: 0
+  startingLayerAcceleration: 0
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8
   fPeakPosition: 3.5
-  coreLayer: {fileID: 0}
+  coreLayer: {fileID: 442478352}
   layerAcceleration: 0
   finalCameraPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &519420035

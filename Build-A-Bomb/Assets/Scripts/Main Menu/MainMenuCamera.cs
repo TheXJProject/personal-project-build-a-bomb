@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class MainMenuCamera : MonoBehaviour
 {
-    [SerializeField] float openingCameraSize;
+    // Inspector Adjustable Values:
+    [Range(0, 10)] float exampleAdjustable;
+
+    public Vector2 settings;
+    public float openingCameraSize;
     [SerializeField] float nextCameraSize;
     [SerializeField] float SettingsCameraSize, settingsYPos;
 }

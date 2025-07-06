@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Audio;
@@ -21,10 +20,13 @@ public class MixerFXManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = this;
+            // Make this instance a singleton
             DontDestroyOnLoad(gameObject);
+            instance = this;
 
-            if (GetComponent<AudioManager>() == null) // (Yu Gui Oh fusion solution)
+            // (Yu Gui Oh fusion solution! We make sure that both the Audio Manager
+            // and Mixer Manager are present.)
+            if (GetComponent<AudioManager>() == null) 
             {
                 Debug.LogWarning("AudioManager component is missing!");
                 Debug.LogWarning("Please add component before running!");

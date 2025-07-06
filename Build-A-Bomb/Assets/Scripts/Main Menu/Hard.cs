@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Settings : MonoBehaviour
+public class Hard : MonoBehaviour
 {
     // Initialise In Inspector:
     [SerializeField] GeneralCameraLogic cameraObject;
@@ -17,7 +17,7 @@ public class Settings : MonoBehaviour
         if (!pressed)
         {
             // Change the camera position
-            cameraObject.NewCameraSizeAndPosition(cameraData.SettingsCameraSize, cameraData.settingsLayer, cameraData.settings);
+            cameraObject.NewCameraSizeAndPosition(cameraData.hardCameraSize, cameraData.hardLayer, cameraData.hard);
 
             // Tell the manager we've pressed a button in the main menu
             manager.OnAnyButtonPressed();

@@ -3,18 +3,12 @@ using UnityEngine;
 public class BeginMainMenu : MonoBehaviour
 {
     // Initialise In Inspector:
-    [SerializeField] GameObject cameraObject;
+    [SerializeField] GeneralCameraLogic cameraObject;
+    [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject mainMenuLevel;
 
     // Runtime Variables:
     bool pressed = false;
-    [HideInInspector] MainMenuCamera cameraData;
-
-    void Start()
-    {
-        // Get the data to use
-        cameraData = cameraObject.GetComponent<MainMenuCamera>();
-    }
 
     private void OnMouseDown()
     {
@@ -25,7 +19,7 @@ public class BeginMainMenu : MonoBehaviour
             pressed = true;
 
             // Change the camera position
-            cameraObject.GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
+            cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
 
             // Activate the next layer
             mainMenuLevel.SetActive(true);

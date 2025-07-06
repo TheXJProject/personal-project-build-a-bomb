@@ -8,6 +8,9 @@ public class MainMenuCamera : MonoBehaviour
     public float startCameraSize;
     public float mainMenuCameraSize;
     public float SettingsCameraSize;
+    public float tutorialCameraSize;
+    public float normalCameraSize;
+    public float hardCameraSize;
 
     public Vector3 start;
     public int startLayer;

@@ -3,7 +3,7 @@ using UnityEngine;
 public class GoBack : MonoBehaviour
 {
     // Initialise In Inspector:
-    [SerializeField] GameObject cameraObject;
+    [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject beginMenuLevel;
 
@@ -15,11 +15,8 @@ public class GoBack : MonoBehaviour
         // If a button has not been pressed
         if (!pressed)
         {
-            // We've pressed a button
-            pressed = true;
-
             // Change the camera position
-            cameraObject.GetComponent<GeneralCameraLogic>().NewCameraSizeAndPosition(cameraData.startCameraSize, cameraData.startLayer, cameraData.start);
+            cameraObject.NewCameraSizeAndPosition(cameraData.startCameraSize, cameraData.startLayer, cameraData.start);
 
             // Reset start screen
             beginMenuLevel.GetComponent<BeginMainMenu>().ResetButton();

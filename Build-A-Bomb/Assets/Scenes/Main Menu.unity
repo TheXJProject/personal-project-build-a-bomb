@@ -3344,9 +3344,9 @@ MonoBehaviour:
   settingsLayer: 2
   tutorial: {x: 0, y: 15, z: -10}
   tutorialLayer: 2
-  normal: {x: 0, y: 0, z: -10}
+  normal: {x: -15, y: 0, z: -10}
   normalLayer: 2
-  hard: {x: 0, y: 0, z: -10}
+  hard: {x: 15, y: 0, z: -10}
   hardLayer: 2
 --- !u!114 &1423135767
 MonoBehaviour:

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,6 +7,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Initialise In Inspector:
+    [Header("(Reduce Non-priority sounds to prevent clipping)\n")]
+    [Range(0, 1)] [SerializeField] float nonPriorityVolume = 1;
     [Header("---- Audio Clips ----\n")]
     public Sound[] musicSounds;
     public Sound[] sfxSounds;
@@ -91,10 +92,13 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
-        // 
+        // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
+
+        // Find a music source that's currently free
         SoundSource source = Array.Find(musicSourceList, y => y.soundIsSelected == false);
 
+        // Throw error if we haven't found either the sound or a free music source
         if (sound == null)
         {
             Debug.LogWarning("Error, music sound " + name + " not found!");
@@ -105,13 +109,17 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            // Transfer volume, pitch, panning and the clip itself to the audio source
             source.audioSource.volume = sound.volume;
             source.audioSource.pitch = sound.pitch;
             source.audioSource.panStereo = sound.panning;
+            source.audioSource.clip = sound.clip;
 
+            // The music source is now in use
             source.soundIsSelected = true;
             source.soundName = sound.name;
-            source.audioSource.clip = sound.clip;
+            
+            // TODO: use PlayScheduled
             source.audioSource.Play();
 
             if (Msg) Debug.Log("Music Played: " + source.soundName);
@@ -122,9 +130,13 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic(string name)
     {
+        // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
+        
+        // Find the music source that's currently playing that sound
         SoundSource source = Array.Find(musicSourceList, y => y.soundName == name);
 
+        // Throw error if we haven't found either the sound or any source that's playing the sound
         if (sound == null)
         {
             Debug.LogWarning("Error, music sound " + name + " not found!");
@@ -135,7 +147,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            // TODO use StopScheduled()
             source.audioSource.Stop();
+
+            // The source is now not in use
             source.soundName = SoundSource.defaultName;
             source.soundIsSelected = false;
         }
@@ -145,61 +160,104 @@ public class AudioManager : MonoBehaviour
     {
         bool playingCheck = false;
 
+        // For each music source we have
         foreach (SoundSource source in musicSourceList)
         {
+            // Check if the source was playing
             playingCheck |= source.soundIsSelected;
-            
+
+            // TODO use StopScheduled()
             source.audioSource.Stop();
+
+            // The source is now not in use
             source.soundName = SoundSource.defaultName;
             source.soundIsSelected = false;
         }
 
+        // Throw error if no source was playing anything
         if (playingCheck)
         {
             Debug.LogWarning("Error, no music was playing!");
         }
     }
 
-    public void PlaySFX(string name, float? volumeTemp = null)
+    public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
     {
+        bool playedOneShot = false;
+
+        // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
+
+        // Find a music source that's currently free
         SoundSource source = Array.Find(sfxSourceList, y => y.audioSource.isPlaying == false);
 
-        if (volumeTemp > 1 || volumeTemp < 0)
+        // If a manual volume has been passed, Check it's within ranges
+        if ((volumeTemp != null) && (volumeTemp > 1 || volumeTemp < 0))
         {
             Debug.LogWarning("Error, volumeTemp, " + volumeTemp + ", is outside of range!");
             return;
         }
 
+        // Throw error if the sound can't be found or if no sources exist
         if (sound == null)
         {
             Debug.LogWarning("Error, sfx sound " + name + " not found!");
         }
-        else if (source == null)
+        else if (sfxSourceList == null || sfxSourceList.Length == 0)
         {
-            Debug.LogWarning("Error, no sfx source available!");
+            Debug.LogWarning("Error, no sfx source exist!");
         }
         else
         {
-            source.audioSource.volume = volumeTemp ?? sound.volume;
-            source.audioSource.pitch = sound.pitch;
-            source.audioSource.panStereo = sound.panning;
-
-            // TODO: change this
-            if (true)
+            // If we couldn't find a free source and the sound is not a priority
+            if ((source == null) && !prioritySound)
             {
-                //source.audioSource.PlayOneShot(sound.clip, volume);
+                // Find a random sfx source and play a oneshot with some volume reducion
+                sfxSourceList[UnityEngine.Random.Range(0, sfxSourceList.Length)].audioSource.PlayOneShot(sound.clip, (float)volumeTemp * nonPriorityVolume);
+                playedOneShot = true;
             }
             else
             {
-                source.soundName = sound.name;
+                // Otherwise, if we couldn't find a source and the sound should be a priority
+                if ((source == null) && prioritySound)
+                {
+                    float shortest = float.MaxValue;
+                    SoundSource tempSource = null;
+
+                    // For each sfx source
+                    foreach (SoundSource soundSource in sfxSourceList)
+                    {
+                        // If the clip isn't null (and it should never be if all sources are in use, but can never be too careful)
+                        // Find if it is the shortest playing clip
+                        if ((soundSource.audioSource.clip != null) && (soundSource.audioSource.clip.length < shortest))
+                        {
+                            shortest = soundSource.audioSource.clip.length;
+                            tempSource = soundSource;
+                        }
+                    }
+
+                    // We will use the source which is currently playing the shortest sound
+                    source = tempSource;
+                }
+
+                // Transfer volume, pitch, panning and the clip itself to the audio source
+                source.audioSource.volume = volumeTemp ?? sound.volume;
+                source.audioSource.pitch = sound.pitch;
+                source.audioSource.panStereo = sound.panning;
                 source.audioSource.clip = sound.clip;
+
+                // The music source is now in use
+                source.soundName = sound.name;
+
+                // Player the sound (Don't need to use scheduleplay here)
                 source.audioSource.Play();
             }
 
             if (Msg) Debug.Log("Music Played: " + source.soundName);
             if (Msg) Debug.Log("Name Check: " + sound.clip.name);
             if (Msg) Debug.Log("Source Used: " + source.audioSource.name);
+            if (Msg && (volumeTemp != null)) Debug.Log("Manual Volume: " + volumeTemp);
+            if (Msg && playedOneShot) Debug.Log("Played OneShot!");
         }
     }
 
@@ -208,18 +266,23 @@ public class AudioManager : MonoBehaviour
     {
         bool playingCheck = true;
 
+        // For each sfx source there is
         foreach (SoundSource source in sfxSourceList)
         {
-            source.audioSource.Stop();
-            
+            // Check if the source has ever been useds
             if (source.soundName != SoundSource.defaultName)
             {
                 playingCheck = false;
             }
 
+            // TODO: Use playScheduled()
+            source.audioSource.Stop();
+
+            // The source is now not in use
             source.soundName = SoundSource.defaultName;
         }
 
+        // Throw error if no source has been used since game load or the last stopSFX() call
         if (playingCheck)
         {
             Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");

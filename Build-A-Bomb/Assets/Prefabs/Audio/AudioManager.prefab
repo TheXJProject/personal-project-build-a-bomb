@@ -2110,6 +2110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 1
+  nonPriorityVolume: 0.6
   musicSounds:
   - name: 
     clip: {fileID: 0}
@@ -2122,6 +2123,25 @@ MonoBehaviour:
     volume: 0
     pitch: 0
     panning: 0
+  musicSourceList:
+  - audioSource: {fileID: 4421302134104516341}
+    soundName: Empty
+    soundIsSelected: 0
+  - audioSource: {fileID: 6550475695571863269}
+    soundName: Empty
+    soundIsSelected: 0
+  - audioSource: {fileID: 1416095540606872925}
+    soundName: Empty
+    soundIsSelected: 0
+  - audioSource: {fileID: 8607747657632733051}
+    soundName: Empty
+    soundIsSelected: 0
+  - audioSource: {fileID: 293339522481141640}
+    soundName: Empty
+    soundIsSelected: 0
+  - audioSource: {fileID: 4969521244931199875}
+    soundName: Empty
+    soundIsSelected: 0
   sfxSourceList:
   - audioSource: {fileID: 7483278132575422720}
     soundName: Empty
@@ -2153,26 +2173,6 @@ MonoBehaviour:
   - audioSource: {fileID: 500381872661006632}
     soundName: Empty
     soundIsSelected: 0
-  musicSourceList:
-  - audioSource: {fileID: 4421302134104516341}
-    soundName: Empty
-    soundIsSelected: 0
-  - audioSource: {fileID: 6550475695571863269}
-    soundName: Empty
-    soundIsSelected: 0
-  - audioSource: {fileID: 1416095540606872925}
-    soundName: Empty
-    soundIsSelected: 0
-  - audioSource: {fileID: 8607747657632733051}
-    soundName: Empty
-    soundIsSelected: 0
-  - audioSource: {fileID: 293339522481141640}
-    soundName: Empty
-    soundIsSelected: 0
-  - audioSource: {fileID: 4969521244931199875}
-    soundName: Empty
-    soundIsSelected: 0
-  ist: []
 --- !u!114 &2133924893450471654
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -90,7 +90,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string name)
+    public void PlayMusic(string name, double timeTillPlay)
     {
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
@@ -107,6 +107,10 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Error, no music source available!");
         }
+        else if (timeTillPlay < 0.05f)
+        {
+            Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
+        }
         else
         {
             // Transfer volume, pitch, panning and the clip itself to the audio source
@@ -118,9 +122,9 @@ public class AudioManager : MonoBehaviour
             // The music source is now in use
             source.soundIsSelected = true;
             source.soundName = sound.name;
-            
-            // TODO: use PlayScheduled
-            source.audioSource.Play();
+
+            // Use PlayScheduled to play the track
+            source.audioSource.PlayScheduled(timeTillPlay);
 
             if (Msg) Debug.Log("Music Played: " + source.soundName);
             if (Msg) Debug.Log("Name Check: " + sound.clip.name);
@@ -147,7 +151,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            // TODO use StopScheduled()
+            // Stop the track
             source.audioSource.Stop();
 
             // The source is now not in use
@@ -166,7 +170,7 @@ public class AudioManager : MonoBehaviour
             // Check if the source was playing
             playingCheck |= source.soundIsSelected;
 
-            // TODO use StopScheduled()
+            // Stops the track
             source.audioSource.Stop();
 
             // The source is now not in use
@@ -175,7 +179,7 @@ public class AudioManager : MonoBehaviour
         }
 
         // Throw error if no source was playing anything
-        if (playingCheck)
+        if (!playingCheck)
         {
             Debug.LogWarning("Error, no music was playing!");
         }
@@ -183,8 +187,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
     {
-        bool playedOneShot = false;
-
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
 
@@ -212,9 +214,16 @@ public class AudioManager : MonoBehaviour
             // If we couldn't find a free source and the sound is not a priority
             if ((source == null) && !prioritySound)
             {
+                float tempVolume = (volumeTemp ?? sound.volume) * nonPriorityVolume;
+                int randomIdx = UnityEngine.Random.Range(0, sfxSourceList.Length);
+
                 // Find a random sfx source and play a oneshot with some volume reducion
-                sfxSourceList[UnityEngine.Random.Range(0, sfxSourceList.Length)].audioSource.PlayOneShot(sound.clip, (float)volumeTemp * nonPriorityVolume);
-                playedOneShot = true;
+                sfxSourceList[randomIdx].audioSource.PlayOneShot(sound.clip, tempVolume);
+
+                if (Msg) Debug.Log("Played One Shot.");
+                if (Msg) Debug.Log("Clip Name: " + sound.clip.name);
+                if (Msg) Debug.Log("Source Used: " + sfxSourceList[randomIdx].audioSource.name);
+                if (Msg) Debug.Log("Non Priority Final Volume: " + tempVolume);
             }
             else
             {
@@ -238,6 +247,8 @@ public class AudioManager : MonoBehaviour
 
                     // We will use the source which is currently playing the shortest sound
                     source = tempSource;
+
+                    if (Msg) Debug.Log("Priority used.");
                 }
 
                 // Transfer volume, pitch, panning and the clip itself to the audio source
@@ -251,18 +262,17 @@ public class AudioManager : MonoBehaviour
 
                 // Player the sound (Don't need to use scheduleplay here)
                 source.audioSource.Play();
-            }
 
-            if (Msg) Debug.Log("Music Played: " + source.soundName);
-            if (Msg) Debug.Log("Name Check: " + sound.clip.name);
-            if (Msg) Debug.Log("Source Used: " + source.audioSource.name);
-            if (Msg && (volumeTemp != null)) Debug.Log("Manual Volume: " + volumeTemp);
-            if (Msg && playedOneShot) Debug.Log("Played OneShot!");
+                if (Msg) Debug.Log("Music Played: " + source.soundName);
+                if (Msg) Debug.Log("Name Check: " + sound.clip.name);
+                if (Msg) Debug.Log("Source Used: " + source.audioSource.name);
+                if (Msg && (volumeTemp != null)) Debug.Log("Manual Volume: " + volumeTemp);
+            }
         }
     }
 
     
-    public void StopSFX()
+    public void StopAllSFX()
     {
         bool playingCheck = true;
 
@@ -275,7 +285,7 @@ public class AudioManager : MonoBehaviour
                 playingCheck = false;
             }
 
-            // TODO: Use playScheduled()
+            // Stop the audiosource from playing
             source.audioSource.Stop();
 
             // The source is now not in use
@@ -289,7 +299,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    
+
 
     // Help
 
@@ -299,14 +309,15 @@ public class AudioManager : MonoBehaviour
 
     //Functions:
     //  Functions for music sources.
-    //    - PlayMusic(string name)                  Plays sound with 'name' on loop
+    //    - PlayMusic(string name, double timeTillPlay)
+    //                                              Plays sound with 'name' on loop
     //    - StopMusic(string name)                  Stops sound with 'name'
     //    - StopAllMusic()                          Stops all looping tracks
     //
     //  Functions for SFX sources.
-    //    - PlaySFX(string name, float? volumeTemp = null)
+    //    - PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
     //                                              Plays sound with 'name' once at 'volumeTemp'
     //                                              (if 'volumeTemp' is null the sound will play
     //                                              at default volume set in inspecter)
-    //    - StopSFX()                               Stops all SFX and clears the names in the SFX sources
+    //    - StopAllSFX()                            Stops all SFX and clears the names in the SFX sources
 }

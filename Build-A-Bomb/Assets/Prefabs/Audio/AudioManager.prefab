@@ -2109,20 +2109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdaa1bceeb4eedc4f87d50d97ef07747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 1
-  nonPriorityVolume: 0.6
-  musicSounds:
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    panning: 0
-  sfxSounds:
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    panning: 0
+  Msg: 0
+  nonPriorityVolume: 0.7
+  musicSounds: []
+  sfxSounds: []
   musicSourceList:
   - audioSource: {fileID: 4421302134104516341}
     soundName: Empty

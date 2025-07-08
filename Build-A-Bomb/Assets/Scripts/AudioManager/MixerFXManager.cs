@@ -196,7 +196,7 @@ public class MixerFXManager : MonoBehaviour
         targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
 
         // Finally, kick off a coroutine that fades the value
-        activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, param, duration, currentValue, targetValue));
+        activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
     }
 
     public void SetAllMusicParam()
@@ -210,26 +210,58 @@ public class MixerFXManager : MonoBehaviour
 
     }
 
-    IEnumerator Fader(string exposedParam, EX_PARA type, float duration, float current, float target)
+    IEnumerator Fader(string exposedParam, (MixerGroupsInfo, EX_PARA) key, float duration, float current, float target)
     {
-        if (Msg) Debug.Log("Fading " + exposedParam + ", " + type + " over duration " + duration + ".");
+        if (Msg) Debug.Log("Fading " + exposedParam + ", " + key.Item2 + " over duration " + duration + ".");
         if (Msg) Debug.Log("Current value (linear) is " + current + ".");
         if (Msg) Debug.Log("Target value (linear) is " + target + ".");
 
         float elapsed = 0f;
 
-        // If 
-        if (duration <= 0)
+        // If the duration is zero, or the current value is the same as the target
+        if ((duration <= 0) || Mathf.Approximately(current, target))
         {
+            // Set the value of the exposed parameter to target
+            if (!audioMixer.SetFloat(exposedParam, target))
+            {
+                // Throw error if this fails
+                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+            }
 
+            // We don't need to iterate
+            yield break;
         }
 
+        // While 
         while (elapsed < duration)
         {
+            // Add time of frame
             elapsed += Time.deltaTime;
+
+            // Determine how 
+            float completePercentage = elapsed / duration;
+            float nextValue = Mathf.Lerp(current, target, Mathf.Clamp01(completePercentage));
+
+            // Set the value of the exposed parameter to target
+            if (!audioMixer.SetFloat(exposedParam, nextValue))
+            {
+                // Throw error if this fails
+                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+            }
+
+            // Repeat each frame
+            yield return null;
         }
 
-        yield return null;
+        // Set the value of the exposed parameter to target
+        if (!audioMixer.SetFloat(exposedParam, target))
+        {
+            // Throw error if this fails
+            Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+        }
+
+        // Remove this coroutine from active routines
+        activeFades.Remove(key);
     }
 
     float ConvertType(EX_PARA type, bool toType, float inputValue)

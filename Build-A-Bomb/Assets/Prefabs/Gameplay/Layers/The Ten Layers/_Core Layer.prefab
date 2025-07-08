@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f139fd73056e4a44999a09f1171d7c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 212e7eccd8aba1447a3b4e3a28a0df54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,12 +157,12 @@ SpriteRenderer:
   m_SortingLayerID: -579648653
   m_SortingLayer: -2
   m_SortingOrder: -51
-  m_Sprite: {fileID: 21300000, guid: f3ee442caa5514d4483d8b672e245ba4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27815dfc5a70be84b94de14ae6b5e57d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 17.402359, y: 10.8}
+  m_Size: {x: 38.399998, y: 21.599998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -378,8 +378,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -48
-  m_Sprite: {fileID: 21300000, guid: 54ac89543eaead74781b23b9d5a203fd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 895dbd507bcbc37488517828566526fd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -546,7 +546,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 192a6ed95388e974cbb5dbdd18b252d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3aa4cd5b6d772a4ab7e976acf05d87f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -773,7 +773,7 @@ PrefabInstance:
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 089425458b546904d8b1ae2c0c25dccc, type: 3}
+      objectReference: {fileID: 21300000, guid: 6dccd3ce3c1a4384ba2a3f7225e0cb07, type: 3}
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Color.b
       value: 1

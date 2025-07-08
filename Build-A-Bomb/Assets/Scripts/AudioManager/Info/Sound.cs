@@ -3,19 +3,14 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
-    // Constant values:
-    public const float defaultVolume = 1f;
-    public const float defaultPitch = 1f;
-    public const float defaultPanning = 0f;
-
     // Initialise In Inspector:
     [Header("---- Sound Settings ----\n")]
     public string name;
     public AudioClip clip;
     [Range(0f, 1f)]
-    public float volume = defaultVolume;
+    public float volume = 1f;
     [Range(-3f, 3f)]
-    public float pitch = defaultPitch;
+    public float pitch = 1f;
     [Range(-1f, 1f)]
-    public float panning = defaultPanning;
+    public float panning = 0f;
 }

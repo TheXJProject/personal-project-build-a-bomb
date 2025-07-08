@@ -82,6 +82,9 @@ public class AudioManager : MonoBehaviour
                     }
                 }
             }
+
+            // Once set up the audio manager we can initialise the mixer
+            MixerFXManager.instance.InitialiseMixer();
         }
         else
         {

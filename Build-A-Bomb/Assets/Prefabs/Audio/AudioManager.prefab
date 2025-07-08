@@ -2175,14 +2175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95d1138da1f4a94481d50640c7fe22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   audioMixer: {fileID: 24100000, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
-  groups:
-  - name: 
-    group: {fileID: 0}
-    parameters:
-      volume: 
-      startVolume: 0
-      lowPassEQ: 
-      startLowPassEQ: 0
-    LinkedAudioSources:
-      audioSources: []
+  groups: []

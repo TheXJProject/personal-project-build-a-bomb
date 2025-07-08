@@ -16,7 +16,7 @@ public class MixerFXManager : MonoBehaviour
 
     // Runtime Variables:
     public static MixerFXManager instance;
-    private Dictionary<(MixerGroupsInfo, EX_PARA), Coroutine> activeVolumeFades = new();
+    private Dictionary<(MixerGroupsInfo, EX_PARA), Coroutine> activeFades = new();
 
     private void Awake()
     {
@@ -138,7 +138,7 @@ public class MixerFXManager : MonoBehaviour
     {
         float currentValue = 0;
         float targetValue = 0;
-        bool failed1 = false;
+        string expoParam = "";
 
         // We want to set a parameter in a music group that's playing track with "name".
         // We need to know what parameter, how long it will take, and the value we're setting it to.
@@ -156,21 +156,25 @@ public class MixerFXManager : MonoBehaviour
             Debug.LogWarning("Error, can't find an group with audio source playing " + name + ".");
             return;
         }
+        // If the paramater is already fading
+        else if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
+        {
+            // Stop the coroutine and remove it from active fades
+            StopCoroutine(exists);
+            activeFades.Remove((groupToUse, param));
+        }
 
-        // Depending what parameter we want to change
+        // Attempt to get the exposed parameter and default targetvalue (starting value, so might be in
+        // non-linear form), determined by the type of parameter
         switch (param)
         {
             case EX_PARA.VOLUME:
-                // Attempt to get the currentvalue and targetvalue (convert current volume from log to linear)
-                failed1 = audioMixer.GetFloat(groupToUse.parameters.volume, out currentValue);
-                currentValue = logToLinearVolume(currentValue);
-                targetValue = Mathf.Clamp01(value ?? logToLinearVolume(groupToUse.parameters.startVolume));
+                expoParam = groupToUse.parameters.volume;
+                targetValue = groupToUse.parameters.startVolume;
                 break;
             case EX_PARA.LOW_PASS_EQ:
-                // Attempt to get the currentvalue and targetvalue (convert current low pass EQ from log to linear)
-                failed1 = audioMixer.GetFloat(groupToUse.parameters.lowPassEQ, out currentValue);
-                currentValue = logToLinearLowPassEQ(currentValue);
-                targetValue = Mathf.Clamp01(value ?? logToLinearLowPassEQ(groupToUse.parameters.startLowPassEQ));
+                expoParam = groupToUse.parameters.lowPassEQ;
+                targetValue = groupToUse.parameters.startLowPassEQ;
                 break;
 
             // ===== (EX_PARA: Add in extra parameters if added to!) =====
@@ -179,19 +183,20 @@ public class MixerFXManager : MonoBehaviour
                 break;
         }
 
-        // Error checks
-        if (failed1)
+        // Get the current value of the exposed parameter
+        if (!audioMixer.GetFloat(expoParam, out currentValue))
         {
+            // Throw error if this fails
             Debug.LogWarning("Error, failed to get current value for " + param);
             return;
         }
 
-        // Next, if pass "value" parameter is null, we find what the starting value for that parameter was on game lauch.
+        // Convert and clamp (linear values should be between 0 and 1)
+        currentValue = ConvertType(param, false, currentValue);
+        targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
 
-
-        // After that, we use the Fade function set off the fade
-
-
+        // Finally, kick off a coroutine that fades the value
+        activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, param, duration, currentValue, targetValue));
     }
 
     public void SetAllMusicParam()
@@ -205,11 +210,19 @@ public class MixerFXManager : MonoBehaviour
 
     }
 
-    IEnumerator Fader(string exposedParam, float duration, FADE_TYPE fadeType)
+    IEnumerator Fader(string exposedParam, EX_PARA type, float duration, float current, float target)
     {
-        if (Msg) Debug.Log("Fading " + exposedParam + " over duration: " + duration);
+        if (Msg) Debug.Log("Fading " + exposedParam + ", " + type + " over duration " + duration + ".");
+        if (Msg) Debug.Log("Current value (linear) is " + current + ".");
+        if (Msg) Debug.Log("Target value (linear) is " + target + ".");
 
         float elapsed = 0f;
+
+        // If 
+        if (duration <= 0)
+        {
+
+        }
 
         while (elapsed < duration)
         {
@@ -219,28 +232,42 @@ public class MixerFXManager : MonoBehaviour
         yield return null;
     }
 
-    float LinearVolumeToLog(float linearVolume)
+    float ConvertType(EX_PARA type, bool toType, float inputValue)
     {
-        // Convert the linear inputted volume to dB that use a logarithmic scale
-        // If input is less than or equal to 0 change to minimum value (-80dB = Mathf.Log10(0.0001f) * 20)
-        return Mathf.Log10(linearVolume <= 0 ? 0.0001f : linearVolume) * 20f;
-    }
+        // Return value depending on type
+        switch (type)
+        {
+            case EX_PARA.VOLUME:
+                // If we want to convert to type
+                if (toType)
+                {
+                    // Convert the volume in dB to that use a linear scale
+                    // (the inverse of converting to a logarithmic scale)
+                    return Mathf.Pow(10, inputValue / 20);
+                }
+                // Otherwise, we want to convert from type
+                else
+                {
+                    // Convert the linear inputted volume to dB which uses a logarithmic scale
+                    // If input is less than or equal to 0 change to minimum value (-80dB = Mathf.Log10(0.0001f) * 20)
+                    return Mathf.Log10(inputValue <= 0 ? 0.0001f : inputValue) * 20f;
+                }
+            case EX_PARA.LOW_PASS_EQ:
+                // If we want to convert to type
+                if (toType)
+                {
+                    return 0f;
+                }
+                // Otherwise, we want to convert from type
+                else
+                {
+                    return 0f;
+                }
 
-    float logToLinearVolume(float logVolume)
-    {
-        // Convert the linear inputted volume to dB that use a logarithmic scale
-        // If input is less than or equal to 0 change to minimum value (-80dB = Mathf.Log10(0.0001f) * 20)
-        return Mathf.Log10(linearVolume <= 0 ? 0.0001f : linearVolume) * 20f;
-    }
-
-    float LinearLowPassEQToLog(float linearVolume)
-    {
-        // between 10hz and 22000hz
-    }
-
-    float logToLinearLowPassEQ(float logVolume)
-    {
-        // between 10hz and 22000hz
+            // ===== (EX_PARA: Add in extra parameters if added to!) =====
+            default:
+                return 0f;
+        }
     }
 
     // TODO: write this up

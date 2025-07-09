@@ -2175,6 +2175,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95d1138da1f4a94481d50640c7fe22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 0
+  Msg: 1
   audioMixer: {fileID: 24100000, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
-  groups: []
+  mainGroups:
+    sfxOverall:
+    - {fileID: 5118564838105931021, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    musicOverall:
+    - {fileID: -1493424754121944482, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    musicCollection:
+    - {fileID: -5233756033606628758, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    - {fileID: 4861633386834036181, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    - {fileID: 6505567788978033536, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    - {fileID: 1561151730283145453, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    - {fileID: 5715241065326983939, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    - {fileID: -1432597213002242430, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+  groups:
+  - name: 
+    group: {fileID: 5118564838105931021, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: -1493424754121944482, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []

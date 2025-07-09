@@ -52,3 +52,31 @@ public enum EX_PARA
 
     // (EX_PARA: Put all Exposed Parameters options here)
 }
+
+public enum GROUP_OPTIONS
+{
+    SFX_OVERALL,
+    MUSIC_OVERALL,
+    MUSIC_COLLECTION
+}
+
+[System.Serializable]
+public class MainGroups
+{
+    // Initialise In Inspector:
+    public AudioMixerGroup[] sfxOverall;
+    public AudioMixerGroup[] musicOverall;
+    public AudioMixerGroup[] musicCollection;
+
+    public AudioMixerGroup[] GroupOptionToArray(GROUP_OPTIONS group)
+    {
+        // Return the array that represents the passed group
+        return group switch
+        {
+            GROUP_OPTIONS.SFX_OVERALL => sfxOverall,
+            GROUP_OPTIONS.MUSIC_OVERALL => musicOverall,
+            GROUP_OPTIONS.MUSIC_COLLECTION => musicCollection,
+            _ => throw new System.NotImplementedException(),
+        };
+    }
+}

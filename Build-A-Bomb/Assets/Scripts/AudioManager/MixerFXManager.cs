@@ -12,11 +12,14 @@ public class MixerFXManager : MonoBehaviour
     // Initialise In Inspector:
     public AudioMixer audioMixer;
     [Header("---- Mixer Groups ----\n")]
+    [Header("_Main_")]
+    public MainGroups mainGroups;
+    [Header("_All Group_")]
     public MixerGroupsInfo[] groups;
 
     // Runtime Variables:
     public static MixerFXManager instance;
-    private Dictionary<(MixerGroupsInfo, EX_PARA), Coroutine> activeFades = new();
+    private readonly Dictionary<(MixerGroupsInfo, EX_PARA), Coroutine> activeFades = new();
 
     private void Awake()
     {
@@ -42,6 +45,35 @@ public class MixerFXManager : MonoBehaviour
         {
             Debug.LogWarning("AudioManager component is missing!");
             Debug.LogWarning("Please add component before running!");
+        }
+
+        // For each main group collection
+        foreach (GROUP_OPTIONS option in System.Enum.GetValues(typeof(GROUP_OPTIONS)))
+        {
+            // Make sure at least one group is assigned
+            if (mainGroups.GroupOptionToArray(option).Length == 0)
+            {
+                Debug.LogWarning("Error, main group " + option + " not filled in!");
+                Debug.LogWarning("Please add component before running! Cheers :)");
+            }
+            else
+            {
+                // For each individual group in a collection
+                foreach (AudioMixerGroup g in mainGroups.GroupOptionToArray(option))
+                {
+                    // Check it exsits in somewhere in the set of all groups
+                    if (!Array.Exists(groups, gr => gr.group == g))
+                    {
+                        Debug.LogWarning("Error, main group " + g.name + " not in the main group collection!");
+                    }
+                }
+            }
+        }
+
+        // Check main group array filled in
+        if (groups.Length == 0)
+        {
+            Debug.LogWarning("Error, main group array empty!");
         }
 
         // From here, sets up audio channels.
@@ -136,7 +168,6 @@ public class MixerFXManager : MonoBehaviour
 
     public void SetMusicParam(string name, EX_PARA param, float duration, float? value = null)
     {
-        float currentValue = 0;
         float targetValue = 0;
         string expoParam = "";
 
@@ -164,27 +195,12 @@ public class MixerFXManager : MonoBehaviour
             activeFades.Remove((groupToUse, param));
         }
 
-        // Attempt to get the exposed parameter and default targetvalue (starting value, so might be in
-        // non-linear form), determined by the type of parameter
-        switch (param)
-        {
-            case EX_PARA.VOLUME:
-                expoParam = groupToUse.parameters.volume;
-                targetValue = groupToUse.parameters.startVolume;
-                break;
-            case EX_PARA.LOW_PASS_EQ:
-                expoParam = groupToUse.parameters.lowPassEQ;
-                targetValue = groupToUse.parameters.startLowPassEQ;
-                break;
-
-            // ===== (EX_PARA: Add in extra parameters if added to!) =====
-            default:
-                Debug.LogWarning("Error, errrm.. okay? Somehow incorrect enum passed: " + param);
-                break;
-        }
+        // From the group to use, and the param type, get the correct exposed parameter and start value
+        expoParam = GetExposedParams(groupToUse, param).Item1;
+        targetValue = GetExposedParams(groupToUse, param).Item2;
 
         // Get the current value of the exposed parameter
-        if (!audioMixer.GetFloat(expoParam, out currentValue))
+        if (!audioMixer.GetFloat(expoParam, out float currentValue))
         {
             // Throw error if this fails
             Debug.LogWarning("Error, failed to get current value for " + param);
@@ -210,6 +226,51 @@ public class MixerFXManager : MonoBehaviour
 
     }
 
+    public void ForceSetParam(GROUP_OPTIONS collection, EX_PARA param, float? value = null)
+    {
+        // We will force one group (or collection of groups) to cancel all coroutines and
+        // be set to "value" for one of the exposed parameter types
+        foreach (AudioMixerGroup group in mainGroups.GroupOptionToArray(collection))
+        {
+            // Find the group from our group info array that matches the group from the collection
+            MixerGroupsInfo groupToSet = Array.Find(groups, y => y.group.name == group.name);
+
+            // Error check
+            if (groupToSet == null)
+            {
+                Debug.LogWarning("Error, failed to find group from info array!");
+            }
+            else
+            {
+                // If the paramater is fading
+                if (activeFades.TryGetValue((groupToSet, param), out Coroutine exists))
+                {
+                    // Stop the coroutine and remove it from active fades
+                    StopCoroutine(exists);
+                    activeFades.Remove((groupToSet, param));
+                }
+
+                // "value" is either the starting value of the parameter if nothing was passed
+                float targetValue = GetExposedParams(groupToSet, param).Item2;
+                targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
+
+                // Get the exposed parameter too
+                string exParam = GetExposedParams(groupToSet, param).Item1;
+                
+                // Set the value of the exposed parameter to target
+                if (!audioMixer.SetFloat(exParam, ConvertType(param, true, targetValue)))
+                {
+                    // Throw error if this fails
+                    Debug.LogWarning("Error, failed to set target value for " + exParam);
+                }
+            }
+        }
+
+        if (Msg) Debug.Log("Force set: " + collection);
+        if (Msg) Debug.Log("Parameter type: " + param);
+        if (Msg) Debug.Log("Target value: " + (value.HasValue ? value : "default"));
+    }
+
     IEnumerator Fader(string exposedParam, (MixerGroupsInfo, EX_PARA) key, float duration, float current, float target)
     {
         if (Msg) Debug.Log("Fading " + exposedParam + ", " + key.Item2 + " over duration " + duration + ".");
@@ -222,7 +283,7 @@ public class MixerFXManager : MonoBehaviour
         if ((duration <= 0) || Mathf.Approximately(current, target))
         {
             // Set the value of the exposed parameter to target
-            if (!audioMixer.SetFloat(exposedParam, target))
+            if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
             {
                 // Throw error if this fails
                 Debug.LogWarning("Error, failed to set target value for " + exposedParam);
@@ -238,12 +299,12 @@ public class MixerFXManager : MonoBehaviour
             // Add time of frame
             elapsed += Time.deltaTime;
 
-            // Determine how 
-            float completePercentage = elapsed / duration;
-            float nextValue = Mathf.Lerp(current, target, Mathf.Clamp01(completePercentage));
+            // Find the next value for the exposed parameter
+            float completePercentage = Mathf.Clamp01(elapsed / duration);
+            float nextValue = Mathf.Lerp(current, target, completePercentage);
 
-            // Set the value of the exposed parameter to target
-            if (!audioMixer.SetFloat(exposedParam, nextValue))
+            // Set the value of the exposed parameter to target, converting it to the correct type
+            if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, nextValue)))
             {
                 // Throw error if this fails
                 Debug.LogWarning("Error, failed to set target value for " + exposedParam);
@@ -254,7 +315,7 @@ public class MixerFXManager : MonoBehaviour
         }
 
         // Set the value of the exposed parameter to target
-        if (!audioMixer.SetFloat(exposedParam, target))
+        if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
         {
             // Throw error if this fails
             Debug.LogWarning("Error, failed to set target value for " + exposedParam);
@@ -262,6 +323,23 @@ public class MixerFXManager : MonoBehaviour
 
         // Remove this coroutine from active routines
         activeFades.Remove(key);
+    }
+
+    (string, float) GetExposedParams(MixerGroupsInfo group, EX_PARA type)
+    {
+        // Attempt to get the exposed parameter and default targetvalue (starting value), determined by the type of parameter
+        switch (type)
+        {
+            case EX_PARA.VOLUME:
+                return (group.parameters.volume, group.parameters.startVolume);
+            case EX_PARA.LOW_PASS_EQ:
+                return (group.parameters.lowPassEQ, group.parameters.startLowPassEQ);
+
+            // ===== (EX_PARA: Add in extra parameters if added to!) =====
+            default:
+                Debug.LogWarning("Error, errrm.. okay? Somehow incorrect enum passed: " + type);
+                return (null, 0f);
+        }
     }
 
     float ConvertType(EX_PARA type, bool toType, float inputValue)

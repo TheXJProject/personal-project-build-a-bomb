@@ -80,3 +80,12 @@ public class MainGroups
         };
     }
 }
+
+[System.Serializable]
+public class PlayerGroups
+{
+    // Initialise In Inspector:
+    public AudioMixerGroup masterPlayer;
+    public AudioMixerGroup musicPlayer;
+    public AudioMixerGroup sfxPlayer;
+}

@@ -254,10 +254,28 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: a415cea1a6141c245a5ac18c49623260
+    name: Mstr Player Volume
+  - guid: 47bc7e44fc2f4d041905b47804bc5f04
+    name: M Player Volume
+  - guid: 9f8496c4330280546b678f4ed363838d
+    name: MC Volume
   - guid: d649aee66c491224193216c35583e4e6
     name: MS2 Volume
+  - guid: c79518036dfff8244a68d6ec38af233f
+    name: MS3 Volume
+  - guid: 40db84e3010792d41b9d53d4c4688be9
+    name: MS4 Volume
+  - guid: 6ab001734ea701140804a727eb2d044c
+    name: MS5 Volume
+  - guid: 92d35e4efb8ecf54d8b982bc17c9d91d
+    name: MS6 Volume
   - guid: 5ab5687d0d3728548bef7ed143e31c26
     name: MS1 Volume
+  - guid: 418c94b714277f847b909d359fa6b50d
+    name: SFX Player Volume
+  - guid: a179689329f99074ea82c861c4a9691e
+    name: SFXC Volume
   m_AudioMixerGroupViews:
   - guids:
     - ef9a054234c4c6d47bd9f48662148d3c
@@ -321,17 +339,20 @@ AudioMixerSnapshotController:
   m_FloatValues:
     8a7ceec11b775f2408515ea8053b212a: 31.4
     84a3a3f25bddef44b9777e7e54fa45e1: -10.2
-    c79518036dfff8244a68d6ec38af233f: -6.991066
+    c79518036dfff8244a68d6ec38af233f: 0
+    6ab001734ea701140804a727eb2d044c: 0
+    a179689329f99074ea82c861c4a9691e: 0
     5d748b0406c7a20498613ef0472c6c3b: 1
     3830cb846556b3a44a5b49b0083c4880: 0.254
+    9f8496c4330280546b678f4ed363838d: 0
     3960f7c4c14f3a64baf6a8c20e370b8f: 22000
     49d36b867e2814b4086be6848508e31f: 22000
-    d649aee66c491224193216c35583e4e6: -0.39762527
+    d649aee66c491224193216c35583e4e6: 0
     e5ae1d67e960d49448095b415c95c6e6: -39.8
     f2e1c43887ffc1941990184e72320c57: -21.200006
     f82c0e8bc83a739419d862f2dc7809a2: 0.543
     c07f967c6d9b46249b415fa415ca70e2: 10
-    5ab5687d0d3728548bef7ed143e31c26: -21.302507
+    5ab5687d0d3728548bef7ed143e31c26: 0
     ba251e1ebd670a947910b812cd27c581: 30
   m_TransitionOverrides: {}
 --- !u!243 &1561151730283145453

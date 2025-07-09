@@ -12,14 +12,19 @@ public class MixerFXManager : MonoBehaviour
     // Initialise In Inspector:
     public AudioMixer audioMixer;
     [Header("---- Mixer Groups ----\n")]
-    [Header("_Main_")]
+    [Header("_For Player_")]
+    public PlayerGroups playerGroups;
+    [Header("_Core Groups_")]
     public MainGroups mainGroups;
-    [Header("_All Group_")]
-    public MixerGroupsInfo[] groups;
+    [Header("_Groups Info_")]
+    public MixerGroupsInfo[] groupInfo;
 
     // Runtime Variables:
     public static MixerFXManager instance;
     private readonly Dictionary<(MixerGroupsInfo, EX_PARA), Coroutine> activeFades = new();
+    string exParaMasterPlayer;
+    string exParaMusicPlayer;
+    string exParaSfxPlayer;
 
     private void Awake()
     {
@@ -47,6 +52,68 @@ public class MixerFXManager : MonoBehaviour
             Debug.LogWarning("Please add component before running!");
         }
 
+        // Error check player groups
+        if (playerGroups.masterPlayer == null)
+        {
+            Debug.LogWarning("Error, player group masterPlayer not filled in!");
+            Debug.LogWarning("Please add component before running! Cheers :)");
+        }
+        else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.masterPlayer))
+        {
+            Debug.LogWarning("Error, main group " + playerGroups.masterPlayer.name + " not in the main group collection!");
+        }
+        else
+        {
+            // Check it doesn't exist in core groups
+            foreach (GROUP_OPTIONS option in System.Enum.GetValues(typeof(GROUP_OPTIONS)))
+            {
+                if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.masterPlayer))
+                {
+                    Debug.LogWarning("Error, player group " + playerGroups.masterPlayer + " in the core group collection!");
+                }
+            }
+        }
+        if (playerGroups.musicPlayer == null)
+        {
+            Debug.LogWarning("Error, player group musicPlayer not filled in!");
+            Debug.LogWarning("Please add component before running! Cheers :)");
+        }
+        else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.musicPlayer))
+        {
+            Debug.LogWarning("Error, main group " + playerGroups.musicPlayer.name + " not in the main group collection!");
+        }
+        else
+        {
+            // Check it doesn't exist in core groups
+            foreach (GROUP_OPTIONS option in System.Enum.GetValues(typeof(GROUP_OPTIONS)))
+            {
+                if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.musicPlayer))
+                {
+                    Debug.LogWarning("Error, player group " + playerGroups.musicPlayer + " in the core group collection!");
+                }
+            }
+        }
+        if (playerGroups.sfxPlayer == null)
+        {
+            Debug.LogWarning("Error, player group sfxPlayer not filled in!");
+            Debug.LogWarning("Please add component before running! Cheers :)");
+        }
+        else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.sfxPlayer))
+        {
+            Debug.LogWarning("Error, main group " + playerGroups.sfxPlayer.name + " not in the main group collection!");
+        }
+        else
+        {
+            // Check it doesn't exist in core groups
+            foreach (GROUP_OPTIONS option in System.Enum.GetValues(typeof(GROUP_OPTIONS)))
+            {
+                if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.sfxPlayer))
+                {
+                    Debug.LogWarning("Error, player group " + playerGroups.sfxPlayer + " in the core group collection!");
+                }
+            }
+        }
+
         // For each main group collection
         foreach (GROUP_OPTIONS option in System.Enum.GetValues(typeof(GROUP_OPTIONS)))
         {
@@ -62,7 +129,7 @@ public class MixerFXManager : MonoBehaviour
                 foreach (AudioMixerGroup g in mainGroups.GroupOptionToArray(option))
                 {
                     // Check it exsits in somewhere in the set of all groups
-                    if (!Array.Exists(groups, gr => gr.group == g))
+                    if (!Array.Exists(groupInfo, gr => gr.group == g))
                     {
                         Debug.LogWarning("Error, main group " + g.name + " not in the main group collection!");
                     }
@@ -71,7 +138,7 @@ public class MixerFXManager : MonoBehaviour
         }
 
         // Check main group array filled in
-        if (groups.Length == 0)
+        if (groupInfo.Length == 0)
         {
             Debug.LogWarning("Error, main group array empty!");
         }
@@ -79,7 +146,7 @@ public class MixerFXManager : MonoBehaviour
         // From here, sets up audio channels.
         // Check if correct group info has been filled in and if it is valid.
         // For each group construct
-        foreach (MixerGroupsInfo g in groups)
+        foreach (MixerGroupsInfo g in groupInfo)
         {
             // If not assigned a group from the mixer
             if (g.group == null)
@@ -159,6 +226,24 @@ public class MixerFXManager : MonoBehaviour
             }
         }
 
+        // Get the group info of the player group
+        MixerGroupsInfo playerGroup = Array.Find(groupInfo, gI => gI.group == playerGroups.masterPlayer);
+
+        // Get the exposed parameter for the player master group
+        exParaMasterPlayer = GetExposedParams(playerGroup, EX_PARA.VOLUME).Item1;
+
+        // Get the group info of the player group
+        playerGroup = Array.Find(groupInfo, gI => gI.group == playerGroups.musicPlayer);
+
+        // Get the exposed parameter for the player master group
+        exParaMusicPlayer = GetExposedParams(playerGroup, EX_PARA.VOLUME).Item1;
+
+        // Get the group info of the player group
+        playerGroup = Array.Find(groupInfo, gI => gI.group == playerGroups.sfxPlayer);
+
+        // Get the exposed parameter for the player master group
+        exParaSfxPlayer = GetExposedParams(playerGroup, EX_PARA.VOLUME).Item1;
+
         if (Msg) Debug.Log("Finished Audio Setup.");
     }
 
@@ -173,9 +258,16 @@ public class MixerFXManager : MonoBehaviour
         // To do that, find the audio source outputting the track
         SoundSource source = Array.Find(AudioManager.instance.musicSourceList, y => y.soundName == name);
 
+        // Error check
+        if (source == null)
+        {
+            Debug.LogWarning("Error, can't find a source with audio source playing " + name + ".");
+            return;
+        }
+
         // Then we find which group the source is playing to. We check each element of our array of groups.
         // In each element, we check our list of audiosources to see if the list contains the source we're looking for.
-        MixerGroupsInfo groupToUse = Array.Find(groups, x => Array.Exists(x.linkedAudioSources.audioSources, z => z == source.audioSource));
+        MixerGroupsInfo groupToUse = Array.Find(groupInfo, x => Array.Exists(x.linkedAudioSources.audioSources, z => z == source.audioSource));
 
         // Error check
         if (groupToUse == null)
@@ -211,7 +303,7 @@ public class MixerFXManager : MonoBehaviour
         activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
     }
 
-    public void SetAllMusicParam(EX_PARA param, float duration, float? value = null)
+    public void SetMusicOverallParam(EX_PARA param, float duration, float? value = null)
     {
         float targetValue = 0;
         string expoParam = "";
@@ -227,7 +319,7 @@ public class MixerFXManager : MonoBehaviour
             }
 
             // Then we check each element of our array of groups to find the right infomation
-            MixerGroupsInfo groupToUse = Array.Find(groups, y => y.group == g);
+            MixerGroupsInfo groupToUse = Array.Find(groupInfo, y => y.group == g);
 
             // If the paramater is already fading
             if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
@@ -245,7 +337,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.GetFloat(expoParam, out float currentValue))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to get current value for " + expoParam);
+                Debug.LogWarning("Error, failed to get current value for " + param);
                 return;
             }
 
@@ -258,7 +350,7 @@ public class MixerFXManager : MonoBehaviour
         }
     }
 
-    public void SetAllSfxParam(EX_PARA param, float duration, float? value = null)
+    public void SetSfxOverallParam(EX_PARA param, float duration, float? value = null)
     {
         float targetValue = 0;
         string expoParam = "";
@@ -274,7 +366,7 @@ public class MixerFXManager : MonoBehaviour
             }
 
             // Then we check each element of our array of groups to find the right infomation
-            MixerGroupsInfo groupToUse = Array.Find(groups, y => y.group == g);
+            MixerGroupsInfo groupToUse = Array.Find(groupInfo, y => y.group == g);
 
             // If the paramater is already fading
             if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
@@ -292,7 +384,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.GetFloat(expoParam, out float currentValue))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to get current value for " + expoParam);
+                Debug.LogWarning("Error, failed to get current value for " + param);
                 return;
             }
 
@@ -312,7 +404,7 @@ public class MixerFXManager : MonoBehaviour
         foreach (AudioMixerGroup group in mainGroups.GroupOptionToArray(collection))
         {
             // Find the group from our group info array that matches the group from the collection
-            MixerGroupsInfo groupToSet = Array.Find(groups, y => y.group.name == group.name);
+            MixerGroupsInfo groupToSet = Array.Find(groupInfo, y => y.group.name == group.name);
 
             // Error check
             if (groupToSet == null)
@@ -340,7 +432,7 @@ public class MixerFXManager : MonoBehaviour
                 if (!audioMixer.SetFloat(exParam, ConvertType(param, true, targetValue)))
                 {
                     // Throw error if this fails
-                    Debug.LogWarning("Error, failed to set target value for " + exParam);
+                    Debug.LogWarning("Error, failed to set target value for " + param);
                 }
             }
         }
@@ -393,11 +485,15 @@ public class MixerFXManager : MonoBehaviour
             yield return null;
         }
 
-        // Set the value of the exposed parameter to target
-        if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
+        // If the elapsed time is greater than or equal to the duration
+        if (elapsed >= duration)
         {
-            // Throw error if this fails
-            Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+            // Set the value of the exposed parameter to target
+            if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
+            {
+                // Throw error if this fails
+                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+            }
         }
 
         // Remove this coroutine from active routines
@@ -459,15 +555,52 @@ public class MixerFXManager : MonoBehaviour
         }
     }
 
-    // TODO: write this up
+    void SetVolumeLevel(string exParam, float level)
+    {
+        // Clamp the desired level between 0.0001 and 1
+        level = ConvertType(EX_PARA.VOLUME, true, Mathf.Clamp(level, 0.0001f, 1f));
+
+        // Set the volume on the mixer
+        if (!audioMixer.SetFloat(exParam, level))
+        {
+            // Throw error if this fails
+            Debug.LogWarning("Error, failed to set target value for " + exParam);
+        }
+    }
+
+    public void SetPlayerMaster(float level) => SetVolumeLevel(exParaMasterPlayer, level);
+    public void SetPlayerMusic(float level) => SetVolumeLevel(exParaMusicPlayer, level);
+    public void SetPlayerSfx(float level) => SetVolumeLevel(exParaSfxPlayer, level); 
+
     // The MixerFXManager functions affect the various channels in the audio mixer.
     // They change the pre-master volume and can apply FX to the channels.
 
     //Functions:
-    //  Functions for mix.
-    //    - FadeInMusicChannel(//channel)           Brings in
-    //
-    //  Functions for post mix.
-    //    - FadeAllIn()                             Fades in all sound if previously faded out (doesn't affect other FX)
-    //    - FadeAllOut()                            Fades out all sound if previously faded in (doesn't affect other FX)
+    //  Functions for development.
+    //    - InitialiseMixer()                       Called once by the audio manager for setup
+    //    - SetMusicParam(string name, EX_PARA param, float duration, float? value = null)
+    //                                              The function takes a name of the music track, type of effect to change,
+    //                                              duration of change, and a target value for the effect parameter. It 
+    //                                              will alter the effect for the track that is in use
+    //    - SetMusicOverallParam(EX_PARA param, float duration, float? value = null)
+    //                                              Same as SetMusic Param but for the music overall
+    //    - SetSfxOverallParam(EX_PARA param, float duration, float? value = null)
+    //                                              Same as SetMusic Param but for the sfx overall
+    //    - ForceSetParam(GROUP_OPTIONS collection, EX_PARA param, float? value = null)
+    //                                              Will force set a collection memeber/overall group effect without fading
+    //    - Fader(string exposedParam, (MixerGroupsInfo, EX_PARA) key, float duration, float current, float target)
+    //                                              Start a coroutine for the fading of an effect. The coroutine is assigned
+    //                                              a key for identification and has a duration, starting value (current)
+    //                                              and target value
+    //    - GetExposedParams(MixerGroupsInfo group, EX_PARA type)
+    //                                              Gets the name and value of a type of exposed paramter from a group
+    //    - ConvertType(EX_PARA type, bool toType, float inputValue)
+    //                                              Converts a value of a exposed parameter into a linear form in to 
+    //                                              a custom form or vice versa
+    //  Functions for player.
+    //    - SetVolumeLevel(string exParam, float level)
+    //                                              Takes an exposed volume parameter and sets a value to it
+    //    - SetPlayerMaster(float level)            Adjusts the master volume
+    //    - SetPlayerMusic(float level)             Adjusts the music volume
+    //    - SetPlayerSfx(float level)               Adjusts the sfx volume
 }

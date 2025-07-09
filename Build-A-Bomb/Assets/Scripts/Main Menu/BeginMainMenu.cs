@@ -18,12 +18,6 @@ public class BeginMainMenu : MonoBehaviour
             // Prevent it being pressed again until reset elsewhere
             pressed = true;
 
-            MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.MUSIC_COLLECTION, EX_PARA.VOLUME, 0f);
-
-            AudioManager.instance.PlayMusic("Main", 0.1f);
-
-            MixerFXManager.instance.SetMusicParam("Main", EX_PARA.VOLUME, 3f, 0.5f);
-
             // Change the camera position
             cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
 

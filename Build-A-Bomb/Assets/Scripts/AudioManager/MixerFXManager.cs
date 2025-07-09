@@ -104,8 +104,6 @@ public class MixerFXManager : MonoBehaviour
                 {
                     // Apply the default name (Some parameters won't be used so we don't throw an error)
                     g.parameters.volume = MixerGroupExpoParameters.defaultName;
-
-                    if (Msg) Debug.Log("Volume on " + g.name + " not used.");
                 }
                 // If we have inputted a name for a potential exposed parameter, check it exists and if it does
                 // Assign the value, it currently has, to our "start" variable
@@ -121,8 +119,6 @@ public class MixerFXManager : MonoBehaviour
                 {
                     // Apply the default name (Some parameters won't be used so we don't throw an error)
                     g.parameters.lowPassEQ = MixerGroupExpoParameters.defaultName;
-
-                    if (Msg) Debug.Log("Low Pass EQ on " + g.name + " not used.");
                 }
                 // If we have inputted a name for a potential exposed parameter, check it exists and if it does
                 // Assign the value, it currently has, to our "start" variable
@@ -434,16 +430,16 @@ public class MixerFXManager : MonoBehaviour
                 // If we want to convert to type
                 if (toType)
                 {
-                    // Convert the volume in dB to that use a linear scale
-                    // (the inverse of converting to a logarithmic scale)
-                    return Mathf.Pow(10, inputValue / 20);
+                    // Convert the linear inputted volume to dB which uses a logarithmic scale
+                    // If input is less than or equal to 0 change to minimum value (-80dB = Mathf.Log10(0.0001f) * 20)
+                    return Mathf.Log10(inputValue <= 0 ? 0.0001f : inputValue) * 20f;
                 }
                 // Otherwise, we want to convert from type
                 else
                 {
-                    // Convert the linear inputted volume to dB which uses a logarithmic scale
-                    // If input is less than or equal to 0 change to minimum value (-80dB = Mathf.Log10(0.0001f) * 20)
-                    return Mathf.Log10(inputValue <= 0 ? 0.0001f : inputValue) * 20f;
+                    // Convert the volume in dB to use a linear scale
+                    // (the inverse of converting to a logarithmic scale)
+                    return Mathf.Pow(10f, inputValue / 20f);
                 }
             case EX_PARA.LOW_PASS_EQ:
                 // If we want to convert to type

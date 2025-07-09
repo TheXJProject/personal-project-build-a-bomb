@@ -2111,7 +2111,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Msg: 0
   nonPriorityVolume: 0.7
-  musicSounds: []
+  musicSounds:
+  - name: Main
+    clip: {fileID: 8300000, guid: 2714858105f7f0d48be08ed751c7fb4b, type: 3}
+    volume: 0.8
+    pitch: 1
+    panning: 0
   sfxSounds: []
   musicSourceList:
   - audioSource: {fileID: 4421302134104516341}
@@ -2201,6 +2206,61 @@ MonoBehaviour:
       audioSources: []
   - name: 
     group: {fileID: -1493424754121944482, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: -5233756033606628758, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: MS1 Volume
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources:
+      - {fileID: 4421302134104516341}
+  - name: 
+    group: {fileID: 4861633386834036181, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: MS2 Volume
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: 6505567788978033536, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: 1561151730283145453, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: 5715241065326983939, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
+    parameters:
+      volume: 
+      lowPassEQ: 
+      startVolume: 0
+      startLowPassEQ: 0
+    linkedAudioSources:
+      audioSources: []
+  - name: 
+    group: {fileID: -1432597213002242430, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
     parameters:
       volume: 
       lowPassEQ: 

@@ -195,7 +195,7 @@ public class MixerFXManager : MonoBehaviour
             activeFades.Remove((groupToUse, param));
         }
 
-        // From the group to use, and the param type, get the correct exposed parameter and start value
+        // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
         expoParam = GetExposedParams(groupToUse, param).Item1;
         targetValue = GetExposedParams(groupToUse, param).Item2;
 
@@ -203,7 +203,7 @@ public class MixerFXManager : MonoBehaviour
         if (!audioMixer.GetFloat(expoParam, out float currentValue))
         {
             // Throw error if this fails
-            Debug.LogWarning("Error, failed to get current value for " + param);
+            Debug.LogWarning("Error, failed to get current value for " + expoParam);
             return;
         }
 
@@ -215,15 +215,98 @@ public class MixerFXManager : MonoBehaviour
         activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
     }
 
-    public void SetAllMusicParam()
+    public void SetAllMusicParam(EX_PARA param, float duration, float? value = null)
     {
+        float targetValue = 0;
+        string expoParam = "";
 
+        // For each group in Music overall
+        foreach (AudioMixerGroup g in mainGroups.musicOverall)
+        {
+            // Error check
+            if (g == null)
+            {
+                Debug.LogWarning("Error, group in musicOverall is null.");
+                continue;
+            }
 
+            // Then we check each element of our array of groups to find the right infomation
+            MixerGroupsInfo groupToUse = Array.Find(groups, y => y.group == g);
+
+            // If the paramater is already fading
+            if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
+            {
+                // Stop the coroutine and remove it from active fades
+                StopCoroutine(exists);
+                activeFades.Remove((groupToUse, param));
+            }
+
+            // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
+            expoParam = GetExposedParams(groupToUse, param).Item1;
+            targetValue = GetExposedParams(groupToUse, param).Item2;
+
+            // Get the current value of the exposed parameter
+            if (!audioMixer.GetFloat(expoParam, out float currentValue))
+            {
+                // Throw error if this fails
+                Debug.LogWarning("Error, failed to get current value for " + expoParam);
+                return;
+            }
+
+            // Convert and clamp (linear values should be between 0 and 1)
+            currentValue = ConvertType(param, false, currentValue);
+            targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
+
+            // Finally, kick off a coroutine that fades the value
+            activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+        }
     }
 
-    public void SetAllSfxParam()
+    public void SetAllSfxParam(EX_PARA param, float duration, float? value = null)
     {
+        float targetValue = 0;
+        string expoParam = "";
 
+        // For each group in sfx overall
+        foreach (AudioMixerGroup g in mainGroups.sfxOverall)
+        {
+            // Error check
+            if (g == null)
+            {
+                Debug.LogWarning("Error, group in sfxOverall is null.");
+                continue;
+            }
+
+            // Then we check each element of our array of groups to find the right infomation
+            MixerGroupsInfo groupToUse = Array.Find(groups, y => y.group == g);
+
+            // If the paramater is already fading
+            if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
+            {
+                // Stop the coroutine and remove it from active fades
+                StopCoroutine(exists);
+                activeFades.Remove((groupToUse, param));
+            }
+
+            // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
+            expoParam = GetExposedParams(groupToUse, param).Item1;
+            targetValue = GetExposedParams(groupToUse, param).Item2;
+
+            // Get the current value of the exposed parameter
+            if (!audioMixer.GetFloat(expoParam, out float currentValue))
+            {
+                // Throw error if this fails
+                Debug.LogWarning("Error, failed to get current value for " + expoParam);
+                return;
+            }
+
+            // Convert and clamp (linear values should be between 0 and 1)
+            currentValue = ConvertType(param, false, currentValue);
+            targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
+
+            // Finally, kick off a coroutine that fades the value
+            activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+        }
     }
 
     public void ForceSetParam(GROUP_OPTIONS collection, EX_PARA param, float? value = null)

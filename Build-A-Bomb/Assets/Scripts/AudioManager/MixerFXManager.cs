@@ -278,9 +278,18 @@ public class MixerFXManager : MonoBehaviour
         // If the paramater is already fading
         else if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
         {
-            // Stop the coroutine and remove it from active fades
-            StopCoroutine(exists);
-            activeFades.Remove((groupToUse, param));
+            // Error Check
+            if (exists == null)
+            {
+                Debug.LogWarning("Error, existing coroutine is null!");
+                Debug.LogWarning("Group " + groupToUse.name);
+            }
+            else
+            {
+                // Stop the coroutine and remove it from active fades
+                StopCoroutine(exists);
+                activeFades.Remove((groupToUse, param));
+            }
         }
 
         // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
@@ -300,7 +309,14 @@ public class MixerFXManager : MonoBehaviour
         targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
 
         // Finally, kick off a coroutine that fades the value
-        activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+        Coroutine fade = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+
+        // If the fade exists
+        if (fade != null)
+        {
+            // Store the coroutine
+            activeFades[(groupToUse, param)] = fade;
+        }
     }
 
     public void SetMusicOverallParam(EX_PARA param, float duration, float? value = null)
@@ -324,9 +340,17 @@ public class MixerFXManager : MonoBehaviour
             // If the paramater is already fading
             if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
             {
-                // Stop the coroutine and remove it from active fades
-                StopCoroutine(exists);
-                activeFades.Remove((groupToUse, param));
+                // Error Check
+                if (exists == null)
+                {
+                    Debug.LogWarning("Error, existing coroutine is null!");
+                }
+                else
+                {
+                    // Stop the coroutine and remove it from active fades
+                    StopCoroutine(exists);
+                    activeFades.Remove((groupToUse, param));
+                }
             }
 
             // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
@@ -346,7 +370,14 @@ public class MixerFXManager : MonoBehaviour
             targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
 
             // Finally, kick off a coroutine that fades the value
-            activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+            Coroutine fade = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+
+            // If the fade exists
+            if (fade != null)
+            {
+                // Store the coroutine
+                activeFades[(groupToUse, param)] = fade;
+            }
         }
     }
 
@@ -371,9 +402,17 @@ public class MixerFXManager : MonoBehaviour
             // If the paramater is already fading
             if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
             {
-                // Stop the coroutine and remove it from active fades
-                StopCoroutine(exists);
-                activeFades.Remove((groupToUse, param));
+                // Error Check
+                if (exists == null)
+                {
+                    Debug.LogWarning("Error, existing coroutine is null!");
+                }
+                else
+                {
+                    // Stop the coroutine and remove it from active fades
+                    StopCoroutine(exists);
+                    activeFades.Remove((groupToUse, param));
+                }
             }
 
             // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
@@ -393,7 +432,14 @@ public class MixerFXManager : MonoBehaviour
             targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
 
             // Finally, kick off a coroutine that fades the value
-            activeFades[(groupToUse, param)] = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+            Coroutine fade = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+
+            // If the fade exists
+            if (fade != null)
+            {
+                // Store the coroutine
+                activeFades[(groupToUse, param)] = fade;
+            }
         }
     }
 
@@ -416,9 +462,17 @@ public class MixerFXManager : MonoBehaviour
                 // If the paramater is fading
                 if (activeFades.TryGetValue((groupToSet, param), out Coroutine exists))
                 {
-                    // Stop the coroutine and remove it from active fades
-                    StopCoroutine(exists);
-                    activeFades.Remove((groupToSet, param));
+                    // Error Check
+                    if (exists == null)
+                    {
+                        Debug.LogWarning("Error, existing coroutine is null!");
+                    }
+                    else
+                    {
+                        // Stop the coroutine and remove it from active fades
+                        StopCoroutine(exists);
+                        activeFades.Remove((groupToSet, param));
+                    }
                 }
 
                 // "value" is either the starting value of the parameter if nothing was passed
@@ -459,6 +513,9 @@ public class MixerFXManager : MonoBehaviour
                 // Throw error if this fails
                 Debug.LogWarning("Error, failed to set target value for " + exposedParam);
             }
+
+            // Remove this coroutine from active routines
+            activeFades.Remove(key);
 
             // We don't need to iterate
             yield break;

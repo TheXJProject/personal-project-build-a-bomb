@@ -20,7 +20,7 @@ public class Tutorial : MonoBehaviour
             cameraObject.NewCameraSizeAndPosition(cameraData.tutorialCameraSize, cameraData.tutorialLayer, cameraData.tutorial);
 
             // Tell the manager we've pressed a button in the main menu
-            manager.OnAnyButtonPressed();
+            manager.OnAnyButtonPressed(MENUS.TUTORIAL);
 
             // Show the back button
             backButton.SetActive(true);

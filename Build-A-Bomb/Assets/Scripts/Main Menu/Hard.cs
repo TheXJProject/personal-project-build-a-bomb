@@ -20,7 +20,7 @@ public class Hard : MonoBehaviour
             cameraObject.NewCameraSizeAndPosition(cameraData.hardCameraSize, cameraData.hardLayer, cameraData.hard);
 
             // Tell the manager we've pressed a button in the main menu
-            manager.OnAnyButtonPressed();
+            manager.OnAnyButtonPressed(MENUS.HARD_PLAY);
 
             // Show the back button
             backButton.SetActive(true);

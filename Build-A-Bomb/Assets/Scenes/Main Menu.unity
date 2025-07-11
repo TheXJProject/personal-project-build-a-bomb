@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11bce93db25df4ab8a6997e4b803eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMusicTime: 5
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   mainMenuLevel: {fileID: 729838932}

@@ -6,11 +6,13 @@ public class MixerGroupsInfo
 {
     // Constant values:
     public const string errorName = "Error!";
+    
+    // Inspector Adjustable Values:
+    public string name;
 
     // Initialise In Inspector:
     [Header("---- Group Info ----\n")]
     [Header("The variable 'Name' will be filled in \nautomatically! Manual additions will be replaced.")]
-    public string name;
     public AudioMixerGroup group;
     public MixerGroupExpoParameters parameters;
     public LinkedAudioSources linkedAudioSources;
@@ -32,7 +34,7 @@ public class MixerGroupExpoParameters
     public const string errorName = "Error!";
     public const string defaultName = "Empty";
 
-    // Initialise In Inspector:
+    // Inspector Adjustable Values:
     [Header("---- Groups Exposed Parameters ----\n")]
     [Header("These variables should be named \nor left blank.")]
     public string volume;

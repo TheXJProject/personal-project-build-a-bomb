@@ -20,7 +20,7 @@ public class Settings : MonoBehaviour
             cameraObject.NewCameraSizeAndPosition(cameraData.SettingsCameraSize, cameraData.settingsLayer, cameraData.settings);
 
             // Tell the manager we've pressed a button in the main menu
-            manager.OnAnyButtonPressed();
+            manager.OnAnyButtonPressed(MENUS.SETTINGS);
 
             // Show the back button
             backButton.SetActive(true);

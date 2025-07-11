@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: f139fd73056e4a44999a09f1171d7c61
+guid: b7e4038cbb0bb9d4c9c493cf521881d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0

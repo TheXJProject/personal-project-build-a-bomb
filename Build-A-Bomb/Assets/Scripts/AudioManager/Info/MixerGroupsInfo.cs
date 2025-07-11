@@ -9,7 +9,7 @@ public class MixerGroupsInfo
 
     // Initialise In Inspector:
     [Header("---- Group Info ----\n")]
-    [Header("The variable 'Name' will be filled in \nautomatically! Do not add manually.")]
+    [Header("The variable 'Name' will be filled in \nautomatically! Manual additions will be replaced.")]
     public string name;
     public AudioMixerGroup group;
     public MixerGroupExpoParameters parameters;

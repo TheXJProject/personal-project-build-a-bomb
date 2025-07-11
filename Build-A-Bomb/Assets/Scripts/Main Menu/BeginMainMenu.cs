@@ -18,6 +18,12 @@ public class BeginMainMenu : MonoBehaviour
             // Prevent it being pressed again until reset elsewhere
             pressed = true;
 
+
+            AudioManager.instance.PlayMusic("Menu StartMelody", 0.1);
+            AudioManager.instance.PlayMusic("Menu Bass", 0.1);
+
+
+
             // Change the camera position
             cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
 

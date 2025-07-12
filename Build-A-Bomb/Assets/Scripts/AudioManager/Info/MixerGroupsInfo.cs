@@ -39,20 +39,24 @@ public class MixerGroupExpoParameters
     [Header("These variables should be named \nor left blank.")]
     public string volume;
     public string lowPassEQ;
-    
+    public string highPassEQ;
+
+    // (EX_PARA SET: Put all Exposed Parameters for a single channel here)
+
     // Runtime Variables:
     [HideInInspector] public float startVolume;
     [HideInInspector] public float startLowPassEQ;
+    [HideInInspector] public float startHighPassEQ;
 
-    // (EX_PARA: Put all Exposed Parameters for a single channel here)
+    // (EX_PARA SET: Put all Exposed Parameters for a single channel here)
 }
 
 public enum EX_PARA
 {
     VOLUME,
-    LOW_PASS_EQ
-
-    // (EX_PARA: Put all Exposed Parameters options here)
+    LOW_PASS_EQ,
+    HIGH_PASS
+    // (EX_PARA SET: Put all Exposed Parameters options here)
 }
 
 public enum GROUP_OPTIONS

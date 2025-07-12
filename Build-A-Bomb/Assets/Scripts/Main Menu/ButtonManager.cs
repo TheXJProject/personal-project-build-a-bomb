@@ -45,12 +45,16 @@ public class ButtonManager : MonoBehaviour
                 // Set each track to be at the right volume for settings
                 MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, 2f);
                 MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f);
+                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f, 0.7f);
 
                 // And set each track to off that shouldn't be playing
                 MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 2f, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, 2f, 0f);
+
+                // Set high pass filter
+                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, 2f, 0.45f);
                 break;
             case MENUS.TUTORIAL:
                 // Set each track to be at the right volume for tutorial
@@ -60,6 +64,9 @@ public class ButtonManager : MonoBehaviour
                 MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f, 0f);
+
+                // Set high pass filter
+                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, 2f, 0.45f);
                 break;
             case MENUS.NORMAL_PLAY:
                 // Set each track to be at the right volume for normal play
@@ -69,9 +76,8 @@ public class ButtonManager : MonoBehaviour
             case MENUS.HARD_PLAY:
                 // Set each track to be at the right volume for main menu
                 MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, 2f);
                 MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f);
+                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f, 0.6f);
 
                 // And set each track to off that shouldn't be playing
                 MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 2f, 0f);
@@ -106,5 +112,9 @@ public class ButtonManager : MonoBehaviour
         MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, 2f, 0f);
         MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, 2f, 0f);
         MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, 2f, 0f);
+
+        // Set high pass to normal
+        MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, 2f);
+        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, 2f);
     }
 }

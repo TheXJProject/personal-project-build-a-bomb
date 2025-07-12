@@ -157,8 +157,9 @@ public class MixerFXManager : MonoBehaviour
                 g.name = MixerGroupsInfo.errorName;
                 g.parameters.volume = MixerGroupExpoParameters.errorName;
                 g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
+                g.parameters.highPassEQ = MixerGroupExpoParameters.errorName;
 
-                // ===== (EX_PARA: Add in extra parameters if added to!) =====
+                // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             }
             else
             {
@@ -196,7 +197,22 @@ public class MixerFXManager : MonoBehaviour
                     g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
                 }
 
-                // ===== (EX_PARA: Add in extra parameters if added to!) =====
+                // If empty
+                if (g.parameters.highPassEQ == "") // ===== HighPassEQ =====
+                {
+                    // Apply the default name (Some parameters won't be used so we don't throw an error)
+                    g.parameters.highPassEQ = MixerGroupExpoParameters.defaultName;
+                }
+                // If we have inputted a name for a potential exposed parameter, check it exists and if it does
+                // Assign the value, it currently has, to our "start" variable
+                else if (!audioMixer.GetFloat(g.parameters.highPassEQ, out g.parameters.startHighPassEQ))
+                {
+                    // If we don't find a match throw error
+                    Debug.LogWarning("Error, parameter with name, " + ((g.parameters.highPassEQ == "") ? "none" : g.parameters.highPassEQ) + ", cannot be found in the mixer!");
+                    g.parameters.highPassEQ = MixerGroupExpoParameters.errorName;
+                }
+
+                // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
 
                 // Check if audiosources exist in Audio Manager.
                 // For each audio source we have linked to the mixer
@@ -566,8 +582,10 @@ public class MixerFXManager : MonoBehaviour
                 return (group.parameters.volume, group.parameters.startVolume);
             case EX_PARA.LOW_PASS_EQ:
                 return (group.parameters.lowPassEQ, group.parameters.startLowPassEQ);
+            case EX_PARA.HIGH_PASS:
+                return (group.parameters.highPassEQ, group.parameters.startHighPassEQ);
 
-            // ===== (EX_PARA: Add in extra parameters if added to!) =====
+            // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             default:
                 Debug.LogWarning("Error, errrm.. okay? Somehow incorrect enum passed: " + type);
                 return (null, 0f);
@@ -605,8 +623,22 @@ public class MixerFXManager : MonoBehaviour
                 {
                     return 0f;
                 }
+            case EX_PARA.HIGH_PASS:
+                // If we want to convert to type
+                if (toType)
+                {
+                    // Convert the linear 0-1 scale to a log 10hz to 22000hz scale
+                    float logFreq = Mathf.Lerp(Mathf.Log10(10), Mathf.Log10(22000), inputValue);
+                    return Mathf.Pow(10f, logFreq);
+                }
+                // Otherwise, we want to convert from type
+                else
+                {
+                    // Convert the log 10hz to 22000hz scale, to a linear 0-1 scale
+                    return Mathf.InverseLerp(Mathf.Log10(10), Mathf.Log10(22000), Mathf.Log10(inputValue));
+                }
 
-            // ===== (EX_PARA: Add in extra parameters if added to!) =====
+            // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             default:
                 return 0f;
         }

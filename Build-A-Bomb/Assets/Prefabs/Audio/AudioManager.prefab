@@ -2887,57 +2887,57 @@ MonoBehaviour:
   nonPriorityVolume: 0.7
   musicSounds:
   - name: Menu Alarms
-    volume: 0.6
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 7e4e50b1d8663624391ca59f49392bdf, type: 3}
   - name: Menu Bass
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: dcb4e7e04224ff74da30eabcb35e0351, type: 3}
   - name: Menu Beeps
-    volume: 1
+    volume: 0.9
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: c7119b2e7f94ad447ab043e4e45300e6, type: 3}
   - name: Menu Choir
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 220c27b9fa9bbc4499327559a3763b2c, type: 3}
   - name: Menu FullChoirCrash
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 74fbfb706b909df4b97308ae4951123c, type: 3}
   - name: Menu Hats
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 9ea391986aeb1f4449a6215ca1fd8631, type: 3}
   - name: Menu KickSnare
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 69b51aa7b3d2fbc4787d9cda4f801249, type: 3}
   - name: Menu OfficeNoise
-    volume: 1
+    volume: 0.95
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: e065c90cb530a0a4dbfddeadc7de36a1, type: 3}
   - name: Menu Organ
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: ce6e671cc61e30740af5727761e4e8b4, type: 3}
   - name: Menu StartMelody
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 4fd6ea24e8e31c34194899adbb2ad4f9, type: 3}
   - name: Menu StringsXyphone
-    volume: 1
+    volume: 0.8
     pitch: 1
     panning: 0
     clip: {fileID: 8300000, guid: 0380352fb7f8a8d4aaef5c24c2be17f7, type: 3}
@@ -3052,8 +3052,10 @@ MonoBehaviour:
     parameters:
       volume: MS1 Volume
       lowPassEQ: 
+      highPassEQ: MS1 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 4421302134104516341}
@@ -3062,8 +3064,10 @@ MonoBehaviour:
     parameters:
       volume: MS2 Volume
       lowPassEQ: 
+      highPassEQ: MS2 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 6550475695571863269}
@@ -3072,8 +3076,10 @@ MonoBehaviour:
     parameters:
       volume: MS3 Volume
       lowPassEQ: 
+      highPassEQ: MS3 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 1416095540606872925}
@@ -3082,8 +3088,10 @@ MonoBehaviour:
     parameters:
       volume: MS4 Volume
       lowPassEQ: 
+      highPassEQ: MS4 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 8607747657632733051}
@@ -3092,8 +3100,10 @@ MonoBehaviour:
     parameters:
       volume: MS5 Volume
       lowPassEQ: 
+      highPassEQ: MS5 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 293339522481141640}
@@ -3102,8 +3112,10 @@ MonoBehaviour:
     parameters:
       volume: MS6 Volume
       lowPassEQ: 
+      highPassEQ: MS6 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 4969521244931199875}
@@ -3112,8 +3124,10 @@ MonoBehaviour:
     parameters:
       volume: MS7 Volume
       lowPassEQ: 
+      highPassEQ: MS7 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 7012386605163530034}
@@ -3122,8 +3136,10 @@ MonoBehaviour:
     parameters:
       volume: MS8 Volume
       lowPassEQ: 
+      highPassEQ: MS8 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 8421245618007090618}
@@ -3132,8 +3148,10 @@ MonoBehaviour:
     parameters:
       volume: MS9 Volume
       lowPassEQ: 
+      highPassEQ: MS9 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 4170684188132500833}
@@ -3142,8 +3160,10 @@ MonoBehaviour:
     parameters:
       volume: MS10 Volume
       lowPassEQ: 
+      highPassEQ: MS10 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 6586674310072602583}
@@ -3152,8 +3172,10 @@ MonoBehaviour:
     parameters:
       volume: MS11 Volume
       lowPassEQ: 
+      highPassEQ: MS11 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 1546861566333696373}
@@ -3162,8 +3184,10 @@ MonoBehaviour:
     parameters:
       volume: MS12 Volume
       lowPassEQ: 
+      highPassEQ: MS12 HighPass
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 7840359976976365880}
@@ -3172,8 +3196,10 @@ MonoBehaviour:
     parameters:
       volume: MC Volume
       lowPassEQ: 
+      highPassEQ: 
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources: []
   - name: SFXC
@@ -3181,8 +3207,10 @@ MonoBehaviour:
     parameters:
       volume: SFXC Volume
       lowPassEQ: 
+      highPassEQ: 
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources:
       - {fileID: 7483278132575422720}
@@ -3200,8 +3228,10 @@ MonoBehaviour:
     parameters:
       volume: M Player Volume
       lowPassEQ: 
+      highPassEQ: 
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources: []
   - name: SFXPC
@@ -3209,8 +3239,10 @@ MonoBehaviour:
     parameters:
       volume: SFX Player Volume
       lowPassEQ: 
+      highPassEQ: 
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources: []
   - name: MSTR
@@ -3218,7 +3250,9 @@ MonoBehaviour:
     parameters:
       volume: Mstr Player Volume
       lowPassEQ: 
+      highPassEQ: 
       startVolume: 0
       startLowPassEQ: 0
+      startHighPassEQ: 0
     linkedAudioSources:
       audioSources: []

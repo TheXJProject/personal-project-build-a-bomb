@@ -10,6 +10,7 @@ public class BombStatus : MonoBehaviour
     public static event Action<GameObject> onLayerCreated;
 
     // Inspector Adjustable Values:
+    public bool canCheatLayers = false;
     public List<GameObject> layersToBeSpawned = new List<GameObject>();
     public float layerSizeAcceleration = 3f;
     public float taskSizeDeceleration = 0.1f;

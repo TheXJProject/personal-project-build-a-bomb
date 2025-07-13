@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class KeypadLogic : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class KeypadLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 30;
+    const int maxPossibleDifficultly = 20;
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:
@@ -29,6 +28,8 @@ public class KeypadLogic : MonoBehaviour
     List<int> playerSequence;
     [HideInInspector] public bool canClickKeys;
     Coroutine myCoroutine;
+    static string typeInSeq;
+    static string showInSeq;
     bool isSetup;
 
     private void Awake()
@@ -62,19 +63,45 @@ public class KeypadLogic : MonoBehaviour
         // Depending on keyNumber, began correct function
         if (keyNumber == -10)
         {
+            // Reset the player's numbers shown
+            typeInSeq = "";
+
             // Start showing code sequence required
             myCoroutine = StartCoroutine(ShowSequence());
         }
         else if (keyNumber == -20)
         {
+            // Reset the player's numbers shown
+            typeInSeq = "";
+
+            // Reset keys to show
+            showInSeq = "";
+
             // Check the player sequence is correct
             CheckCode();
         }
         else if (0 <= keyNumber && keyNumber < 10)
         {
+            // Reset keys to show
+            showInSeq = "";
+
+            // Show all the numbers entered at once
+            typeInSeq += keyNumber.ToString();
+
             // Add number to player sequence and display it
             playerSequence.Add(keyNumber);
-            display.DisplayText(keyNumber);
+
+            // If the number entered is too big
+            if (typeInSeq.Length > maxPossibleDifficultly)
+            {
+                // Show the player
+                display.DisplayText("Err");
+            }
+            else
+            {
+                // Show the player their input
+                display.DisplayText(typeInSeq);
+            }
 
             if (Msg) Debug.Log("Key entered into player sequence: " + keyNumber);
         }
@@ -113,23 +140,44 @@ public class KeypadLogic : MonoBehaviour
     /// </summary>
     IEnumerator ShowSequence()
     {
+        float timeElapsed;
+        bool inSeqAlreadyFilled = false;
+        string tempSeq = "";
+
+        // For each number in the code sequence
+        for (int i = 0; i < codeSequence.Count; i++)
+        {
+            // Create a temp seq to compare
+            tempSeq += codeSequence[i].ToString();
+        }
+
+        // If we are already showing the code
+        if (showInSeq == tempSeq)
+        {
+            inSeqAlreadyFilled = true;
+        }
+
         // Prevent any player interaction
         canClickKeys = false;
-
-        float timeElapsed = 0f;
 
         // For each number in the code sequence, show it in order
         for (int i = 0; i < codeSequence.Count; i++)
         {
             timeElapsed = 0f;
 
+            // If we are not already showing the sequence
+            if (!inSeqAlreadyFilled)
+            {
+                showInSeq += codeSequence[i].ToString();
+            }
+
             // Show element in code sequence
-            if (TaskDisplay.activeSelf) display.DisplayText(".. ", codeSequence[i]);
+            if (TaskDisplay.activeSelf) display.DisplayText(showInSeq);
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {
                 // Only show key if task can be seen
-                if (TaskDisplay.activeSelf) keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime * 0.6f);
+                if (TaskDisplay.activeSelf) keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime);
             }
             else
             {
@@ -151,7 +199,6 @@ public class KeypadLogic : MonoBehaviour
         }
 
         ResetPlayerSequence();
-        if (TaskDisplay.activeSelf) display.DisplayDefault();
 
         // Allow the player to interact again
         canClickKeys = true;
@@ -223,7 +270,7 @@ public class KeypadLogic : MonoBehaviour
                 else
                 {
                     // Otherwise show incorrect to player
-                    display.DisplayText("..Err");
+                    display.DisplayText("Err");
                 }
 
                 // Reset sequence if additional attempts needed
@@ -340,6 +387,12 @@ public class KeypadLogic : MonoBehaviour
         if (trigger == gameObject)
         {
             if (Msg) Debug.Log("Reset Task");
+
+            // Reset the player's numbers shown
+            typeInSeq = "";
+
+            // Reset keys to show
+            showInSeq = "";
 
             // Reset anything the player has entered
             ResetPlayerSequence();

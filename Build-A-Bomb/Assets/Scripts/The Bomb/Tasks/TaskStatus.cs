@@ -64,6 +64,14 @@ public class TaskStatus : MonoBehaviour
     {
         if (AnyTaskFocused || isSolved) return false;
 
+        // If dev cheatmode is on 
+        if (CheatLogic.cheatTool.GetCanCheat())
+        {
+            // Autocomplete task
+            TaskCompleted();
+            return false;
+        }
+
         isSelected = true;
         AnyTaskFocused = true;
 

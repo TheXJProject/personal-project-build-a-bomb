@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,18 +24,6 @@ public class TextLogic : MonoBehaviour
     {
         // Start with Default text whenever returning to task
         DisplayDefault();
-    }
-
-    /// FUNCTION DESCRIPTION<summary>
-    /// Displays given number in the keypad display. <br />
-    /// Parameter: The number to display.
-    /// </summary>
-    public void DisplayText(int number)
-    {
-        if (Msg) Debug.Log(" Number entered: " + number);
-
-        // Display number entered
-        keypadDisplay.text = number.ToString();
     }
 
     /// FUNCTION DESCRIPTION<summary>

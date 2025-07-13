@@ -160,7 +160,7 @@ public class LayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// Loops through overy task in the layer and returns true if they are all completed
+    /// Loops through every task in the layer and returns true if they are all completed
     /// </summary>
     /// <returns></returns>
     public bool IsLayerCompleted() 

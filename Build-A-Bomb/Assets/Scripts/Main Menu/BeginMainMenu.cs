@@ -4,6 +4,7 @@ public class BeginMainMenu : MonoBehaviour
 {
     // Inspector Adjustable Values:
     [SerializeField] float startMusicTime;
+    [SerializeField] float musicTransitonTime;
 
     // Initialise In Inspector:
     [SerializeField] GeneralCameraLogic cameraObject;
@@ -34,8 +35,8 @@ public class BeginMainMenu : MonoBehaviour
         AudioManager.instance.PlayMusic("Menu StringsXyphone", startTime);
 
         // Fade in the start menu tracks
-        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 1f);
-        MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 1f);
+        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);
+        MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 0.1f);
     }
 
     private void OnMouseDown()
@@ -47,10 +48,10 @@ public class BeginMainMenu : MonoBehaviour
             pressed = true;
 
             // Fade in the Main menu tracks
-            MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, 2f);
-            MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f);
-            MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f);
-            MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, 2f);
+            MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime);
+            MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime);
+            MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime);
+            MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime);
 
             // Change the camera position
             cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
@@ -66,10 +67,10 @@ public class BeginMainMenu : MonoBehaviour
         pressed = false;
 
         // Fade out the Main menu tracks
-        MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, 2f, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
         // Activate the next layer
         mainMenuLevel.SetActive(false);

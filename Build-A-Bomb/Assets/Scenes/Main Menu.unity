@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b214a0bec4e7e34b968c40e717b3979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicTransitonTime: 1.6
   settings: {fileID: 1102747124}
   settingsBack: {fileID: 410227000}
   tutorial: {fileID: 1809147820}
@@ -334,7 +335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11bce93db25df4ab8a6997e4b803eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMusicTime: 2
+  startMusicTime: 1
+  musicTransitonTime: 1.8
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   mainMenuLevel: {fileID: 729838932}

@@ -12,6 +12,9 @@ public enum MENUS
 
 public class ButtonManager : MonoBehaviour
 {
+    // Inspector Adjustable Values:
+    [SerializeField] float musicTransitonTime;
+
     // Initialise In Inspector:
     [SerializeField] Settings settings;
     [SerializeField] BackToMain settingsBack;
@@ -43,45 +46,45 @@ public class ButtonManager : MonoBehaviour
         {
             case MENUS.SETTINGS:
                 // Set each track to be at the right volume for settings
-                MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f, 0.7f);
+                MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime, 0.7f);
 
                 // And set each track to off that shouldn't be playing
-                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, 2f, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
-                // Set high pass filter
-                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, 2f, 0.45f);
+                // Set high pass filter, goes into it quick
+                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, 1f, 0.5f);
                 break;
             case MENUS.TUTORIAL:
                 // Set each track to be at the right volume for tutorial
-                MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, 2f);
+                MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, musicTransitonTime);
 
                 // And set each track to off that shouldn't be playing
-                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
                 // Set high pass filter
                 MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, 2f, 0.45f);
                 break;
             case MENUS.NORMAL_PLAY:
                 // Set each track to be at the right volume for normal play
-                MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, 2f);
+                MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, musicTransitonTime);
                 break;
             case MENUS.HARD_PLAY:
                 // Set each track to be at the right volume for main menu
-                MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, 2f);
-                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f, 0.6f);
+                MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, musicTransitonTime, 0.6f);
 
                 // And set each track to off that shouldn't be playing
-                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 2f, 0f);
-                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime, 0f);
                 break;
             default:
                 Debug.LogWarning("Error, somehow got here....");
@@ -99,19 +102,19 @@ public class ButtonManager : MonoBehaviour
         goBack.pressed = false;
 
         // Set each track to be at the right volume for main menu
-        MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 2f);
-        MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, 2f);
-        MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, 2f);
-        MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, 2f);
-        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 2f);
-        MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, 2f);
+        MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime);
 
         // And set each track to off that shouldn't be playing
-        MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, 2f, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, 2f, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
         // Set high pass to normal
         MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, 2f);

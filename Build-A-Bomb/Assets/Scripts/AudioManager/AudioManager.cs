@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
@@ -93,7 +94,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string name, double timeTillPlay)
+    public void PlayMusic(string name, double dspTimeTillPlay)
     {
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
@@ -110,7 +111,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Error, no music source available!");
         }
-        else if (timeTillPlay < 0.05f)
+        else if (dspTimeTillPlay < 0.05f)
         {
             Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
         }
@@ -127,7 +128,7 @@ public class AudioManager : MonoBehaviour
             source.soundName = sound.name;
 
             // Use PlayScheduled to play the track
-            source.audioSource.PlayScheduled(timeTillPlay);
+            source.audioSource.PlayScheduled(dspTimeTillPlay);
 
             if (Msg) Debug.Log("Music Played: " + source.soundName);
             if (Msg) Debug.Log("Name Check: " + sound.clip.name);
@@ -135,7 +136,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopMusic(string name)
+    public void StopMusic(string name, double? dspStopValue = null)
     {
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
@@ -154,12 +155,24 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            // Stop the track
-            source.audioSource.Stop();
+            // Depending on passed value
+            if (!dspStopValue.HasValue)
+            {
+                // Stop the track straight away
+                source.audioSource.Stop();
 
-            // The source is now not in use
-            source.soundName = SoundSource.defaultName;
-            source.soundIsSelected = false;
+                // The source is now not in use
+                source.soundName = SoundSource.defaultName;
+                source.soundIsSelected = false;
+            }
+            else
+            {
+                // Otherwise schedule the stop
+                source.audioSource.SetScheduledEndTime(dspStopValue.Value);
+
+                // Wait until the source has stopped playing before showing the manager it is available
+                StartCoroutine(WaitForAudioToStop(source));
+            }
         }
     }
 
@@ -302,7 +315,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    IEnumerator WaitForAudioToStop (SoundSource source)
+    {
+        // Wait for when the audio source stops playing 
+        while (source.audioSource.isPlaying)
+        {
+            yield return null;
+        }
 
+        // Allow the source to be used again
+        source.soundName = SoundSource.defaultName;
+        source.soundIsSelected = false;
+    }
 
     // Help
 
@@ -323,4 +347,5 @@ public class AudioManager : MonoBehaviour
     //                                              (if 'volumeTemp' is null the sound will play
     //                                              at default volume set in inspecter)
     //    - StopAllSFX()                            Stops all SFX and clears the names in the SFX sources
+    //    - WaitForAudioToStop (SoundSource source) Resets the source after the sound has stopped playing
 }

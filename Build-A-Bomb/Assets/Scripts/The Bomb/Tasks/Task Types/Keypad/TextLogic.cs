@@ -7,7 +7,7 @@ public class TextLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
-    public string startingMessage = "Hi :)";
+    public string startingMessage = "";
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI keypadDisplay;

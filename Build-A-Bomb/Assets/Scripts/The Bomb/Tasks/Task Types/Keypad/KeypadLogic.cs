@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class KeypadLogic : MonoBehaviour
 {
+    [System.Serializable]
+    struct Codes
+    {
+        public string name;
+        public List<int> code;
+    }
+
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
@@ -14,6 +21,7 @@ public class KeypadLogic : MonoBehaviour
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
     [SerializeField] float showTime = 1;
+    [SerializeField] Codes[] secretCodes;
 
     // Initialise In Inspector:
     public TaskInteractStatus statInteract;
@@ -61,6 +69,7 @@ public class KeypadLogic : MonoBehaviour
     public void KeyToProcess(int keyNumber)
     {
         // Depending on keyNumber, began correct function
+        // -10 is show the code required
         if (keyNumber == -10)
         {
             // Reset the player's numbers shown
@@ -69,6 +78,7 @@ public class KeypadLogic : MonoBehaviour
             // Start showing code sequence required
             myCoroutine = StartCoroutine(ShowSequence());
         }
+        // -20 is attempt to submit entered code
         else if (keyNumber == -20)
         {
             // Reset the player's numbers shown
@@ -80,6 +90,7 @@ public class KeypadLogic : MonoBehaviour
             // Check the player sequence is correct
             CheckCode();
         }
+        // 0 - 9 is a number the player has entered
         else if (0 <= keyNumber && keyNumber < 10)
         {
             // Reset keys to show
@@ -95,7 +106,7 @@ public class KeypadLogic : MonoBehaviour
             if (typeInSeq.Length > maxPossibleDifficultly)
             {
                 // Show the player
-                display.DisplayText("Err");
+                display.DisplayText("-Err-");
             }
             else
             {
@@ -269,8 +280,31 @@ public class KeypadLogic : MonoBehaviour
                 }
                 else
                 {
-                    // Otherwise show incorrect to player
-                    display.DisplayText("Err");
+                    bool showStandardMsg = true;
+                    int common;
+
+                    // For everypossible secret code
+                    foreach (Codes secretCode in secretCodes)
+                    {
+                        // Check if the player has entered the secret code
+                        common = CountCommonElements(secretCode.code, playerSequence);
+                        if (common == secretCode.code.Count && secretCode.code.Count == playerSequence.Count)
+                        {
+                            // If the player entered the secret code show a secret message
+                            display.DisplayText(secretCode.name);
+
+                            // Don't show the normal message
+                            showStandardMsg = false;
+                            break;
+                        }
+                    }
+
+                    // If we are to not show any secrect messages
+                    if (showStandardMsg)
+                    {
+                        // Otherwise show incorrect to player
+                        display.DisplayText("-Err-");
+                    }
                 }
 
                 // Reset sequence if additional attempts needed

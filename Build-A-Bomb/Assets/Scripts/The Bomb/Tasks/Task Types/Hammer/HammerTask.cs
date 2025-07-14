@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class HammerTask : MonoBehaviour
 {

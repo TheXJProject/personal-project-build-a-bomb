@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  startingMessage: '-'
+  startingMessage: '- - -'
   keypadDisplay: {fileID: 4475175224733714397}
 --- !u!1 &5085086008930850262
 GameObject:
@@ -2853,6 +2853,15 @@ MonoBehaviour:
   Msg: 0
   currentHardestDifficulty: 15
   showTime: 0.04
+  secretCodes:
+  - name: Nice ;)
+    code: 0600000009000000
+  - name: B14z3 1t
+    code: 040000000200000000000000
+  - name: As you command...
+    code: 060000000600000006000000
+  - name: "( \u0361\xB0 \u035C\u0296 \u0361\xB0)"
+    code: 0100000003000000070000000700000009000000
   statInteract: {fileID: 3440205935563209349}
   TaskDisplay: {fileID: 5266553827639175849}
   display: {fileID: 3978027946700000474}

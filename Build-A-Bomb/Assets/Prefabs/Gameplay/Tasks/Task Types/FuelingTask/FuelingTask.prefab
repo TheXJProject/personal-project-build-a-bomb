@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a339580f49d964a9849d2c9e005f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelingLogic: {fileID: 4733217001087445348}
+  fuelingLogic: {fileID: 0}
 --- !u!114 &1424817177250182398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,14 +1174,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3965366147947730497, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4733217001087445348}
+      addedObject: {fileID: 232465275833732245}
   m_SourcePrefab: {fileID: 100100000, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
 --- !u!1 &11729271657133777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3965366147947730497, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
   m_PrefabInstance: {fileID: 3976225701191770256}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4733217001087445348
+--- !u!114 &232465275833732245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1193,10 +1193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbd005e25197be40b17cd24d5077ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 0
-  currentHardestDifficulty: 100
-  statInteract: {fileID: 0}
-  refueler: {fileID: 0}
 --- !u!224 &2130584049031847433 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3080249742563245721, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}

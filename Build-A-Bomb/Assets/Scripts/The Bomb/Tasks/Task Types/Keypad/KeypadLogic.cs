@@ -15,7 +15,7 @@ public class KeypadLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 20;
+    const int maxPossibleDifficultly = 21;
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:

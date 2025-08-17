@@ -37,7 +37,10 @@ public class BigRingGlowVisual : MonoBehaviour
     {
         if (flickering)
         {
-            // Calculates flicker using bell curve of following equation (paste into desmos): y(x)=a\left(\exp(-\frac{(x)^{2d}}{0.5^{c}})\right)+1
+            // Calculates flicker using bell curve of following equation (paste into desmos): y(x)=a\left(\exp(-\frac{(x)^{2d}}{0.5^{c}})\right)+1 
+            // a -> heightOfNextFlicker
+            // c -> flickerDensity
+            // d -> flickerSharpness
             float exponent = Mathf.Pow((0.5f-t), 2 * flickerSharpness);
             exponent /= Mathf.Pow(0.5f, flickerDensity);
             currentSize = startSize * (heightOfNextFlicker * Mathf.Exp(-exponent) + 1f);

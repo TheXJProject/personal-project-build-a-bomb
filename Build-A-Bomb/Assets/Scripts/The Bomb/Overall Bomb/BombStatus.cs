@@ -106,6 +106,8 @@ public class BombStatus : MonoBehaviour
 
         // Make sure the the layer is infront of the previous layers
         nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease;
+        nextLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease-1);
+        nextLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease-1);
 
         // Add it to the array of core layers
         layers.Add(nextLayer);

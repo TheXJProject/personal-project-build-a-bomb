@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerKeyInput : MonoBehaviour
 {
+    // ==== For Debugging ====
+    bool Msg = false;
+
     // Event Actions:
     public static event Action<int> onKeyPressed;
     public static event Action<int> onKeyReleased;
@@ -23,6 +26,7 @@ public class PlayerKeyInput : MonoBehaviour
     public int[] keysDown = new int[26];
     public int[] keysInUse = new int[26];
     System.Random rnd = new System.Random();
+    [HideInInspector] public int keysInUseTotal = 0;
 
     private void Awake()
     {
@@ -109,6 +113,7 @@ public class PlayerKeyInput : MonoBehaviour
         foreach (var key in task.GetComponent<TaskStatus>().keys)
         {
             keysInUse[key] = 1;
+            TotalKeysInUse();
         }
     }
 
@@ -120,6 +125,7 @@ public class PlayerKeyInput : MonoBehaviour
         foreach (var key in task.GetComponent<TaskStatus>().keys)
         {
             keysInUse[key] = 0;
+            TotalKeysInUse();
         }
     }
 
@@ -164,10 +170,25 @@ public class PlayerKeyInput : MonoBehaviour
             {
                 // Or just generate a random key if there doesn't exist any unpressed unique keys in uniqueUnpressed
                 newKey = rnd.Next(26);
-                Debug.LogWarning("All 26 keys are in use you flippin idiot");
+                Debug.LogWarning("All 26 keys are in use you flippin idiot! >:(");
             }
             freeKeys.Add(newKey); 
         }
         return freeKeys;
+    }
+
+    /// <summary>
+    /// Keeps track of the number of keys are currently in use for tasks
+    /// </summary>
+    void TotalKeysInUse()
+    {
+        int total = 0;
+        foreach (var key in keysInUse)
+        {
+            total += key;
+        }
+        keysInUseTotal = total;
+
+        if (Msg) Debug.Log("Total keys in use: " + keysInUseTotal);
     }
 }

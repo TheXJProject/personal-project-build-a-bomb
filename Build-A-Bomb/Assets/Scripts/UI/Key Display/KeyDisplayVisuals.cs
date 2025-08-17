@@ -9,6 +9,7 @@ public class KeyDisplayVisuals : MonoBehaviour
     // Initialise in Inspector
     [SerializeField] TextMeshProUGUI textDisplay;
     [SerializeField] Image textBack;
+    [SerializeField] Animator animator;
 
     // Initialise in Inspector
     [SerializeField] Color heldSelectedCol;
@@ -96,6 +97,6 @@ public class KeyDisplayVisuals : MonoBehaviour
     void UnselectDisplay()
     {
         textBack.color = originalCol;
-        gameObject.SetActive(false);
+        animator.SetTrigger("closing");
     }
 }

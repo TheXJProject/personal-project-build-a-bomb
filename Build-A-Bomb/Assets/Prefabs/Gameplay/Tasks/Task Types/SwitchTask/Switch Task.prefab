@@ -28,6 +28,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Size.x
+      value: 1.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Size.y
+      value: 1.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31c13cb0a17719c4a96cb6d7b8dfc739, type: 3}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -113,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f99a86e6bb9a1f4bb16cd398bc57a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   spawnBoxHeight: 400
   spawnBoxWidth: 400
   maxNumberSwitchesRow: 9

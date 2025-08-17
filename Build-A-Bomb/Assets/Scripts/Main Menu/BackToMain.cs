@@ -8,6 +8,7 @@ public class BackToMain : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] ButtonManager manager;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     // Runtime Variables:
     [HideInInspector] public bool backPressed = true;
@@ -25,6 +26,9 @@ public class BackToMain : MonoBehaviour
 
             // This object then disappears
             this.gameObject.SetActive(false);
+
+            // Put the sprite cover back over the button
+            spriteRenderer.enabled = true;
         }
     }
 }

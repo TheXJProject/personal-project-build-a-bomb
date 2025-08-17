@@ -7,6 +7,7 @@ public class Normal : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     // Runtime Variables:
     [HideInInspector] public bool pressed = false;
@@ -28,6 +29,9 @@ public class Normal : MonoBehaviour
 
             // Show the back button
             backButton.SetActive(true);
+
+            // Make sprite disappear when clicked to reveal button underneath
+            spriteRenderer.enabled = false;
         }
     }
 }

@@ -1937,6 +1937,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Size.x
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Size.y
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 83c0ecfbeba8e734f87b8de429cbaf85, type: 3}
+    - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2048,6 +2064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7783dc18d833e741add6cdaf5ce99bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   currentHardestDifficulty: 6
   reactors:
   - {fileID: 3335336573994267314}

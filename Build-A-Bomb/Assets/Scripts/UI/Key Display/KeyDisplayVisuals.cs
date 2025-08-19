@@ -57,12 +57,14 @@ public class KeyDisplayVisuals : MonoBehaviour
     public void DetermineOnSelection(GameObject triggerTask)
     {
         isSelected = taskRepresented.GetComponent<TaskStatus>().isSelected;
-        if (!isSelected && !taskRepresented.GetComponent<TaskStatus>().isBeingSolved)
+        bool isBeingSolved = taskRepresented.GetComponent<TaskStatus>().isBeingSolved;
+        if (!isSelected && !isBeingSolved)
         {
             UnselectDisplay();
         }
-        else if (!isSelected) textBack.color = heldUnselectedCol;
-        else if (isSelected) textBack.color = heldSelectedCol;
+        else if (!isSelected && isBeingSolved) textBack.color = heldUnselectedCol;
+        else if (isSelected && isBeingSolved) textBack.color = heldSelectedCol;
+        else if (isSelected && !isBeingSolved) textBack.color = originalCol;
     }
 
     public void DetermineOnFail(GameObject triggerTask)

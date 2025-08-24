@@ -12,7 +12,7 @@ public class LayerButtonController : MonoBehaviour
     // Inspector Adjustable Values:
     [SerializeField] GameObject layerButtonPrefab;
     [Range(0f, 500f)][SerializeField] float allButtonsHeight; // Makes sure that the buttons cannot be a certain percentage of the screen height away from the centre
-    [Range(0f, 50f)][SerializeField] float gapHeight;     // Percent height of the screen that the gap height between buttons is
+    [Range(-50f, 50f)][SerializeField] float gapHeight;     // Percent height of the screen that the gap height between buttons is
 
     // Runtime Variables
     List<GameObject> layerButtons = new List<GameObject>();
@@ -66,6 +66,8 @@ public class LayerButtonController : MonoBehaviour
 
         // Signal a layer button has been spawned
         onLayerButtonSpawned?.Invoke(triggerLayer);
+
+        newButton.GetComponent<LayerButtonInfo>().animator.SetTrigger("enter");
     }
 
     /// <summary>
@@ -87,8 +89,8 @@ public class LayerButtonController : MonoBehaviour
     void SetButton(GameObject newButton, GameObject triggerLayer) 
     {
         layerButtons.Add(newButton);
-        newButton.GetComponent<LayerButtonPress>().correspondingLayer = triggerLayer;
-        newButton.GetComponent<LayerButtonAppearance>().correspondingLayer = triggerLayer;
+        newButton.GetComponent<LayerButtonInfo>().correspondingLayer = triggerLayer;
+        newButton.GetComponent<LayerButtonInfo>().setLayer();
     }
 
     /// <summary>

@@ -49,12 +49,11 @@ public class LayerButtonMovement : MonoBehaviour
             if (timeSinceMove < transitionTime)
             {
                 timeSinceMove += Time.deltaTime;
-                GetComponent<Image>().enabled = false;
             }
             else
             {
                 waitingTransition = false;
-                GetComponent<Image>().enabled = true;
+                GetComponent<LayerButtonInfo>().animator.SetTrigger("enter");
             }
 
         }

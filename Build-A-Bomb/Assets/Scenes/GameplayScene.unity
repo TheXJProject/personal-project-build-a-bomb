@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerButtonPrefab: {fileID: 1231543329850547996, guid: 5f8e80578ba420d4ab49926532921a9e, type: 3}
   allButtonsHeight: 430
-  gapHeight: 2
+  gapHeight: -9.2
 --- !u!1 &234315077
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +623,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canCheatLayers
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name

@@ -1,0 +1,655 @@
+fileFormatVersion: 2
+guid: bcccd88b9958d954c979ed1d211a9ac5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1750
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 454b0d6987943944eb563e3fba8286a9
+      internalID: -1586913887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_1
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 1750
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5d72e0c88479c46a3b536d79328fdb
+      internalID: 19023417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_2
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 1750
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b2051f28a79f6f488a20f89c04a67f7
+      internalID: -1711003423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_3
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 1750
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c6c63c9cd7305479d1444865d8724f
+      internalID: -383609836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1400
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab6bd0b9229c424b8a584813a99d9bf
+      internalID: 1140307746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_5
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 1400
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea748c8a2417d7247991a609f100392d
+      internalID: -682232728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_6
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 1400
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275908b39826f6f47899c16a08e140e0
+      internalID: 516243808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_7
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 1400
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af3d91fbd710f804c84aeee289a72d6c
+      internalID: 466291547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1050
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8cb9d19741714e44b9098fd5a7bcbd0
+      internalID: 1375744329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_9
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 1050
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895f156038dff0e40b37413399250f09
+      internalID: 242733722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_10
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 1050
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba257e1331df5845ad50207e50433e7
+      internalID: -609624162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_11
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 1050
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5bbf277806f79440b0b13412b0c3e30
+      internalID: -528189477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 700
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930c51926768eca40a8c5b6bd478e2fc
+      internalID: 596261670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_13
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 700
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f680f43546cac84d9f0dae6c6d5dbc2
+      internalID: 1682976790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_14
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 700
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed8a0731d0ecb344391ef7aa83d9a1f3
+      internalID: 893688084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_15
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 700
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0db1f8df0b671d04cb7bbaf783a2089e
+      internalID: 493252692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_16
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 350
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d52873eb94de5448af0e058060df305
+      internalID: -830540700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_17
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 350
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 363f79afb41faf742ba63af83d3db8d9
+      internalID: 1861774277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_18
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 350
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b9985e9f00fa3c4098e4dd20ceb6f97
+      internalID: 1396787327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_19
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 350
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ad02a1846f50fd40a0954021a960b30
+      internalID: 251341850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149b7112f8c12ef47b3b78874fae35b8
+      internalID: 378456445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_21
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 0
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 066b59c910ef05b44a36cda5f541827a
+      internalID: 525706346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_22
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 0
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d48c72e4498dbf48ac1255717dd0140
+      internalID: 581578873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: layerButtonSpriteSheet2_23
+      rect:
+        serializedVersion: 2
+        x: 3067
+        y: 0
+        width: 1021
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9558eb56f41fd14459c4bede986e7df9
+      internalID: -974821278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      layerButtonSpriteSheet2_0: -1586913887
+      layerButtonSpriteSheet2_1: 19023417
+      layerButtonSpriteSheet2_10: -609624162
+      layerButtonSpriteSheet2_11: -528189477
+      layerButtonSpriteSheet2_12: 596261670
+      layerButtonSpriteSheet2_13: 1682976790
+      layerButtonSpriteSheet2_14: 893688084
+      layerButtonSpriteSheet2_15: 493252692
+      layerButtonSpriteSheet2_16: -830540700
+      layerButtonSpriteSheet2_17: 1861774277
+      layerButtonSpriteSheet2_18: 1396787327
+      layerButtonSpriteSheet2_19: 251341850
+      layerButtonSpriteSheet2_2: -1711003423
+      layerButtonSpriteSheet2_20: 378456445
+      layerButtonSpriteSheet2_21: 525706346
+      layerButtonSpriteSheet2_22: 581578873
+      layerButtonSpriteSheet2_23: -974821278
+      layerButtonSpriteSheet2_3: -383609836
+      layerButtonSpriteSheet2_4: 1140307746
+      layerButtonSpriteSheet2_5: -682232728
+      layerButtonSpriteSheet2_6: 516243808
+      layerButtonSpriteSheet2_7: 466291547
+      layerButtonSpriteSheet2_8: 1375744329
+      layerButtonSpriteSheet2_9: 242733722
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

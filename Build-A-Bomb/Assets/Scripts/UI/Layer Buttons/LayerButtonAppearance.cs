@@ -7,26 +7,44 @@ public class LayerButtonAppearance : MonoBehaviour
 {
     // Set up before running
     [SerializeField] GameObject fill;
-    [SerializeField] GameObject fillBack;
+    GameObject fillBack;
+    [SerializeField] GameObject fillBackOut;
+    [SerializeField] GameObject fillBackIn;
     [SerializeField] Color fillBackCol;
 
-    [SerializeField] GameObject lightsLines;
-    [SerializeField] GameObject smallLightInnerGlow;
-    [SerializeField] GameObject bigLightInnerGlow;
-    [SerializeField] GameObject smallLight;
+    GameObject lightsLines;
+    [SerializeField] GameObject lightsLinesOut;
+    [SerializeField] GameObject lightsLinesIn;
+    GameObject smallLightInnerGlow;
+    [SerializeField] GameObject smallLightInnerGlowOut;
+    [SerializeField] GameObject smallLightInnerGlowIn;
+    GameObject bigLightInnerGlow;
+    [SerializeField] GameObject bigLightInnerGlowOut;
+    [SerializeField] GameObject bigLightInnerGlowIn;
+    GameObject smallLight;
+    [SerializeField] GameObject smallLightOut;
+    [SerializeField] GameObject smallLightIn;
     [SerializeField] Color smallLightCol;
     [SerializeField] Color smallLightOffCol;
-    [SerializeField] GameObject smallLightGlow;
+    GameObject smallLightGlow;
+    [SerializeField] GameObject smallLightGlowOut;
+    [SerializeField] GameObject smallLightGlowIn;
     [SerializeField] Color smallLightGlowCol;
     [SerializeField] Color smallLightOffGlowCol;
-    [SerializeField] GameObject smallLightInnerShade;
+    GameObject smallLightInnerShade;
+    [SerializeField] GameObject smallLightInnerShadeOut;
+    [SerializeField] GameObject smallLightInnerShadeIn;
     [SerializeField] Color smallLightInnerShadeCol;
     [SerializeField] Color smallLightOffInnerShadeCol;
-    [SerializeField] GameObject bigLight;
+    GameObject bigLight;
+    [SerializeField] GameObject bigLightOut;
+    [SerializeField] GameObject bigLightIn;
     [SerializeField] Color bigLightColSolve;
     [SerializeField] Color bigLightColWrong;
     [SerializeField] Color bigLightColWork;
-    [SerializeField] GameObject bigLightGlow;
+    GameObject bigLightGlow;
+    [SerializeField] GameObject bigLightGlowOut;
+    [SerializeField] GameObject bigLightGlowIn;
     [SerializeField] Color bigLightGlowColSolve;
     [SerializeField] Color bigLightGlowColWrong;
     [SerializeField] Color bigLightGlowColWork;
@@ -86,56 +104,100 @@ public class LayerButtonAppearance : MonoBehaviour
         
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingSolved())
         {
-            smallLight.GetComponent<Image>().color = smallLightCol;
-            smallLightGlow.GetComponent<Image>().color = smallLightGlowCol;
-            smallLightInnerShade.GetComponent<Image>().color = smallLightInnerShadeCol;
-            smallLightInnerGlow.GetComponent<Image>().enabled = true;
+            smallLightOut.GetComponent<Image>().color = smallLightCol;
+            smallLightGlowOut.GetComponent<Image>().color = smallLightGlowCol;
+            smallLightInnerShadeOut.GetComponent<Image>().color = smallLightInnerShadeCol;
+            smallLightInnerGlowOut.GetComponent<Image>().enabled = true;
         }
         else
         {
-            smallLight.GetComponent<Image>().color = smallLightOffCol;
-            smallLightGlow.GetComponent<Image>().color = smallLightOffGlowCol;
-            smallLightInnerShade.GetComponent<Image>().color = smallLightOffInnerShadeCol;
-            smallLightInnerGlow.GetComponent<Image>().enabled = false;
+            smallLightOut.GetComponent<Image>().color = smallLightOffCol;
+            smallLightGlowOut.GetComponent<Image>().color = smallLightOffGlowCol;
+            smallLightInnerShadeOut.GetComponent<Image>().color = smallLightOffInnerShadeCol;
+            smallLightInnerGlowOut.GetComponent<Image>().enabled = false;
         }
 
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskGoneWrong())
         {
-            bigLight.GetComponent<Image>().color = bigLightColWrong;
-            bigLightGlow.GetComponent<Image>().color = bigLightGlowColWrong;
+            bigLightOut.GetComponent<Image>().color = bigLightColWrong;
+            bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColWrong;
         }
         else if (correspondingLayer.GetComponent<LayerStatus>().IsLayerCompleted())
         {
-            bigLight.GetComponent<Image>().color = bigLightColSolve;
-            bigLightGlow.GetComponent<Image>().color = bigLightGlowColSolve;
+            bigLightOut.GetComponent<Image>().color = bigLightColSolve;
+            bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColSolve;
         }
         else
         {
-            bigLight.GetComponent<Image>().color = bigLightColWork;
-            bigLightGlow.GetComponent<Image>().color = bigLightGlowColWork;
+            bigLightOut.GetComponent<Image>().color = bigLightColWork;
+            bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColWork;
         }
     }
 
-    void lightLinesAppear()
+    void lightLinesAppearOut()
     {
-        lightsLines.SetActive(true);
+        lightsLinesOut.SetActive(true);
     }
-    void bigLightOn()
+    void lightLinesDisappearOut()
     {
-        bigLight.SetActive(true);
-        bigLightGlow.SetActive(true);
-        bigLightInnerGlow.SetActive(true);
+        lightsLinesOut.SetActive(false);
     }
-    void smallLightOn()
+    void bigLightOnOut()
     {
-        smallLight.SetActive(true);
-        smallLightGlow.SetActive(true);
-        smallLightInnerShade.SetActive(true);
-        smallLightInnerGlow.SetActive(true);
+        bigLightOut.SetActive(true);
+        bigLightGlowOut.SetActive(true);
+        bigLightInnerGlowOut.SetActive(true);
     }
-    void screenOn()
+    void bigLightOffOut()
     {
-        fillBack.SetActive(true);
-        fillBack.GetComponent<Image>().color = fillBackCol;
+        bigLightOut.SetActive(false);
+        bigLightGlowOut.SetActive(false);
+        bigLightInnerGlowOut.SetActive(false);
     }
+
+    void smallLightOnOut()
+    {
+        smallLightOut.SetActive(true);
+        smallLightGlowOut.SetActive(true);
+        smallLightInnerShadeOut.SetActive(true);
+        smallLightInnerGlowOut.SetActive(true);
+    }
+    void smallLightOffOut()
+    {
+        smallLightOut.SetActive(false);
+        smallLightGlowOut.SetActive(false);
+        smallLightInnerShadeOut.SetActive(false);
+        smallLightInnerGlowOut.SetActive(false);
+    }
+    void screenOnOut()
+    {
+        fillBackOut.SetActive(true);
+        fillBackOut.GetComponent<Image>().color = fillBackCol;
+    }
+    void screenOffOut()
+    {
+        fillBackOut.SetActive(false);
+    }
+    //void lightLinesAppearIn()
+    //{
+    //    lightsLines.SetActive(true);
+    //}
+    //void bigLightOnIn()
+    //{
+    //    bigLight.SetActive(true);
+    //    bigLightGlow.SetActive(true);
+    //    bigLightInnerGlow.SetActive(true);
+    //}
+    //void smallLightOInn()
+    //{
+    //    smallLight.SetActive(true);
+    //    smallLightGlow.SetActive(true);
+    //    smallLightInnerShade.SetActive(true);
+    //    smallLightInnerGlow.SetActive(true);
+    //}
+    //void screenOnIn()
+    //{
+    //    fillBack.SetActive(true);
+    //    fillBack.GetComponent<Image>().color = fillBackCol;
+    //}
 }

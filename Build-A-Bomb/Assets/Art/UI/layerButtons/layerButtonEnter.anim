@@ -131,28 +131,28 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.85
-    functionName: screenOn
+    functionName: screenOnOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.9
-    functionName: lightLinesAppear
+    functionName: lightLinesAppearOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.95
-    functionName: bigLightOn
+    functionName: bigLightOnOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1
-    functionName: smallLightOn
+    functionName: smallLightOnOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

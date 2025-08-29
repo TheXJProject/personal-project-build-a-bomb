@@ -7,7 +7,8 @@ public class LayerButtonMovement : MonoBehaviour
 {
     // Set before running
     [SerializeField] float transitionTime = 0.3f;
-    
+    [SerializeField] float percentDoneWhenButtonEnters = 1.0f;
+
     // current statistics of the movement
     public bool justSpawned = true;
     bool doingTransition = false;
@@ -46,7 +47,7 @@ public class LayerButtonMovement : MonoBehaviour
         }
         if (waitingTransition)
         {
-            if (timeSinceMove < transitionTime)
+            if (timeSinceMove < transitionTime * percentDoneWhenButtonEnters)
             {
                 timeSinceMove += Time.deltaTime;
             }

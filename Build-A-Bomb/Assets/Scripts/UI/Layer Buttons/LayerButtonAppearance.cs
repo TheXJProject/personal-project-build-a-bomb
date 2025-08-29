@@ -108,6 +108,11 @@ public class LayerButtonAppearance : MonoBehaviour
             smallLightGlowOut.GetComponent<Image>().color = smallLightGlowCol;
             smallLightInnerShadeOut.GetComponent<Image>().color = smallLightInnerShadeCol;
             smallLightInnerGlowOut.GetComponent<Image>().enabled = true;
+
+            smallLightIn.GetComponent<Image>().color = smallLightCol;
+            smallLightGlowIn.GetComponent<Image>().color = smallLightGlowCol;
+            smallLightInnerShadeIn.GetComponent<Image>().color = smallLightInnerShadeCol;
+            smallLightInnerGlowIn.GetComponent<Image>().enabled = true;
         }
         else
         {
@@ -115,22 +120,36 @@ public class LayerButtonAppearance : MonoBehaviour
             smallLightGlowOut.GetComponent<Image>().color = smallLightOffGlowCol;
             smallLightInnerShadeOut.GetComponent<Image>().color = smallLightOffInnerShadeCol;
             smallLightInnerGlowOut.GetComponent<Image>().enabled = false;
+
+            smallLightIn.GetComponent<Image>().color = smallLightOffCol;
+            smallLightGlowIn.GetComponent<Image>().color = smallLightOffGlowCol;
+            smallLightInnerShadeIn.GetComponent<Image>().color = smallLightOffInnerShadeCol;
+            smallLightInnerGlowIn.GetComponent<Image>().enabled = false;
         }
 
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskGoneWrong())
         {
             bigLightOut.GetComponent<Image>().color = bigLightColWrong;
             bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColWrong;
+
+            bigLightIn.GetComponent<Image>().color = bigLightColWrong;
+            bigLightGlowIn.GetComponent<Image>().color = bigLightGlowColWrong;
         }
         else if (correspondingLayer.GetComponent<LayerStatus>().IsLayerCompleted())
         {
             bigLightOut.GetComponent<Image>().color = bigLightColSolve;
             bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColSolve;
+
+            bigLightIn.GetComponent<Image>().color = bigLightColSolve;
+            bigLightGlowIn.GetComponent<Image>().color = bigLightGlowColSolve;
         }
         else
         {
             bigLightOut.GetComponent<Image>().color = bigLightColWork;
             bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColWork;
+
+            bigLightIn.GetComponent<Image>().color = bigLightColWork;
+            bigLightGlowIn.GetComponent<Image>().color = bigLightGlowColWork;
         }
     }
 
@@ -174,30 +193,54 @@ public class LayerButtonAppearance : MonoBehaviour
         fillBackOut.SetActive(true);
         fillBackOut.GetComponent<Image>().color = fillBackCol;
     }
+
+    // Hide the 
     void screenOffOut()
     {
         fillBackOut.SetActive(false);
     }
-    //void lightLinesAppearIn()
-    //{
-    //    lightsLines.SetActive(true);
-    //}
-    //void bigLightOnIn()
-    //{
-    //    bigLight.SetActive(true);
-    //    bigLightGlow.SetActive(true);
-    //    bigLightInnerGlow.SetActive(true);
-    //}
-    //void smallLightOInn()
-    //{
-    //    smallLight.SetActive(true);
-    //    smallLightGlow.SetActive(true);
-    //    smallLightInnerShade.SetActive(true);
-    //    smallLightInnerGlow.SetActive(true);
-    //}
+    void lightLinesAppearIn()
+    {
+        lightsLinesIn.SetActive(true);
+    }
+    void lightLinesDisappearIn()
+    {
+        lightsLinesIn.SetActive(false);
+    }
+    void bigLightOnIn()
+    {
+        bigLightIn.SetActive(true);
+        bigLightGlowIn.SetActive(true);
+        bigLightInnerGlowIn.SetActive(true);
+    }
+    void bigLightOffIn()
+    {
+        bigLightIn.SetActive(false);
+        bigLightGlowIn.SetActive(false);
+        bigLightInnerGlowIn.SetActive(false);
+    }
+
+    void smallLightOnIn()
+    {
+        smallLightIn.SetActive(true);
+        smallLightGlowIn.SetActive(true);
+        smallLightInnerShadeIn.SetActive(true);
+        smallLightInnerGlowIn.SetActive(true);
+    }
+    void smallLightOffIn()
+    {
+        smallLightIn.SetActive(false);
+        smallLightGlowIn.SetActive(false);
+        smallLightInnerShadeIn.SetActive(false);
+        smallLightInnerGlowIn.SetActive(false);
+    }
     //void screenOnIn()
     //{
-    //    fillBack.SetActive(true);
-    //    fillBack.GetComponent<Image>().color = fillBackCol;
+    //    fillBackIn.SetActive(true);
+    //    fillBackIn.GetComponent<Image>().color = fillBackCol;
+    //}
+    //void screenOffIn()
+    //{
+    //    fillBackIn.SetActive(false);
     //}
 }

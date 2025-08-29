@@ -623,7 +623,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canCheatLayers
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name

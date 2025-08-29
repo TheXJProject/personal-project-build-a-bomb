@@ -7,7 +7,7 @@ public class PuzzleLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 150;
+    const int maxPossibleDifficultly = 7;
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:
@@ -17,8 +17,8 @@ public class PuzzleLogic : MonoBehaviour
     [SerializeField] TaskInteractStatus statInteract;
 
     // Runtime Variables:
-    int numOfHitsNeeded = minPossibleDifficultly;
-    int numOfHits = 0;
+    int numOfConnectionsNeeded = minPossibleDifficultly;
+    int numOfConnections = 0;
     bool isSetup;
 
     private void Awake()
@@ -60,13 +60,13 @@ public class PuzzleLogic : MonoBehaviour
                 if (Msg) Debug.Log("Left click is being pressed");
 
                 // Increases the total number of times Nail Head has been hit by one
-                numOfHits++;
+                numOfConnections++;
 
                 // Set the completion level
-                statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+                statInteract.SetTaskCompletion((float)numOfConnections / numOfConnectionsNeeded);
 
                 // Check if task is completed
-                if (numOfHits >= numOfHitsNeeded)
+                if (numOfConnections >= numOfConnectionsNeeded)
                 {
                     statInteract.TaskCompleted();
                 }
@@ -108,10 +108,10 @@ public class PuzzleLogic : MonoBehaviour
             float difficulty = triggerTask.GetComponent<TaskStatus>().difficulty;
 
             // Sets difficulty level (the number of hits needed in this case)
-            numOfHitsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
+            numOfConnectionsNeeded = (int)((currentHardestDifficulty * difficulty) + 0.5f);
 
             // The number of hits needed cannot be zero
-            numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
+            numOfConnectionsNeeded = Mathf.Max(numOfConnectionsNeeded, minPossibleDifficultly);
 
             SetupTask();
         }
@@ -130,10 +130,10 @@ public class PuzzleLogic : MonoBehaviour
             if (Msg) Debug.Log("Reset Task");
 
             // Reset the number of times the player has hit
-            numOfHits = 0;
+            numOfConnections = 0;
 
             // Set the completion level
-            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+            statInteract.SetTaskCompletion((float)numOfConnections / numOfConnectionsNeeded);
         }
     }
 }

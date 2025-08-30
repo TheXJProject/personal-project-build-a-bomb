@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicTransitonTime: 2
+  fxTransitonTimeIn: 0.8
   settings: {fileID: 1102747124}
   settingsBack: {fileID: 410227000}
   tutorial: {fileID: 1809147820}
@@ -2301,8 +2302,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startCameraSize: 6
-  mainMenuCameraSize: 29.5
-  SettingsCameraSize: 5.4
+  mainMenuCameraSize: 29
+  SettingsCameraSize: 5
   tutorialCameraSize: 8
   normalCameraSize: 9
   hardCameraSize: 9

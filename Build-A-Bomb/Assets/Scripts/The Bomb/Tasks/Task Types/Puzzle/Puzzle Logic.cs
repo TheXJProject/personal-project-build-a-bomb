@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PuzzleLogic : MonoBehaviour
 {
@@ -9,16 +12,29 @@ public class PuzzleLogic : MonoBehaviour
     // Constant Values:
     const int maxPossibleDifficultly = 7;
     const int minPossibleDifficultly = 1;
+    public const int finalPosition = 0;
+    const int minRequiredForPipeInteraction = 3;
+    const int randomKeyMultiplier = 1000;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+    // Inspector Adjustable Values:
+    [Header("(Number of possible rotations for the symbol)")] public int maxPositions;
+    [SerializeField] float flashButtonTime;
+    [SerializeField] int maxAreaWidth;
 
     // Initialise In Inspector:
-    [SerializeField] TaskInteractStatus statInteract;
+    public TaskInteractStatus statInteract;
+    [SerializeField] Image light_;
+    [SerializeField] Image button;
+    [SerializeField] GameObject pipe;
 
     // Runtime Variables:
     int numOfConnectionsNeeded = minPossibleDifficultly;
     int numOfConnections = 0;
+    GameObject[] pipeList;
+    int[] pipeStartList;
+    int randomKey = 0;
     bool isSetup;
 
     private void Awake()
@@ -27,6 +43,8 @@ public class PuzzleLogic : MonoBehaviour
 
         // This instance is not set up yet
         isSetup = false;
+        light_.color = Color.red;
+        button.color = Color.red;
     }
 
     private void OnEnable()
@@ -41,29 +59,68 @@ public class PuzzleLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    /// <summary>
-    /// Called by Nail Head gameobject. When the player <br />
-    /// clicks on the Nail Head the remaining number of <br />
-    /// times the player needs to click is reduced by one.
-    /// </summary>
-    public void NailHit(BaseEventData data)
+    private void Update()
     {
-        if (Msg) Debug.Log("Called function");
+        if (!statInteract.isBeingSolved) return;
 
+        numOfConnections = 0;
+
+        // For each pipe
+        foreach (var pipe in pipeList)
+        {
+            // Check if it is matchinig
+            if (pipe.GetComponent<Pipe>().inCorrectPos)
+            {
+                numOfConnections++;
+            }
+        }
+
+        // Set light colour
+        // If no connections
+        if (numOfConnections == 0)
+        {
+            light_.color = Color.red;
+        }
+        // Otherwise, if we have made all connections
+        else if (numOfConnections == numOfConnectionsNeeded)
+        {
+            light_.color = Color.green;
+        }
+        // Otherwise, show in progress
+        else
+        {
+            light_.color = Color.yellow;
+        }
+
+        // Set the completion level
+        statInteract.SetTaskCompletion((float)numOfConnections / numOfConnectionsNeeded);
+    }
+
+    public void SetSeconPos(int ordernum)
+    {
+        // If not able to get second position
+        if (numOfConnectionsNeeded < minRequiredForPipeInteraction) return;
+
+        // Find the next pipe and add one to its position
+        ordernum = (ordernum + 1) % numOfConnectionsNeeded;
+        pipeList[ordernum].GetComponent<Pipe>().RotateOnePos();
+    }
+
+    /// <summary>
+    /// Called by Button gameobject. When the player <br />
+    /// clicks on the Button the function will check if <br />
+    /// the task is complete.
+    /// </summary>
+    public void CompleteCheck(BaseEventData data)
+    {
         // Checks if the task can be solved
         if (statInteract.isBeingSolved)
         {
-            if (Msg) Debug.Log("Task is being solved");
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
-                if (Msg) Debug.Log("Left click is being pressed");
-
-                // Increases the total number of times Nail Head has been hit by one
-                numOfConnections++;
-
-                // Set the completion level
-                statInteract.SetTaskCompletion((float)numOfConnections / numOfConnectionsNeeded);
+                // Flash the button press
+                StartCoroutine(FlashButton());
 
                 // Check if task is completed
                 if (numOfConnections >= numOfConnectionsNeeded)
@@ -72,6 +129,124 @@ public class PuzzleLogic : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator FlashButton()
+    {
+        // Flash the button as green for a set time
+        button.color = Color.green;
+        yield return new WaitForSeconds(flashButtonTime);
+        button.color = Color.red;
+    }
+
+    void ResetPipes()
+    {
+        // For each pipe enter it's starting position
+        for (int i = 0; i < numOfConnectionsNeeded; i++)
+        {
+            if (pipeList[i] == null)
+            {
+                Debug.LogWarning("Error, pipe doesn't exsist!");
+                return;
+            }
+            pipeList[i].GetComponent<Pipe>().SetStartPosition(pipeStartList[i]);
+        }
+    }
+
+    bool OkayCheck()
+    {
+        // Make sure the given problem is solvable
+        // First get the total for the problem
+        int total = 0;
+        for (int i = 0; i < numOfConnectionsNeeded; i++)
+        {
+            total += pipeStartList[i];
+        }
+
+        // If the total is odd or zero it won't be solvable
+        if (total == 0 || total % 2 != 0)
+        {
+            return false;
+        }
+
+        // If the number of pipes is odd then it will be solvable from here
+        if (numOfConnectionsNeeded % 2 != 0)
+        {
+            return true;
+        }
+        else
+        {
+            // The total of ever other position mod (maxPositions) should be equal to
+            // the mod (maxPositions) total of missed positions
+            int total2 = 0;
+            for (int i = 0; i < numOfConnectionsNeeded; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    total2 += pipeStartList[i];
+                    total -= pipeStartList[i];
+                }
+            }
+
+            // If these two values are equal the positions are balanced and the problem is solvable
+            return (total % maxPositions == total2 % maxPositions);
+        }
+    }
+
+    void SetPipePositions(int key)
+    {
+        bool okay;
+
+        // Repeat untill the selection has passed all the checks
+        do
+        {
+            // If we have less than the number of pipes required for linking, use a different calculation system
+            if (numOfConnectionsNeeded < minRequiredForPipeInteraction)
+            {
+                okay = true;
+                // For each position
+                for (int i = 0; i < numOfConnectionsNeeded; i++)
+                {
+                    // Set a position using the given key
+                    pipeStartList[i] = key % maxPositions;
+                    key = (key - pipeStartList[i]) / maxPositions;
+
+                    // If the key is less than zero, reset it
+                    if (key < 0)
+                    {
+                        // Try next seed along
+                        key = ++randomKey;
+                    }
+
+                    // If a pipe starts in a complete position, try again
+                    if (pipeStartList[i] == 0)
+                    {
+                        okay = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                // For each position
+                for (int i = 0; i < numOfConnectionsNeeded; i++)
+                {
+                    // Set a position using the given key
+                    pipeStartList[i] = key % maxPositions;
+                    key = (key - pipeStartList[i]) / maxPositions;
+
+                    // If the key is less than or equal to zero, reset it
+                    if (key <= 0)
+                    {
+                        // Try next seed along
+                        key = ++randomKey;
+                    }
+                }
+
+                // Check if set of positions is okay
+                okay = OkayCheck();
+            }
+        } while (!okay);
     }
 
     /// <summary>
@@ -89,6 +264,42 @@ public class PuzzleLogic : MonoBehaviour
         {
             // This instance is now setup
             isSetup = true;
+
+            // Initialise the pipe arrays and list
+            pipeList = new GameObject[numOfConnectionsNeeded];
+            pipeStartList = new int[numOfConnectionsNeeded];
+
+            // Calculate position for each pipe
+            float halfWidth = (float)maxAreaWidth / 2;
+            float seperation = (float)maxAreaWidth / (numOfConnectionsNeeded + 1);
+
+            // Spawn in a number of pipes equal to the difficulty
+            for (int i = 0; i < numOfConnectionsNeeded; i++)
+            {
+                // Create a pipe object and get position
+                var thispipe = Instantiate(pipe, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+                thispipe.GetComponent<Pipe>().Setup();
+                Vector3 currentPos = thispipe.transform.localPosition;
+
+                // put the pipe in the correct position
+                currentPos.x = seperation * (i + 1) - halfWidth;
+                thispipe.transform.localPosition = currentPos;
+                thispipe.transform.SetAsFirstSibling();
+
+                // Set order number
+                thispipe.GetComponent<Pipe>().orderNumber = i;
+
+                pipeList[i] = thispipe;
+            }
+
+            // Set a one time random key (seed) for positions based on number of positions a pipe can have
+            randomKey = Random.Range(0, maxPositions * randomKeyMultiplier);
+
+            // Calculate pipe starting positions
+            SetPipePositions(randomKey);
+
+            // Initilise pipe positions
+            ResetPipes();
         }
     }
 
@@ -128,6 +339,9 @@ public class PuzzleLogic : MonoBehaviour
         if (trigger == gameObject)
         {
             if (Msg) Debug.Log("Reset Task");
+
+            // Reset all the pipes back to start positions
+            ResetPipes();
 
             // Reset the number of times the player has hit
             numOfConnections = 0;

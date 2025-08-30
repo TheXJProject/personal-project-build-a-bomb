@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbd005e25197be40b17cd24d5077ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 1
+  Msg: 0
   currentHardestDifficulty: 4000
   upperLimit: 0.8
   lowerLimit: 0.6

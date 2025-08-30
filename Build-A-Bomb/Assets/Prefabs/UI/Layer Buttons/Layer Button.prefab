@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 8810991358146571166}
+  info: {fileID: 7527500007536617351}
 --- !u!114 &1040619830411979658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +453,18 @@ MonoBehaviour:
         - m_Target: {fileID: 200344169501544523}
           m_TargetAssemblyTypeName: LayerButtonPress, Assembly-CSharp
           m_MethodName: PressedButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3844537063987560762}
+          m_TargetAssemblyTypeName: arrowHover, Assembly-CSharp
+          m_MethodName: hideArrow
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1074,7 +1087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b16d010d161f7464497fa73ea580418a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eddba3ecfac896c469ad3b03d635338c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1151,7 +1164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 596261670, guid: bcccd88b9958d954c979ed1d211a9ac5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d1846f14c21055489388fa15c47b988, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1486,7 +1499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b16d010d161f7464497fa73ea580418a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eddba3ecfac896c469ad3b03d635338c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2039,8 +2052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88.6432, y: -0.0004119873}
-  m_SizeDelta: {x: 138.9116, y: 48.2779}
+  m_AnchoredPosition: {x: -61.4, y: -0.00039673}
+  m_SizeDelta: {x: 100.7065, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5464527003700425892
 CanvasRenderer:

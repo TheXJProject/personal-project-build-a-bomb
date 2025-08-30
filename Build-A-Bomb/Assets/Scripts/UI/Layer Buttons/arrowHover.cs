@@ -5,10 +5,14 @@ using UnityEngine;
 public class arrowHover : MonoBehaviour
 {
     [SerializeField] GameObject arrow;
+    [SerializeField] LayerButtonInfo info;
 
     public void showArrow()
     {
-        arrow.SetActive(true);
+        if (!info.correspondingLayer.GetComponent<LayerStatus>().isSelected)
+        {
+            arrow.SetActive(true);
+        }
     }
 
     public void hideArrow()

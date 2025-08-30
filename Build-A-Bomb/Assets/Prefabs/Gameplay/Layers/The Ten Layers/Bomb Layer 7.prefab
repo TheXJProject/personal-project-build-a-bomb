@@ -81,6 +81,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: typeOfTasks.Array.data[0]
       value: 
       objectReference: {fileID: 7095752185384166348, guid: eae8a1ae834ab334bb577ce90b81b624, type: 3}
@@ -99,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMinDifficulty.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[0]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMaxDifficulty.Array.data[0]

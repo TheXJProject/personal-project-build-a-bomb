@@ -127,7 +127,7 @@ public class LayerButtonAppearance : MonoBehaviour
             smallLightInnerGlowIn.GetComponent<Image>().enabled = false;
         }
 
-        if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskGoneWrong())
+        if (correspondingLayer.GetComponent<LayerStatus>().ContainsGoingWrongAndNotBeingSolved())
         {
             bigLightOut.GetComponent<Image>().color = bigLightColWrong;
             bigLightGlowOut.GetComponent<Image>().color = bigLightGlowColWrong;

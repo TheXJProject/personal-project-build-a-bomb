@@ -17,6 +17,7 @@ public class LayerStatus : MonoBehaviour
     public List<GameObject> typeOfTasks;
     public List<int> taskMinDifficulty;
     public List<int> taskMaxDifficulty;
+    public List<int> taskMinSpawned;
     public int layer;
     public int noOfKeysPerTask = 1;
     public float layerMinRadius = 1f;
@@ -32,6 +33,8 @@ public class LayerStatus : MonoBehaviour
     public bool isGoingWrong = false; // Contains a task that is going wrong
     public bool isBeingSolved = false; // Contains a task that is being solved by the player
     public bool isBeingFocused = false; // Contains the task that is currently dispayed and being solved by the player
+    int numberOfTasksThisLayer = 0;
+    public List<int> taskTypesSpawned;
     System.Random rnd = new System.Random();
     public int infiniteLoopPrevention = 100;
 
@@ -43,6 +46,8 @@ public class LayerStatus : MonoBehaviour
         BombStatus.onLayerCreated += SpawnAllTasks;
         BombStatus.onLayerCreated += SetCurrentLayer;
         LayerButtonPress.onLayerButtonPressed += SetCurrentLayer;
+
+        taskTypesSpawned = new List<int>(new int[taskMinSpawned.Count]);
     }
 
     private void OnDisable()
@@ -60,8 +65,38 @@ public class LayerStatus : MonoBehaviour
     /// </summary>
     void SpawnTask(Vector2 spawnPos)
     {
-        // Gets a random task types out of those available for that layer level
-        int i = rnd.Next(typeOfTasks.Count);
+        int tasksSpawnedSoFar = 0;
+        int tasksNeedingToSpawn = 0;
+        foreach (var tasksSpawned in taskTypesSpawned) // How many tasks have been spawned so far?
+        {
+            tasksSpawnedSoFar += tasksSpawned;
+        }
+
+        foreach (var tasksToSpawn in taskMinSpawned) // How many tasks that have been hard set not to be random need to be spawned?
+        {
+            tasksNeedingToSpawn += tasksToSpawn;
+        }
+
+
+        int i = 0;
+        // Gets a random task types out of those available for that layer level if tasks set not to be random has finished
+        if (tasksSpawnedSoFar >= tasksNeedingToSpawn)
+        {
+            i = rnd.Next(typeOfTasks.Count);
+        }
+        else
+        {
+            foreach (var tasksToSpawn in taskMinSpawned) // Determine which task we are on by subtracting tasks to spawn from number of tasks until we reach the next discrepency in expectation
+            {
+                tasksSpawnedSoFar -= tasksToSpawn;
+                if (tasksSpawnedSoFar < 0)
+                {
+                    ++taskTypesSpawned[i];
+                    break;
+                } 
+                else ++i;
+            }
+        }
 
         // Instantiates a new task
         GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
@@ -130,7 +165,8 @@ public class LayerStatus : MonoBehaviour
         int spawningLayer = triggerLayer.GetComponent<LayerStatus>().layer;
         if (layer == spawningLayer)
         {
-            for (int i = 0; i < rnd.Next(minNoOfTasksSpawned, maxNoOfTasksSpawned + 1); i++)
+            numberOfTasksThisLayer = rnd.Next(minNoOfTasksSpawned, maxNoOfTasksSpawned + 1);
+            for (int i = 0; i < numberOfTasksThisLayer; i++)
             {
                 SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));
             }
@@ -221,6 +257,23 @@ public class LayerStatus : MonoBehaviour
         }
         isBeingSolved = taskBeingSolved;
         return taskBeingSolved;
+    }
+
+    /// <summary>
+    /// Loops through every task in the layer and sets status of the layer accordingly if it contains a task currently being solved by the player
+    /// </summary>
+    public bool ContainsGoingWrongAndNotBeingSolved()
+    {
+        bool taskNotBeingSolved = false;
+        foreach (var task in tasks)
+        {
+            if (task.GetComponent<TaskStatus>().isGoingWrong && !task.GetComponent<TaskStatus>().isBeingSolved)
+            {
+                taskNotBeingSolved = true;
+                break;
+            }
+        }
+        return taskNotBeingSolved;
     }
 
     /// <summary>

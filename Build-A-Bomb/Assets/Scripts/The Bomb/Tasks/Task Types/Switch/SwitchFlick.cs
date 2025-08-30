@@ -8,6 +8,7 @@ public class SwitchFlick : MonoBehaviour
 {
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
+    [SerializeField] Image switchImage;
 
     // Runtime Variables:
     [HideInInspector] public bool flicked = false;
@@ -22,26 +23,26 @@ public class SwitchFlick : MonoBehaviour
         if (Msg) Debug.Log("FlickedSwitch Called.");
 
         // Checks which switches are flicked
-        gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
+        gameObject.transform.parent.parent.parent.GetComponent<SwitchLogic>().CheckSwitches(); // I had to add another parent to this and it hurt my soul, we will never code like this again
 
         PointerEventData newData = (PointerEventData)data;
         if (newData.button.Equals(PointerEventData.InputButton.Left))
         {
             // Are we able to solve this task
-            if (gameObject.transform.parent.parent.GetComponent<SwitchLogic>().canBeSolved)
+            if (gameObject.transform.parent.parent.parent.GetComponent<SwitchLogic>().canBeSolved) // Oh god I have to do it again....
             {
                 // The switch is now flicked on
                 flicked = true;
 
                 // TODO: Replace with call for animation!
-                gameObject.GetComponent<Image>().color = Color.green;
+                switchImage.color = Color.green;
             }
             
             if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);
         }
         
         // Checks which switches are flicked again
-        gameObject.transform.parent.parent.GetComponent<SwitchLogic>().CheckSwitches();
+        gameObject.transform.parent.parent.parent.GetComponent<SwitchLogic>().CheckSwitches(); // Please... make it stop....
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -54,6 +55,6 @@ public class SwitchFlick : MonoBehaviour
         flicked = false;
 
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.red;
+        switchImage.color = Color.red;
     }
 }

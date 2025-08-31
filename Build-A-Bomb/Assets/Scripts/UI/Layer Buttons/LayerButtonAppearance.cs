@@ -49,9 +49,13 @@ public class LayerButtonAppearance : MonoBehaviour
     [SerializeField] Color bigLightGlowColWrong;
     [SerializeField] Color bigLightGlowColWork;
 
+    [SerializeField] float fadeInc = 0.01f;
+    [SerializeField] float fadeTime = 0.3f;
+
     // Current information
     public GameObject correspondingLayer;
     public bool buttonIsFocused = false;
+    GameObject lastSelectedTask = null;
 
     private void OnEnable()
     {
@@ -74,32 +78,52 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskDeSelected -= DetermineCorrectColour;
         TaskStatus.onTaskCompleted -= DetermineCorrectColour;
         TaskStatus.onTaskGoneWrong -= DetermineCorrectColour;
-        TaskStatus.onTaskFailed += DetermineCorrectColour;
-        TaskStatus.onTaskBegan += DetermineCorrectColour;
+        TaskStatus.onTaskFailed -= DetermineCorrectColour;
+        TaskStatus.onTaskBegan -= DetermineCorrectColour;
     }
 
     public void DetermineCorrectColour(GameObject trigger)
     {
+        // If the same task triggers the function as the last one that was selected
+        if (lastSelectedTask == trigger)
+        {
+            // If the trigger task is now solved
+            if (trigger.GetComponent<TaskStatus>().isSolved)
+            {
+                StartCoroutine(FadeCurrentSolvedTask());
+            }
+        }
+        else if (trigger.tag.Equals("Task"))
+        {
+            // If triggering game object is a task which is selected but not solved, then put it up as the last trigger task that was selected
+            TaskStatus taskInfo = trigger.GetComponent<TaskStatus>();
+            if (taskInfo.isSelected && !taskInfo.isSolved)
+            {
+                lastSelectedTask = trigger;
+            }
+        }
         if (buttonIsFocused && correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingFocused() == false)
         {
             buttonIsFocused = false;
-            fill.SetActive(false);
+            //Color fillColour = fill.GetComponent<Image>().color;
+            //fillColour.a = 0.0f;
+            //fill.GetComponent<Image>().color = fillColour;
+            //fill.SetActive(false);
         }
 
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingFocused() && trigger.tag.Equals("Task"))
         {
             if (correspondingLayer.GetComponent<LayerStatus>().layer == trigger.GetComponent<TaskStatus>().taskLayer)
             {
-                buttonIsFocused = true;
+                StopCoroutine(FadeCurrentSolvedTask());
                 fill.SetActive(true);
+                Color fillColour = fill.GetComponent<Image>().color;
+                fillColour.a = 1.0f;
+                fill.GetComponent<Image>().color = fillColour;
+                buttonIsFocused = true;
                 fill.GetComponent<CompletionVisualisation>().taskToVisualise = trigger;
-                //GetComponent<Image>().color = Color.blue;
             }
         }
-        //else if (correspondingLayer.GetComponent<LayerStatus>().isSelected) // CHANGE THIS TO SIGNAL ANIMATION TO BE CORRECT
-        //{
-        //    GetComponent<Image>().color = Color.magenta;
-        //}
         
         
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingSolved())
@@ -153,6 +177,17 @@ public class LayerButtonAppearance : MonoBehaviour
         }
     }
 
+    IEnumerator FadeCurrentSolvedTask()
+    {
+        Color c = fill.GetComponent<Image>().color;
+        for (float alpha = 1f; alpha >= 0; alpha -= fadeInc)
+        {
+            c.a = alpha;
+            fill.GetComponent<Image>().color = c;
+            // Wait for 0.1 seconds before the next iteration
+            yield return new WaitForSeconds(fadeInc * fadeTime);
+        }
+    }
     void lightLinesAppearOut()
     {
         lightsLinesOut.SetActive(true);

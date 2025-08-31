@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,4 +25,34 @@ public class GameManager : MonoBehaviour
 
     // Will control scenes
     // And, audio playing?
+    // TODO: this
+
+    public void PlayNormalMode()
+    {
+        // TODO: apply transistion effects
+        hardMode = false;
+        SceneManager.LoadScene("GameplayScene");
+    }
+
+    public void PlayHardMode()
+    {
+        // TODO: apply transistion effects
+        hardMode = true;
+        SceneManager.LoadScene("GameplayScene");
+    }
+
+    public void LooseGame()
+    {
+        SceneManager.LoadScene("LooseScene");
+    }
+
+    public void WinGame()
+    {
+        SceneManager.LoadScene("WinScene");
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }

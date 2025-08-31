@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PuzzleLogic : MonoBehaviour
 {
@@ -276,20 +277,39 @@ public class PuzzleLogic : MonoBehaviour
             // Spawn in a number of pipes equal to the difficulty
             for (int i = 0; i < numOfConnectionsNeeded; i++)
             {
-                // Create a pipe object and get position
+                // Create a pipe object
                 var thispipe = Instantiate(pipe, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
                 thispipe.GetComponent<Pipe>().Setup();
-                Vector3 currentPos = thispipe.transform.localPosition;
-
-                // put the pipe in the correct position
-                currentPos.x = seperation * (i + 1) - halfWidth;
-                thispipe.transform.localPosition = currentPos;
-                thispipe.transform.SetAsFirstSibling();
 
                 // Set order number
                 thispipe.GetComponent<Pipe>().orderNumber = i;
 
                 pipeList[i] = thispipe;
+            }
+
+            // Create array 0,1,2,3..,numOfConnectionsNeeded-1
+            int[] randomNumbers = Enumerable.Range(0, numOfConnectionsNeeded).ToArray();
+
+            // Shuffle numbers around
+            for (int i = 0; i < randomNumbers.Length; i++)
+            {
+                int randIndex = Random.Range(i, randomNumbers.Length);
+                (randomNumbers[i], randomNumbers[randIndex]) = (randomNumbers[randIndex], randomNumbers[i]);
+            }
+
+            // Arrange to pipes according to the random number array
+            for (int i = 0; i < numOfConnectionsNeeded; i++)
+            {
+                // Use the indexs from the random number array
+                int index = randomNumbers[i];
+
+                // Get current posistion of pipe
+                Vector3 currentPos = pipeList[index].transform.localPosition;
+
+                // put the pipe in the correct position
+                currentPos.x = seperation * (i + 1) - halfWidth;
+                pipeList[index].transform.localPosition = currentPos;
+                pipeList[index].transform.SetAsFirstSibling();
             }
 
             // Set a one time random key (seed) for positions based on number of positions a pipe can have

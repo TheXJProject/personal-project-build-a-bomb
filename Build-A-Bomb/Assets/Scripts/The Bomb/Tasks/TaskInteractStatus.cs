@@ -54,6 +54,6 @@ public class TaskInteractStatus : MonoBehaviour
 
     private void Update()
     {
-        isBeingSolved = task.isBeingSolved; // Task should not be able to be solved if isBeingSolved is false
+        isBeingSolved = task.isBeingSolved && task.isSelected; // Task should not be able to be solved if isBeingSolved is false
     }
 }

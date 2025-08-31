@@ -50,20 +50,27 @@ public class ValveLogic : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If we are holding left click and we can complete the task and we are holding the valve
-        if (Input.GetMouseButton(0) && statInteract.isBeingSolved && holdingValve)
+        if (statInteract.isBeingSolved)
         {
-            // Move the valve a set amount and adjust completeness level
-            ValveCompletenessCheck(MoveValve(CheckMouseSpeed()));
-
-            // TODO: reduce vibration animation depending on valveResistancePassed
-
-            // If we are not over the valve or left click is not held
-            if (!Input.GetMouseButton(0))
+            // If we are holding left click and we can complete the task and we are holding the valve
+            if (Input.GetMouseButton(0) && holdingValve)
             {
-                // We are no londer holding the valve
-                holdingValve = false;
+                // Move the valve a set amount and adjust completeness level
+                ValveCompletenessCheck(MoveValve(CheckMouseSpeed()));
+
+                // TODO: reduce vibration animation depending on valveResistancePassed
+
+                // If we are not over the valve or left click is not held
+                if (!Input.GetMouseButton(0))
+                {
+                    // We are no londer holding the valve
+                    holdingValve = false;
+                }
             }
+        }
+        else
+        {
+            holdingValve = false;
         }
     }
 
@@ -74,14 +81,17 @@ public class ValveLogic : MonoBehaviour
     {
         if (Msg) Debug.Log("Holding Mouse!");
 
-        // If left click was pressed
-        PointerEventData newData = (PointerEventData)data;
-        if (newData.button.Equals(PointerEventData.InputButton.Left))
+        if (statInteract.isBeingSolved)
         {
-            // We are holding the valve
-            holdingValve = true;
-            // Rest mouse position
-            lastMousePos = Input.mousePosition;
+            // If left click was pressed
+            PointerEventData newData = (PointerEventData)data;
+            if (newData.button.Equals(PointerEventData.InputButton.Left))
+            {
+                // We are holding the valve
+                holdingValve = true;
+                // Rest mouse position
+                lastMousePos = Input.mousePosition;
+            }
         }
     }
 
@@ -196,22 +206,18 @@ public class ValveLogic : MonoBehaviour
     /// </summary>
     void ValveCompletenessCheck(float mouseSpeed)
     {
-        // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        // Increase amount of valve has been completed
+        valveResistancePassed += (int)(mouseSpeed / 30);
+
+        if (Msg) Debug.Log("Task is being solved. Completeness: " + valveResistancePassed + " Out of: " + valveResistanceTotal);
+
+        // Set the completion level
+        statInteract.SetTaskCompletion((float)valveResistancePassed / valveResistanceTotal);
+
+        // Check if task is completed
+        if (valveResistancePassed >= valveResistanceTotal)
         {
-            // Increase amount of valve has been completed
-            valveResistancePassed += (int)(mouseSpeed / 30);
-
-            if (Msg) Debug.Log("Task is being solved. Completeness: " + valveResistancePassed + " Out of: " + valveResistanceTotal);
-
-            // Set the completion level
-            statInteract.SetTaskCompletion((float)valveResistancePassed / valveResistanceTotal);
-
-            // Check if task is completed
-            if (valveResistancePassed >= valveResistanceTotal)
-            {
-                statInteract.TaskCompleted();
-            }
+            statInteract.TaskCompleted();
         }
     }
 

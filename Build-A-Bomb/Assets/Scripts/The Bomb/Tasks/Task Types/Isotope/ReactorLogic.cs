@@ -26,6 +26,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     float currentFanSpeed;
     bool holdingReactor = false;
     bool isMouseOver = false;
+    float timeStamp = 0;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         fanCompletePercentage = 0;
         timeHeld = 0;
         currentFanSpeed = 0;
+        timeStamp = Time.time;
 
         // Start fan at random angle
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
@@ -44,20 +46,38 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void OnEnable()
     {
-        float entryTargetSpeed = canSpool ? baseFanSpeed : 0;
         // Calculate length of time away
-        // Decrease fan speed depending
+        float awayTime = Time.time - timeStamp;
 
-        // reduce speed
-        currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - entryTargetSpeed);
+        // Only apply speed changes if away for significant amount of time
+        if (awayTime > 0.1f)
+        {
+            // Depending on whether it can spool have a target speed
+            float entryTargetSpeed = canSpool ? baseFanSpeed : 0;
 
-        // Make sure we don't reduce past the target
-        currentFanSpeed = Mathf.Max(currentFanSpeed, entryTargetSpeed);
+            int repeatAmount = Mathf.Min((int)(awayTime / Time.fixedDeltaTime), 2000);
+
+            // Decrease fan speed depending
+            for (int i = 0; i < repeatAmount; i++)
+            {
+                // reduce speed
+                currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - entryTargetSpeed);
+
+                // Make sure we don't reduce past the target
+                currentFanSpeed = Mathf.Max(currentFanSpeed, entryTargetSpeed);
+
+                if (currentFanSpeed <= entryTargetSpeed + fanSpeedScaler)
+                {
+                    break;
+                }
+            }
+        }
     }
 
     private void OnDisable()
     {
         // Save time
+        timeStamp = Time.time;
     }
 
     private void FixedUpdate()

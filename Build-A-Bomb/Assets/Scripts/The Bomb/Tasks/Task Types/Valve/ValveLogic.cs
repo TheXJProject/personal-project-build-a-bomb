@@ -150,7 +150,7 @@ public class ValveLogic : MonoBehaviour
 
         // Get distance from centre of the valve, ingore anything less than 2
         float distance = Mathf.Max(2, 10 * (currentMouseWorldPos - valvePos).magnitude / (topRightWorldPos - valvePos).magnitude);
-
+        //Debug.Log(distance);
         //Normalise mouse positions
         currentMousePos.x /= ((float)Screen.width * 0.01f);
         currentMousePos.y /= ((float)Screen.height * 0.01f);

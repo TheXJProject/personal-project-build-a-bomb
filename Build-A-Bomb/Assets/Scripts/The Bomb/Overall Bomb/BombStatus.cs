@@ -8,6 +8,7 @@ public class BombStatus : MonoBehaviour
     // Event actions:
     public static event Action onBombFinished;
     public static event Action<GameObject> onLayerCreated;
+    public static event Action<bool> onGoingWrongCheck;
 
     // Inspector Adjustable Values:
     public bool canCheatLayers = false;
@@ -38,6 +39,10 @@ public class BombStatus : MonoBehaviour
     private void OnEnable()
     {
         LayerStatus.onLayerCompleted += AttemptNextLayer;
+        TaskStatus.onTaskCompleted += AttemptSignalGoingWrongState;
+        TaskStatus.onTaskGoneWrong += AttemptSignalGoingWrongState;
+        TaskStatus.onTaskFailed += AttemptSignalGoingWrongState;
+        TaskStatus.onTaskBegan += AttemptSignalGoingWrongState;
 
         SpawnCoreLayer();
     }
@@ -45,6 +50,10 @@ public class BombStatus : MonoBehaviour
     private void OnDisable()
     {
         LayerStatus.onLayerCompleted -= AttemptNextLayer;
+        TaskStatus.onTaskCompleted -= AttemptSignalGoingWrongState;
+        TaskStatus.onTaskGoneWrong -= AttemptSignalGoingWrongState;
+        TaskStatus.onTaskFailed -= AttemptSignalGoingWrongState;
+        TaskStatus.onTaskBegan -= AttemptSignalGoingWrongState;
     }
 
     /// <summary>
@@ -139,6 +148,19 @@ public class BombStatus : MonoBehaviour
         return true;
     }
 
+    bool ContainsTasksGoingWrongNotBeingSolved()
+    {
+        foreach (var layer in layers)
+        {
+            if (layer.GetComponent<LayerStatus>().ContainsGoingWrongAndNotBeingSolved())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /// <summary>
     /// Decision function which decides whether to create a new level or call victory <br/>
     /// - Can write into this function to use it for other layer dependant triggers such as a an event happening when half the layers have spawned etc..
@@ -161,6 +183,18 @@ public class BombStatus : MonoBehaviour
                     goneWrongController.StartGoingWrong();
                 }
             }
+        }
+    }
+
+    void AttemptSignalGoingWrongState(GameObject trigger)
+    {
+        if (ContainsTasksGoingWrongNotBeingSolved())
+        {
+            onGoingWrongCheck?.Invoke(true);
+        }
+        else 
+        {
+            onGoingWrongCheck?.Invoke(false);
         }
     }
 }

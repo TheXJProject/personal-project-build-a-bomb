@@ -20,8 +20,6 @@ public class DeathTimer : MonoBehaviour
     // Runtime Variables:
     bool timerRunning = false;
     int minutesLeft;
-    int goinWrongNotBeinSolved = 0;
-    int goinWrongBeinSolved = 0;
     float secondsLeft;
     float currentTimerSpeed = 1.0f;
     Color originalCol;
@@ -37,17 +35,13 @@ public class DeathTimer : MonoBehaviour
     private void OnEnable()
     {
         BombStatus.onLayerCreated += BeginTimer;
-        TaskStatus.onTaskGoneWrong += TrackGoingWrong;
-        TaskStatus.onTaskFailed += TrackGoingWrongFailed;
-        TaskStatus.onTaskBegan += TrackGoneWrongBegan;
+        BombStatus.onGoingWrongCheck += DetermineTimerAggression;
     }
 
     private void OnDisable()
     {
         BombStatus.onLayerCreated -= BeginTimer;
-        TaskStatus.onTaskGoneWrong -= TrackGoingWrong;
-        TaskStatus.onTaskFailed -= TrackGoingWrongFailed;
-        TaskStatus.onTaskBegan -= TrackGoneWrongBegan;
+        BombStatus.onGoingWrongCheck -= DetermineTimerAggression;
     }
 
     private void Update()
@@ -82,36 +76,9 @@ public class DeathTimer : MonoBehaviour
         BombStatus.onLayerCreated -= BeginTimer;
     }
 
-    public void TrackGoingWrong(GameObject triggerTask)
+    void DetermineTimerAggression(bool tasksGoingWrongNotBeingSolved)
     {
-        ++goinWrongNotBeinSolved;
-        DetermineTimerAggression();
-    }
-    
-    public void TrackGoingWrongFailed(GameObject triggerTask)
-    {
-        TaskStatus taskStat = triggerTask.GetComponent<TaskStatus>();
-        if (taskStat.hasBeenSolved)
-        {
-            ++goinWrongNotBeinSolved;
-            DetermineTimerAggression();
-        }
-    }
-
-    public void TrackGoneWrongBegan(GameObject triggerTask)
-    {
-        TaskStatus taskStat = triggerTask.GetComponent<TaskStatus>();
-        if (taskStat.hasBeenSolved)
-        {
-            ++goinWrongBeinSolved;
-            DetermineTimerAggression();
-        }
-    }
-
-    void DetermineTimerAggression()
-    {
-        int result = goinWrongNotBeinSolved - goinWrongBeinSolved;
-        if (result > 0)
+        if (tasksGoingWrongNotBeingSolved)
         {
             currentTimerSpeed = timerSpeedIncrease;
             timerText.color = Color.red;

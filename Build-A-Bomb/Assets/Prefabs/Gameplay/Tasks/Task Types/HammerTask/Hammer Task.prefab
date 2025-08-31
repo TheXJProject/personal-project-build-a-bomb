@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  currentHardestDifficulty: 60
+  currentHardestDifficulty: 37
   statInteract: {fileID: 9040844158566134540}
 --- !u!224 &6178418637545224869 stripped
 RectTransform:

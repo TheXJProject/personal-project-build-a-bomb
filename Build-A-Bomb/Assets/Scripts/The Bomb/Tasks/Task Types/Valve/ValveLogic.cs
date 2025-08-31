@@ -140,12 +140,16 @@ public class ValveLogic : MonoBehaviour
         Vector3 currentMouseWorldPos = Camera.main.ScreenToWorldPoint(currentMousePos);
         currentMouseWorldPos.z = 0f;
 
+        // Get the world position of the top right corner of the screen as a second ancor point
+        Vector2 topRight = new(Screen.width, Screen.height);
+        Vector3 topRightWorldPos = Camera.main.ScreenToWorldPoint(topRight);
+
         // Get normalised vector of current and previous mouse position
         Vector3 valveCurrentMouseVec = (currentMouseWorldPos - valvePos).normalized;
         Vector3 valveLastMouseVec = (lastMouseWorldPos - valvePos).normalized;
 
-        // Get distance from centre of the valve, ingor3e anything less than 1
-        float distance = Mathf.Max(2, 2 * (currentMouseWorldPos - valvePos).magnitude);
+        // Get distance from centre of the valve, ingore anything less than 2
+        float distance = Mathf.Max(2, 10 * (currentMouseWorldPos - valvePos).magnitude / (topRightWorldPos - valvePos).magnitude);
 
         //Normalise mouse positions
         currentMousePos.x /= ((float)Screen.width * 0.01f);

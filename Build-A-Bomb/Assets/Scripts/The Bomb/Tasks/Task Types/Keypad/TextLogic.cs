@@ -7,10 +7,13 @@ public class TextLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Inspector Adjustable Values:
-    public string startingMessage = "";
+    public string startingMessage = "- - -";
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI keypadDisplay;
+
+    // Runtime Variables:
+    string previousDisplay;
 
     private void Awake()
     {
@@ -18,12 +21,13 @@ public class TextLogic : MonoBehaviour
 
         // Starts with set starting message
         keypadDisplay.text = startingMessage;
+        previousDisplay = startingMessage;
     }
 
     private void OnEnable()
     {
-        // Start with Default text whenever returning to task
-        DisplayDefault();
+        // Start with whatever was previously on the display
+        keypadDisplay.text = previousDisplay;
     }
 
     /// FUNCTION DESCRIPTION<summary>
@@ -41,11 +45,13 @@ public class TextLogic : MonoBehaviour
         {
             // Display text entered
             keypadDisplay.text = text;
+            previousDisplay = text;
         }
         else
         {
             // Display text and number entered
             keypadDisplay.text = text + " " + number.ToString();
+            previousDisplay = text + " " + number.ToString();
         }
     }
 
@@ -58,5 +64,6 @@ public class TextLogic : MonoBehaviour
 
         // Showing initial starting message
         keypadDisplay.text = startingMessage;
+        previousDisplay = startingMessage;
     }
 }

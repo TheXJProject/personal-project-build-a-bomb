@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -61,7 +59,7 @@ public class ValveLogic : MonoBehaviour
             // TODO: reduce vibration animation depending on valveResistancePassed
 
             // If we are not over the valve or left click is not held
-            if (!valve.GetComponent<MousePositionLogic>().isMouseOver || !Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0))
             {
                 // We are no londer holding the valve
                 holdingValve = false;
@@ -146,6 +144,9 @@ public class ValveLogic : MonoBehaviour
         Vector3 valveCurrentMouseVec = (currentMouseWorldPos - valvePos).normalized;
         Vector3 valveLastMouseVec = (lastMouseWorldPos - valvePos).normalized;
 
+        // Get distance from centre of the valve, ingor3e anything less than 1
+        float distance = Mathf.Max(2, 2 * (currentMouseWorldPos - valvePos).magnitude);
+
         //Normalise mouse positions
         currentMousePos.x /= ((float)Screen.width * 0.01f);
         currentMousePos.y /= ((float)Screen.height * 0.01f);
@@ -169,6 +170,9 @@ public class ValveLogic : MonoBehaviour
 
             // Calculate mouse speed using magnitude of the position difference
             mouseSpeed = mousePosDifference.magnitude / Time.deltaTime;
+
+            // Then adjust the speed based on the distance the mouse is from the valve
+            mouseSpeed /= (distance - 1);
         }
 
         if (Msg) Debug.Log("Mouse Speed is: " + mouseSpeed);

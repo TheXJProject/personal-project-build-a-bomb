@@ -90,6 +90,21 @@ public class KeypadLogic : MonoBehaviour
             // Check the player sequence is correct
             CheckCode();
         }
+        // -30 is for clearing any entered code from the player
+        else if (keyNumber == -30)
+        {
+            // Reset the player's numbers shown
+            typeInSeq = "";
+
+            // Reset keys to show
+            showInSeq = "";
+
+            // Reset sequence if additional attempts needed
+            ResetPlayerSequence();
+
+            // Reset the display
+            display.DisplayDefault();
+        }
         // 0 - 9 is a number the player has entered
         else if (0 <= keyNumber && keyNumber < 10)
         {
@@ -111,7 +126,7 @@ public class KeypadLogic : MonoBehaviour
             else
             {
                 // Show the player their input
-                display.DisplayText(typeInSeq);
+                display.DisplayText("- " + typeInSeq + " -");
             }
 
             if (Msg) Debug.Log("Key entered into player sequence: " + keyNumber);
@@ -183,7 +198,7 @@ public class KeypadLogic : MonoBehaviour
             }
 
             // Show element in code sequence
-            if (TaskDisplay.activeSelf) display.DisplayText(showInSeq);
+            if (TaskDisplay.activeSelf) display.DisplayText("- (" + showInSeq + ") -");
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {

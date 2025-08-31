@@ -8,8 +8,8 @@ public class UltraLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 20;
-    const int minPossibleDifficultly = 2;
+    const int maxPossibleDifficultly = 15;
+    const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
@@ -102,8 +102,8 @@ public class UltraLogic : MonoBehaviour
 
     int CheckActiveTasks()
     {
-        // Get number of active tasks
-        int tasksNum = Mathf.Min(PlayerKeyInput.instance.keysInUseTotal, amountOfEnergyNeeded);
+        // Get number of active tasks, should be clamped between 0 and amountOfEnergyNeeded
+        int tasksNum = Mathf.Clamp(PlayerKeyInput.instance.keysInUseTotal - 1, 0, amountOfEnergyNeeded);
         return tasksNum;
     }
 

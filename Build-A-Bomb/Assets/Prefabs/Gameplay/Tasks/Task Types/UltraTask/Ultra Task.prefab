@@ -552,8 +552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5108760b831b0468dfa8e254838cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 1
-  currentHardestDifficulty: 12
+  Msg: 0
+  currentHardestDifficulty: 6
   statInteract: {fileID: 9071105042582095926}
   lightColour: {fileID: 8236033238088059158}
   energyLevel: {fileID: 8150391991435751120}

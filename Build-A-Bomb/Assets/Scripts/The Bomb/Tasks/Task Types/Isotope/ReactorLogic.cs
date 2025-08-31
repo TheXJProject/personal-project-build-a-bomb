@@ -42,6 +42,24 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
     }
 
+    private void OnEnable()
+    {
+        float entryTargetSpeed = canSpool ? baseFanSpeed : 0;
+        // Calculate length of time away
+        // Decrease fan speed depending
+
+        // reduce speed
+        currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - entryTargetSpeed);
+
+        // Make sure we don't reduce past the target
+        currentFanSpeed = Mathf.Max(currentFanSpeed, entryTargetSpeed);
+    }
+
+    private void OnDisable()
+    {
+        // Save time
+    }
+
     private void FixedUpdate()
     {
         // canSpool will be controlled by isBeingSolved

@@ -143,9 +143,9 @@ MonoBehaviour:
   noOfKeysPerTask: 1
   layerMinRadius: 1
   layerMaxRadius: 3
-  taskSize: 0.8
+  taskSize: 0.75
   taskScaleUp: 1
-  taskColliderRadius: 1.2
+  taskColliderRadius: 1.1
   tasks: []
   isSelected: 0
   isCompleted: 0

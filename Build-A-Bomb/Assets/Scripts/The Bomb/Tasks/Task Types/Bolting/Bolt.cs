@@ -14,6 +14,9 @@ public class Bolt : MonoBehaviour
 
     // Runtime Variables:
     [HideInInspector] public bool complete;
+    bool boltingInProgress = false;
+    float timeElapsed = 0f;
+    BoltingLogic mainLogic;
 
     private void Awake()
     {
@@ -21,6 +24,49 @@ public class Bolt : MonoBehaviour
 
         // This instance is not complete when just spawned
         complete = false;
+        boltingInProgress = false;
+        timeElapsed = 0f;
+        mainLogic = gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>();
+    }
+
+    private void Update()
+    {
+        // Check if the left button is pressed initially
+        if (Input.GetMouseButton(0) && boltingInProgress && mainLogic.statInteract.isBeingSolvedAndSelected)
+        {
+            // TODO: Replace with call for animation!
+            gameObject.GetComponent<Image>().color = Color.yellow;
+
+            // Wait for set amount of time, checking if the button stays pressed
+            if (timeElapsed < boltTime)
+            {
+                // Increment the time elapsed and continue
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                if (Msg) Debug.Log("Bolt completed.");
+
+                // After a set amount of time, if the button is still held, log success
+                complete = true;
+                boltingInProgress = false;
+
+                // TODO: Replace with call for animation!
+                gameObject.GetComponent<Image>().color = Color.green;
+
+                // Call check complete function
+                mainLogic.CheckIfComplete();
+            }
+        }
+        else
+        {
+            // If the player lets go of the bolt and it is not complete
+            if (!complete)
+            {
+                // Reset the bolt
+                ResetBolt();
+            }
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -30,7 +76,7 @@ public class Bolt : MonoBehaviour
     public void CompleteBolt(BaseEventData data)
     {
         // Check if the task can be solved
-        if (gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolvedAndSelected && !complete)
+        if (mainLogic.statInteract.isBeingSolvedAndSelected && !complete)
         {
             PointerEventData newData = (PointerEventData)data;
             // Check left click is pressed
@@ -39,71 +85,8 @@ public class Bolt : MonoBehaviour
                 if (Msg) Debug.Log("Bolting in!");
 
                 // Start checking that left click is held
-                StartCoroutine(CheckIfLeftButtonHeld());
+                boltingInProgress = true;
             }
-        }
-    }
-
-    /// FUNCTION DESCRIPTION <summary>
-    /// If the player hold down left click for a set amount <br />
-    /// time, boltTime, then the Bolt will become complete.
-    /// </summary>
-    IEnumerator CheckIfLeftButtonHeld()
-    {
-        // Check if the left button is pressed initially
-        if (Input.GetMouseButton(0))
-        {
-            // TODO: Replace with call for animation!
-            gameObject.GetComponent<Image>().color = Color.yellow;
-
-            float timeElapsed = 0f;
-
-            // Wait for set amount of time, checking if the button stays pressed
-            while (timeElapsed < boltTime)
-            {
-                // If the task can't still be solved
-                if (!gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolvedAndSelected)
-                {
-                    if (Msg) Debug.Log("Task isn't being solved.");
-
-                    // TODO: Replace with call for animation!
-                    gameObject.GetComponent<Image>().color = Color.red;
-
-                    yield break;
-                }
-
-                // If at any point the condition becomes false, break out of the loop
-                if (!Input.GetMouseButton(0))
-                {
-                    if (Msg) Debug.Log("Left click was not held for " + boltTime + " seconds.");
-
-                    // TODO: Replace with call for animation!
-                    gameObject.GetComponent<Image>().color = Color.red;
-                    
-                    yield break;
-                }
-
-                // Increment the time elapsed and continue
-                timeElapsed += Time.deltaTime;
-
-                // Wait for the next frame
-                yield return null;
-            }
-
-            if (Msg) Debug.Log("Bolt completed.");
-
-            // After a set amount of time, if the button is still held, log success
-            complete = true;
-
-            // TODO: Replace with call for animation!
-            gameObject.GetComponent<Image>().color = Color.green;
-
-            // Call check complete function
-            gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().CheckIfComplete();
-        }
-        else
-        {
-            Debug.LogWarning("Error, Left button was not pressed initially.");
         }
     }
 
@@ -116,6 +99,8 @@ public class Bolt : MonoBehaviour
         
         // This bolt is reset
         complete = false;
+        boltingInProgress = false;
+        timeElapsed = 0;
 
         // TODO: Replace with call for animation!
         gameObject.GetComponent<Image>().color = Color.red;

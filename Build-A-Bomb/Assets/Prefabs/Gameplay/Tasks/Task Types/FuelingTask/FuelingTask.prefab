@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  currentHardestDifficulty: 4000
+  currentHardestDifficulty: 400
   upperLimit: 0.8
   lowerLimit: 0.6
   bottomRL: -1

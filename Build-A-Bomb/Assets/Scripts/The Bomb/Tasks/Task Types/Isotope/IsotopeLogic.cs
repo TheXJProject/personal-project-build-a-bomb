@@ -65,7 +65,7 @@ public class IsotopeLogic : MonoBehaviour
                 // Remove accumulated time from reactors
                 foreach (int reactorIdx in activeReactors)
                 {
-                    reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld = Mathf.Max(reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld - removedTime, 0f);
+                    reactors[reactorIdx].GetComponent<ReactorLogic>().chargeAmount = Mathf.Max(reactors[reactorIdx].GetComponent<ReactorLogic>().chargeAmount - removedTime, 0f);
                 }
 
                 removedTime = 0;
@@ -310,7 +310,7 @@ public class IsotopeLogic : MonoBehaviour
             {
                 // Set to uncharged and time held to zero
                 reactors[reactorIdx].GetComponent<ReactorLogic>().charged = false;
-                reactors[reactorIdx].GetComponent<ReactorLogic>().timeHeld = 0f;
+                reactors[reactorIdx].GetComponent<ReactorLogic>().chargeAmount = 0f;
             }
 
             // No reactors are completed

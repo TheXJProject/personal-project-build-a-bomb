@@ -7,7 +7,8 @@ public class GoneWrongController : MonoBehaviour
 {
     // Inpector Adjustable Values:
     [SerializeField] bool tasksGoWrong = true;
-    [SerializeField] [Range(1,15)] int difficultyCurb; // Where difficultyCurb is c in equation, y = (-2 ^ (-cx)) + 1
+    [SerializeField] [Range(1,15)] int difficultyCurb; // Where difficultyCurb is c in equation, y = (-2 ^ (d-cx)) + 1
+    [SerializeField] [Range(0,6)] float difficultyOffset; // Where difficultyOffset is d in equation, y = (-2 ^ (d-cx)) + 1
     [SerializeField] float initialIntervalTime = 20f;
     [SerializeField] float finalIntervalTime = 7f;
     [SerializeField] float intervalTimeVariation = 4f;
@@ -106,7 +107,7 @@ public class GoneWrongController : MonoBehaviour
         {
             ++currentLayer;
             // Calculate difficulty between 0 and 1 based on y = (-2 ^ (-cx)) + 1, where c is the value used to control the shape of the curb
-            curbRes = -MathF.Pow(2.0f, -(difficultyCurb * ((float)currentLayer / maxLayers))) + 1.0f;
+            curbRes = -MathF.Pow(2.0f, difficultyOffset - (difficultyCurb * ((float)currentLayer / maxLayers))) + 1.0f;
         }
     }
 

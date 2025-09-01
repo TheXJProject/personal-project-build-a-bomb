@@ -242,16 +242,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc3b659c396c1345a53c92f7586b6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   baseFanSpeed: 1.5
   fanMaxSpeedMultiplier: 32.5
   fanSpeedScaler: 0.01
-  timeToChargeMaxLimit: 30
-  timeToCharge: 20
-  chargeIncreaseSpeed: 5
+  chargeLimit: 30
+  totalChargeNeeded: 20
+  chargeIncreaseSpeed: 10
   fan: {fileID: 7652817906922367960}
   canSpool: 0
   charged: 0
   fanCompletePercentage: 0
+  chargeAmount: 0
 --- !u!114 &3698458197821379866
 MonoBehaviour:
   m_ObjectHideFlags: 0

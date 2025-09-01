@@ -6,6 +6,7 @@ public class TaskVisuals : MonoBehaviour
 {
     [SerializeField] Material xRayFinished;
     [SerializeField] Material xRayUnfinished;
+    [SerializeField] Material xRayWorking;
     [SerializeField] SpriteRenderer OuterRing;
     [SerializeField] SpriteRenderer InnerRing;
 
@@ -41,8 +42,9 @@ public class TaskVisuals : MonoBehaviour
     {
         if (task != gameObject) { return; }
         OuterRing.color = beingSolvedColour; // TODO: change this to effect it with xray coding
+        GetComponent<SpriteRenderer>().material = xRayWorking;
     }
-    
+
     void TaskFailed(GameObject task) // Sets the tasks colour back to the orignal colour for when the task went wrong
     {
         if (task != gameObject) { return; }

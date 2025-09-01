@@ -55,7 +55,7 @@ public class GremlinTaskLogic : MonoBehaviour
         if (Msg) Debug.Log("Called function");
 
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // Increases the total number of times Gremlin has been hit by one
             numOfHits++;
@@ -164,6 +164,22 @@ public class GremlinTaskLogic : MonoBehaviour
         if (trigger == gameObject)
         {
             if (Msg) Debug.Log("Reset Task");
+
+            // If not completed, destroy gremlin
+            Destroy(templin);
+
+            // Then randomly put gremlin somewhere on the screen
+            Vector3 randomPosition = new();
+            randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
+            randomPosition.y = Random.Range(0, ySpawnRange) - (ySpawnRange / 2f);
+            randomPosition.z = gremlin.transform.localPosition.z;
+
+            // Create temp gremlin
+            templin = Instantiate(gremlin, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
+
+            // Place the gremlin
+            templin.transform.localPosition = randomPosition;
+            templin.transform.SetAsLastSibling();
 
             // Reset the number of times the player has hit
             numOfHits = 0;

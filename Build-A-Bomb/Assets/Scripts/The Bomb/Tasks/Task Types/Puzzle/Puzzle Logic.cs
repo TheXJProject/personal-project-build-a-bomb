@@ -62,7 +62,7 @@ public class PuzzleLogic : MonoBehaviour
 
     private void Update()
     {
-        if (!statInteract.isBeingSolved) return;
+        if (!statInteract.isBeingSolvedAndSelected) return;
 
         numOfConnections = 0;
 
@@ -115,7 +115,7 @@ public class PuzzleLogic : MonoBehaviour
     public void CompleteCheck(BaseEventData data)
     {
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))

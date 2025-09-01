@@ -305,7 +305,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.5132763, y: -0.49295393, z: -0.016989462}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5138767558304496796}
@@ -401,7 +401,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 1.01
 --- !u!114 &1292856787003710044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xRayFinished: {fileID: 2100000, guid: 950cd8d51cbdafc48b37716520b11f55, type: 2}
   xRayUnfinished: {fileID: 2100000, guid: 61a66e2748d6f654bab9ef6247199ea8, type: 2}
+  xRayWorking: {fileID: 2100000, guid: 002341e7f19071240a60d3f9a8cc54f1, type: 2}
   OuterRing: {fileID: 8188909011498783659}
   InnerRing: {fileID: 6031333736186346135}
 --- !u!1 &3965366147947730497
@@ -510,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: {fileID: 1071349792034378888}
+  isBeingSolvedAndSelected: 0
   isBeingSolved: 0
 --- !u!1 &7268248864388933404
 GameObject:

@@ -50,7 +50,7 @@ public class ValveLogic : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // If we are holding left click and we can complete the task and we are holding the valve
             if (Input.GetMouseButton(0) && holdingValve)
@@ -81,7 +81,7 @@ public class ValveLogic : MonoBehaviour
     {
         if (Msg) Debug.Log("Holding Mouse!");
 
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // If left click was pressed
             PointerEventData newData = (PointerEventData)data;

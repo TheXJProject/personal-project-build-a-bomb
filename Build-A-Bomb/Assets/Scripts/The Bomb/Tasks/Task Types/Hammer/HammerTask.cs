@@ -51,7 +51,7 @@ public class HammerTask : MonoBehaviour
         if (Msg) Debug.Log("Called function");
 
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             if (Msg) Debug.Log("Task is being solved");
             PointerEventData newData = (PointerEventData)data;

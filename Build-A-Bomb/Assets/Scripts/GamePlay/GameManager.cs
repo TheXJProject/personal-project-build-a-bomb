@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Events
+    public static event Action onGameBegan;
+
     // Runtime Variables:
     public static GameManager instance;
     public bool hardMode;
@@ -12,6 +16,7 @@ public class GameManager : MonoBehaviour
         BombStatus.onBombFinished += WinGame;
         DeathTimer.onTimerZero += LoseGame;
         LivesTracker.onNoLives += LoseGame;
+        BombStatus.onLayerCreated += determineGameStarted;
     }
 
     private void OnDisable()
@@ -19,6 +24,7 @@ public class GameManager : MonoBehaviour
         BombStatus.onBombFinished -= WinGame;
         DeathTimer.onTimerZero -= LoseGame;
         LivesTracker.onNoLives -= LoseGame;
+        BombStatus.onLayerCreated -= determineGameStarted;
     }
 
     private void Awake()
@@ -72,5 +78,13 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    void determineGameStarted(GameObject triggerLayer)
+    {
+        if (triggerLayer.GetComponent<LayerStatus>().layer == 0)
+        {
+            onGameBegan?.Invoke();
+        }
     }
 }

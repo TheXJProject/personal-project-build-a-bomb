@@ -35,12 +35,14 @@ public class TaskStatus : MonoBehaviour
     {
         PlayerKeyInput.onKeyPressed += CheckKeysHeld;
         PlayerKeyInput.onKeyReleased += CheckKeysReleased;
+        GameManager.onGameBegan += resetTasks;
     }
 
     private void OnDisable()
     {
         PlayerKeyInput.onKeyPressed -= CheckKeysHeld;
         PlayerKeyInput.onKeyReleased -= CheckKeysReleased;
+        GameManager.onGameBegan += resetTasks;
     }
 
     /// <summary>
@@ -153,5 +155,11 @@ public class TaskStatus : MonoBehaviour
             isBeingSolved = false;
             onTaskFailed?.Invoke(gameObject);
         }
+    }
+
+    void resetTasks()
+    {
+        AnyTaskFocused = false;
+        AnyTaskBeingSolved = false;
     }
 }

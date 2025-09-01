@@ -51,7 +51,7 @@ public class UltraLogic : MonoBehaviour
     private void FixedUpdate()
     {
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // Set energy level
             currentEnergy = CheckActiveTasks();
@@ -83,7 +83,7 @@ public class UltraLogic : MonoBehaviour
     public void AttemptFinish(BaseEventData data)
     {
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))

@@ -264,7 +264,7 @@ public class KeypadLogic : MonoBehaviour
     void CheckCode()
     {
         // This function only works if the task canBeSolved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // Check the playerSequence is instantiated
             if (playerSequence == null)

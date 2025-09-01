@@ -30,7 +30,7 @@ public class Bolt : MonoBehaviour
     public void CompleteBolt(BaseEventData data)
     {
         // Check if the task can be solved
-        if (gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolved && !complete)
+        if (gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolvedAndSelected && !complete)
         {
             PointerEventData newData = (PointerEventData)data;
             // Check left click is pressed
@@ -62,7 +62,7 @@ public class Bolt : MonoBehaviour
             while (timeElapsed < boltTime)
             {
                 // If the task can't still be solved
-                if (!gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolved)
+                if (!gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>().statInteract.isBeingSolvedAndSelected)
                 {
                     if (Msg) Debug.Log("Task isn't being solved.");
 

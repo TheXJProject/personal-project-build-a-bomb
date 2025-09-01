@@ -65,7 +65,7 @@ public class FuelingLogic : MonoBehaviour
     private void Update()
     {
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // Set the completion level
             statInteract.SetTaskCompletion(Mathf.Clamp01(currentFuel / fuelNeeded));
@@ -120,7 +120,7 @@ public class FuelingLogic : MonoBehaviour
     public void ButtonPressed()
     {
         // Checks if the task can be solved
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // Check if task is completed
             if (currentFuel > fuelNeeded && currentFuel < overFuelLimit)

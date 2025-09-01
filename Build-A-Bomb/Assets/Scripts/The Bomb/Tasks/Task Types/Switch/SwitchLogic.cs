@@ -60,7 +60,7 @@ public class SwitchLogic : MonoBehaviour
     public void CheckSwitches()
     {
         int totalOn = 0;
-        canBeSolved = statInteract.isBeingSolved;
+        canBeSolved = statInteract.isBeingSolvedAndSelected;
 
         // This function only works if the task canBeSolved
         if (canBeSolved) 

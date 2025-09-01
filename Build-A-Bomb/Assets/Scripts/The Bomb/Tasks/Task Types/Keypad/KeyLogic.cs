@@ -32,7 +32,7 @@ public class KeyLogic : MonoBehaviour
     public void PressKey(BaseEventData data)
     {
         // Check if the task can be solved
-        if (gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().statInteract.isBeingSolved &&
+        if (gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().statInteract.isBeingSolvedAndSelected &&
             gameObject.transform.parent.parent.parent.GetComponent<KeypadLogic>().canClickKeys)
         {
             PointerEventData newData = (PointerEventData)data;

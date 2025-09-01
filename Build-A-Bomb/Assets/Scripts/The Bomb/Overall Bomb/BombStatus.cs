@@ -70,6 +70,10 @@ public class BombStatus : MonoBehaviour
         // Set its layer number to the correct layer number (0 for core)
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
 
+        coreLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= 1;
+        coreLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= 2;
+        coreLayer.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder -= 3;
+
         // Add it to the array of layers
         layers.Add(coreLayer);
 
@@ -113,10 +117,11 @@ public class BombStatus : MonoBehaviour
         // Set the actual scale of the layer to the correct size
         nextLayer.transform.localScale *= layerSizeIncrease;
 
-        // Make sure the the layer is infront of the previous layers
-        nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease;
-        nextLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease-1);
-        nextLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease-1);
+        // Make sure the the layer and its xray colourings are behind the previous layers and in correct ordering
+        nextLayer.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= sortingLayerDecrease * 4;
+        nextLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease + 1);
+        nextLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease + 2);
+        nextLayer.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder -= (sortingLayerDecrease + 3);
 
         // Add it to the array of core layers
         layers.Add(nextLayer);

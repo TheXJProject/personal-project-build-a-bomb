@@ -52,7 +52,7 @@ public class IsotopeLogic : MonoBehaviour
     private void FixedUpdate()
     {
         // If we can complete the task set its completion level
-        if (statInteract.isBeingSolved)
+        if (statInteract.isBeingSolvedAndSelected)
         {
             // If the task is not selected
             if (!statInteract.task.isSelected)

@@ -10,6 +10,7 @@ public class TaskInteractStatus : MonoBehaviour
     public static event Action<GameObject> onTaskDifficultySet; // Function should be made that sets the task difficulty when this action is called
 
     public TaskStatus task;
+    public bool isBeingSolvedAndSelected;
     public bool isBeingSolved;
 
     private void OnEnable()
@@ -54,6 +55,7 @@ public class TaskInteractStatus : MonoBehaviour
 
     private void Update()
     {
-        isBeingSolved = task.isBeingSolved && task.isSelected; // Task should not be able to be solved if isBeingSolved is false
+        isBeingSolvedAndSelected = task.isBeingSolved && task.isSelected; // Task should not be able to be solved if isBeingSolved is false
+        isBeingSolved = task.isBeingSolved;
     }
 }

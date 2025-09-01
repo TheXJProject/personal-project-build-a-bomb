@@ -42,7 +42,7 @@ public class Pipe : MonoBehaviour
 
     public void RotateOnePos(BaseEventData data)
     {
-        if (mainPuzzle.statInteract.isBeingSolved)
+        if (mainPuzzle.statInteract.isBeingSolvedAndSelected)
         {
             // check for a left click
             PointerEventData newData = (PointerEventData)data;
@@ -66,7 +66,7 @@ public class Pipe : MonoBehaviour
 
     public void RotateOnePos()
     {
-        if (mainPuzzle.statInteract.isBeingSolved)
+        if (mainPuzzle.statInteract.isBeingSolvedAndSelected)
         {
             // Increase position by one and wrap if needs
             symbolPosition = (symbolPosition + 1) % mainPuzzle.maxPositions;

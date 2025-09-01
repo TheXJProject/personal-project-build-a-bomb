@@ -7,6 +7,20 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public bool hardMode;
 
+    private void OnEnable()
+    {
+        BombStatus.onBombFinished += WinGame;
+        DeathTimer.onTimerZero += LoseGame;
+        LivesTracker.onNoLives += LoseGame;
+    }
+
+    private void OnDisable()
+    {
+        BombStatus.onBombFinished -= WinGame;
+        DeathTimer.onTimerZero -= LoseGame;
+        LivesTracker.onNoLives -= LoseGame;
+    }
+
     private void Awake()
     {
         // If we haven't already initialised an instance of the game manager
@@ -41,12 +55,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameplayScene");
     }
 
-    public void LooseGame()
+    void LoseGame()
     {
-        SceneManager.LoadScene("LooseScene");
+        // If we are cheating, we can't lose
+        if (!CheatLogic.cheatTool.GetCanCheat())
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
     }
 
-    public void WinGame()
+    void WinGame()
     {
         SceneManager.LoadScene("WinScene");
     }

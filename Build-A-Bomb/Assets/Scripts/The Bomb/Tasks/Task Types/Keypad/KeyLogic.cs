@@ -41,8 +41,12 @@ public class KeyLogic : MonoBehaviour
             {
                 if (Msg) Debug.Log("Key pressed.");
 
-                // Hold the colour for a set time
-                StartCoroutine(AnimationHoldTime(onPressedTime));
+                // If the object can be seen
+                if (gameObject.activeInHierarchy)
+                {
+                    // Hold the colour for a set time
+                    StartCoroutine(AnimationHoldTime(onPressedTime));
+                }
 
                 // Signal which key has been pressed
                 KeyPressed();
@@ -87,8 +91,12 @@ public class KeyLogic : MonoBehaviour
     {
         if (Msg) Debug.Log("Showing Key: " + keynumber);
 
-        // Show this key
-        StartCoroutine(AnimationHoldTime(showTime));
+        // If the object can be seen
+        if (gameObject.activeInHierarchy)
+        {
+            // Show this key
+            StartCoroutine(AnimationHoldTime(showTime));
+        }
     }
 
     /// FUNCTION DESCRIPTION <summary>

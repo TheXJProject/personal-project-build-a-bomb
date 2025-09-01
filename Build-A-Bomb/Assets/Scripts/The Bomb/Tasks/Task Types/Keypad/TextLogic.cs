@@ -6,14 +6,14 @@ public class TextLogic : MonoBehaviour
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
-    // Inspector Adjustable Values:
-    public string startingMessage = "- - -";
+    // Constant Values:
+    const string startingMessage = "- - -";
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI keypadDisplay;
 
     // Runtime Variables:
-    string previousDisplay;
+    string previousDisplay = startingMessage;
 
     private void Awake()
     {
@@ -21,7 +21,6 @@ public class TextLogic : MonoBehaviour
 
         // Starts with set starting message
         keypadDisplay.text = startingMessage;
-        previousDisplay = startingMessage;
     }
 
     private void OnEnable()

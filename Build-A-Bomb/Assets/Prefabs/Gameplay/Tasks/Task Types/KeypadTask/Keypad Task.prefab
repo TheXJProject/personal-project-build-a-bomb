@@ -1174,7 +1174,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  startingMessage: '- - -'
   keypadDisplay: {fileID: 4475175224733714397}
 --- !u!1 &5085086008930850262
 GameObject:
@@ -3091,7 +3090,7 @@ MonoBehaviour:
   - name: 5318008
     code: 08000000000000000000000008000000010000000300000005000000
   statInteract: {fileID: 3440205935563209349}
-  TaskDisplay: {fileID: 5266553827639175849}
+  TaskDisplay: {fileID: 4906416156670581487}
   display: {fileID: 3978027946700000474}
   keys:
   - {fileID: 3004583517018232131}
@@ -3116,11 +3115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545b0dcf54f744148a7ab65a19caabca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5266553827639175849 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7268248864388933404, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
-  m_PrefabInstance: {fileID: 3299044063845666229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3554034903477711012
 PrefabInstance:
   m_ObjectHideFlags: 0

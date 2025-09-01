@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeypadLogic : MonoBehaviour
 {
     [System.Serializable]
-    struct Codes
+    private struct Codes
     {
         public string name;
         public List<int> code;
@@ -36,8 +36,8 @@ public class KeypadLogic : MonoBehaviour
     List<int> playerSequence;
     [HideInInspector] public bool canClickKeys;
     Coroutine myCoroutine;
-    static string typeInSeq;
-    static string showInSeq;
+    string typeInSeq;
+    string showInSeq;
     bool isSetup;
 
     private void Awake()

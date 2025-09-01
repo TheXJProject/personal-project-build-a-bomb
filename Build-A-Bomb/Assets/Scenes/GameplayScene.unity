@@ -625,6 +625,10 @@ PrefabInstance:
       propertyPath: canCheatLayers
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
+      propertyPath: canToggleCheats
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
       value: DevTools
@@ -942,12 +946,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tasksGoWrong: 1
-  difficultyCurb: 3
+  difficultyCurb: 2
+  difficultyOffset: 0.4
   initialIntervalTime: 20
-  finalIntervalTime: 7
-  intervalTimeVariation: 4
+  finalIntervalTime: 15
+  intervalTimeVariation: 3
   initialAmountFailing: 1
-  finalAmountFailing: 4
+  finalAmountFailing: 3
   bombStats: {fileID: 442478354}
   tasksToGoWrong: []
 --- !u!1 &449356587

@@ -862,31 +862,107 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: maxNoOfTasksSpawned
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: minNoOfTasksSpawned
-      value: 1
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: typeOfTasks.Array.data[0]
       value: 
       objectReference: {fileID: 6252553613618682442, guid: fa1aa4b39fb914f41a9efbbe7f868575, type: 3}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.data[1]
+      value: 
+      objectReference: {fileID: 6310350486823517359, guid: 46fc3bc5c817bd143adafc6fb359c95f, type: 3}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.data[2]
+      value: 
+      objectReference: {fileID: 6688657518260464479, guid: 9f1f8b44e15367b44ae2e3df06b8ef51, type: 3}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.data[3]
+      value: 
+      objectReference: {fileID: 331173493496391929, guid: 536c1618d41e3fb46afa6e7ef306b861, type: 3}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.data[4]
+      value: 
+      objectReference: {fileID: 7095752185384166348, guid: eae8a1ae834ab334bb577ce90b81b624, type: 3}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: typeOfTasks.Array.data[5]
+      value: 
+      objectReference: {fileID: 6252553613618682442, guid: fa1aa4b39fb914f41a9efbbe7f868575, type: 3}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMaxDifficulty.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMinDifficulty.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinSpawned.Array.data[5]
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMaxDifficulty.Array.data[0]
-      value: 10
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMaxDifficulty.Array.data[1]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMaxDifficulty.Array.data[2]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMaxDifficulty.Array.data[3]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMaxDifficulty.Array.data[4]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMaxDifficulty.Array.data[5]
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: taskMinDifficulty.Array.data[0]
-      value: 5
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140324325600270673, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: taskMinDifficulty.Array.data[1]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9038713108959813328, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Size.x

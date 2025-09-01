@@ -6,7 +6,7 @@ public class FuelingLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const float maxPossibleDifficultly = 10000f;
+    const float maxPossibleDifficultly = 1000f;
     const float minPossibleDifficultly = 10f;
 
     // Inspector Adjustable Values:

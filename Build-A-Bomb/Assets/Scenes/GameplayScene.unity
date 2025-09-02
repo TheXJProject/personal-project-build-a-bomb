@@ -949,9 +949,9 @@ MonoBehaviour:
   difficultyCurb: 5.8
   difficultyStartOffset: -0.4
   difficultyMaxOffset: 0.55
-  initialIntervalTime: 20
-  finalIntervalTime: 15
-  intervalTimeVariation: 3
+  initialIntervalTime: 22
+  finalIntervalTime: 16
+  intervalTimeVariation: 2
   initialAmountFailing: 1
   finalAmountFailing: 3
   bombStats: {fileID: 442478354}

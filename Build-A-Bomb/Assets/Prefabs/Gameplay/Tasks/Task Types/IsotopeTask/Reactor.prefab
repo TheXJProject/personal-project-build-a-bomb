@@ -246,8 +246,8 @@ MonoBehaviour:
   baseFanSpeed: 1.5
   fanMaxSpeedMultiplier: 32.5
   fanSpeedScaler: 0.01
-  chargeLimit: 30
-  totalChargeNeeded: 20
+  chargeLimit: 25
+  totalChargeNeeded: 18
   chargeIncreaseSpeed: 10
   fan: {fileID: 7652817906922367960}
   canSpool: 0

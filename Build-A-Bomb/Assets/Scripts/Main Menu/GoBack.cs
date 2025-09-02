@@ -6,6 +6,7 @@ public class GoBack : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject beginMenuLevel;
+    public arrowHover2 arrow;
 
     // Runtime Variables:
     [HideInInspector] public bool pressed = false;

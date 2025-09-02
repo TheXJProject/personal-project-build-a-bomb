@@ -8,6 +8,7 @@ public class Hard : MonoBehaviour
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
     [SerializeField] SpriteRenderer spriteRenderer;
+    public arrowHover2 arrow;
 
     // Runtime Variables:
     [HideInInspector] public bool pressed = false;

@@ -7,6 +7,7 @@ public class BackToMain : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] ButtonManager manager;
     [SerializeField] SpriteRenderer spriteRenderer;
+    public arrowHover2 arrow;
 
     // Runtime Variables:
     [HideInInspector] public bool backPressed = true;

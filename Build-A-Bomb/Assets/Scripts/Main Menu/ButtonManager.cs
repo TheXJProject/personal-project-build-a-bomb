@@ -35,6 +35,11 @@ public class ButtonManager : MonoBehaviour
         normal.pressed = true;
         hard.pressed = true;
         goBack.pressed = true;
+        settings.arrow.canShow = false;
+        tutorial.arrow.canShow = false;
+        normal.arrow.canShow = false;
+        hard.arrow.canShow = false;
+        goBack.arrow.canShow = false;
 
         // Allow back buttons to be pressed
         settingsBack.backPressed = false;
@@ -104,6 +109,11 @@ public class ButtonManager : MonoBehaviour
         normal.pressed = false;
         hard.pressed = false;
         goBack.pressed = false;
+        settings.arrow.canShow = true;
+        tutorial.arrow.canShow = true;
+        normal.arrow.canShow = true;
+        hard.arrow.canShow = true;
+        goBack.arrow.canShow = true;
 
         // Set each track to be at the right volume for main menu
         MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime);

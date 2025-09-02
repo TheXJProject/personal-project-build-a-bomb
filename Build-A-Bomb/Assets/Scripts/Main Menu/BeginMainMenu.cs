@@ -10,6 +10,7 @@ public class BeginMainMenu : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject mainMenuLevel;
+    public arrowHover2 arrow;
 
     // Runtime Variables:
     bool pressed = false;
@@ -47,6 +48,7 @@ public class BeginMainMenu : MonoBehaviour
         {
             // Prevent it being pressed again until reset elsewhere
             pressed = true;
+            arrow.canShow = false;
 
             // Fade in the Main menu tracks
             MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime);
@@ -66,6 +68,7 @@ public class BeginMainMenu : MonoBehaviour
     {
         // We can now press the start button again
         pressed = false;
+        arrow.canShow = true;
 
         // Fade out the Main menu tracks
         MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime, 0f);

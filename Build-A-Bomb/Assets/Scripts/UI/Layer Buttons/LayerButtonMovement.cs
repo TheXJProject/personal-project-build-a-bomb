@@ -14,7 +14,7 @@ public class LayerButtonMovement : MonoBehaviour
     bool doingTransition = false;
     bool waitingTransition = false;
     float timeSinceMove = 0f;
-    float oldYPosition = 0f;
+    [HideInInspector] public float oldYPosition = 0f;
     float newYPosition = 0f;
     float ydifference = 0f;
 

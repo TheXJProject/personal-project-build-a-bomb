@@ -69,6 +69,14 @@ PrefabInstance:
       value: Bomb Layer 2
       objectReference: {fileID: 0}
     - target: {fileID: 6211088639294261330, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: m_Size.x
+      value: 18.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211088639294261330, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
+      propertyPath: m_Size.y
+      value: 18.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211088639294261330, guid: e66157c8b0d3aac4e85fd9b9326aedf7, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5f2f65d1e744f4944a2bd7361f32da12, type: 3}

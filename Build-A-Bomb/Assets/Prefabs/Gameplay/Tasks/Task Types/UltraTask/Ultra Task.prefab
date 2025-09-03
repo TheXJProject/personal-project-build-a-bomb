@@ -439,6 +439,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 586922355044342725, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9523634
+      objectReference: {fileID: 0}
+    - target: {fileID: 586922355044342725, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.30496553
+      objectReference: {fileID: 0}
+    - target: {fileID: 586922355044342725, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 35.512
+      objectReference: {fileID: 0}
     - target: {fileID: 2976914063285642572, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_Name
       value: Ultra Task

@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586922355044342725, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.017
+      value: -0.038
       objectReference: {fileID: 0}
     - target: {fileID: 586922355044342725, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_LocalPosition.y
@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_Size.x
-      value: 1.175
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_Size.y
-      value: 1.175
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 5254208550414633807, guid: 127453de0d5d7eb4bafff814c7bed236, type: 3}
       propertyPath: m_Sprite
@@ -148,8 +148,8 @@ MonoBehaviour:
   Msg: 0
   currentHardestDifficulty: 15
   variation1: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
-  variation2: {fileID: 5985467074216699917, guid: 8c94b25d5d2bbda42b2a171af92513ab, type: 3}
-  variation3: {fileID: 5985467074216699917, guid: 30d456e222bde4843a8771b710393e42, type: 3}
+  variation2: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
+  variation3: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
   statInteract: {fileID: 8087669420947635049}
 --- !u!114 &8087669420947635049 stripped
 MonoBehaviour:

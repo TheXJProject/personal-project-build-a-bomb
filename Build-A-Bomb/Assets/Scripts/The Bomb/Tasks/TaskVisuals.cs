@@ -12,9 +12,9 @@ public class TaskVisuals : MonoBehaviour
 
     Color normalColourInner;
     Color normalColourOuter;
-    Color beingSolvedColour = Color.yellow;
-    Color solvedColour = Color.green;
-    Color goneWrongColour = Color.red;
+    [SerializeField] Color beingSolvedColour = Color.yellow;
+    [SerializeField] Color solvedColour = Color.green;
+    [SerializeField] Color goneWrongColour = Color.red;
 
     private void Awake()
     {
@@ -36,6 +36,11 @@ public class TaskVisuals : MonoBehaviour
         TaskStatus.onTaskFailed -= TaskFailed;
         TaskStatus.onTaskCompleted -= TaskCompleted;
         TaskStatus.onTaskGoneWrong -= TaskGoneWrong;
+    }
+
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.parent.transform.rotation.z * -1.0f);
     }
 
     void TaskBeingSolved(GameObject task) // Sets the colour for when the task is being solved

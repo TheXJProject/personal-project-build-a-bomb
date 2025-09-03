@@ -13,12 +13,16 @@ public class LayerButtonController : MonoBehaviour
     [SerializeField] GameObject layerButtonPrefab;
     [Range(0f, 500f)][SerializeField] float allButtonsHeight; // Makes sure that the buttons cannot be a certain percentage of the screen height away from the centre
     [Range(-50f, 50f)][SerializeField] float gapHeight;     // Percent height of the screen that the gap height between buttons is
+    [Range(-500f, 500f)][SerializeField] float initialYOffset;
+    [SerializeField] int finalNumButtons = 10;
 
     // Runtime Variables
     List<GameObject> layerButtons = new List<GameObject>();
     float oldTopBottomHeight;
     float newTopBottomHeight;
     float amountToLowerButtons;
+    float offsetIncr;
+    int numButtonsSpawned;
     bool firstLayerSpawned = false;
 
     private void OnEnable()
@@ -59,15 +63,18 @@ public class LayerButtonController : MonoBehaviour
         // Determine the buttons height
         float h = layerButtonPrefab.GetComponent<RectTransform>().rect.height;
         newTopBottomHeight = (allButtonsHeight - h) / 2;
+        offsetIncr = initialYOffset / (finalNumButtons-1);
 
         // Set the button position and since there are no other buttons, it doesn't need to be affected by any "justSpawned" affects
         SetNewButtonPosition(newButton);
         newButton.GetComponent<LayerButtonMovement>().justSpawned = false;
+        newButton.GetComponent<LayerButtonMovement>().oldYPosition = newButton.transform.localPosition.y;
 
         // Signal a layer button has been spawned
         onLayerButtonSpawned?.Invoke(triggerLayer);
 
         newButton.GetComponent<LayerButtonInfo>().animator.SetTrigger("enter");
+        ++numButtonsSpawned;
     }
 
     /// <summary>
@@ -81,6 +88,7 @@ public class LayerButtonController : MonoBehaviour
         SetNewButtonPosition(newButton);
         onNonInitialLayerButtonSpawned?.Invoke(amountToLowerButtons);
         onLayerButtonSpawned?.Invoke(triggerLayer);
+        ++numButtonsSpawned;
     }
 
     /// <summary>
@@ -100,6 +108,7 @@ public class LayerButtonController : MonoBehaviour
     {
         float buttonHeight = layerButtonPrefab.GetComponent<RectTransform>().rect.height;
         float newSpawnHeight = (allButtonsHeight / 2) - newTopBottomHeight - (buttonHeight / 2); // The calculated distance from the top of the set max button height
+        newSpawnHeight = newSpawnHeight + initialYOffset - (offsetIncr * numButtonsSpawned);
         newButton.transform.localPosition = new Vector2(newButton.transform.localPosition.x, newSpawnHeight);
     }
 
@@ -113,5 +122,6 @@ public class LayerButtonController : MonoBehaviour
         float h = layerButtonPrefab.GetComponent<RectTransform>().rect.height;
         newTopBottomHeight = (allButtonsHeight - ((n * h) + ((n - 1) * gapHeight))) / 2;
         amountToLowerButtons = oldTopBottomHeight - newTopBottomHeight;
+        amountToLowerButtons = amountToLowerButtons + offsetIncr;
     }
 }

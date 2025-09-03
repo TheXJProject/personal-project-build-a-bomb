@@ -465,6 +465,9 @@ MonoBehaviour:
   xRayWorking: {fileID: 2100000, guid: 002341e7f19071240a60d3f9a8cc54f1, type: 2}
   OuterRing: {fileID: 8188909011498783659}
   InnerRing: {fileID: 6031333736186346135}
+  beingSolvedColour: {r: 1, g: 0.7478442, b: 0.0047169924, a: 1}
+  solvedColour: {r: 0, g: 0.8301887, b: 0, a: 1}
+  goneWrongColour: {r: 0.8679245, g: 0, b: 0, a: 1}
 --- !u!1 &3965366147947730497
 GameObject:
   m_ObjectHideFlags: 0

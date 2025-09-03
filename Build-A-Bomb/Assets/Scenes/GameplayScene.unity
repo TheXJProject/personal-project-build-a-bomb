@@ -337,6 +337,8 @@ MonoBehaviour:
   layerButtonPrefab: {fileID: 1231543329850547996, guid: 5f8e80578ba420d4ab49926532921a9e, type: 3}
   allButtonsHeight: 430
   gapHeight: -9.2
+  initialYOffset: 27.7
+  finalNumButtons: 10
 --- !u!1 &234315077
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 60.124054, y: -0.99993896}
+  m_AnchoredPosition: {x: 16.124023, y: -0.99993896}
   m_SizeDelta: {x: 146.4978, y: 63.106705}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &404800555
@@ -1874,20 +1876,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderedKeyDisplaysBeg:
-  - {fileID: 294626465}
-  - {fileID: 307598510}
   - {fileID: 699718201}
   - {fileID: 617535363}
+  - {fileID: 307598510}
   - {fileID: 1177278580}
+  - {fileID: 294626465}
   orderedKeyDisplaysMid:
-  - {fileID: 1902883865}
   - {fileID: 1981657241}
   - {fileID: 578266722}
+  - {fileID: 1902883865}
   - {fileID: 247204060}
   orderedKeyDisplaysEnd:
-  - {fileID: 1216527179}
   - {fileID: 711879083}
   - {fileID: 552416417}
+  - {fileID: 1216527179}
 --- !u!1 &1002036848 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 648619253034906528, guid: c3450ea954bb72543b9dc3bca21b9e17, type: 3}
@@ -2496,7 +2498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.7019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8352941}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3322,7 +3324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 384, y: 174}
+  m_AnchoredPosition: {x: 340, y: 174}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2020394912

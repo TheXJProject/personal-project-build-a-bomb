@@ -17,6 +17,8 @@ public class ValveLogic : MonoBehaviour
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
     [SerializeField] GameObject valve;
+    [SerializeField] GameObject leftArrow;
+    [SerializeField] GameObject rightArrow;
 
     // Runtime Variables:
     int valveResistanceTotal = minPossibleDifficultly;
@@ -26,6 +28,7 @@ public class ValveLogic : MonoBehaviour
     Vector3 valvePos = Vector3.zero;
     bool holdingValve = false;
     Quaternion startingRotation;
+    bool isClockWise = true;
     bool isSetup;
 
     private void Awake()
@@ -130,7 +133,7 @@ public class ValveLogic : MonoBehaviour
         }
 
         // Apply rotation
-        valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount);
+        valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1));
 
         // Returns back inputted mouse speed
         return mouseSpeed;
@@ -171,7 +174,7 @@ public class ValveLogic : MonoBehaviour
         Vector3 crossProduct = Vector3.Cross(valveLastMouseVec, Vector3.back);
 
         // Use dot product to determine if the new mouse pos is in the ccw direction of the old one
-        float dotProduct = Vector3.Dot(crossProduct, valveCurrentMouseVec);
+        float dotProduct = Vector3.Dot(crossProduct, valveCurrentMouseVec) * (isClockWise ? -1 : 1);
 
         // Mouse speed is zero unless player is moving mouse in correct direction
         float mouseSpeed = 0;
@@ -238,6 +241,15 @@ public class ValveLogic : MonoBehaviour
             isSetup = true;
 
             startingRotation = valve.transform.rotation;
+
+            // Choose randomly which direction the player should turn the valve
+            isClockWise = Random.value < 0.5f;
+
+            // Show the player which direction to turn the valve
+            leftArrow.SetActive(!isClockWise);
+            rightArrow.SetActive(isClockWise);
+
+            if (Msg) Debug.Log("Rotate clockwise: " + isClockWise);
 
             // TODO: Start Vibration animation
         }

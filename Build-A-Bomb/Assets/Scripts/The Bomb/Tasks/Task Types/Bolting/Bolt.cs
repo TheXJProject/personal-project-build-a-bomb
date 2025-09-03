@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -27,6 +25,15 @@ public class Bolt : MonoBehaviour
         boltingInProgress = false;
         timeElapsed = 0f;
         mainLogic = gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>();
+    }
+
+    private void OnEnable()
+    {
+        // If the bolt is not complete, when re-entering the task reset the bolt
+        if (!complete)
+        {
+            ResetBolt();
+        }
     }
 
     private void Update()

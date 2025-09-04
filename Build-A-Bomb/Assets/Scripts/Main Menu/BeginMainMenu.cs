@@ -1,19 +1,31 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class BeginMainMenu : MonoBehaviour
 {
     // Inspector Adjustable Values:
     [SerializeField] float startMusicTime;
     [SerializeField] float musicTransitonTime;
+    [SerializeField] float timeToMaterialize;
+    [SerializeField] float startAmount;
 
     // Initialise In Inspector:
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject mainMenuLevel;
+    [SerializeField] Material materialize;
+    [SerializeField] SpriteRenderer glow1;
+    [SerializeField] SpriteRenderer glow2;
     public arrowHover2 arrow;
+    float a = 1.6f, f = 5.8f, b = 0.2f;
 
     // Runtime Variables:
     bool pressed = false;
+    float elapsed = 0;
+    private Coroutine materializeCoroutine;
+    private Coroutine dematerializeCoroutine;
 
     private void Start()
     {
@@ -60,7 +72,9 @@ public class BeginMainMenu : MonoBehaviour
             cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
 
             // Activate the next layer
-            mainMenuLevel.SetActive(true);
+            if (dematerializeCoroutine != null) 
+                StopCoroutine(dematerializeCoroutine);
+            materializeCoroutine = StartCoroutine(Materialize());
         }
     }
 
@@ -77,6 +91,69 @@ public class BeginMainMenu : MonoBehaviour
         MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
         // Activate the next layer
+        
+        if (materializeCoroutine != null) 
+            StopCoroutine(materializeCoroutine);
+        dematerializeCoroutine = StartCoroutine(DeMaterialize());
+    }
+
+    IEnumerator Materialize()
+    {
+        mainMenuLevel.SetActive(true);
+        Color g1 = glow1.color;
+        Color g2 = glow2.color;
+
+        while (elapsed < timeToMaterialize)
+        {
+            elapsed += Time.deltaTime;
+            materialize.SetFloat("_Fade", Mathf.Clamp01(myMathFunction(elapsed, timeToMaterialize) * (1.0f-startAmount)) + startAmount);
+            
+            g1.a = Mathf.Clamp01(elapsed / timeToMaterialize);
+            g2.a = Mathf.Clamp01(elapsed / timeToMaterialize);
+            glow1.color = g1;
+            glow2.color = g2;
+
+            yield return null;
+        }
+        
+        g1.a = 1;
+        g2.a = 1;
+        glow1.color = g1;
+        glow2.color = g2;
+
+        materialize.SetFloat("_Fade", 1.0f);
+    }
+
+    IEnumerator DeMaterialize()
+    {
+        Color g1 = glow1.color;
+        Color g2 = glow2.color;
+
+        while (elapsed > 0)
+        {
+            elapsed -= Time.deltaTime;
+            materialize.SetFloat("_Fade", Mathf.Clamp01((myMathFunction(elapsed, timeToMaterialize) * (1.0f - startAmount)) + startAmount));
+
+            g1.a = Mathf.Clamp01(elapsed / timeToMaterialize);
+            g2.a = Mathf.Clamp01(elapsed / timeToMaterialize);
+            glow1.color = g1;
+            glow2.color = g2;
+
+            yield return null;
+        }
+
+        g1.a = 0;
+        g2.a = 0;
+        glow1.color = g1;
+        glow2.color = g2;
+
+        materialize.SetFloat("_Fade", 0.0f);
         mainMenuLevel.SetActive(false);
+    }
+
+    float myMathFunction(float elapsed, float totalTime)
+    {
+        float x = elapsed / totalTime;
+        return ((-Mathf.Exp(a - (f*x))) * b + 1);
     }
 }

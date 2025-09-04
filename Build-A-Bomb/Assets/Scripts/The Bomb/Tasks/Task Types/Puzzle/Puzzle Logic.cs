@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 public class PuzzleLogic : MonoBehaviour
@@ -343,27 +342,6 @@ public class PuzzleLogic : MonoBehaviour
 
             // The number of hits needed cannot be zero
             numOfConnectionsNeeded = Mathf.Max(numOfConnectionsNeeded, minPossibleDifficultly);
-
-            // Error check
-            if (GameManager.instance != null)
-            {
-                // Unique for this task!
-                // If we're not in hardmode (standard play)
-                if (!GameManager.instance.hardMode)
-                {
-                    // Make sure the task can't have difficultly 5 or 7
-                    if (numOfConnectionsNeeded == 5 || numOfConnectionsNeeded == 7)
-                    {
-                        // Max difficultly in standard is 6
-                        numOfConnectionsNeeded = 6;
-                    }
-                }
-            }
-            else
-            {
-                // Show error
-                Debug.LogWarning("Error, Gamemanager misssing!");
-            }
 
             SetupTask();
         }

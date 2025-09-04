@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using System;
 
@@ -145,6 +142,11 @@ public class GeneralCameraLogic : MonoBehaviour
         {
             Debug.LogWarning("Error, DetermineNewCameraPosition() shouldn't be called when not adjusting camera x,y position!");
             return Vector3.zero;
+        }
+
+        if (Mathf.Abs(differenceCameraSize) < 0.05)
+        {
+            Debug.Log(differenceCameraSize);
         }
 
         // Get the current distance travelled in x and y and add to starting position

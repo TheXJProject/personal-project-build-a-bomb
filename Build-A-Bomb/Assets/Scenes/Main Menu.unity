@@ -3702,7 +3702,7 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 1.5
   startingCameraLayer: 1
   startingLayerAcceleration: 3
-  transitionTime: 1.5
+  transitionTime: 3
   cImpact: 18
   dGradient: 7.4
   fPeakPosition: 2
@@ -4650,7 +4650,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2133924893450471654, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: removeWarningMsgs
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8555553697769540508, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4698,7 +4698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: removeWarningMsgs
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

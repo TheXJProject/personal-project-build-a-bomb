@@ -9,6 +9,9 @@ public class MixerFXManager : MonoBehaviour
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
+    // Inspector Adjustable Values:
+    [Header("Prevent error messages if audio not in use")] [SerializeField] bool removeWarningMsgs;
+
     // Initialise In Inspector:
     public AudioMixer audioMixer;
     [Header("---- Mixer Groups ----\n")]
@@ -48,19 +51,19 @@ public class MixerFXManager : MonoBehaviour
         // and Mixer Manager are present.)
         if (GetComponent<AudioManager>() == null)
         {
-            Debug.LogWarning("AudioManager component is missing!");
-            Debug.LogWarning("Please add component before running!");
+            if (!removeWarningMsgs) Debug.LogWarning("AudioManager component is missing!");
+            if (!removeWarningMsgs) Debug.LogWarning("Please add component before running!");
         }
 
         // Error check player groups
         if (playerGroups.masterPlayer == null)
         {
-            Debug.LogWarning("Error, player group masterPlayer not filled in!");
-            Debug.LogWarning("Please add component before running! Cheers :)");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, player group masterPlayer not filled in!");
+            if (!removeWarningMsgs) Debug.LogWarning("Please add component before running! Cheers :)");
         }
         else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.masterPlayer))
         {
-            Debug.LogWarning("Error, main group " + playerGroups.masterPlayer.name + " not in the main group collection!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, main group " + playerGroups.masterPlayer.name + " not in the main group collection!");
         }
         else
         {
@@ -69,18 +72,18 @@ public class MixerFXManager : MonoBehaviour
             {
                 if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.masterPlayer))
                 {
-                    Debug.LogWarning("Error, player group " + playerGroups.masterPlayer + " in the core group collection!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, player group " + playerGroups.masterPlayer + " in the core group collection!");
                 }
             }
         }
         if (playerGroups.musicPlayer == null)
         {
-            Debug.LogWarning("Error, player group musicPlayer not filled in!");
-            Debug.LogWarning("Please add component before running! Cheers :)");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, player group musicPlayer not filled in!");
+            if (!removeWarningMsgs) Debug.LogWarning("Please add component before running! Cheers :)");
         }
         else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.musicPlayer))
         {
-            Debug.LogWarning("Error, main group " + playerGroups.musicPlayer.name + " not in the main group collection!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, main group " + playerGroups.musicPlayer.name + " not in the main group collection!");
         }
         else
         {
@@ -89,18 +92,18 @@ public class MixerFXManager : MonoBehaviour
             {
                 if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.musicPlayer))
                 {
-                    Debug.LogWarning("Error, player group " + playerGroups.musicPlayer + " in the core group collection!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, player group " + playerGroups.musicPlayer + " in the core group collection!");
                 }
             }
         }
         if (playerGroups.sfxPlayer == null)
         {
-            Debug.LogWarning("Error, player group sfxPlayer not filled in!");
-            Debug.LogWarning("Please add component before running! Cheers :)");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, player group sfxPlayer not filled in!");
+            if (!removeWarningMsgs) Debug.LogWarning("Please add component before running! Cheers :)");
         }
         else if (!Array.Exists(groupInfo, gr => gr.group == playerGroups.sfxPlayer))
         {
-            Debug.LogWarning("Error, main group " + playerGroups.sfxPlayer.name + " not in the main group collection!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, main group " + playerGroups.sfxPlayer.name + " not in the main group collection!");
         }
         else
         {
@@ -109,7 +112,7 @@ public class MixerFXManager : MonoBehaviour
             {
                 if (Array.Exists(mainGroups.GroupOptionToArray(option), gr => gr == playerGroups.sfxPlayer))
                 {
-                    Debug.LogWarning("Error, player group " + playerGroups.sfxPlayer + " in the core group collection!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, player group " + playerGroups.sfxPlayer + " in the core group collection!");
                 }
             }
         }
@@ -120,8 +123,8 @@ public class MixerFXManager : MonoBehaviour
             // Make sure at least one group is assigned
             if (mainGroups.GroupOptionToArray(option).Length == 0)
             {
-                Debug.LogWarning("Error, main group " + option + " not filled in!");
-                Debug.LogWarning("Please add component before running! Cheers :)");
+                if (!removeWarningMsgs) Debug.LogWarning("Error, main group " + option + " not filled in!");
+                if (!removeWarningMsgs) Debug.LogWarning("Please add component before running! Cheers :)");
             }
             else
             {
@@ -131,7 +134,7 @@ public class MixerFXManager : MonoBehaviour
                     // Check it exsits in somewhere in the set of all groups
                     if (!Array.Exists(groupInfo, gr => gr.group == g))
                     {
-                        Debug.LogWarning("Error, main group " + g.name + " not in the main group collection!");
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, main group " + g.name + " not in the main group collection!");
                     }
                 }
             }
@@ -140,7 +143,7 @@ public class MixerFXManager : MonoBehaviour
         // Check main group array filled in
         if (groupInfo.Length == 0)
         {
-            Debug.LogWarning("Error, main group array empty!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, main group array empty!");
         }
 
         // From here, sets up audio channels.
@@ -152,7 +155,7 @@ public class MixerFXManager : MonoBehaviour
             if (g.group == null)
             {
                 // Throw error
-                Debug.LogWarning("Error, group reference missing in 'Mixer Groups'!");
+                if (!removeWarningMsgs) Debug.LogWarning("Error, group reference missing in 'Mixer Groups'!");
 
                 g.name = MixerGroupsInfo.errorName;
                 g.parameters.volume = MixerGroupExpoParameters.errorName;
@@ -178,7 +181,7 @@ public class MixerFXManager : MonoBehaviour
                 else if (!audioMixer.GetFloat(g.parameters.volume, out g.parameters.startVolume))
                 {
                     // If we don't find a match throw error
-                    Debug.LogWarning("Error, parameter with name, " + ((g.parameters.volume == "") ? "none" : g.parameters.volume) + ", cannot be found in the mixer!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, parameter with name, " + ((g.parameters.volume == "") ? "none" : g.parameters.volume) + ", cannot be found in the mixer!");
                     g.parameters.volume = MixerGroupExpoParameters.errorName;
                 }
 
@@ -193,7 +196,7 @@ public class MixerFXManager : MonoBehaviour
                 else if (!audioMixer.GetFloat(g.parameters.lowPassEQ, out g.parameters.startLowPassEQ))
                 {
                     // If we don't find a match throw error
-                    Debug.LogWarning("Error, parameter with name, " + ((g.parameters.lowPassEQ == "") ? "none" : g.parameters.lowPassEQ) + ", cannot be found in the mixer!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, parameter with name, " + ((g.parameters.lowPassEQ == "") ? "none" : g.parameters.lowPassEQ) + ", cannot be found in the mixer!");
                     g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
                 }
 
@@ -208,7 +211,7 @@ public class MixerFXManager : MonoBehaviour
                 else if (!audioMixer.GetFloat(g.parameters.highPassEQ, out g.parameters.startHighPassEQ))
                 {
                     // If we don't find a match throw error
-                    Debug.LogWarning("Error, parameter with name, " + ((g.parameters.highPassEQ == "") ? "none" : g.parameters.highPassEQ) + ", cannot be found in the mixer!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, parameter with name, " + ((g.parameters.highPassEQ == "") ? "none" : g.parameters.highPassEQ) + ", cannot be found in the mixer!");
                     g.parameters.highPassEQ = MixerGroupExpoParameters.errorName;
                 }
 
@@ -225,7 +228,7 @@ public class MixerFXManager : MonoBehaviour
                     // If both don't exist, throw error
                     if ((sourceMusic == null) && (sourceSFX == null))
                     {
-                        Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not found in Audio Manager!");
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not found in Audio Manager!");
                     }
 
                     // Check if audiosources are linked correctly.
@@ -235,7 +238,7 @@ public class MixerFXManager : MonoBehaviour
                         // then the audiosource has been assigned to the wrong group. So throw error
                         if (audioSource.outputAudioMixerGroup.name != g.group.name)
                         {
-                            Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not outputting to this group, " + g.group.name + "!");
+                            if (!removeWarningMsgs) Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not outputting to this group, " + g.group.name + "!");
                         }
                     }
                 }
@@ -277,7 +280,7 @@ public class MixerFXManager : MonoBehaviour
         // Error check
         if (source == null)
         {
-            Debug.LogWarning("Error, can't find a source with audio source playing " + name + ".");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, can't find a source with audio source playing " + name + ".");
             return;
         }
 
@@ -288,7 +291,7 @@ public class MixerFXManager : MonoBehaviour
         // Error check
         if (groupToUse == null)
         {
-            Debug.LogWarning("Error, can't find an group with audio source playing " + name + ".");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, can't find an group with audio source playing " + name + ".");
             return;
         }
         // If the paramater is already fading
@@ -297,8 +300,8 @@ public class MixerFXManager : MonoBehaviour
             // Error Check
             if (exists == null)
             {
-                Debug.LogWarning("Error, existing coroutine is null!");
-                Debug.LogWarning("Group " + groupToUse.name);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, existing coroutine is null!");
+                if (!removeWarningMsgs) Debug.LogWarning("Group " + groupToUse.name);
             }
             else
             {
@@ -316,7 +319,7 @@ public class MixerFXManager : MonoBehaviour
         if (!audioMixer.GetFloat(expoParam, out float currentValue))
         {
             // Throw error if this fails
-            Debug.LogWarning("Error, failed to get current value for " + expoParam);
+            if (!removeWarningMsgs) Debug.LogWarning("Error, failed to get current value for " + expoParam);
             return;
         }
 
@@ -346,7 +349,7 @@ public class MixerFXManager : MonoBehaviour
             // Error check
             if (g == null)
             {
-                Debug.LogWarning("Error, group in musicOverall is null.");
+                if (!removeWarningMsgs) Debug.LogWarning("Error, group in musicOverall is null.");
                 continue;
             }
 
@@ -359,7 +362,7 @@ public class MixerFXManager : MonoBehaviour
                 // Error Check
                 if (exists == null)
                 {
-                    Debug.LogWarning("Error, existing coroutine is null!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, existing coroutine is null!");
                 }
                 else
                 {
@@ -377,7 +380,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.GetFloat(expoParam, out float currentValue))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to get current value for " + param);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to get current value for " + param);
                 return;
             }
 
@@ -408,7 +411,7 @@ public class MixerFXManager : MonoBehaviour
             // Error check
             if (g == null)
             {
-                Debug.LogWarning("Error, group in sfxOverall is null.");
+                if (!removeWarningMsgs) Debug.LogWarning("Error, group in sfxOverall is null.");
                 continue;
             }
 
@@ -421,7 +424,7 @@ public class MixerFXManager : MonoBehaviour
                 // Error Check
                 if (exists == null)
                 {
-                    Debug.LogWarning("Error, existing coroutine is null!");
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, existing coroutine is null!");
                 }
                 else
                 {
@@ -439,7 +442,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.GetFloat(expoParam, out float currentValue))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to get current value for " + param);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to get current value for " + param);
                 return;
             }
 
@@ -471,7 +474,7 @@ public class MixerFXManager : MonoBehaviour
             // Error check
             if (groupToSet == null)
             {
-                Debug.LogWarning("Error, failed to find group from info array!");
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to find group from info array!");
             }
             else
             {
@@ -481,7 +484,7 @@ public class MixerFXManager : MonoBehaviour
                     // Error Check
                     if (exists == null)
                     {
-                        Debug.LogWarning("Error, existing coroutine is null!");
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, existing coroutine is null!");
                     }
                     else
                     {
@@ -502,7 +505,7 @@ public class MixerFXManager : MonoBehaviour
                 if (!audioMixer.SetFloat(exParam, ConvertType(param, true, targetValue)))
                 {
                     // Throw error if this fails
-                    Debug.LogWarning("Error, failed to set target value for " + param);
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + param);
                 }
             }
         }
@@ -527,7 +530,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + exposedParam);
             }
 
             // Remove this coroutine from active routines
@@ -551,7 +554,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, nextValue)))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + exposedParam);
             }
 
             // Repeat each frame
@@ -565,7 +568,7 @@ public class MixerFXManager : MonoBehaviour
             if (!audioMixer.SetFloat(exposedParam, ConvertType(key.Item2, true, target)))
             {
                 // Throw error if this fails
-                Debug.LogWarning("Error, failed to set target value for " + exposedParam);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + exposedParam);
             }
         }
 
@@ -587,7 +590,7 @@ public class MixerFXManager : MonoBehaviour
 
             // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             default:
-                Debug.LogWarning("Error, errrm.. okay? Somehow incorrect enum passed: " + type);
+                if (!removeWarningMsgs) Debug.LogWarning("Error, errrm.. okay? Somehow incorrect enum passed: " + type);
                 return (null, 0f);
         }
     }
@@ -653,7 +656,7 @@ public class MixerFXManager : MonoBehaviour
         if (!audioMixer.SetFloat(exParam, level))
         {
             // Throw error if this fails
-            Debug.LogWarning("Error, failed to set target value for " + exParam);
+            if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + exParam);
         }
     }
 

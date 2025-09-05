@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
+    // Inspector Adjustable Values:
+    [Header("Prevent error messages if audio not in use")][SerializeField] bool removeWarningMsgs;
+
     // Initialise In Inspector:
     [Header("(Reduce Non-priority sounds to prevent clipping)\n")]
     [Range(0, 1)] [SerializeField] float nonPriorityVolume = 1;
@@ -33,8 +36,8 @@ public class AudioManager : MonoBehaviour
             // and Mixer Manager are present.)
             if (GetComponent<MixerFXManager>() == null)
             {
-                Debug.LogWarning("MixerFXManager component is missing!");
-                Debug.LogWarning("Please add component before running!");
+                if (!removeWarningMsgs) Debug.LogWarning("MixerFXManager component is missing!");
+                if (!removeWarningMsgs) Debug.LogWarning("Please add component before running!");
             }
 
             // From here, sets up audio sources.
@@ -56,7 +59,7 @@ public class AudioManager : MonoBehaviour
                     }
                     else if (sfxSource.audioSource == j.audioSource)
                     {
-                        Debug.LogWarning("Error, SFX source " + sfxSource.audioSource.name + " duplicate found!");
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, SFX source " + sfxSource.audioSource.name + " duplicate found!");
                     }
                 }
             }
@@ -79,7 +82,7 @@ public class AudioManager : MonoBehaviour
                     }
                     else if (musicSource.audioSource == j.audioSource)
                     {
-                        Debug.LogWarning("Error, music source " + musicSource.audioSource.name + " duplicate found!");
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, music source " + musicSource.audioSource.name + " duplicate found!");
                     }
                 }
             }
@@ -105,15 +108,15 @@ public class AudioManager : MonoBehaviour
         // Throw error if we haven't found either the sound or a free music source
         if (sound == null)
         {
-            Debug.LogWarning("Error, music sound " + name + " not found!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, music sound " + name + " not found!");
         }
         else if (source == null)
         {
-            Debug.LogWarning("Error, no music source available!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no music source available!");
         }
         else if (dspTimeTillPlay < 0.05f)
         {
-            Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
+            if (!removeWarningMsgs) Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
         }
         else
         {
@@ -147,11 +150,11 @@ public class AudioManager : MonoBehaviour
         // Throw error if we haven't found either the sound or any source that's playing the sound
         if (sound == null)
         {
-            Debug.LogWarning("Error, music sound " + name + " not found!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, music sound " + name + " not found!");
         }
         else if (source == null)
         {
-            Debug.LogWarning("Error, no music source found playing " + name + "!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no music source found playing " + name + "!");
         }
         else
         {
@@ -197,7 +200,7 @@ public class AudioManager : MonoBehaviour
         // Throw error if no source was playing anything
         if (!playingCheck)
         {
-            Debug.LogWarning("Error, no music was playing!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no music was playing!");
         }
     }
 
@@ -212,18 +215,18 @@ public class AudioManager : MonoBehaviour
         // If a manual volume has been passed, Check it's within ranges
         if ((volumeTemp != null) && (volumeTemp > 1 || volumeTemp < 0))
         {
-            Debug.LogWarning("Error, volumeTemp, " + volumeTemp + ", is outside of range!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, volumeTemp, " + volumeTemp + ", is outside of range!");
             return;
         }
 
         // Throw error if the sound can't be found or if no sources exist
         if (sound == null)
         {
-            Debug.LogWarning("Error, sfx sound " + name + " not found!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, sfx sound " + name + " not found!");
         }
         else if (sfxSourceList == null || sfxSourceList.Length == 0)
         {
-            Debug.LogWarning("Error, no sfx source exist!");
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no sfx source exist!");
         }
         else
         {
@@ -311,7 +314,7 @@ public class AudioManager : MonoBehaviour
         // Throw error if no source has been used since game load or the last stopSFX() call
         if (playingCheck)
         {
-            Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
+            if (!removeWarningMsgs) Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
         }
     }
 

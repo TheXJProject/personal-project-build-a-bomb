@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class TaskFade : MonoBehaviour
 {
@@ -9,9 +13,13 @@ public class TaskFade : MonoBehaviour
 
     // Runtime Variables:
     Canvas canvas;
+    [SerializeField] Volume blur;
+    private DepthOfField dof;
+
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
+        blur.profile.TryGet(out dof);
     }
     private void OnEnable() // Task fade and the ordering of the fade should be toggled in all the situations that tasks are selected or deselected
     {
@@ -41,10 +49,18 @@ public class TaskFade : MonoBehaviour
         if (task.GetComponent<TaskStatus>().isSelected)
         {
             transform.GetChild(0).gameObject.SetActive(true);
+            if (dof != null)
+            {
+                dof.focusDistance.value = 0.01f;
+            }
         }
         else if (!task.GetComponent<TaskStatus>().isSelected || task.GetComponent<TaskStatus>().isSolved)
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            if (dof != null)
+            {
+                dof.focusDistance.value = 0.35f;
+            }
         }
     }
 

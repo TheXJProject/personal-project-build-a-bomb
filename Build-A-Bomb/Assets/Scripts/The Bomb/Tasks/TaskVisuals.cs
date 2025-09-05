@@ -53,6 +53,8 @@ public class TaskVisuals : MonoBehaviour
     void TaskFailed(GameObject task) // Sets the tasks colour back to the orignal colour for when the task went wrong
     {
         if (task != gameObject) { return; }
+        GetComponent<SpriteRenderer>().material = xRayUnfinished;
+
         if (task.GetComponent<TaskStatus>().isGoingWrong) 
         {
             OuterRing.color = goneWrongColour; // TODO: change this to effect it with xray coding
@@ -60,7 +62,6 @@ public class TaskVisuals : MonoBehaviour
         else
         {
             OuterRing.color = normalColourOuter; // TODO: change this to effect it with xray coding
-            GetComponent<SpriteRenderer>().material = xRayUnfinished;
         }
     }
 

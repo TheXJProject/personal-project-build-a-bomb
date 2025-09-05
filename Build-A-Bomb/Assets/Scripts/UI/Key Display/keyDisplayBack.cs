@@ -6,11 +6,11 @@ public class keyDisplayBack : MonoBehaviour
 {
     [SerializeField] GameObject textBack;
     [SerializeField] GameObject keyDisplay;
-    public void enableBack()
+    public void enableKeyBack()
     {
         textBack.SetActive(true);
     }
-    public void disableBack()
+    public void disableKeyBack()
     {
         textBack.SetActive(false);
     }

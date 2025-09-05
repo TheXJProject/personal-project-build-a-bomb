@@ -10,7 +10,7 @@ public class materializeIn : MonoBehaviour
     [SerializeField] Material materialize;
     [SerializeField] Material defaultMat;
 
-    float a = 1.6f, f = 5.8f, b = 0.2f;
+    float a = 1.6f, f = 10.5f, b = 0.2f;
 
     private void OnEnable()
     {

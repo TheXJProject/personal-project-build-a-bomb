@@ -81,7 +81,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         timeStamp = Time.time;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // canSpool will be controlled by isBeingSolved
         // If we canSpool and we have clicked on the reactor
@@ -94,7 +94,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {
                 // Increase charge
-                chargeAmount = Mathf.Min(chargeLimit, chargeAmount + (Time.fixedDeltaTime * chargeIncreaseSpeed));
+                chargeAmount = Mathf.Min(chargeLimit, chargeAmount + (Time.deltaTime * chargeIncreaseSpeed));
 
                 // Increase fan speed
                 ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
@@ -106,7 +106,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 holdingReactor = false;
 
                 // Reduce charge
-                chargeAmount = Mathf.Max(0f, chargeAmount - Time.fixedDeltaTime);
+                chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
 
                 // Increase fan speed to base
                 ChangeFanSpeed(baseFanSpeed);
@@ -117,7 +117,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 holdingReactor = false;
 
                 // Reduce charge
-                chargeAmount = Mathf.Max(0f, chargeAmount - Time.fixedDeltaTime);
+                chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
 
                 // If fan is spooled up without being held
                 if (currentFanSpeed > baseFanSpeed)

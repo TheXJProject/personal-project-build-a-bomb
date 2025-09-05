@@ -72,9 +72,10 @@ public class BeginMainMenu : MonoBehaviour
             cameraObject.NewCameraSizeAndPosition(cameraData.mainMenuCameraSize, cameraData.mainMenuLayer, cameraData.mainMenu);
 
             // Activate the next layer
-            if (dematerializeCoroutine != null) 
-                StopCoroutine(dematerializeCoroutine);
-            materializeCoroutine = StartCoroutine(Materialize());
+            //if (dematerializeCoroutine != null) 
+            //    StopCoroutine(dematerializeCoroutine);
+            //materializeCoroutine = StartCoroutine(Materialize());
+            mainMenuLevel.SetActive(true);
         }
     }
 
@@ -92,9 +93,10 @@ public class BeginMainMenu : MonoBehaviour
 
         // Activate the next layer
         
-        if (materializeCoroutine != null) 
-            StopCoroutine(materializeCoroutine);
-        dematerializeCoroutine = StartCoroutine(DeMaterialize());
+        //if (materializeCoroutine != null) 
+        //    StopCoroutine(materializeCoroutine);
+        //dematerializeCoroutine = StartCoroutine(DeMaterialize());
+        mainMenuLevel.SetActive(false);
     }
 
     IEnumerator Materialize()

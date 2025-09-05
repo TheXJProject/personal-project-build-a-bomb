@@ -16,7 +16,7 @@ public class KeypadLogic : MonoBehaviour
 
     // Constant Values:
     const int maxPossibleDifficultly = 21;
-    const int minPossibleDifficultly = 1;
+    const int minPossibleDifficultly = 2;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;

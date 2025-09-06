@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class TaskFade : MonoBehaviour
 {

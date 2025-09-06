@@ -249,7 +249,7 @@ MonoBehaviour:
   chargeLimit: 9
   totalChargeNeeded: 3
   chargeIncreaseSpeed: 6
-  awayChargeDecreaseReduction: 0.5
+  awayChargeDecreaseReduction: 0.45
   fan: {fileID: 7652817906922367960}
   canSpool: 0
   charged: 0

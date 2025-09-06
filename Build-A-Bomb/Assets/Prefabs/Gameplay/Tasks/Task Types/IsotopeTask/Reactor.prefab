@@ -245,7 +245,8 @@ MonoBehaviour:
   Msg: 0
   baseFanSpeed: 0.4
   fanMaxSpeedMultiplier: 12
-  fanSpeedScaler: 2
+  fanSpeedScaler: 0.2
+  fanSoftener: 15
   chargeLimit: 9
   totalChargeNeeded: 3
   chargeIncreaseSpeed: 6

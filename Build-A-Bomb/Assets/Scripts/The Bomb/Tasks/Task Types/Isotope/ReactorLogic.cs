@@ -7,19 +7,18 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
-    const int repeatCap = 2000;
-
     // Inspector Adjustable Values:
     [Header("Visual Only")]
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
     [SerializeField] [Range(0.01f, 5f)] float fanSpeedScaler;
+    [SerializeField] [Range(0.001f, 1000f)] float fanSoftener;
 
     [Header("\nNon-Visual")]
     [SerializeField] [Range(0.01f, 40f)] float chargeLimit;
     [SerializeField] [Range(0.01f, 40f)] float totalChargeNeeded;
     [SerializeField] [Range(0.01f, 20f)] float chargeIncreaseSpeed;
-    [SerializeField] [Range(0.001f, 2f)] float awayChargeDecreaseReduction;
+    [SerializeField] [Range(0.001f, 1000f)] float awayChargeDecreaseReduction;
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
@@ -30,6 +29,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [HideInInspector] public float fanCompletePercentage;
     [HideInInspector] public float chargeAmount;
     float currentFanSpeed;
+    float previousFanSpeed;
     bool holdingReactor = false;
     bool isMouseOver = false;
     float timeStamp = 0;
@@ -44,6 +44,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         fanCompletePercentage = 0;
         chargeAmount = 0;
         currentFanSpeed = 0;
+        previousFanSpeed = 0;
         timeStamp = Time.time;
 
         // Start fan at random angle
@@ -58,13 +59,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // Reduce the charge appropriatly
         chargeAmount = Mathf.Max(0f, chargeAmount - awayTime * awayChargeDecreaseReduction);
 
-        // Only apply speed changes if away for significant amount of time
-        if (awayTime > 0.1f)
-        {
-            // Calculate visual speed reduction
-            currentFanSpeed -= fanSpeedScaler * 0.5f * awayTime * awayChargeDecreaseReduction;
-            currentFanSpeed = Mathf.Max(currentFanSpeed, baseFanSpeed);
-        }
+        // Set visual fan speed, without softener
+        ChangeFanSpeed(baseFanSpeed + chargeAmount, false);
     }
 
     private void OnDisable()
@@ -89,21 +85,10 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 // Increase charge
                 chargeAmount = Mathf.Min(chargeLimit, chargeAmount + (Time.deltaTime * chargeIncreaseSpeed));
 
-                // Increase fan speed
-                ChangeFanSpeed(baseFanSpeed * fanMaxSpeedMultiplier);
+                // Set visual fan speed, without softener
+                ChangeFanSpeed(baseFanSpeed + chargeAmount, false);
             }
-            // Otherwise, if current speed is less that base
-            else if (currentFanSpeed < baseFanSpeed)
-            {
-                // Player is not charging reactor
-                holdingReactor = false;
-
-                // Reduce charge
-                chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
-
-                // Increase fan speed to base
-                ChangeFanSpeed(baseFanSpeed);
-            }
+            // Otherwise
             else
             {
                 // Player is not charging reactor
@@ -112,12 +97,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 // Reduce charge
                 chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
 
-                // If fan is spooled up without being held
-                if (currentFanSpeed > baseFanSpeed)
-                {
-                    // Slowly reduce fan speed
-                    ChangeFanSpeed(baseFanSpeed);
-                }
+                // Set visual fan speed, with softener
+                ChangeFanSpeed(baseFanSpeed + chargeAmount, true);
             }
         }
         else
@@ -127,8 +108,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             // Reduce charge
             chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
 
-            // Slowly reduce fan speed to zero
-            ChangeFanSpeed(0f);
+            // Set visual fan speed, and use the softener
+            ChangeFanSpeed(baseFanSpeed + chargeAmount, true);
         }
 
         // Rotate the fan at the correct speed
@@ -159,25 +140,48 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /// and the speed the fan is aiming to get to.
     /// Parameter 1: The speed to be reached. <br />
     /// </summary>
-    void ChangeFanSpeed(float targetSpeed)
+    void ChangeFanSpeed(float targetSpeed, bool useSoftener)
     {
-        // If the fan speed is greater than the target
-        if (currentFanSpeed > targetSpeed)
-        {
-            // reduce speed (partially based on charge speed)
-            currentFanSpeed -= fanSpeedScaler * (1f / chargeIncreaseSpeed) * Time.deltaTime * Mathf.Sqrt(currentFanSpeed - targetSpeed);
+        //// If the fan speed is greater than the target
+        //if (currentFanSpeed > targetSpeed)
+        //{
+        //    // reduce speed (partially based on charge speed)
+        //    currentFanSpeed -= fanSpeedScaler * (1f / chargeIncreaseSpeed) * Time.deltaTime * Mathf.Sqrt(currentFanSpeed - targetSpeed);
 
-            // Make sure we don't reduce past the target
-            currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);
+        //    // Make sure we don't reduce past the target
+        //    currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);
+        //}
+        //else
+        //{
+        //    // increase speed
+        //    currentFanSpeed += fanSpeedScaler * Time.deltaTime * Mathf.Sqrt(targetSpeed - currentFanSpeed);
+
+        //    // Make sure we don't increase past the target
+        //    currentFanSpeed = Mathf.Min(currentFanSpeed, targetSpeed);
+        //}
+        // OLD CODE
+
+        // New Methods
+        // First Calculate the visual speed directly from input
+        currentFanSpeed = targetSpeed * fanSpeedScaler;
+
+        // If we want to use the softener
+        if (useSoftener)
+        {
+            // The new current will use the previous to "soften" the transistion
+            currentFanSpeed = (previousFanSpeed * fanSoftener + (currentFanSpeed / fanSoftener)) / (fanSoftener + (1 / fanSoftener));
         }
         else
         {
-            // increase speed
-            currentFanSpeed += fanSpeedScaler * Time.deltaTime * Mathf.Sqrt(targetSpeed - currentFanSpeed);
-
-            // Make sure we don't increase past the target
-            currentFanSpeed = Mathf.Min(currentFanSpeed, targetSpeed);
+            // Retain less smoothness
+            currentFanSpeed = (previousFanSpeed + currentFanSpeed) / 2;
         }
+
+        // Clamp the speed as precaution
+        currentFanSpeed = Mathf.Clamp(currentFanSpeed, 0, fanMaxSpeedMultiplier);
+
+        // Save the speed
+        previousFanSpeed = currentFanSpeed;
     }
 
     /// FUNCTION DESCRIPTION <summary>

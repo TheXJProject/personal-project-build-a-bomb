@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startAmount: 0.5
-  timeToMaterialize: 0.9
+  timeToMaterialize: 0
   materialize: {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
   defaultMat: {fileID: 2100000, guid: a7ffe0e1c9790dd49b92678ad6e7fd22, type: 2}
 --- !u!1 &3372658217246493955

@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  boltTime: 0.25
+  boltTime: 0.21
   complete: 0
 --- !u!114 &5594776361484407454
 MonoBehaviour:

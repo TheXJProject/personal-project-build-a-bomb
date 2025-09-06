@@ -13,12 +13,13 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [Header("Visual Only")]
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
-    [SerializeField] [Range(0.00001f, 0.05f)] float fanSpeedScaler;
+    [SerializeField] [Range(0.01f, 5f)] float fanSpeedScaler;
 
     [Header("\nNon-Visual")]
     [SerializeField] [Range(0.01f, 40f)] float chargeLimit;
     [SerializeField] [Range(0.01f, 40f)] float totalChargeNeeded;
     [SerializeField] [Range(0.01f, 20f)] float chargeIncreaseSpeed;
+    [SerializeField] [Range(0.001f, 2f)] float awayChargeDecreaseReduction;
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
@@ -32,7 +33,6 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool holdingReactor = false;
     bool isMouseOver = false;
     float timeStamp = 0;
-    int frameStamp = 0;
 
     private void Awake()
     {
@@ -45,7 +45,6 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         chargeAmount = 0;
         currentFanSpeed = 0;
         timeStamp = Time.time;
-        frameStamp = Time.frameCount;
 
         // Start fan at random angle
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
@@ -55,33 +54,16 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         // Calculate length of time away
         float awayTime = Time.time - timeStamp;
-        int awayFrames = Time.frameCount - frameStamp;
 
         // Reduce the charge appropriatly
-        chargeAmount = Mathf.Max(0f, chargeAmount - awayTime);
+        chargeAmount = Mathf.Max(0f, chargeAmount - awayTime * awayChargeDecreaseReduction);
 
         // Only apply speed changes if away for significant amount of time
         if (awayTime > 0.1f)
         {
-            // Depending on whether it can spool have a target speed
-            float entryTargetSpeed = baseFanSpeed;
-
-            int repeatAmount = Mathf.Min(awayFrames, repeatCap);
-
-            // Decrease fan speed depending
-            for (int i = 0; i < repeatAmount; i++)
-            {
-                // reduce speed
-                currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - entryTargetSpeed);
-
-                // Make sure we don't reduce past the target
-                currentFanSpeed = Mathf.Max(currentFanSpeed, entryTargetSpeed);
-
-                if (currentFanSpeed <= entryTargetSpeed + fanSpeedScaler)
-                {
-                    break;
-                }
-            }
+            // Calculate visual speed reduction
+            currentFanSpeed -= fanSpeedScaler * 0.5f * awayTime * awayChargeDecreaseReduction;
+            currentFanSpeed = Mathf.Max(currentFanSpeed, baseFanSpeed);
         }
     }
 
@@ -89,7 +71,6 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         // Save time and frames
         timeStamp = Time.time;
-        frameStamp = Time.frameCount;
         isMouseOver = false;
     }
 
@@ -184,7 +165,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (currentFanSpeed > targetSpeed)
         {
             // reduce speed (partially based on charge speed)
-            currentFanSpeed -= fanSpeedScaler * (1f / chargeIncreaseSpeed) * Mathf.Sqrt(currentFanSpeed - targetSpeed);
+            currentFanSpeed -= fanSpeedScaler * (1f / chargeIncreaseSpeed) * Time.deltaTime * Mathf.Sqrt(currentFanSpeed - targetSpeed);
 
             // Make sure we don't reduce past the target
             currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);
@@ -192,7 +173,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
             // increase speed
-            currentFanSpeed += fanSpeedScaler * Mathf.Sqrt(targetSpeed - currentFanSpeed);
+            currentFanSpeed += fanSpeedScaler * Time.deltaTime * Mathf.Sqrt(targetSpeed - currentFanSpeed);
 
             // Make sure we don't increase past the target
             currentFanSpeed = Mathf.Min(currentFanSpeed, targetSpeed);

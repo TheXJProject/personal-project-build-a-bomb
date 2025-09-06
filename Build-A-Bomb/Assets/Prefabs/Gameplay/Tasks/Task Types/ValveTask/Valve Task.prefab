@@ -575,7 +575,7 @@ MonoBehaviour:
   Msg: 0
   currentHardestDifficulty: 16000
   valveVisualSpeed: 0.0045
-  valveClickDistance: 3
+  valveClickDistance: 3.3
   statInteract: {fileID: 5175822060464950714}
   valve: {fileID: 1380994498847392142}
   leftArrow: {fileID: 1608490284642853771}

@@ -9,19 +9,25 @@ public class DeathTimer : MonoBehaviour
     // Event Actions:
     public static Action onTimerZero;
 
+    const float defaultTimerSpeed = 1f;
+    const float defaultFasterTimerSpeed = 1.5f;
+
     // Inspector Adjustable Values:
     [SerializeField] int startingMinutes = 5;
     [SerializeField] float startingSeconds = 0.0f;
-    [SerializeField] float timerSpeedIncrease = 2.0f;
+    [SerializeField] float timerSpeedIncreaseMax;
+    [SerializeField] float timerSpeedIncreaseIncrement;
 
     // Initialise In Inspector:
     [SerializeField] TextMeshProUGUI timerText;
 
     // Runtime Variables:
     bool timerRunning = false;
+    bool taskGoingWrong = false;
     int minutesLeft;
     float secondsLeft;
-    float currentTimerSpeed = 1.0f;
+    float currentTimerSpeed = defaultTimerSpeed;
+    float increasingTimerSpeed = defaultFasterTimerSpeed;
     Color originalCol;
 
     private void Awake()
@@ -48,7 +54,31 @@ public class DeathTimer : MonoBehaviour
     {
         if (timerRunning)
         {
-            secondsLeft -= Time.deltaTime * currentTimerSpeed;
+            // If the task is going wrong
+            if (taskGoingWrong)
+            {
+                // Steadily increase timer speed up to a threshold
+                increasingTimerSpeed = Mathf.Min(increasingTimerSpeed + timerSpeedIncreaseIncrement * Time.deltaTime, timerSpeedIncreaseMax);
+
+                // Apply the calculated timer speed to current
+                currentTimerSpeed = increasingTimerSpeed;
+
+                Debug.Log(currentTimerSpeed);
+            }
+            else
+            {
+                // Reset the timer speed increment
+                increasingTimerSpeed = defaultFasterTimerSpeed;
+
+                // Otherwise, use default speed
+                currentTimerSpeed = defaultTimerSpeed;
+            }
+
+            if (!CheatLogic.cheatTool.GetPauseTimer())
+            {
+                secondsLeft -= Time.deltaTime * currentTimerSpeed;
+            }
+
             if (secondsLeft < 0.0f)
             {
                 if (minutesLeft == 0)
@@ -78,14 +108,15 @@ public class DeathTimer : MonoBehaviour
 
     void DetermineTimerAggression(bool tasksGoingWrongNotBeingSolved)
     {
+        // Save whether a task is going wrong
+        taskGoingWrong = tasksGoingWrongNotBeingSolved;
+
         if (tasksGoingWrongNotBeingSolved)
         {
-            currentTimerSpeed = timerSpeedIncrease;
             timerText.color = Color.red;
         }
         else
         {
-            currentTimerSpeed = 1.0f;
             timerText.color = originalCol;
         }
     }

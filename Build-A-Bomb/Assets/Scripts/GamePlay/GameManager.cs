@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     void LoseGame()
     {
         // If we are cheating, we can't lose
-        if (!CheatLogic.cheatTool.GetCanCheat())
+        if (!CheatLogic.cheatTool.GetCanCheatLayers())
         {
             SceneManager.LoadScene("LoseScene");
         }

@@ -4,8 +4,11 @@ using UnityEngine;
 public class CheatLogic : MonoBehaviour
 {
     // Inspector Adjustable Values:
-    [SerializeField] bool canCheatLayers = false;
     [SerializeField] bool canToggleCheats = false;
+
+    [Header("(Cheat List)\n")]
+    [SerializeField] bool canCheatLayers = false;
+    [SerializeField] bool pausedTimer = false;
 
     // Runtime Variables:
     public static CheatLogic cheatTool;
@@ -28,11 +31,17 @@ public class CheatLogic : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("up") && canToggleCheats)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canToggleCheats)
         {
             canCheatLayers = !canCheatLayers;
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) && canToggleCheats)
+        {
+            pausedTimer = !pausedTimer;
+        }
     }
 
-    public bool GetCanCheat() => canCheatLayers;
+    public bool GetCanCheatLayers() => canCheatLayers;
+    public bool GetPauseTimer() => pausedTimer;
 }

@@ -243,12 +243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  baseFanSpeed: 1.5
-  fanMaxSpeedMultiplier: 32.5
-  fanSpeedScaler: 0.01
-  chargeLimit: 10
-  totalChargeNeeded: 7
-  chargeIncreaseSpeed: 10
+  baseFanSpeed: 0.4
+  fanMaxSpeedMultiplier: 12
+  fanSpeedScaler: 0.005
+  chargeLimit: 9
+  totalChargeNeeded: 3
+  chargeIncreaseSpeed: 6
   fan: {fileID: 7652817906922367960}
   canSpool: 0
   charged: 0

@@ -869,7 +869,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMinutes: 5
   startingSeconds: 0
-  timerSpeedIncrease: 2
+  timerSpeedIncreaseMax: 8
+  timerSpeedIncreaseIncrement: 0.25
   timerText: {fileID: 662875085}
 --- !u!1 &442478352
 GameObject:

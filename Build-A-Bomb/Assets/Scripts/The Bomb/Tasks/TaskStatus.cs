@@ -67,7 +67,7 @@ public class TaskStatus : MonoBehaviour
         if (AnyTaskFocused || isSolved) return false;
 
         // If dev cheatmode is on 
-        if (CheatLogic.cheatTool.GetCanCheat())
+        if (CheatLogic.cheatTool.GetCanCheatLayers())
         {
             // Autocomplete task
             TaskCompleted();

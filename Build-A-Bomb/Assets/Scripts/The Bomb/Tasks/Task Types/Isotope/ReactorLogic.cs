@@ -7,11 +7,15 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
 
+    const int repeatCap = 2000;
+
     // Inspector Adjustable Values:
+    [Header("Visual Only")]
     [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
     [SerializeField] [Range(0.00001f, 0.05f)] float fanSpeedScaler;
 
+    [Header("\nNon-Visual")]
     [SerializeField] [Range(0.01f, 40f)] float chargeLimit;
     [SerializeField] [Range(0.01f, 40f)] float totalChargeNeeded;
     [SerializeField] [Range(0.01f, 20f)] float chargeIncreaseSpeed;
@@ -28,6 +32,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool holdingReactor = false;
     bool isMouseOver = false;
     float timeStamp = 0;
+    int frameStamp = 0;
 
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         chargeAmount = 0;
         currentFanSpeed = 0;
         timeStamp = Time.time;
+        frameStamp = Time.frameCount;
 
         // Start fan at random angle
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
@@ -49,14 +55,18 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         // Calculate length of time away
         float awayTime = Time.time - timeStamp;
+        int awayFrames = Time.frameCount - frameStamp;
+
+        // Reduce the charge appropriatly
+        chargeAmount = Mathf.Max(0f, chargeAmount - awayTime);
 
         // Only apply speed changes if away for significant amount of time
         if (awayTime > 0.1f)
         {
             // Depending on whether it can spool have a target speed
-            float entryTargetSpeed = canSpool ? baseFanSpeed : 0;
+            float entryTargetSpeed = baseFanSpeed;
 
-            int repeatAmount = Mathf.Min((int)(awayTime / Time.fixedDeltaTime), 2000);
+            int repeatAmount = Mathf.Min(awayFrames, repeatCap);
 
             // Decrease fan speed depending
             for (int i = 0; i < repeatAmount; i++)
@@ -77,8 +87,10 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void OnDisable()
     {
-        // Save time
+        // Save time and frames
         timeStamp = Time.time;
+        frameStamp = Time.frameCount;
+        isMouseOver = false;
     }
 
     private void Update()
@@ -132,7 +144,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             holdingReactor = false;
 
             // Reduce charge
-            chargeAmount = Mathf.Max(0f, chargeAmount - Time.fixedDeltaTime);
+            chargeAmount = Mathf.Max(0f, chargeAmount - Time.deltaTime);
 
             // Slowly reduce fan speed to zero
             ChangeFanSpeed(0f);
@@ -171,8 +183,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // If the fan speed is greater than the target
         if (currentFanSpeed > targetSpeed)
         {
-            // reduce speed
-            currentFanSpeed -= fanSpeedScaler * 0.75f * Mathf.Sqrt(currentFanSpeed - targetSpeed);
+            // reduce speed (partially based on charge speed)
+            currentFanSpeed -= fanSpeedScaler * (1f / chargeIncreaseSpeed) * Mathf.Sqrt(currentFanSpeed - targetSpeed);
 
             // Make sure we don't reduce past the target
             currentFanSpeed = Mathf.Max(currentFanSpeed, targetSpeed);

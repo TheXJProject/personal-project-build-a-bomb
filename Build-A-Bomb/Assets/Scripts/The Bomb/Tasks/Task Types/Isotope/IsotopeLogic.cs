@@ -49,7 +49,7 @@ public class IsotopeLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // If we can complete the task set its completion level
         if (statInteract.isBeingSolvedAndSelected)
@@ -58,7 +58,7 @@ public class IsotopeLogic : MonoBehaviour
             if (!statInteract.task.isSelected)
             {
                 // Increase the time accululated
-                removedTime += Time.fixedDeltaTime;
+                removedTime += Time.deltaTime;
             }
             else
             {

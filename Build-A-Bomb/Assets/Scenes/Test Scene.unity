@@ -337,6 +337,8 @@ MonoBehaviour:
   layerButtonPrefab: {fileID: 1231543329850547996, guid: 5f8e80578ba420d4ab49926532921a9e, type: 3}
   allButtonsHeight: 430
   gapHeight: 2
+  initialYOffset: 0
+  finalNumButtons: 10
 --- !u!1 &234315077
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMinutes: 5
   startingSeconds: 0
-  timerSpeedIncrease: 2
+  timerSpeedIncreaseMax: 0
+  timerSpeedIncreaseIncrement: 0
   timerText: {fileID: 662875085}
 --- !u!1 &442478352
 GameObject:
@@ -882,6 +885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tasksGoWrong: 1
   difficultyCurb: 3
+  difficultyStartOffset: 0
+  difficultyMaxOffset: 0
   initialIntervalTime: 20
   finalIntervalTime: 7
   intervalTimeVariation: 4
@@ -1495,6 +1500,55 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3424918917551432976, guid: 3cab56c622e6745429f334e17c15f37a, type: 3}
   m_PrefabInstance: {fileID: 2007347894}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &745269532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 745269533}
+  - component: {fileID: 745269534}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &745269533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745269532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1424623573}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &745269534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745269532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 16d994f4c18154740a520d413275fc1d, type: 2}
 --- !u!1001 &816019656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2425,6 +2479,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1376195081}
+  - {fileID: 745269533}
   m_Father: {fileID: 1290425924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2446,6 +2501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontOrder: 10
   backOrder: 2
+  blur: {fileID: 745269534}
 --- !u!114 &1424623575
 MonoBehaviour:
   m_ObjectHideFlags: 0

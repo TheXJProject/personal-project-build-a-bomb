@@ -13,6 +13,7 @@ public class ValveLogic : MonoBehaviour
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
     [SerializeField] [Range(0.00001f,0.1f)] float valveVisualSpeed;
+    [SerializeField] [Range(0f,6f)] float valveClickDistance;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
@@ -51,7 +52,7 @@ public class ValveLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (statInteract.isBeingSolvedAndSelected)
         {
@@ -90,8 +91,33 @@ public class ValveLogic : MonoBehaviour
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
-                // We are holding the valve
-                holdingValve = true;
+                // Get current mouse position
+                Vector2 currentMousePos = Input.mousePosition;
+
+                // Get current mouse world position
+                Vector3 currentMouseWorldPos = Camera.main.ScreenToWorldPoint(currentMousePos);
+                currentMouseWorldPos.z = 0f;
+
+                // Get the world position of the top right corner of the screen as a second ancor point
+                Vector2 topRight = new(Screen.width, Screen.height);
+                Vector3 topRightWorldPos = Camera.main.ScreenToWorldPoint(topRight);
+
+                // Get distance from centre of the valve, ingore anything less than 2
+                float distanceFromCenter = 10 * (currentMouseWorldPos - valvePos).magnitude / (topRightWorldPos - valvePos).magnitude;
+                //Debug.Log(distanceFromCenter + " " + valveClickDistance);
+
+                // If the mouse is within a circumfirance
+                if (distanceFromCenter < valveClickDistance)
+                {
+                    // We are holding the valve
+                    holdingValve = true;
+                }
+                else
+                {
+                    // We are not holding the valve
+                    holdingValve = false;
+                }
+
                 // Rest mouse position
                 lastMousePos = Input.mousePosition;
             }

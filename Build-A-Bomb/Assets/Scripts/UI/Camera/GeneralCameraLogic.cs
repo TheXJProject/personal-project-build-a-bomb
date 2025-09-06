@@ -144,15 +144,13 @@ public class GeneralCameraLogic : MonoBehaviour
             return Vector3.zero;
         }
 
-        if (Mathf.Abs(differenceCameraSize) < 0.05)
-        {
-            Debug.Log(differenceCameraSize);
-        }
-
         // Get the current distance travelled in x and y and add to starting position
         float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * (float)travelledDifference / differenceCameraSize;
         float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * (float)travelledDifference / differenceCameraSize;
         float z = finalCameraPosition.z;
+
+        Debug.Log(startCameraPosition);
+        Debug.Log(finalCameraPosition);
 
         // Return the new position
         return new Vector3(x, y, z);

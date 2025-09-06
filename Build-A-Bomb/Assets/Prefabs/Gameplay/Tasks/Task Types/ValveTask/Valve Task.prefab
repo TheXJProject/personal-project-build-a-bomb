@@ -768,8 +768,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
-  currentHardestDifficulty: 3000
-  valveVisualSpeed: 0.035
+  currentHardestDifficulty: 16000
+  valveVisualSpeed: 0.0045
+  valveClickDistance: 3
   statInteract: {fileID: 5175822060464950714}
   valve: {fileID: 1380994498847392142}
   leftArrow: {fileID: 1608490284642853771}

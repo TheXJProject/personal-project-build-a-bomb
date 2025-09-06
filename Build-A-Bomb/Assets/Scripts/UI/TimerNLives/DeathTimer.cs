@@ -62,8 +62,6 @@ public class DeathTimer : MonoBehaviour
 
                 // Apply the calculated timer speed to current
                 currentTimerSpeed = increasingTimerSpeed;
-
-                Debug.Log(currentTimerSpeed);
             }
             else
             {

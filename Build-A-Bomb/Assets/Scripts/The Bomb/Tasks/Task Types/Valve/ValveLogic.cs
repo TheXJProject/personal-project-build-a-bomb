@@ -248,6 +248,7 @@ public class ValveLogic : MonoBehaviour
             // Show the player which direction to turn the valve
             leftArrow.SetActive(!isClockWise);
             rightArrow.SetActive(isClockWise);
+            if(isClockWise) valve.transform.localScale = new Vector3(-1, 1, 1);
 
             if (Msg) Debug.Log("Rotate clockwise: " + isClockWise);
 

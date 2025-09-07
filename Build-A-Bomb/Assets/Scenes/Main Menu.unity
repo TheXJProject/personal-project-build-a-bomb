@@ -3702,8 +3702,9 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 1.5
   startingCameraLayer: 1
   startingLayerAcceleration: 3
-  cameraMotionAdjustment: 0.1
-  transitionTime: 2
+  cameraMotionSpeed: 2.7
+  cameraMotionAdjustment: 4.5
+  transitionTime: 1.3
   cImpact: 18
   dGradient: 7.4
   fPeakPosition: 2

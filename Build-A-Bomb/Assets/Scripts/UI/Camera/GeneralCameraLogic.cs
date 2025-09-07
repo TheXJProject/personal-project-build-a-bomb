@@ -3,6 +3,8 @@ using System;
 
 public class GeneralCameraLogic : MonoBehaviour
 {
+    const float safteyTolerance = 1e-8f;
+
     [Header("IMPORTANT NOTE!")]
     [Header("This script has the ability to move the camera around the scene\n" +
         "if 'Adjust Position' is checked on. However, it will only move in\n" +
@@ -14,12 +16,12 @@ public class GeneralCameraLogic : MonoBehaviour
     [Header("(Turn on 'Adjust Position' only when used for the main menu)")]
     public bool adjustPosition = false;
 
-    [Header("(When, and only when, 'Adjust Position' is true, 'Size Increase \n" +
-        "From Layer', 'Starting Camera Layer' and 'Starting Layer\n" +
-        "Acceleration'are used)")]
+    [Header("(When, and only when, 'Adjust Position' is true, these variables \nare used)")]
     public float sizeIncreaseFromLayer = 2; // The amount of space between edge of the first bomb layer and the top/bottom of the screen
     public int startingCameraLayer = 1;
     public float startingLayerAcceleration = 3;
+    [Range(1f,10f)] public float cameraMotionSpeed = 1;
+    [Range(0.01f,10f)] public float cameraMotionAdjustment = 1;
 
     [Header("")]
     [Header("(All values below should be above zero)")]
@@ -47,6 +49,7 @@ public class GeneralCameraLogic : MonoBehaviour
     float differenceCameraSize;
     float timeSinceSet;
     bool showingCorrectLayer = true;
+    bool atCorrectPos = true;
     double currentSpeed = 0;
     double travelledDifference = 0;
     double time = 0;
@@ -94,14 +97,6 @@ public class GeneralCameraLogic : MonoBehaviour
             {
                 currentCameraSize = DetermineNewCameraSize();
                 gameObject.GetComponent<Camera>().orthographicSize = currentCameraSize;
-
-                // If we are moving the camera
-                if (adjustPosition)
-                {
-                    // Get the required camera position and set the camera
-                    currentCameraPosition = DetermineNewCameraPosition();
-                    gameObject.GetComponent<Camera>().transform.position = currentCameraPosition;
-                }
             }
             // Once the transition is finished
             else
@@ -114,21 +109,37 @@ public class GeneralCameraLogic : MonoBehaviour
                 // When the camera transition is finished the speed of the camera will be zero and time will be 1
                 currentSpeed = 0;
                 time = 1;
-
-                // If we are moving the camera
-                if (adjustPosition)
-                {
-                    // Set the camera to the final camera position
-                    gameObject.GetComponent<Camera>().transform.position = finalCameraPosition;
-
-                    // The set the new starting position and current position for the camera to the final position
-                    startCameraPosition = finalCameraPosition;
-                    currentCameraPosition = finalCameraPosition;
-                }
             }
 
             // Increase the timer
             timeSinceSet += Time.deltaTime;
+        }
+
+        // If we are moving the camera
+        if (adjustPosition && !atCorrectPos)
+        {
+            // find how close the positions are to being the same
+            // First set a tolerance using a saftey floor of 1e-8f
+            float denom = Mathf.Max(currentCameraPosition.sqrMagnitude, finalCameraPosition.sqrMagnitude, safteyTolerance);
+
+            // If within tolerance
+            if ((currentCameraPosition - finalCameraPosition).sqrMagnitude / denom < safteyTolerance)
+            {
+                // Set the camera to the final camera position
+                gameObject.GetComponent<Camera>().transform.position = finalCameraPosition;
+
+                // The set the new starting position and current position for the camera to the final position
+                startCameraPosition = finalCameraPosition;
+                currentCameraPosition = finalCameraPosition;
+
+                atCorrectPos = true;
+            }
+            else
+            {
+                // Otherwise, Get the required camera position and set the camera
+                currentCameraPosition = DetermineNewCameraPosition();
+                gameObject.GetComponent<Camera>().transform.position = currentCameraPosition;
+            }
         }
     }
 
@@ -144,16 +155,20 @@ public class GeneralCameraLogic : MonoBehaviour
             return Vector3.zero;
         }
 
-        // Get the current distance travelled in x and y and add to starting position
-        float x = startCameraPosition.x + (finalCameraPosition.x - startCameraPosition.x) * (float)travelledDifference / differenceCameraSize;
-        float y = startCameraPosition.y + (finalCameraPosition.y - startCameraPosition.y) * (float)travelledDifference / differenceCameraSize;
-        float z = finalCameraPosition.z;
+        static float SmootherStep(float t)
+        {
+            // Clamp so input stays between 0 and 1
+            t = Mathf.Clamp01(t);
+            return t * t * t * (t * (t * 6 - 15) + 10);
+        }
 
-        Debug.Log(startCameraPosition);
-        Debug.Log(finalCameraPosition);
+        // Create a smooth curve
+        float timeChange = SmootherStep(cameraMotionSpeed * timeSinceSet / transitionTime);
+        Vector3 result1 = Vector3.Lerp(startCameraPosition, finalCameraPosition, timeChange);
+        Vector3 result2 = Vector3.Lerp(currentCameraPosition, result1, cameraMotionAdjustment * Time.deltaTime);
 
         // Return the new position
-        return new Vector3(x, y, z);
+        return result2;
     }
 
     /// <summary>
@@ -208,6 +223,9 @@ public class GeneralCameraLogic : MonoBehaviour
         startCameraPosition = currentCameraPosition;
         finalCameraPosition = newPosition;
         NewCameraSize(cameraSize, layer);
+
+        // We are now not at the correct position
+        atCorrectPos = false;
     }
 
     /// <summary>

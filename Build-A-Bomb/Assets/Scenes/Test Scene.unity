@@ -1089,6 +1089,8 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 0
   startingCameraLayer: 0
   startingLayerAcceleration: 0
+  cameraMotionSpeed: 1
+  cameraMotionAdjustment: 1
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8

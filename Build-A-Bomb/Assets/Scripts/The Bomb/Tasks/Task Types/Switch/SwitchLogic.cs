@@ -69,7 +69,7 @@ public class SwitchLogic : MonoBehaviour
             {
                 foreach (GameObject s in switches)
                 {
-                    if (s.transform.GetChild(1).GetComponent<SwitchFlick>().flicked)
+                    if (s.transform.GetChild(3).GetComponent<SwitchFlick>().flicked)
                     {
                         // Getting the total number of switches flicked on
                         totalOn++; 
@@ -299,7 +299,7 @@ public class SwitchLogic : MonoBehaviour
                 // Set all switch gameobjects to off
                 foreach (GameObject s in switches)
                 {
-                    s.transform.GetChild(1).GetComponent<SwitchFlick>().ResetSwitch();
+                    s.transform.GetChild(3).GetComponent<SwitchFlick>().ResetSwitch();
                 }
 
                 // Set task completetion level

@@ -1154,6 +1154,8 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 0
   startingCameraLayer: 0
   startingLayerAcceleration: 0
+  cameraMotionSpeed: 1
+  cameraMotionAdjustment: 1
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8
@@ -2548,7 +2550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8352941}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.90588236}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

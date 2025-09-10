@@ -12,18 +12,28 @@ public class KeyLogic : MonoBehaviour
     public float onPressedTime = 1;
     public int keynumber;
 
+    [SerializeField] float altSizePercent;
+    [SerializeField] Color altColor;
+
+    Vector2 altSize;
+    Vector2 baseSize;
+    Color baseColor;
+
     private void Awake()
     {
         if (Msg) Debug.Log("Script Awake().");
 
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.red;
+        baseColor = gameObject.GetComponent<Image>().color;
+        baseSize = gameObject.GetComponent<RectTransform>().sizeDelta;
+        altSize = baseSize * altSizePercent;
     }
 
     private void OnEnable()
     {
         // Key is red on start
-        gameObject.GetComponent<Image>().color = Color.red;
+        gameObject.GetComponent<Image>().color = baseColor;
+        gameObject.GetComponent<RectTransform>().sizeDelta = baseSize;
     }
 
     /// FUNCTION DESCRIPTION <summary>
@@ -61,7 +71,8 @@ public class KeyLogic : MonoBehaviour
     IEnumerator AnimationHoldTime(float time)
     {
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.green;
+        gameObject.GetComponent<Image>().color = altColor;
+        gameObject.GetComponent<RectTransform>().sizeDelta = altSize;
 
         float timeElapsed = 0f;
 
@@ -69,7 +80,8 @@ public class KeyLogic : MonoBehaviour
         while (timeElapsed < time)
         {
             // TODO: Replace with call for animation!
-            gameObject.GetComponent<Image>().color = Color.green;
+            gameObject.GetComponent<Image>().color = altColor;
+            gameObject.GetComponent<RectTransform>().sizeDelta = altSize;
 
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
@@ -79,8 +91,10 @@ public class KeyLogic : MonoBehaviour
         }
 
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.red;
+        gameObject.GetComponent<Image>().color = baseColor;
+        gameObject.GetComponent<RectTransform>().sizeDelta = baseSize;
     }
+
 
     /// FUNCTION DESCRIPTION <summary>
     /// Show this key without it being pressed. This is used when <br />

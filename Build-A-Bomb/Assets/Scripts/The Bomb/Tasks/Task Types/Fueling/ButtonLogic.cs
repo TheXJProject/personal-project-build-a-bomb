@@ -8,51 +8,56 @@ public class ButtonLogic : MonoBehaviour
     // Initialise In Inspector:
     public FuelingLogic fuelingLogic;
     [SerializeField] Image light_;
+    [SerializeField] Sprite lightGreen;
+    [SerializeField] Sprite lightRed;
+    [SerializeField] Color downColor;
+    Color originalColor;
 
     private void Awake()
     {
         // Button and light starts on red
-        SetRedButton();
+        originalColor = gameObject.GetComponent<Image>().color;
+        SetUnpressedButton();
         SetRedLight();
     }
 
     private void OnDisable()
     {
         // Button and light starts on red
-        SetRedButton();
+        SetUnpressedButton();
         SetRedLight();
 
         StopAllCoroutines();
     }
 
-    void SetRedButton()
+    void SetPressedButton()
     {
-        // Set the colour of the button to red
-        gameObject.GetComponent<Image>().color = Color.red;
+        // Set the colour of the button to red#
+        gameObject.GetComponent<Image>().color = downColor;
     }
 
-    void SetGreenButton()
+    void SetUnpressedButton()
     {
         // Set the colour of the button to green
-        gameObject.GetComponent<Image>().color = Color.green;
+        gameObject.GetComponent<Image>().color = originalColor;
     }
 
     public void SetRedLight()
     {
         // Set the colour of the light to red
-        light_.color = Color.red;
+        light_.sprite = lightRed;
     }
 
     public void SetGreenLight()
     {
         // Set the colour of the light to green
-        light_.color = Color.green;
+        light_.sprite = lightGreen;
     }
 
     public void SetYellowLight()
     {
         // Set the colour of the light to yellow
-        light_.color = Color.yellow;
+        light_.sprite = lightRed;
     }
 
     public void PressedButton(BaseEventData data)
@@ -75,7 +80,7 @@ public class ButtonLogic : MonoBehaviour
     IEnumerator ButtonHoldTime(float time)
     {
         // TODO: Replace with call for animation!
-        SetGreenButton();
+        SetPressedButton();
 
         float timeElapsed = 0f;
 
@@ -83,7 +88,7 @@ public class ButtonLogic : MonoBehaviour
         while (timeElapsed < time)
         {
             // TODO: Replace with call for animation!
-            SetGreenButton();
+            SetPressedButton();
 
             // Increment the time elapsed and continue
             timeElapsed += Time.deltaTime;
@@ -93,6 +98,6 @@ public class ButtonLogic : MonoBehaviour
         }
 
         // TODO: Replace with call for animation!
-        SetRedButton();
+        SetUnpressedButton();
     }
 }

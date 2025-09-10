@@ -118,5 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68ed6b79166ec943a99241f0f58c1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Msg: 0
   onPressedTime: 0.15
   keynumber: 0
+  altSizePercent: 0.9
+  altColor: {r: 0.6037736, g: 0.5585594, b: 0.5496618, a: 1}

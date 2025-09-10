@@ -5,9 +5,14 @@ using UnityEngine.EventSystems;
 public class RefuelerLogic : MonoBehaviour
 {
     // Initialise In Inspector:
+    [SerializeField] GameObject refulerVisual;
     [SerializeField] GameObject dock;
+    [SerializeField] GameObject dockCover;
     [SerializeField] FuelingLogic fuelingLogic;
     [SerializeField] RectTransform background;
+
+    [SerializeField] Color dockNormalCol;
+    [SerializeField] Color dockDockedCol;
 
     // Runtime Variables:
     [HideInInspector] public bool docked = false;
@@ -43,15 +48,28 @@ public class RefuelerLogic : MonoBehaviour
         }
 
         // If the fueler is over the dock
-        if (docked)
+        if (docked && follow)
         {
             // Show it as green
-            dock.GetComponent<Image>().color = Color.green;
+            dockCover.SetActive(false);
+            dock.GetComponent<Image>().color = dockDockedCol;
+            dockCover.GetComponent<Image>().color = dockDockedCol;
+            refulerVisual.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
         }
-        else
+        else if (docked && !follow)
+        {
+            dockCover.SetActive(true);
+            dock.GetComponent<Image>().color = dockDockedCol;
+            dockCover.GetComponent<Image>().color = dockDockedCol;
+            refulerVisual.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 65.64f);
+        }
+        else 
         {
             // Otherwise show it as red
-            dock.GetComponent<Image>().color = Color.red;
+            dockCover.SetActive(false);
+            dock.GetComponent<Image>().color = dockNormalCol;
+            dockCover.GetComponent<Image>().color = dockNormalCol;
+            refulerVisual.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -82,7 +100,7 @@ public class RefuelerLogic : MonoBehaviour
     {
         // TODO: Replace with animation maybe
         // Set colours for dock
-        dock.GetComponent<Image>().color = Color.red;
+        dock.GetComponent<Image>().color = Color.white;
     }
 
     public void FollowMouse(BaseEventData data)

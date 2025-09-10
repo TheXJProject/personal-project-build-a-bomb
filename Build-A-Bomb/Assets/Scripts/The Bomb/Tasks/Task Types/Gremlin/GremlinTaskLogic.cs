@@ -9,12 +9,13 @@ public class GremlinTaskLogic : MonoBehaviour
 
     // Constant Values:
     const int maxPossibleDifficultly = 50;
-    const int minPossibleDifficultly = 1;
+    const int minPossibleDifficultly = 2;
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
     [SerializeField] [Range(0, 800)] float xSpawnRange;
     [SerializeField] [Range(0, 500)] float ySpawnRange;
+    [SerializeField] float beginFadeTime = 0.1f;
     [SerializeField] float deathTime = 0.1f;
 
     // Initialise In Inspector:
@@ -92,9 +93,25 @@ public class GremlinTaskLogic : MonoBehaviour
     IEnumerator GremlinDeath(GameObject gremer)
     {
         // TODO: add your animations stuff booooy
-        gremer.GetComponent<Image>().color = Color.red;
+        GremlinHit gremerScript = gremer.GetComponent<GremlinHit>();
+        gremer.GetComponent<Image>().sprite = gremerScript.splatSprite;
+        gremerScript.mallet.SetActive(true);
+        gremerScript.shadow.SetActive(false);
+        gremer.GetComponent<RectTransform>().sizeDelta = new Vector2(112, 112);
 
-        yield return new WaitForSeconds(deathTime);
+        float elapsed = 0f;
+        Color startColor = gremer.GetComponent<Image>().color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        yield return new WaitForSeconds(beginFadeTime);
+        while (elapsed < deathTime)
+        {
+            elapsed += Time.deltaTime;
+            gremer.GetComponent<Image>().color = Color.Lerp(startColor, endColor, elapsed / deathTime);
+            yield return null; 
+        }
+
+        gremer.GetComponent<Image>().color = endColor; 
+
         Destroy(gremer);
     }
 

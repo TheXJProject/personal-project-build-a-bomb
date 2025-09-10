@@ -8,7 +8,10 @@ public class SwitchFlick : MonoBehaviour
 {
     // ==== For Debugging ====
     [SerializeField] bool Msg = false;
+    [SerializeField] GameObject snap;
     [SerializeField] Image switchImage;
+    [SerializeField] Sprite switchOn;
+    [SerializeField] Sprite switchOff;
 
     // Runtime Variables:
     [HideInInspector] public bool flicked = false;
@@ -35,7 +38,8 @@ public class SwitchFlick : MonoBehaviour
                 flicked = true;
 
                 // TODO: Replace with call for animation!
-                switchImage.color = Color.green;
+                switchImage.sprite = switchOn;
+                snap.SetActive(true);
             }
             
             if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);
@@ -55,6 +59,6 @@ public class SwitchFlick : MonoBehaviour
         flicked = false;
 
         // TODO: Replace with call for animation!
-        switchImage.color = Color.red;
+        switchImage.sprite = switchOff;
     }
 }

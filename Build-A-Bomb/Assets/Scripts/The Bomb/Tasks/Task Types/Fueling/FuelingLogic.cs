@@ -28,6 +28,7 @@ public class FuelingLogic : MonoBehaviour
     [SerializeField] RectTransform upper;
     [SerializeField] RectTransform lower;
     [SerializeField] RectTransform fuelLevel;
+    [SerializeField] float canisterHeight = 380;
 
     // Runtime Variables:
     float fuelNeeded = minPossibleDifficultly;
@@ -37,7 +38,6 @@ public class FuelingLogic : MonoBehaviour
     float maxFuel;
     float overFuelLimit;
     Vector2 refuelerStartPos;
-    float canisterHeight;
     double amountOfCanisterNeededPerOneFuelUnit;
     bool isSetup;
 
@@ -172,9 +172,6 @@ public class FuelingLogic : MonoBehaviour
 
             // Get starting pos for refueler
             refuelerStartPos = refueler.GetComponent<RectTransform>().localPosition;
-
-            // Get canister height
-            canisterHeight = canister.GetComponent<RectTransform>().rect.height;
 
             // Set max fuel and over limit levels
             maxFuel = fuelNeeded / lowerLimit;

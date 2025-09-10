@@ -53,7 +53,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
         pieChart1.color = Color.green;
-        pieChart2.color = Color.cyan;
+        pieChart2.color = Color.black;
     }
 
     private void OnEnable()

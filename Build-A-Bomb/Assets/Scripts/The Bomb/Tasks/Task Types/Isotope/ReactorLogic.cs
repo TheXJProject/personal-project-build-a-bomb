@@ -22,6 +22,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
+    [SerializeField] Image pieChart1;
+    [SerializeField] Image pieChart2;
 
     // Runtime Variables:
     [HideInInspector] public bool canSpool;
@@ -49,6 +51,9 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         // Start fan at random angle
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+
+        pieChart1.color = Color.green;
+        pieChart2.color = Color.cyan;
     }
 
     private void OnEnable()
@@ -114,6 +119,9 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         // Rotate the fan at the correct speed
         fan.transform.Rotate(0, 0, currentFanSpeed);
+
+        // Show Pie percentage
+        ShowPiePerc();
 
         // Completeness check for this reactor
         fanCompletePercentage = Mathf.Min(100f, (chargeAmount * 100f / totalChargeNeeded));
@@ -210,6 +218,31 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
             fan.GetComponent<Image>().color = Color.yellow;
+        }
+    }
+
+    void ShowPiePerc()
+    {
+        // If we need to show pie 1 charging
+        if (fanCompletePercentage < 100f)
+        {
+            // Charge pie 1
+            pieChart1.fillAmount = Mathf.Clamp01(fanCompletePercentage / 100f);
+        }
+        // Otherwise, if we need to show 
+        else if (fanCompletePercentage >= 100f)
+        {
+            // Set pie 1 to full
+            pieChart1.fillAmount = 1f;
+
+            // Set pie 2
+            pieChart2.fillAmount = Mathf.Clamp01((chargeAmount - totalChargeNeeded) / (chargeLimit - totalChargeNeeded));
+
+            //// If maxxed out
+            //if (chargeAmount == chargeLimit)
+            //{
+            //    // TODO: Over revving animatioin
+            //}
         }
     }
 

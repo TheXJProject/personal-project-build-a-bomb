@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     // Runtime Variables:
     public static GameManager instance;
     public bool hardMode;
+    public float timeRemainingAfterWin;
 
     private void OnEnable()
     {

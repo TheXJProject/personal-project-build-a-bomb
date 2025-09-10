@@ -20,6 +20,7 @@ public class BombStatus : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] GoneWrongController goneWrongController;
+    [SerializeField] DeathTimer timer;
 
     // Runtime Variables:
     public float layerSizeIncrease = 3f;
@@ -177,6 +178,8 @@ public class BombStatus : MonoBehaviour
             // If the layer that was just completed by the player was the final layer, signal the bomb is finished
             if (currentLayer == finalLayer)
             {
+                int timeLeft = ((timer.minutesLeft) * 60) + (int)(timer.secondsLeft);
+                if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
                 onBombFinished?.Invoke();
             }
             else

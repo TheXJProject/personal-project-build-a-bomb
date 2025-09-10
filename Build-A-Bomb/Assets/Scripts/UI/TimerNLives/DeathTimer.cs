@@ -24,8 +24,8 @@ public class DeathTimer : MonoBehaviour
     // Runtime Variables:
     bool timerRunning = false;
     bool taskGoingWrong = false;
-    int minutesLeft;
-    float secondsLeft;
+    [HideInInspector] public int minutesLeft;
+    [HideInInspector] public float secondsLeft;
     float currentTimerSpeed = defaultTimerSpeed;
     float increasingTimerSpeed = defaultFasterTimerSpeed;
     Color originalCol;

@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b214a0bec4e7e34b968c40e717b3979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicTransitonTime: 2
+  musicTransitonTime: 1.8
   fxTransitonTimeIn: 0.8
   settings: {fileID: 1102747124}
   settingsBack: {fileID: 410227000}
@@ -4751,6 +4751,14 @@ PrefabInstance:
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: removeWarningMsgs
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: musicSounds.Array.data[5].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: musicSounds.Array.data[5].volume
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -29,13 +29,12 @@ public class BeginMainMenu : MonoBehaviour
 
     private void Start()
     {
-        // TODO:: readd music
-        //double startTime = AudioSettings.dspTime + startMusicTime;
+        double startTime = AudioSettings.dspTime + startMusicTime;
 
-        //// Set all music groups to zero volume
-        //MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.MUSIC_COLLECTION, EX_PARA.VOLUME, 0f);
+        // Set all music groups to zero volume
+        MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.MUSIC_COLLECTION, EX_PARA.VOLUME, 0f);
 
-        //// Play all main menu music tracks at the same time
+        // Play all main menu music tracks at the same time
         //AudioManager.instance.PlayMusic("Menu Alarms", startTime);
         //AudioManager.instance.PlayMusic("Menu Bass", startTime);
         //AudioManager.instance.PlayMusic("Menu Beeps", startTime);
@@ -48,9 +47,9 @@ public class BeginMainMenu : MonoBehaviour
         //AudioManager.instance.PlayMusic("Menu StartMelody", startTime);
         //AudioManager.instance.PlayMusic("Menu StringsXyphone", startTime);
 
-        //// Fade in the start menu tracks
-        //MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);
-        //MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 0.1f);
+        // Fade in the start menu tracks
+        MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);
+        MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, 0.1f);
     }
 
     private void OnMouseDown()

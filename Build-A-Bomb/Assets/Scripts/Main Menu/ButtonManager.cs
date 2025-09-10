@@ -64,8 +64,9 @@ public class ButtonManager : MonoBehaviour
 
                 // Set high pass filter, goes into it quick
                 MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.5f);
-                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.7f);
-                MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.7f);
+                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
+                MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
+                MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
                 break;
             case MENUS.TUTORIAL:
                 // Set each track to be at the right volume for tutorial
@@ -79,6 +80,7 @@ public class ButtonManager : MonoBehaviour
 
                 // Set high pass filter, goes into it quick
                 MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
+                MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
                 break;
             case MENUS.NORMAL_PLAY:
                 // Set each track to be at the right volume for normal play
@@ -134,5 +136,6 @@ public class ButtonManager : MonoBehaviour
         MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, musicTransitonTime);
         MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, musicTransitonTime);
         MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.HIGH_PASS, musicTransitonTime);
+        MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.HIGH_PASS, musicTransitonTime);
     }
 }

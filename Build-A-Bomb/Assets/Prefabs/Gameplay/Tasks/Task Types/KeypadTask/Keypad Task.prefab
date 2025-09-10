@@ -1896,6 +1896,10 @@ PrefabInstance:
       propertyPath: keynumber
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: altSizePercent
+      value: 0.96
+      objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
       value: 

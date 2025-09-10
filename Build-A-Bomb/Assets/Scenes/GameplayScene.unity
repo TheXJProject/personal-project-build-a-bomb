@@ -949,9 +949,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tasksGoWrong: 1
-  difficultyCurb: 5.8
-  difficultyStartOffset: -0.4
-  difficultyMaxOffset: 0.55
+  difficultyCurb: 2.1
+  difficultyStartOffset: -0.2
+  difficultyMaxOffset: 0.59
   initialIntervalTime: 22
   finalIntervalTime: 16
   intervalTimeVariation: 2

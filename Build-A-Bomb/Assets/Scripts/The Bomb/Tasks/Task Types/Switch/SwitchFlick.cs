@@ -39,7 +39,7 @@ public class SwitchFlick : MonoBehaviour
 
                 // TODO: Replace with call for animation!
                 switchImage.sprite = switchOn;
-                snap.SetActive(true);
+                if (!flicked) snap.SetActive(true);
             }
             
             if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);

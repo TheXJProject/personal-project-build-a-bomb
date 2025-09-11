@@ -165,7 +165,7 @@ public class GeneralCameraLogic : MonoBehaviour
         // Create a smooth curve
         float timeChange = SmootherStep(cameraMotionSpeed * timeSinceSet / transitionTime);
         Vector3 result1 = Vector3.Lerp(startCameraPosition, finalCameraPosition, timeChange);
-        Vector3 result2 = Vector3.Lerp(currentCameraPosition, result1, Mathf.Clamp01(1f - Mathf.Exp(-cameraMotionAdjustment * Time.deltaTime)));
+        Vector3 result2 = Vector3.Lerp(currentCameraPosition, result1, Mathf.Clamp01(cameraMotionAdjustment * Time.deltaTime));
 
         // Return the new position
         return result2;

@@ -251,7 +251,7 @@ MonoBehaviour:
   chargeLimit: 9
   totalChargeNeeded: 3
   chargeIncreaseSpeed: 6
-  awayChargeDecreaseReduction: 0.45
+  awayChargeDecreaseReduction: 0.28
   fan: {fileID: 7652817906922367960}
   pieChart1: {fileID: 1609558239117919140}
   pieChart2: {fileID: 2115487558470509919}

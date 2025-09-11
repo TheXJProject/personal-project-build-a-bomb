@@ -18,7 +18,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] [Range(0.01f, 40f)] float chargeLimit;
     [SerializeField] [Range(0.01f, 40f)] float totalChargeNeeded;
     [SerializeField] [Range(0.01f, 20f)] float chargeIncreaseSpeed;
-    [SerializeField] [Range(0.001f, 1000f)] float awayChargeDecreaseReduction;
+    [SerializeField] [Range(0.001f, 1f)] float awayChargeDecreaseReduction;
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
@@ -60,7 +60,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         float awayTime = Time.time - timeStamp;
 
         // Reduce the charge appropriatly
-        chargeAmount = Mathf.Max(0f, chargeAmount - awayTime * awayChargeDecreaseReduction);
+        chargeAmount = Mathf.Max(0f, chargeAmount - (awayTime * awayChargeDecreaseReduction));
 
         // Set visual fan speed, without softener
         ChangeFanSpeed(baseFanSpeed + chargeAmount, false);

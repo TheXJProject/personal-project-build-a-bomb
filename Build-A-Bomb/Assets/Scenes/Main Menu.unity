@@ -1841,7 +1841,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2322389702962153125, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: TargetFrameRate.fps
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2322389702962153125, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: TargetFrameRate.enabled

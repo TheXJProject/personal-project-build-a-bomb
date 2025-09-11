@@ -159,7 +159,7 @@ public class ValveLogic : MonoBehaviour
         }
 
         // Apply rotation
-        valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1));
+        valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1) * 200f * Time.deltaTime);
 
         // Returns back inputted mouse speed
         return mouseSpeed;
@@ -189,7 +189,7 @@ public class ValveLogic : MonoBehaviour
 
         // Get distance from centre of the valve, ingore anything less than 2
         float distance = Mathf.Max(2, 10 * (currentMouseWorldPos - valvePos).magnitude / (topRightWorldPos - valvePos).magnitude);
-        //Debug.Log(distance);
+
         //Normalise mouse positions
         currentMousePos.x /= ((float)Screen.width * 0.01f);
         currentMousePos.y /= ((float)Screen.height * 0.01f);
@@ -236,7 +236,7 @@ public class ValveLogic : MonoBehaviour
     void ValveCompletenessCheck(float mouseSpeed)
     {
         // Increase amount of valve has been completed
-        valveResistancePassed += (int)(mouseSpeed / 30);
+        valveResistancePassed += (int)(mouseSpeed * 200f * Time.deltaTime / 30);
 
         if (Msg) Debug.Log("Task is being solved. Completeness: " + valveResistancePassed + " Out of: " + valveResistanceTotal);
 

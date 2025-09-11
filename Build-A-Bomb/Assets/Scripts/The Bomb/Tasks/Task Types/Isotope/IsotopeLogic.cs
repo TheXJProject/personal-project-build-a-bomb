@@ -311,6 +311,7 @@ public class IsotopeLogic : MonoBehaviour
                 // Set to uncharged and time held to zero
                 reactors[reactorIdx].GetComponent<ReactorLogic>().charged = false;
                 reactors[reactorIdx].GetComponent<ReactorLogic>().chargeAmount = 0f;
+                reactors[reactorIdx].GetComponent<ReactorLogic>().currentFanSpeed = reactors[reactorIdx].GetComponent<ReactorLogic>().baseFanSpeed;
             }
 
             // No reactors are completed

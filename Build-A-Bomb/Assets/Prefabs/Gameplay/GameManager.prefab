@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hardMode: 0
+  TargetFrameRate:
+    enabled: 0
+    fps: 1
+  timeRemainingAfterWin: 0

@@ -9,10 +9,10 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     // Inspector Adjustable Values:
     [Header("Visual Only")]
-    [SerializeField] [Range(0.01f, 5f)] float baseFanSpeed;
+    [Range(0.01f, 5f)] public float baseFanSpeed;
     [SerializeField] [Range(1f, 100f)] float fanMaxSpeedMultiplier;
     [SerializeField] [Range(0.01f, 5f)] float fanSpeedScaler;
-    [SerializeField] [Range(0.001f, 1000f)] float fanSoftener;
+    [SerializeField] [Range(0.001f, 10f)] float fanSoftener;
 
     [Header("\nNon-Visual")]
     [SerializeField] [Range(0.01f, 40f)] float chargeLimit;
@@ -30,8 +30,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [HideInInspector] public bool charged;
     [HideInInspector] public float fanCompletePercentage;
     [HideInInspector] public float chargeAmount;
-    float currentFanSpeed;
-    float previousFanSpeed;
+    [HideInInspector] public float currentFanSpeed;
     bool holdingReactor = false;
     bool isMouseOver = false;
     float timeStamp = 0;
@@ -46,7 +45,6 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         fanCompletePercentage = 0;
         chargeAmount = 0;
         currentFanSpeed = 0;
-        previousFanSpeed = 0;
         timeStamp = Time.time;
 
         // Start fan at random angle
@@ -118,7 +116,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         // Rotate the fan at the correct speed
-        fan.transform.Rotate(0, 0, currentFanSpeed);
+        fan.transform.Rotate(0, 0, currentFanSpeed * Time.deltaTime * 240f);
 
         // Show Pie percentage
         ShowPiePerc();
@@ -170,26 +168,21 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // OLD CODE
 
         // New Methods
-        // First Calculate the visual speed directly from input
-        currentFanSpeed = targetSpeed * fanSpeedScaler;
 
         // If we want to use the softener
         if (useSoftener)
         {
             // The new current will use the previous to "soften" the transistion
-            currentFanSpeed = (previousFanSpeed * fanSoftener + (currentFanSpeed / fanSoftener)) / (fanSoftener + (1 / fanSoftener));
+            currentFanSpeed = Mathf.Lerp(currentFanSpeed, targetSpeed * fanSpeedScaler, (1f - Mathf.Exp(-Time.deltaTime * (1 / fanSoftener))));
         }
         else
         {
-            // Retain less smoothness
-            currentFanSpeed = (previousFanSpeed + currentFanSpeed) / 2;
+            // Calculate the visual speed directly from input
+            currentFanSpeed = targetSpeed * fanSpeedScaler;
         }
 
         // Clamp the speed as precaution
         currentFanSpeed = Mathf.Clamp(currentFanSpeed, 0, fanMaxSpeedMultiplier);
-
-        // Save the speed
-        previousFanSpeed = currentFanSpeed;
     }
 
     /// FUNCTION DESCRIPTION <summary>

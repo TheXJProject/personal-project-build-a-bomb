@@ -4,13 +4,29 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [System.Serializable]
+    public struct FrameRateSetting
+    {
+        public bool enabled;
+        [Range(1, 1000)] public int fps;
+    }
+
     // Events
     public static event Action onGameBegan;
 
     // Runtime Variables:
     public static GameManager instance;
     public bool hardMode;
+    public FrameRateSetting TargetFrameRate;
     public float timeRemainingAfterWin;
+
+    private void Start()
+    {
+        if (TargetFrameRate.enabled)
+        {
+            Application.targetFrameRate = TargetFrameRate.fps;
+        }
+    }
 
     private void OnEnable()
     {

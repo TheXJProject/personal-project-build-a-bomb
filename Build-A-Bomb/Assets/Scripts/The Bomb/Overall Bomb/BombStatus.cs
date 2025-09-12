@@ -8,6 +8,7 @@ public class BombStatus : MonoBehaviour
     // Event actions:
     public static event Action onBombFinished;
     public static event Action<GameObject> onLayerCreated;
+    public static event Action<GameObject> onEachGoingWrongTasksSolved;
     public static event Action<bool> onGoingWrongCheck;
 
     // Inspector Adjustable Values:
@@ -166,6 +167,19 @@ public class BombStatus : MonoBehaviour
         return false;
     }
 
+    bool ContainsTasksGoingWrong()
+    {
+        foreach (var layer in layers)
+        {
+            if (layer.GetComponent<LayerStatus>().ContainsTaskGoneWrong())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     /// <summary>
     /// Decision function which decides whether to create a new level or call victory <br/>
@@ -191,6 +205,10 @@ public class BombStatus : MonoBehaviour
                     goneWrongController.StartGoingWrong();
                 }
             }
+        }
+        else if (!ContainsTasksGoingWrong())
+        {
+            onEachGoingWrongTasksSolved?.Invoke(layers[currentLayer]);
         }
     }
 

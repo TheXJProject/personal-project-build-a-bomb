@@ -16,12 +16,14 @@ public class LayerButtonPress : MonoBehaviour
     private void OnEnable()
     {
         LayerButtonPress.onLayerButtonPressed += layerSwitch;
+        BombStatus.onEachGoingWrongTasksSolved += layerSwitch;
         LayerButtonController.onLayerButtonSpawned += layerSwitch;
     }
 
     private void OnDisable()
     {
         LayerButtonPress.onLayerButtonPressed -= layerSwitch;
+        BombStatus.onEachGoingWrongTasksSolved -= layerSwitch;
         LayerButtonController.onLayerButtonSpawned -= layerSwitch;
     }
 

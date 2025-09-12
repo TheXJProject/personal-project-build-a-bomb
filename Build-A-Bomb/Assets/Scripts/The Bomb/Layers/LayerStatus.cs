@@ -45,6 +45,7 @@ public class LayerStatus : MonoBehaviour
         TaskStatus.onTaskCompleted += LayerCompleted;
         BombStatus.onLayerCreated += SpawnAllTasks;
         BombStatus.onLayerCreated += SetCurrentLayer;
+        BombStatus.onEachGoingWrongTasksSolved += SetCurrentLayer;
         LayerButtonPress.onLayerButtonPressed += SetCurrentLayer;
 
         taskTypesSpawned = new List<int>(new int[taskMinSpawned.Count]);
@@ -57,6 +58,7 @@ public class LayerStatus : MonoBehaviour
         TaskStatus.onTaskCompleted -= LayerCompleted;
         BombStatus.onLayerCreated -= SpawnAllTasks;
         BombStatus.onLayerCreated -= SetCurrentLayer;
+        BombStatus.onEachGoingWrongTasksSolved -= SetCurrentLayer;
         LayerButtonPress.onLayerButtonPressed -= SetCurrentLayer;
     }
 

@@ -50,12 +50,14 @@ public class BombCameraLogic : MonoBehaviour
     private void OnEnable()
     {
         BombStatus.onLayerCreated += ChangeFocusedLayer;
+        BombStatus.onEachGoingWrongTasksSolved += ChangeFocusedLayer;
         LayerButtonPress.onLayerButtonPressed += ChangeFocusedLayer;
     }
 
     private void OnDisable()
     {
         BombStatus.onLayerCreated -= ChangeFocusedLayer;
+        BombStatus.onEachGoingWrongTasksSolved -= ChangeFocusedLayer;
         LayerButtonPress.onLayerButtonPressed -= ChangeFocusedLayer;
     }
 

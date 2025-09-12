@@ -8,12 +8,19 @@ public class Pipe : MonoBehaviour
     [SerializeField] RectTransform symbol;
     [SerializeField] Image light_;
     [SerializeField] Image symbolLight_;
+    [SerializeField] Animator animator;
 
     // Runtime Variables:
     int symbolPosition = 0;
     [HideInInspector] public bool inCorrectPos = false;
     [HideInInspector] public int orderNumber;
     PuzzleLogic mainPuzzle;
+    bool extended = false;
+
+    private void OnEnable()
+    {
+        animator.SetBool("extended", extended);
+    }
 
     public void Setup()
     {
@@ -88,11 +95,14 @@ public class Pipe : MonoBehaviour
         {
             light_.color = Color.green;
             symbolLight_.color = Color.green;
+            extended = true;
         }
         else
         {
             light_.color = Color.red;
+            extended = false;
             symbolLight_.color = Color.yellow;
         }
+        if(mainPuzzle.statInteract.isBeingSelected) animator.SetBool("extended", extended);
     }
 }

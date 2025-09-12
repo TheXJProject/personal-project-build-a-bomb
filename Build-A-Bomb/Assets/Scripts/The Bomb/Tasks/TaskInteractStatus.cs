@@ -12,6 +12,7 @@ public class TaskInteractStatus : MonoBehaviour
     public TaskStatus task;
     public bool isBeingSolvedAndSelected;
     public bool isBeingSolved;
+    public bool isBeingSelected;
 
     private void OnEnable()
     {
@@ -57,5 +58,6 @@ public class TaskInteractStatus : MonoBehaviour
     {
         isBeingSolvedAndSelected = task.isBeingSolved && task.isSelected; // Task should not be able to be solved if isBeingSolved is false
         isBeingSolved = task.isBeingSolved;
+        isBeingSelected = task.isSelected;
     }
 }

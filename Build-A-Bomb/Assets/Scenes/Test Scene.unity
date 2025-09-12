@@ -807,6 +807,8 @@ MonoBehaviour:
   timerSpeedIncreaseMax: 0
   timerSpeedIncreaseIncrement: 0
   timerText: {fileID: 662875085}
+  minutesLeft: 0
+  secondsLeft: 0
 --- !u!1 &442478352
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +871,7 @@ MonoBehaviour:
   layerToStartGoingWrong: 2
   layerToStartTimer: 0
   goneWrongController: {fileID: 442478355}
+  timer: {fileID: 0}
   layerSizeIncrease: 3
   layers: []
 --- !u!114 &442478355

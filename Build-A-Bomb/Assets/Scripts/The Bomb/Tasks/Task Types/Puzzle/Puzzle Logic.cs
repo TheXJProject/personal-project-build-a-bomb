@@ -26,6 +26,8 @@ public class PuzzleLogic : MonoBehaviour
     // Initialise In Inspector:
     public TaskInteractStatus statInteract;
     [SerializeField] Image light_;
+    [SerializeField] Sprite lightOff;
+    [SerializeField] Sprite lightOn;
     [SerializeField] Image button;
     [SerializeField] GameObject pipe;
 
@@ -43,7 +45,7 @@ public class PuzzleLogic : MonoBehaviour
 
         // This instance is not set up yet
         isSetup = false;
-        light_.color = Color.red;
+        light_.sprite = lightOff;
         button.color = Color.red;
     }
 
@@ -79,17 +81,17 @@ public class PuzzleLogic : MonoBehaviour
         // If no connections
         if (numOfConnections == 0)
         {
-            light_.color = Color.red;
+            light_.sprite = lightOff;
         }
         // Otherwise, if we have made all connections
         else if (numOfConnections == numOfConnectionsNeeded)
         {
-            light_.color = Color.green;
+            light_.sprite = lightOn;
         }
         // Otherwise, show in progress
         else
         {
-            light_.color = Color.yellow;
+            light_.sprite = lightOff;
         }
 
         // Set the completion level

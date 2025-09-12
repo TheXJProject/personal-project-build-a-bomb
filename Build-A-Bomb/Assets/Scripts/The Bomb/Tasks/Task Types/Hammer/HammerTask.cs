@@ -15,7 +15,8 @@ public class HammerTask : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
-
+    [SerializeField] GameObject hammer;
+    [SerializeField] HammerNailMove nail;
     // Runtime Variables:
     int numOfHitsNeeded = minPossibleDifficultly;
     int numOfHits = 0;
@@ -61,16 +62,23 @@ public class HammerTask : MonoBehaviour
 
                 // Increases the total number of times Nail Head has been hit by one
                 numOfHits++;
+                if (hammer.activeSelf) hammer.GetComponent<HammerVisuals>().stillHitting = true;
+                else hammer.SetActive(true);
+
+                nail.setRandomRotation();
 
                 // Set the completion level
-                statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
-
-                // Check if task is completed
-                if (numOfHits >= numOfHitsNeeded)
-                {
-                    statInteract.TaskCompleted();
-                }
+                statInteract.SetTaskCompletion(Mathf.Min(1,(float)numOfHits / numOfHitsNeeded));
             }
+        }
+    }
+
+    public void checkFinished()
+    {
+        // Check if task is completed
+        if (numOfHits >= numOfHitsNeeded)
+        {
+            statInteract.TaskCompleted();
         }
     }
 

@@ -14,6 +14,8 @@ public class RefuelerLogic : MonoBehaviour
     [SerializeField] Color dockNormalCol;
     [SerializeField] Color dockDockedCol;
 
+    [SerializeField] Vector2 offsetMousePickup;
+
     // Runtime Variables:
     [HideInInspector] public bool docked = false;
     bool follow = false;
@@ -31,7 +33,7 @@ public class RefuelerLogic : MonoBehaviour
                 // Clamp the position to stay within boundaries
                 float clampedX = Mathf.Clamp(localPoint.x, fuelingLogic.topBottomRefulerLimits.x, fuelingLogic.topBottomRefulerLimits.y);
                 float clampedY = Mathf.Clamp(localPoint.y, fuelingLogic.leftRightRefulerLimits.x, fuelingLogic.leftRightRefulerLimits.y);
-                gameObject.transform.localPosition = new Vector2(clampedX, clampedY);
+                gameObject.transform.localPosition = new Vector2(clampedX, clampedY) + offsetMousePickup;
             }
         }
         else

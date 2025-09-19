@@ -19,6 +19,8 @@ public class IsotopeLogic : MonoBehaviour
     [SerializeField] GameObject[] reactors;
     [SerializeField] GameObject[] grates;
     [SerializeField] Image chargedLight;
+    [SerializeField] Sprite lightGreen;
+    [SerializeField] Sprite lightRed;
     public TaskInteractStatus statInteract;
 
     // Runtime Variables:
@@ -90,7 +92,7 @@ public class IsotopeLogic : MonoBehaviour
         {
             removedTime = 0;
 
-            chargedLight.color = Color.red;
+            chargedLight.sprite = lightRed;
 
             // If the reactors are on, turn them off
             if (reactorState)
@@ -130,15 +132,16 @@ public class IsotopeLogic : MonoBehaviour
         // Adjust colour of light depending on number of charged reactors
         if (reactorNumCharged == numReactorsNeeded)
         {
-            chargedLight.color = Color.green;
+            chargedLight.sprite = lightGreen;
         }
         else if (reactorNumCharged > 0)
         {
-            chargedLight.color = Color.yellow;
+            //chargedLight.color = Color.yellow;
+            chargedLight.sprite = lightRed;
         }
         else
         {
-            chargedLight.color = Color.red;
+            chargedLight.sprite = lightRed;
         }
 
         // Set the completion level

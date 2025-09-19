@@ -22,8 +22,11 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     // Initialise In Inspector:
     [SerializeField] GameObject fan;
+    [SerializeField] Animator backAnimator;
+    [SerializeField] Image backImage;
     [SerializeField] Image pieChart1;
     [SerializeField] Image pieChart2;
+    [SerializeField] Color backColorWhenFullCharge;
 
     // Runtime Variables:
     [HideInInspector] public bool canSpool;
@@ -34,6 +37,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool holdingReactor = false;
     bool isMouseOver = false;
     float timeStamp = 0;
+    Color backColor;
 
     private void Awake()
     {
@@ -50,8 +54,8 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // Start fan at random angle
         fan.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
-        pieChart1.color = Color.green;
-        pieChart2.color = Color.black;
+        //Get the starting color of the background
+        backColor = backImage.color;
     }
 
     private void OnEnable()
@@ -128,7 +132,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         charged = (fanCompletePercentage == 100f);
 
         // Figure out what colour the fan should be
-        FanHueAlteration();
+        backAnimAlteration();
 
         // TODO: apply animation to fan, motion blur depending on speed
 
@@ -188,29 +192,30 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /// FUNCTION DESCRIPTION <summary>
     /// Sets fan inner colour depending on current conditions. <br />
     /// </summary>
-    void FanHueAlteration()
+    void backAnimAlteration()
     {
         // TODO: Use this function for animations instead of colours?
+        backImage.color = backColor;
 
         // If completely uncharged
         if (fanCompletePercentage == 0f)
         {
-            fan.GetComponent<Image>().color = Color.red;
+            backAnimator.SetInteger("state", 0);
         }
         // If we are at the charge limit
         else if (chargeAmount == chargeLimit)
         {
-            fan.GetComponent<Image>().color = Color.cyan;
+            backImage.color = backColorWhenFullCharge;
         }
         // If we are at required charge
         else if (fanCompletePercentage == 100f)
         {
-            fan.GetComponent<Image>().color = Color.green;
+            backAnimator.SetInteger("state", 2);
         }
         // Otherwise we are idling
         else
         {
-            fan.GetComponent<Image>().color = Color.yellow;
+            backAnimator.SetInteger("state", 1);
         }
     }
 

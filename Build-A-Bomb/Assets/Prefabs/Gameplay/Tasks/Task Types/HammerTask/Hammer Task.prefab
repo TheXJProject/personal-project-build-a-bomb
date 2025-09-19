@@ -506,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Msg: 0
   currentHardestDifficulty: 37
+  pauseAfterTaskComplete: 0.1
   statInteract: {fileID: 9040844158566134540}
   hammer: {fileID: 8368882134021185628}
   nail: {fileID: 3613076642997155538}

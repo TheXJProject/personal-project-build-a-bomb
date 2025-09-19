@@ -12,15 +12,18 @@ public class HammerTask : MonoBehaviour
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
+    [SerializeField] float pauseAfterTaskComplete = 0.1f;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
     [SerializeField] GameObject hammer;
     [SerializeField] HammerNailMove nail;
+
     // Runtime Variables:
     int numOfHitsNeeded = minPossibleDifficultly;
     int numOfHits = 0;
     bool isSetup;
+    float pausedTime = 0;
 
     private void Awake()
     {
@@ -40,6 +43,26 @@ public class HammerTask : MonoBehaviour
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+    }
+
+    private void Update()
+    {
+        if (statInteract.isBeingSolvedAndSelected)
+        {
+            // Set the completion level
+            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+
+            // Check if task is completed
+            if (numOfHits >= numOfHitsNeeded)
+            {
+                pausedTime += Time.deltaTime;
+
+                if (pausedTime > pauseAfterTaskComplete)
+                {
+                    CheckFinished();
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -73,7 +96,7 @@ public class HammerTask : MonoBehaviour
         }
     }
 
-    public void checkFinished()
+    public void CheckFinished()
     {
         // Check if task is completed
         if (numOfHits >= numOfHitsNeeded)

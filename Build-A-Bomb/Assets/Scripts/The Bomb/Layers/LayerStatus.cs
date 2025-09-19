@@ -153,7 +153,7 @@ public class LayerStatus : MonoBehaviour
                     break;
                 }
             } // After a set number of attempts to find a non-overlapping position, it decides just to find one that isn't within the centre but might overlap a task
-        } while (taskWithinInner || (tasksOverlap && count < infiniteLoopPrevention)); 
+        } while ((taskWithinInner || tasksOverlap) && count < infiniteLoopPrevention); 
         if (count >= infiniteLoopPrevention) { Debug.LogWarning("Couldn't find good location for new task"); }
 
         return newLocation;

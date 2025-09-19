@@ -64,16 +64,12 @@ public class GremlinTaskLogic : MonoBehaviour
             // Set the completion level
             statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
 
-            // Check if task is completed
-            if (numOfHits >= numOfHitsNeeded)
-            {
-                statInteract.TaskCompleted();
-            }
-            else
-            {
-                // If not completed, destroy gremlin
-                StartCoroutine(GremlinDeath(templin));
+            // If not completed, destroy gremlin
+            StartCoroutine(GremlinDeath(templin));
 
+            // Check if task is completed
+            if (numOfHits < numOfHitsNeeded)
+            {
                 // Then randomly put gremlin somewhere on the screen
                 Vector3 randomPosition = new();
                 randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
@@ -98,6 +94,12 @@ public class GremlinTaskLogic : MonoBehaviour
         gremerScript.mallet.SetActive(true);
         gremerScript.shadow.SetActive(false);
         gremer.GetComponent<RectTransform>().sizeDelta = new Vector2(112, 112);
+
+        // Check if task is completed
+        if (numOfHits >= numOfHitsNeeded)
+        {
+            statInteract.TaskCompleted();
+        }
 
         float elapsed = 0f;
         Color startColor = gremer.GetComponent<Image>().color;

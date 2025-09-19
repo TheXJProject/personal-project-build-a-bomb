@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6588958720293131837}
   - component: {fileID: 1860410726972749847}
   m_Layer: 0
-  m_Name: Variation 1
+  m_Name: Variation 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,11 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6826456728382497644, guid: 9ac7c1f222ef33845908149ccdffcf7d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -107.5
+      value: -109.100006
       objectReference: {fileID: 0}
     - target: {fileID: 6826456728382497644, guid: 9ac7c1f222ef33845908149ccdffcf7d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 6826456728382497644, guid: 9ac7c1f222ef33845908149ccdffcf7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -354,11 +354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8485043895842079047, guid: c6929a812b169e3429a1f914e2513f2a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 42.5
+      value: -109.100006
       objectReference: {fileID: 0}
     - target: {fileID: 8485043895842079047, guid: c6929a812b169e3429a1f914e2513f2a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 87
+      value: -85
       objectReference: {fileID: 0}
     - target: {fileID: 8485043895842079047, guid: c6929a812b169e3429a1f914e2513f2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -453,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490059704657517692, guid: 8e3106fa06ed97c428cd2b2dd7c10067, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 157.5
+      value: 20.520004
       objectReference: {fileID: 0}
     - target: {fileID: 7490059704657517692, guid: 8e3106fa06ed97c428cd2b2dd7c10067, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -654,7 +654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2016662704521596518, guid: 2f79d62bdcca62f4faf636c4518e9e7c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -126.1
+      value: 118.1
       objectReference: {fileID: 0}
     - target: {fileID: 2016662704521596518, guid: 2f79d62bdcca62f4faf636c4518e9e7c, type: 3}
       propertyPath: m_AnchoredPosition.y

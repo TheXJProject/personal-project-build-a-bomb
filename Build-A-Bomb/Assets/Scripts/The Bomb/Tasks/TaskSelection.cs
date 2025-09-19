@@ -10,25 +10,21 @@ public class TaskSelection : MonoBehaviour
     TaskStatus task;
 
     // Runtime Variables
-    public PlayerInputActions playerControls;
+    [HideInInspector] public bool assignedPlayerControls = false;
 
     private void Awake()
     {
-        playerControls = new PlayerInputActions();
         task = GetComponent<TaskStatus>();
     }
     private void OnEnable()
     {
         LayerButtonPress.onLayerButtonPressed += PressLayerButtonDeselect;
-
-        rightMouseDown = playerControls.Mouse.RightClick;
-        rightMouseDown.Enable();
-        rightMouseDown.performed += RightClickDeselect;
+        PlayerKeyInput.instance.playerControls.Mouse.RightClick.performed += RightClickDeselect;
     }
     private void OnDisable()
     {
         LayerButtonPress.onLayerButtonPressed -= PressLayerButtonDeselect;
-        rightMouseDown.Disable();
+        PlayerKeyInput.instance.playerControls.Mouse.RightClick.performed -= RightClickDeselect;
     }
 
     private void OnMouseDown()

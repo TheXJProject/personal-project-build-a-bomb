@@ -26,6 +26,7 @@ public class LayerStatus : MonoBehaviour
     public float taskScaleUp = 1f;
     public float taskColliderRadius = 0.8f;
     public List<GameObject> tasks = new List<GameObject>();
+    [SerializeField] float spreadSpawnsOverFrameTime = 0.02f;
 
     // Runtime Variables:
     public bool isSelected = false; // Whether it is the layer the player has currently got selected
@@ -159,10 +160,15 @@ public class LayerStatus : MonoBehaviour
         return newLocation;
     }
 
+
+    void SpawnAllTasks(GameObject triggerLayer)
+    {
+        StartCoroutine(SpawnAllTasksOverFrames(triggerLayer));
+    }
     /// <summary>
     /// Spawn all the tasks of a layer into the game using the function to get the next task spawn position
     /// </summary>
-    void SpawnAllTasks(GameObject triggerLayer)
+    IEnumerator SpawnAllTasksOverFrames(GameObject triggerLayer)
     {
         int spawningLayer = triggerLayer.GetComponent<LayerStatus>().layer;
         if (layer == spawningLayer)
@@ -171,6 +177,7 @@ public class LayerStatus : MonoBehaviour
             for (int i = 0; i < numberOfTasksThisLayer; i++)
             {
                 SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));
+                yield return new WaitForSeconds(spreadSpawnsOverFrameTime);
             }
         }
     }

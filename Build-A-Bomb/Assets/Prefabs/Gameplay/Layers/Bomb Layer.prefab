@@ -164,6 +164,7 @@ MonoBehaviour:
   taskScaleUp: 1
   taskColliderRadius: 1.1
   tasks: []
+  spreadSpawnsOverFrameTime: 0.02
   isSelected: 0
   isCompleted: 0
   isGoingWrong: 0

@@ -47,7 +47,7 @@ public class PlayerKeyInput : MonoBehaviour
         TaskStatus.onTaskBegan += AddKeysUsed;
         TaskStatus.onTaskFailed += RemoveKeysUsed;
         TaskStatus.onTaskCompleted += RemoveKeysUsed;
-
+        playerControls.Mouse.RightClick.Enable();
         // Instantiate Input actions for all the keys
         for (int i = 0; i < 26; i++) 
         {
@@ -63,6 +63,7 @@ public class PlayerKeyInput : MonoBehaviour
         TaskStatus.onTaskBegan -= AddKeysUsed;
         TaskStatus.onTaskFailed -= RemoveKeysUsed;
         TaskStatus.onTaskCompleted -= RemoveKeysUsed;
+        playerControls.Mouse.RightClick.Disable();
 
         for (int i = 0; i < 26; i++)
         {

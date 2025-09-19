@@ -35,7 +35,7 @@ public class BombStatus : MonoBehaviour
     private void Awake()
     {
         // Game is won if final layer is reached which is set to be the last layer in layersToBeSpawned
-        finalLayer = layersToBeSpawned.Count - 1; 
+        finalLayer = layersToBeSpawned.Count - 1;
     }
 
     private void OnEnable()

@@ -16,7 +16,7 @@ public class HammerVisuals : MonoBehaviour
 
     public void animationLooksFinished()
     {
-        taskLogic.checkFinished();
+        taskLogic.CheckFinished();
     }
 
     public void checkStillHitting()

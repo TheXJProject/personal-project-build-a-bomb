@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -10.6}
-  m_SizeDelta: {x: 472.3828, y: 38.6495}
+  m_SizeDelta: {x: 530, y: 38.6495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &500924783384007951
 CanvasRenderer:
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ---
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 22d89fa2802120e49bef57a74f911c53, type: 2}
-  m_sharedMaterial: {fileID: -7022660964645841336, guid: 22d89fa2802120e49bef57a74f911c53, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c750fa4ea0090874398c9933ef37208c, type: 2}
+  m_sharedMaterial: {fileID: 3993894989551284010, guid: c750fa4ea0090874398c9933ef37208c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.5
-  m_fontSizeBase: 41.5
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23c787725aade6458990e5756f36675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Msg: 0
+  Msg: 1
   keypadDisplay: {fileID: 4475175224733714397}
 --- !u!1 &8449487046982608892
 GameObject:
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Msg: 0
   currentHardestDifficulty: 15
-  showTime: 0.03
+  showTime: 0.08
   secretCodes:
   - name: Nice ;)
     code: 0600000009000000

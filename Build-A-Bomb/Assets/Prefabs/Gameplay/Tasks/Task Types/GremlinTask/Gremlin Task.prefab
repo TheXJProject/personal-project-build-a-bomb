@@ -311,5 +311,6 @@ MonoBehaviour:
   ySpawnRange: 180
   beginFadeTime: 0.3
   deathTime: 2
+  pauseAfterTaskComplete: 0.15
   statInteract: {fileID: 5287134288226660784}
   gremlin: {fileID: 3426797501618628183, guid: 12921b8eb4653844194572d2a4b74de1, type: 3}

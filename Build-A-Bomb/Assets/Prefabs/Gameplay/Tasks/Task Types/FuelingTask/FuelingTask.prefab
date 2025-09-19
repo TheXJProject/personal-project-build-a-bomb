@@ -674,7 +674,10 @@ MonoBehaviour:
   dockNormalCol: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
   dockDockedCol: {r: 0.8915094, g: 1, b: 0.89732146, a: 1}
   offsetMousePickup: {x: -25.7, y: 31.5}
+  upDownLimitAdjustment: {x: 50, y: -50}
+  leftRightLimitAdjustment: {x: 150, y: -50}
   docked: 0
+  follow: 0
 --- !u!114 &5703089831193974634
 MonoBehaviour:
   m_ObjectHideFlags: 0

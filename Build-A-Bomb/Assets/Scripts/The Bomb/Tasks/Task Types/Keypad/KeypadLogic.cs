@@ -15,7 +15,7 @@ public class KeypadLogic : MonoBehaviour
     [SerializeField] bool Msg = false;
 
     // Constant Values:
-    const int maxPossibleDifficultly = 21;
+    const int maxPossibleDifficultly = 16;
     const int minPossibleDifficultly = 2;
 
     // Inspector Adjustable Values:
@@ -198,7 +198,7 @@ public class KeypadLogic : MonoBehaviour
             }
 
             // Show element in code sequence
-            if (TaskDisplay.activeSelf) display.DisplayText("-- " + showInSeq + " --");
+            if (TaskDisplay.activeSelf) display.DisplayText("<" + showInSeq + ">");
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {

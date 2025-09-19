@@ -17,6 +17,7 @@ public class GremlinHit : MonoBehaviour
     bool hit = false;
     Vector2 startSize;
     Coroutine growInRoutine;
+    bool grownIn = false;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class GremlinHit : MonoBehaviour
         if (!hit)
         {
             if (growInRoutine != null) StopCoroutine(growInRoutine);
-            growInRoutine = StartCoroutine(growIn());
+            growInRoutine = StartCoroutine(GrowIn());
         }
     }
     public void GremlinGotHit(BaseEventData data)
@@ -52,7 +53,7 @@ public class GremlinHit : MonoBehaviour
         }
     }
 
-    IEnumerator growIn()
+    IEnumerator GrowIn()
     {
         float elapsed = 0f;
         
@@ -61,9 +62,13 @@ public class GremlinHit : MonoBehaviour
         while (elapsed < growInTime)
         {
             elapsed += Time.deltaTime;
-            GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(endSize, startSize, elapsed / growInTime);
+            if (!grownIn)
+            {
+                GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(endSize, startSize, elapsed / growInTime);
+            }
             yield return null;
         }
         GetComponent<RectTransform>().sizeDelta = startSize;
+        grownIn = true;
     }
 }

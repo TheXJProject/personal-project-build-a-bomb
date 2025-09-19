@@ -198,6 +198,7 @@ public class PuzzleLogic : MonoBehaviour
     void SetPipePositions(int key)
     {
         bool okay;
+        int attempts = 0;
 
         // Repeat untill the selection has passed all the checks
         do
@@ -247,6 +248,22 @@ public class PuzzleLogic : MonoBehaviour
 
                 // Check if set of positions is okay
                 okay = OkayCheck();
+            }
+
+            attempts++;
+
+            // Exit if too many attempts
+            if (attempts > 1000 && !okay)
+            {
+                // Used a default set position
+                for (int i = 0; i < numOfConnectionsNeeded; i++)
+                {
+                    // Set a position using the given key
+                    pipeStartList[i] = maxPositions / 2;
+                }
+             
+                // Exit
+                break;
             }
         } while (!okay);
     }

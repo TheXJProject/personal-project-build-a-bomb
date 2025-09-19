@@ -17,6 +17,7 @@ public class GremlinTaskLogic : MonoBehaviour
     [SerializeField] [Range(0, 500)] float ySpawnRange;
     [SerializeField] float beginFadeTime = 0.1f;
     [SerializeField] float deathTime = 0.1f;
+    [SerializeField] float pauseAfterTaskComplete = 0.1f;
 
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
@@ -27,6 +28,7 @@ public class GremlinTaskLogic : MonoBehaviour
     int numOfHits = 0;
     GameObject templin;
     bool isSetup;
+    float pausedTime = 0;
 
     private void Awake()
     {
@@ -46,6 +48,26 @@ public class GremlinTaskLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
+    private void Update()
+    {
+        if (statInteract.isBeingSolvedAndSelected)
+        {
+            // Set the completion level
+            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+
+            // Check if task is completed
+            if (numOfHits >= numOfHitsNeeded)
+            {
+                pausedTime += Time.deltaTime;
+
+                if (pausedTime > pauseAfterTaskComplete)
+                {
+                    statInteract.TaskCompleted();
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Called by Gremlin gameobject. When the player <br />
     /// clicks on the Gremlin the remaining number of <br />
@@ -61,19 +83,12 @@ public class GremlinTaskLogic : MonoBehaviour
             // Increases the total number of times Gremlin has been hit by one
             numOfHits++;
 
-            // Set the completion level
-            statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);
+            // If not completed, destroy gremlin
+            StartCoroutine(GremlinDeath(templin));
 
             // Check if task is completed
-            if (numOfHits >= numOfHitsNeeded)
+            if (numOfHits < numOfHitsNeeded)
             {
-                statInteract.TaskCompleted();
-            }
-            else
-            {
-                // If not completed, destroy gremlin
-                StartCoroutine(GremlinDeath(templin));
-
                 // Then randomly put gremlin somewhere on the screen
                 Vector3 randomPosition = new();
                 randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);

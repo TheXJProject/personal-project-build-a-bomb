@@ -96,7 +96,8 @@ public class FuelingLogic : MonoBehaviour
         if (statInteract.isBeingSolved)
         {
             // Increase or decrease fuel level
-            if (refueler.GetComponent<RefuelerLogic>().docked) //refueler is in position
+            // If refueler is in position and locked into dock
+            if (refueler.GetComponent<RefuelerLogic>().docked && !refueler.GetComponent<RefuelerLogic>().follow) 
             {
                 currentFuel++;
             }

@@ -15,10 +15,12 @@ public class RefuelerLogic : MonoBehaviour
     [SerializeField] Color dockDockedCol;
 
     [SerializeField] Vector2 offsetMousePickup;
+    [SerializeField] Vector2 upDownLimitAdjustment;
+    [SerializeField] Vector2 leftRightLimitAdjustment;
 
     // Runtime Variables:
     [HideInInspector] public bool docked = false;
-    bool follow = false;
+    [HideInInspector] public bool follow = false;
 
     private void Update()
     {
@@ -31,8 +33,8 @@ public class RefuelerLogic : MonoBehaviour
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(background, Input.mousePosition, null, out Vector2 localPoint))
             {
                 // Clamp the position to stay within boundaries
-                float clampedX = Mathf.Clamp(localPoint.x, fuelingLogic.topBottomRefulerLimits.x, fuelingLogic.topBottomRefulerLimits.y);
-                float clampedY = Mathf.Clamp(localPoint.y, fuelingLogic.leftRightRefulerLimits.x, fuelingLogic.leftRightRefulerLimits.y);
+                float clampedX = Mathf.Clamp(localPoint.x, fuelingLogic.topBottomRefulerLimits.x + leftRightLimitAdjustment.x, fuelingLogic.topBottomRefulerLimits.y + leftRightLimitAdjustment.y);
+                float clampedY = Mathf.Clamp(localPoint.y, fuelingLogic.leftRightRefulerLimits.x + upDownLimitAdjustment.x, fuelingLogic.leftRightRefulerLimits.y + upDownLimitAdjustment.y);
                 gameObject.transform.localPosition = new Vector2(clampedX, clampedY) + offsetMousePickup;
             }
         }
@@ -45,7 +47,7 @@ public class RefuelerLogic : MonoBehaviour
                 gameObject.transform.position = dock.transform.position;
             }
 
-            // Otherwise we are no following the mouse
+            // Otherwise we are not following the mouse
             follow = false;
         }
 

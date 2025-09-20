@@ -2175,6 +2175,10 @@ PrefabInstance:
       propertyPath: canToggleCheats
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
+      propertyPath: musicAndSoundForceOff
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
       value: DevTools
@@ -4710,7 +4714,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2133924893450471654, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: removeWarningMsgs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8555553697769540508, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4758,7 +4762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: removeWarningMsgs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: musicSounds.Array.data[5].pitch

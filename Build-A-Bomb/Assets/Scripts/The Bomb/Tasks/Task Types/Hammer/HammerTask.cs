@@ -118,6 +118,8 @@ public class HammerTask : MonoBehaviour
         }
         else
         {
+            pausedTime = 0;
+
             // This instance is now setup
             isSetup = true;
         }
@@ -162,6 +164,8 @@ public class HammerTask : MonoBehaviour
             
             // Reset the number of times the player has hit
             numOfHits = 0;
+
+            pausedTime = 0;
 
             // Set the completion level
             statInteract.SetTaskCompletion((float)numOfHits / numOfHitsNeeded);

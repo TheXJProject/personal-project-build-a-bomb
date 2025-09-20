@@ -5,6 +5,7 @@ public class CheatLogic : MonoBehaviour
 {
     // Inspector Adjustable Values:
     [SerializeField] bool canToggleCheats = false;
+    public bool musicAndSoundForceOff = false;
 
     [Header("(Cheat List)\n")]
     [SerializeField] bool canCheatLayers = false;

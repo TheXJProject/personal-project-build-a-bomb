@@ -2177,7 +2177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: musicAndSoundForceOff
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
@@ -4765,12 +4765,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: sfxSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: sfxSounds.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: sfxSounds.Array.data[0].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: musicSounds.Array.data[5].pitch
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
       propertyPath: musicSounds.Array.data[5].volume
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: sfxSounds.Array.data[0].randomPitchRange.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
+      propertyPath: sfxSounds.Array.data[0].randomPitchRange.y
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

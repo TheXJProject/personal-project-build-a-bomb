@@ -15,7 +15,7 @@ public class SwitchLogic : MonoBehaviour
     const int minPossibleDifficultly = 1;
 
     // Inspector Adjustable Values:
-    [Range(4,400)] public float spawnBoxHeight;
+    [Range(4,600)] public float spawnBoxHeight;
     [Range(8, 800)] public float spawnBoxWidth;
     [Range(2, 60)] public int maxNumberSwitchesRow;
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;

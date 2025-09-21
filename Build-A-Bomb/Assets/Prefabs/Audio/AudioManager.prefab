@@ -2884,6 +2884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
+  removeWarningMsgs: 0
   nonPriorityVolume: 0.7
   musicSounds:
   - name: Menu Alarms
@@ -3023,6 +3024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Msg: 0
+  removeWarningMsgs: 0
   audioMixer: {fileID: 24100000, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}
   playerGroups:
     masterPlayer: {fileID: -7342710759141156141, guid: d19fd5c216f70f749948f6d150fc466d, type: 2}

@@ -12,6 +12,7 @@ public class Sound
     public float pitch = 1f;
     [Range(-1f, 1f)]
     public float panning = 0f;
+    public Vector2 randomPitchRange;
 
     // Initialise In Inspector:
     public AudioClip clip;

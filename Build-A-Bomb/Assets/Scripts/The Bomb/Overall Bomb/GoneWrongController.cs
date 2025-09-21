@@ -15,6 +15,8 @@ public class GoneWrongController : MonoBehaviour
     [SerializeField] float intervalTimeVariation = 4f;
     [SerializeField] float initialAmountFailing = 1f;
     [SerializeField] float finalAmountFailing = 4f;
+    [SerializeField] int hardCapMaxAmountCanGoWrong = 0;
+    [SerializeField] int defaultNumberGoneWrongThreshold = 0;
 
     // Initialise In Inspector:
     [SerializeField] BombStatus bombStats;
@@ -29,9 +31,10 @@ public class GoneWrongController : MonoBehaviour
     int maxLayers;
     bool goingWrong = false;
     float timeSinceLastGoneWrong = 12f;
-    System.Random rnd = new System.Random();
-    [HideInInspector] public List<GameObject> tasksToGoWrong = new List<GameObject>();
+    System.Random rnd = new();
+    [HideInInspector] public List<GameObject> tasksToGoWrong = new();
     int numTasksGoingWrongNow = 0;
+    bool goneWrongOverThres = false;
 
     private void Awake()
     {
@@ -136,7 +139,30 @@ public class GoneWrongController : MonoBehaviour
 
         // Return a number between1 and the current value rounded down (+ plusOne)
         int returnVal = (rnd.Next(1, ((int)currentAmountFailing + 1 + plusOne)));
-        return returnVal;
+
+        // If previously the number of tasks that went wrong was over the threshold
+        if (goneWrongOverThres)
+        {
+            // The default amount or less go wrong this time
+            // (resets next time)
+            goneWrongOverThres = false;
+            Debug.Log(Mathf.Min(returnVal, defaultNumberGoneWrongThreshold));
+            Debug.Log(goneWrongOverThres);
+            return Mathf.Min(returnVal, defaultNumberGoneWrongThreshold);
+        }
+
+        // If the amount of task gone wrong at once is over the default
+        if (returnVal > defaultNumberGoneWrongThreshold)
+        {
+            // We want to prevent that happening again next time
+            goneWrongOverThres = true;
+        }
+
+        Debug.Log(goneWrongOverThres);
+        Debug.Log(Mathf.Min(returnVal, hardCapMaxAmountCanGoWrong));
+
+        // Hard cap final value
+        return Mathf.Min(hardCapMaxAmountCanGoWrong, returnVal);
     }
 
     /// <summary>

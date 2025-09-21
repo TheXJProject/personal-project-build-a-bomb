@@ -210,7 +210,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
+    public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null, bool randPitch = false)
     {
         if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
 
@@ -278,9 +278,22 @@ public class AudioManager : MonoBehaviour
                     if (Msg) Debug.Log("Priority used.");
                 }
 
+                float tempPitch = sound.pitch;
+
+                // If we want a random pitch
+                if (randPitch)
+                {
+                    // Get a random pitch from the range given
+                    float minValue = MathF.Min(sound.randomPitchRange.x, sound.randomPitchRange.y);
+                    float maxValue = MathF.Max(sound.randomPitchRange.x, sound.randomPitchRange.y);
+
+                    // Get a random pitch to use
+                    tempPitch = UnityEngine.Random.Range(minValue, maxValue);
+                }
+
                 // Transfer volume, pitch, panning and the clip itself to the audio source
                 source.audioSource.volume = volumeTemp ?? sound.volume;
-                source.audioSource.pitch = sound.pitch;
+                source.audioSource.pitch = tempPitch;
                 source.audioSource.panStereo = sound.panning;
                 source.audioSource.clip = sound.clip;
 
@@ -360,5 +373,6 @@ public class AudioManager : MonoBehaviour
     //                                              (if 'volumeTemp' is null the sound will play
     //                                              at default volume set in inspecter)
     //    - StopAllSFX()                            Stops all SFX and clears the names in the SFX sources
+    //  Additional Functions.
     //    - WaitForAudioToStop (SoundSource source) Resets the source after the sound has stopped playing
 }

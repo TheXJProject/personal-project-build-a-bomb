@@ -146,8 +146,6 @@ public class GoneWrongController : MonoBehaviour
             // The default amount or less go wrong this time
             // (resets next time)
             goneWrongOverThres = false;
-            Debug.Log(Mathf.Min(returnVal, defaultNumberGoneWrongThreshold));
-            Debug.Log(goneWrongOverThres);
             return Mathf.Min(returnVal, defaultNumberGoneWrongThreshold);
         }
 
@@ -157,9 +155,6 @@ public class GoneWrongController : MonoBehaviour
             // We want to prevent that happening again next time
             goneWrongOverThres = true;
         }
-
-        Debug.Log(goneWrongOverThres);
-        Debug.Log(Mathf.Min(returnVal, hardCapMaxAmountCanGoWrong));
 
         // Hard cap final value
         return Mathf.Min(hardCapMaxAmountCanGoWrong, returnVal);

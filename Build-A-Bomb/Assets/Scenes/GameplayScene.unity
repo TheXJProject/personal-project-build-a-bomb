@@ -854,7 +854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 16.124023, y: -0.99993896}
+  m_AnchoredPosition: {x: 16.124023, y: -0.9998779}
   m_SizeDelta: {x: 146.4978, y: 63.106705}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &404800555
@@ -994,9 +994,9 @@ MonoBehaviour:
   tasksGoWrong: 1
   difficultyCurb: 3.3
   difficultyStartOffset: 0.3
-  difficultyMaxOffset: 0.7
+  difficultyMaxOffset: 0.67
   initialIntervalTime: 24
-  finalIntervalTime: 20
+  finalIntervalTime: 18
   intervalTimeVariation: 2
   initialAmountFailing: 1
   finalAmountFailing: 3

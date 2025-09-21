@@ -198,7 +198,7 @@ public class KeypadLogic : MonoBehaviour
             }
 
             // Show element in code sequence
-            if (TaskDisplay.activeSelf) display.DisplayText("<" + showInSeq + ">");
+            if (TaskDisplay.activeSelf) display.DisplayText("> " + showInSeq + " <");
 
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {

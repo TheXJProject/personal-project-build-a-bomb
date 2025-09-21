@@ -99,6 +99,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name, double dspTimeTillPlay)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
 
@@ -141,6 +143,8 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic(string name, double? dspStopValue = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(musicSounds, x => x.name == name);
         
@@ -181,6 +185,8 @@ public class AudioManager : MonoBehaviour
 
     public void StopAllMusic()
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         bool playingCheck = false;
 
         // For each music source we have
@@ -206,6 +212,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         // Find the sound passed in from our list of sounds
         Sound sound = Array.Find(sfxSounds, x => x.name == name);
 
@@ -293,6 +301,8 @@ public class AudioManager : MonoBehaviour
     
     public void StopAllSFX()
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         bool playingCheck = true;
 
         // For each sfx source there is

@@ -35,17 +35,17 @@ public class BeginMainMenu : MonoBehaviour
         MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.MUSIC_COLLECTION, EX_PARA.VOLUME, 0f);
 
         // Play all main menu music tracks at the same time
-        //AudioManager.instance.PlayMusic("Menu Alarms", startTime);
-        //AudioManager.instance.PlayMusic("Menu Bass", startTime);
-        //AudioManager.instance.PlayMusic("Menu Beeps", startTime);
-        //AudioManager.instance.PlayMusic("Menu Choir", startTime);
-        //AudioManager.instance.PlayMusic("Menu FullChoirCrash", startTime);
-        //AudioManager.instance.PlayMusic("Menu Hats", startTime);
-        //AudioManager.instance.PlayMusic("Menu KickSnare", startTime);
-        //AudioManager.instance.PlayMusic("Menu OfficeNoise", startTime);
-        //AudioManager.instance.PlayMusic("Menu Organ", startTime);
-        //AudioManager.instance.PlayMusic("Menu StartMelody", startTime);
-        //AudioManager.instance.PlayMusic("Menu StringsXyphone", startTime);
+        AudioManager.instance.PlayMusic("Menu Alarms", startTime);
+        AudioManager.instance.PlayMusic("Menu Bass", startTime);
+        AudioManager.instance.PlayMusic("Menu Beeps", startTime);
+        AudioManager.instance.PlayMusic("Menu Choir", startTime);
+        AudioManager.instance.PlayMusic("Menu FullChoirCrash", startTime);
+        AudioManager.instance.PlayMusic("Menu Hats", startTime);
+        AudioManager.instance.PlayMusic("Menu KickSnare", startTime);
+        AudioManager.instance.PlayMusic("Menu OfficeNoise", startTime);
+        AudioManager.instance.PlayMusic("Menu Organ", startTime);
+        AudioManager.instance.PlayMusic("Menu StartMelody", startTime);
+        AudioManager.instance.PlayMusic("Menu StringsXyphone", startTime);
 
         // Fade in the start menu tracks
         MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);

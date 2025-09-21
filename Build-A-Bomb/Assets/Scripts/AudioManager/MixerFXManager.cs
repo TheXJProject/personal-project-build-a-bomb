@@ -268,6 +268,8 @@ public class MixerFXManager : MonoBehaviour
 
     public void SetMusicParam(string name, EX_PARA param, float duration, float? value = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         float targetValue = 0;
         string expoParam = "";
 
@@ -340,6 +342,8 @@ public class MixerFXManager : MonoBehaviour
 
     public void SetMusicOverallParam(EX_PARA param, float duration, float? value = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         float targetValue = 0;
         string expoParam = "";
 
@@ -402,6 +406,8 @@ public class MixerFXManager : MonoBehaviour
 
     public void SetSfxOverallParam(EX_PARA param, float duration, float? value = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         float targetValue = 0;
         string expoParam = "";
 
@@ -464,6 +470,8 @@ public class MixerFXManager : MonoBehaviour
 
     public void ForceSetParam(GROUP_OPTIONS collection, EX_PARA param, float? value = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         // We will force one group (or collection of groups) to cancel all coroutines and
         // be set to "value" for one of the exposed parameter types
         foreach (AudioMixerGroup group in mainGroups.GroupOptionToArray(collection))
@@ -649,6 +657,8 @@ public class MixerFXManager : MonoBehaviour
 
     void SetVolumeLevel(string exParam, float level)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
         // Clamp the desired level between 0.0001 and 1
         level = ConvertType(EX_PARA.VOLUME, true, Mathf.Clamp(level, 0.0001f, 1f));
 

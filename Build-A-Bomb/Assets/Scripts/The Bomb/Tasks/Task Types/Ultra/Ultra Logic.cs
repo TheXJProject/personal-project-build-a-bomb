@@ -112,10 +112,11 @@ public class UltraLogic : MonoBehaviour
         float newWidth = (float)widthPerEnergy * currentEnergy;
 
         // Update width
-        energyLevel.sizeDelta = new Vector2(newWidth, energyLevel.sizeDelta.y);
+        //energyLevel.sizeDelta = new Vector2(newWidth, energyLevel.sizeDelta.y);
+        energyLevel.GetComponent<Image>().fillAmount = newWidth / energyMaxWidth;
 
         // Set X position based on the new width
-        energyLevel.localPosition = new Vector3(-(energyMaxWidth - newWidth) / 2f, energyLevel.localPosition.y, energyLevel.localPosition.z);
+        //energyLevel.localPosition = new Vector3(-(energyMaxWidth - newWidth) / 2f, energyLevel.localPosition.y, energyLevel.localPosition.z);
     }
 
     /// <summary>

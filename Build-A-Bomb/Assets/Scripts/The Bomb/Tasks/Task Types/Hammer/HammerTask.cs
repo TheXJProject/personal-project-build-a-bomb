@@ -90,6 +90,9 @@ public class HammerTask : MonoBehaviour
 
                 nail.setRandomRotation();
 
+                // Play a Hammer hit sound, with priority, default volume, using random pitch
+                AudioManager.instance.PlaySFX("Hammer", true, null, true);
+
                 // Set the completion level
                 statInteract.SetTaskCompletion(Mathf.Min(1,(float)numOfHits / numOfHitsNeeded));
             }

@@ -9,19 +9,19 @@ public class HammerNailMove : MonoBehaviour
     [SerializeField] float maxDegreesTurned = 8;
     [SerializeField] float minDegreesTurned = 2;
 
-    bool lastDirectionNeg = false;
+    float previous = 0;
 
     public void setRandomRotation()
     {
         float rotateAmount = UnityEngine.Random.Range(0f, 1f) * (maxDegreesTurned- minDegreesTurned) + minDegreesTurned;
 
-        if (lastDirectionNeg) lastDirectionNeg = false; // This ensures that the nail goes back and forth each hit
-        else
+        if ((previous < 0 && rotateAmount < 0) || (previous > 0 && rotateAmount > 0))
         {
-            rotateAmount *= -1;
-            lastDirectionNeg = true;
+            bool randomBool = UnityEngine.Random.value > 0.15f;
+            if (randomBool) rotateAmount *= -1;
         }
 
         transform.localRotation = Quaternion.Euler(0f, 0f, rotateAmount);
+        previous = rotateAmount;
     }
 }

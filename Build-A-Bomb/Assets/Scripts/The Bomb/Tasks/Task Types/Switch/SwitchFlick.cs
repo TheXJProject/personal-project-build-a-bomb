@@ -35,13 +35,19 @@ public class SwitchFlick : MonoBehaviour
             if (gameObject.transform.parent.parent.parent.GetComponent<SwitchLogic>().canBeSolved) // Oh god I have to do it again....
             {
                 // The switch is now flicked on
-                if (!flicked) snap.SetActive(true);
+                if (!flicked)
+                {
+                    snap.SetActive(true);
+
+                    // Play a Switch sound, with priority, default volume, with random pitch
+                    AudioManager.instance.PlaySFX("Switch", true, null, true);
+                }
                 flicked = true;
 
                 // TODO: Replace with call for animation!
                 switchImage.sprite = switchOn;
             }
-            
+
             if (Msg) Debug.Log("Switch clicked with left click. Switch has been flicked: " + flicked);
         }
         

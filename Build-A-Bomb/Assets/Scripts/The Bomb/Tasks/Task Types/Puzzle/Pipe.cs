@@ -16,6 +16,7 @@ public class Pipe : MonoBehaviour
     [HideInInspector] public int orderNumber;
     PuzzleLogic mainPuzzle;
     bool extended = false;
+    bool previouslyInCorrectPos = false;
 
     private void OnEnable()
     {
@@ -55,6 +56,9 @@ public class Pipe : MonoBehaviour
             PointerEventData newData = (PointerEventData)data;
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
+                // Play a Dial sound
+                AudioManager.instance.PlaySFX("Dial Turn");
+
                 // Increase position by one and wrap if needs
                 symbolPosition = (symbolPosition + 1) % mainPuzzle.maxPositions;
 
@@ -93,6 +97,9 @@ public class Pipe : MonoBehaviour
         inCorrectPos = (symbolPosition == PuzzleLogic.finalPosition);
         if (inCorrectPos)
         {
+            // Play a Pipe connect sound
+            if (mainPuzzle.statInteract.isBeingSelected) AudioManager.instance.PlaySFX("Pipe Connect", false, null, true);
+
             light_.color = Color.green;
             symbolLight_.color = Color.green;
             extended = true;
@@ -102,7 +109,12 @@ public class Pipe : MonoBehaviour
             light_.color = Color.red;
             extended = false;
             symbolLight_.color = Color.yellow;
+
+            // Play a Pipe connect sound
+            if (previouslyInCorrectPos && mainPuzzle.statInteract.isBeingSelected) AudioManager.instance.PlaySFX("Pipe Disconnect", false, null, true);
         }
         if(mainPuzzle.statInteract.isBeingSelected) animator.SetBool("extended", extended);
+
+        previouslyInCorrectPos = inCorrectPos;
     }
 }

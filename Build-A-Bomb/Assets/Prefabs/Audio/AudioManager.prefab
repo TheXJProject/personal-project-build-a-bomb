@@ -2891,58 +2891,207 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 7e4e50b1d8663624391ca59f49392bdf, type: 3}
   - name: Menu Bass
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: dcb4e7e04224ff74da30eabcb35e0351, type: 3}
   - name: Menu Beeps
     volume: 0.9
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: c7119b2e7f94ad447ab043e4e45300e6, type: 3}
   - name: Menu Choir
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 220c27b9fa9bbc4499327559a3763b2c, type: 3}
   - name: Menu FullChoirCrash
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 74fbfb706b909df4b97308ae4951123c, type: 3}
   - name: Menu Hats
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 9ea391986aeb1f4449a6215ca1fd8631, type: 3}
   - name: Menu KickSnare
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 69b51aa7b3d2fbc4787d9cda4f801249, type: 3}
   - name: Menu OfficeNoise
     volume: 0.95
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: e065c90cb530a0a4dbfddeadc7de36a1, type: 3}
   - name: Menu Organ
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: ce6e671cc61e30740af5727761e4e8b4, type: 3}
   - name: Menu StartMelody
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 4fd6ea24e8e31c34194899adbb2ad4f9, type: 3}
   - name: Menu StringsXyphone
     volume: 0.8
     pitch: 1
     panning: 0
+    randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 0380352fb7f8a8d4aaef5c24c2be17f7, type: 3}
-  sfxSounds: []
+  sfxSounds:
+  - name: Button On
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: fce530abbccc0a24c869f4c91ee3f3da, type: 3}
+  - name: Button Off
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: c871a4c5f3c15f847a48840a75ca9eaf, type: 3}
+  - name: Hammer
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: f86a37e9480acc447b2dc2775434c357, type: 3}
+  - name: Switch
+    volume: 0.65
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1.02}
+    clip: {fileID: 8300000, guid: d1f7eda81588de046a635f4b007405f9, type: 3}
+  - name: Pipe Connect
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.97, y: 1.03}
+    clip: {fileID: 8300000, guid: 51aca8422b210fa47a86c87b4f96993c, type: 3}
+  - name: Pipe Disconnect
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.97, y: 1.03}
+    clip: {fileID: 8300000, guid: cfc493604e0ab0b47b2166ff763ba91b, type: 3}
+  - name: Dial Turn
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 3333a98e64d145a48b149bc164a930db, type: 3}
+  - name: Beep 1
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 9883dff913bb58f45ae6fcc7eee982e1, type: 3}
+  - name: Beep 2
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 537f413b5928db74a867b1260025cd34, type: 3}
+  - name: Beep 3
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 5b9d4372279e2274a97cd983577cedd5, type: 3}
+  - name: Beep 4
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 1b445c0ba7ad22d4caa742dd440f3ffa, type: 3}
+  - name: Beep 5
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 25d1389fce7ac1e4e8242ddcaf9011e0, type: 3}
+  - name: Beep 6
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 7e58e6e4fea7f9345bca6c7bedbe5cb3, type: 3}
+  - name: Beep 7
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 1d52707771b9d464a8d606cf548e9417, type: 3}
+  - name: Beep 8
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: eb72effe08ef56d46b7e8989de9bfaac, type: 3}
+  - name: Beep 9
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: d6d5028a2a5adcd4eb6a45e6c9d36171, type: 3}
+  - name: Beep 0
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 8b99e97e38d4a2a46be71091ba9e3e23, type: 3}
+  - name: Beep Show Code
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: c4747797f9777e14ca4bbb43f8b39252, type: 3}
+  - name: Beep Clear Code
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 13acb249ba0be304cafc81c9673ab09e, type: 3}
+  - name: Beep Correct
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 7ec82c8f13cbe7c46a3c686a595178c9, type: 3}
+  - name: Error 1
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 49d8607919f9fbc488d73e38020c21f2, type: 3}
+  - name: Error 2
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: a4d136f82667062438402c06b1abc94c, type: 3}
+  - name: Error 3
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: d54322884d462df4c994edac8cad9b48, type: 3}
   musicSourceList:
   - audioSource: {fileID: 4421302134104516341}
     soundName: Empty

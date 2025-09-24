@@ -14,6 +14,8 @@ public class KeyLogic : MonoBehaviour
 
     [SerializeField] float altSizePercent;
     [SerializeField] Color altColor;
+    [SerializeField] bool useThisKeyVolume;
+    [SerializeField] float keyVolume;
 
     Vector2 altSize;
     Vector2 baseSize;
@@ -68,8 +70,11 @@ public class KeyLogic : MonoBehaviour
     /// Shows that the Key has been pressed for a set amount of time. <br />
     /// Parameter 1: Time the key will be shown for
     /// </summary>
-    IEnumerator AnimationHoldTime(float time)
+    IEnumerator AnimationHoldTime(float time, bool muteKey = false)
     {
+        // Play a Button On sound, non-priority, using a set volume
+        if (!muteKey) AudioManager.instance.PlaySFX("Button On", false, useThisKeyVolume ? keyVolume : null);
+
         // TODO: Replace with call for animation!
         gameObject.GetComponent<Image>().color = altColor;
         gameObject.GetComponent<RectTransform>().sizeDelta = altSize;
@@ -90,6 +95,9 @@ public class KeyLogic : MonoBehaviour
             yield return null;
         }
 
+        // Play a Button Off sound, non-priority, using a set volume
+        if (!muteKey) AudioManager.instance.PlaySFX("Button Off", false, useThisKeyVolume ? keyVolume : null);
+
         // TODO: Replace with call for animation!
         gameObject.GetComponent<Image>().color = baseColor;
         gameObject.GetComponent<RectTransform>().sizeDelta = baseSize;
@@ -109,7 +117,7 @@ public class KeyLogic : MonoBehaviour
         if (gameObject.activeInHierarchy)
         {
             // Show this key
-            StartCoroutine(AnimationHoldTime(showTime));
+            StartCoroutine(AnimationHoldTime(showTime, true));
         }
     }
 

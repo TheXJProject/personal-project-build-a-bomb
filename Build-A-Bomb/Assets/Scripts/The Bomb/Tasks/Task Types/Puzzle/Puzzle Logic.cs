@@ -137,7 +137,15 @@ public class PuzzleLogic : MonoBehaviour
     {
         // Flash the button as green for a set time
         button.color = Color.green;
+
+        // Play a Button On sound
+        AudioManager.instance.PlaySFX("Button On");
+
         yield return new WaitForSeconds(flashButtonTime);
+
+        // Play a Button Off sound
+        if (statInteract.isBeingSolvedAndSelected) AudioManager.instance.PlaySFX("Button Off");
+
         button.color = Color.red;
     }
 

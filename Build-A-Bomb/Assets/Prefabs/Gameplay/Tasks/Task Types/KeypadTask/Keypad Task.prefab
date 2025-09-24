@@ -327,8 +327,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -454,8 +462,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -581,8 +597,16 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -708,8 +732,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -835,7 +867,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
@@ -961,6 +1001,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1085,8 +1133,20 @@ PrefabInstance:
       value: '*'
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThiskeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -1338,6 +1398,7 @@ MonoBehaviour:
   Msg: 0
   currentHardestDifficulty: 15
   showTime: 0.08
+  keyVolumeWhenShow: 0.05
   secretCodes:
   - name: Nice ;)
     code: 0600000009000000
@@ -1390,8 +1451,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -1517,8 +1586,16 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -1644,8 +1721,16 @@ PrefabInstance:
       value: Show Pattern
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -1766,8 +1851,16 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite
@@ -2019,8 +2112,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: keyVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: keynumber
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019413880838957156, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
+      propertyPath: useThisKeyVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5524770437368843581, guid: f4d825a3a03d7a346bb0fd05cf71c7ac, type: 3}
       propertyPath: m_Sprite

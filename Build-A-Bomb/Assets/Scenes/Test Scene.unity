@@ -2235,34 +2235,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f86a37e9480acc447b2dc2775434c357, type: 3}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].name
-      value: Hammer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].volume
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].randomPitchRange.x
-      value: 0.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933762828838214865, guid: bef85d5b135b63b47a1b0df39b318463, type: 3}
-      propertyPath: sfxSounds.Array.data[0].randomPitchRange.y
-      value: 1.02
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

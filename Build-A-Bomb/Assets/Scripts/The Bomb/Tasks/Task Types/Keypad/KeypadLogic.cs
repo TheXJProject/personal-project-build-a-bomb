@@ -21,6 +21,7 @@ public class KeypadLogic : MonoBehaviour
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
     [SerializeField] float showTime = 1;
+    [SerializeField] float keyVolumeWhenShow = 1;
     [SerializeField] Codes[] secretCodes;
 
     // Initialise In Inspector:
@@ -75,6 +76,8 @@ public class KeypadLogic : MonoBehaviour
             // Reset the player's numbers shown
             typeInSeq = "";
 
+            PlayCorrectSound(keyNumber);
+
             // Start showing code sequence required
             myCoroutine = StartCoroutine(ShowSequence());
         }
@@ -99,6 +102,8 @@ public class KeypadLogic : MonoBehaviour
             // Reset keys to show
             showInSeq = "";
 
+            PlayCorrectSound(keyNumber);
+
             // Reset sequence if additional attempts needed
             ResetPlayerSequence();
 
@@ -116,6 +121,8 @@ public class KeypadLogic : MonoBehaviour
 
             // Add number to player sequence and display it
             playerSequence.Add(keyNumber);
+
+            PlayCorrectSound(keyNumber);
 
             // If the number entered is too big
             if (typeInSeq.Length > maxPossibleDifficultly)
@@ -135,6 +142,46 @@ public class KeypadLogic : MonoBehaviour
         {
             Debug.LogWarning("Error, key number incorrect value: " + keyNumber);
         }
+    }
+
+    void PlayCorrectSound(int num, float? tempVol = null)
+    {
+        string sound = "";
+
+        // Find sound from key pressed
+        switch (num)
+        {
+            case 1: sound = "Beep 1"; break;
+            case 2: sound = "Beep 2"; break;
+            case 3: sound = "Beep 3"; break;
+            case 4: sound = "Beep 4"; break;
+            case 5: sound = "Beep 5"; break;
+            case 6: sound = "Beep 6"; break;
+            case 7: sound = "Beep 7"; break;
+            case 8: sound = "Beep 8"; break;
+            case 9: sound = "Beep 9"; break;
+            case 0: sound = "Beep 0"; break;
+            case -10: sound = "Beep Show Code"; break;
+            case -30: sound = "Beep Clear Code"; break;
+                // Correct
+            case -200: sound = "Beep Correct"; break;
+                // Incorrect
+            case -201:
+                // Choose a random sound out of three options
+                int choice = Random.Range(0, 3);
+                switch (choice)
+                {
+                    case 0: sound = "Error 1"; break;
+                    case 1: sound = "Error 2"; break;
+                    case 2: sound = "Error 3"; break;
+                    default: Debug.LogWarning("Error, wtf you idoit!"); break;
+                }
+                break;
+            default: Debug.LogWarning("Error, couldn't find key!"); break;
+        }
+
+        // Play a Beep sound
+        AudioManager.instance.PlaySFX(sound, false, tempVol);
     }
 
     /// <summary>
@@ -203,7 +250,11 @@ public class KeypadLogic : MonoBehaviour
             if (0 <= codeSequence[i] && codeSequence[i] < 10)
             {
                 // Only show key if task can be seen
-                if (TaskDisplay.activeSelf) keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime);
+                if (TaskDisplay.activeSelf)
+                {
+                    keys[codeSequence[i]].GetComponent<KeyLogic>().ShowKey(showTime);
+                    PlayCorrectSound(codeSequence[i], keyVolumeWhenShow);
+                }
             }
             else
             {
@@ -291,6 +342,7 @@ public class KeypadLogic : MonoBehaviour
                 // Check if task is completed
                 if ((numCorrectPresses >= numOfPressesNeeded) && (playerSequence.Count == numOfPressesNeeded))
                 {
+                    PlayCorrectSound(-200);
                     statInteract.TaskCompleted();
                 }
                 else
@@ -317,6 +369,8 @@ public class KeypadLogic : MonoBehaviour
                     // If we are to not show any secrect messages
                     if (showStandardMsg)
                     {
+                        PlayCorrectSound(-201);
+
                         // Otherwise show incorrect to player
                         display.DisplayText("-Err-");
                     }

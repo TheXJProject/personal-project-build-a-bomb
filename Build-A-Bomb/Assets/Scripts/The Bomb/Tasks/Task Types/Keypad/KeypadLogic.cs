@@ -312,7 +312,7 @@ public class KeypadLogic : MonoBehaviour
     /// When called by the hash button, this checks if the inputted code is correct. <br />
     /// Then it sets the task completion level and if the task is completed respectively.
     /// </summary>
-    void CheckCode()
+    void CheckCode(bool muteSound = false)
     {
         // This function only works if the task canBeSolved
         if (statInteract.isBeingSolvedAndSelected)
@@ -342,7 +342,7 @@ public class KeypadLogic : MonoBehaviour
                 // Check if task is completed
                 if ((numCorrectPresses >= numOfPressesNeeded) && (playerSequence.Count == numOfPressesNeeded))
                 {
-                    PlayCorrectSound(-200);
+                    if (!muteSound) PlayCorrectSound(-200);
                     statInteract.TaskCompleted();
                 }
                 else
@@ -369,7 +369,7 @@ public class KeypadLogic : MonoBehaviour
                     // If we are to not show any secrect messages
                     if (showStandardMsg)
                     {
-                        PlayCorrectSound(-201);
+                        if (!muteSound) PlayCorrectSound(-201);
 
                         // Otherwise show incorrect to player
                         display.DisplayText("-Err-");
@@ -500,8 +500,8 @@ public class KeypadLogic : MonoBehaviour
             // Reset anything the player has entered
             ResetPlayerSequence();
 
-            // Show Reset
-            CheckCode();
+            // Show Reset, mute sound
+            CheckCode(true);
 
             // If the code sequence is being shown cancel it
             if (myCoroutine != null)

@@ -10,6 +10,8 @@ public class GremlinTaskLogic : MonoBehaviour
     // Constant Values:
     const int maxPossibleDifficultly = 50;
     const int minPossibleDifficultly = 2;
+    readonly string[] squishesArray = { "Squish 1", "Squish 2", "Squish 3", "Squish 4" };
+    readonly string[] oofsArray = { "Oof 1", "Oof 2", "Oof 3", "Oof 4", "Oof 5", "Oof 6", "Oof 7", "Oof 8" };
 
     // Inspector Adjustable Values:
     [Range(minPossibleDifficultly, maxPossibleDifficultly)] public int currentHardestDifficulty;
@@ -83,6 +85,9 @@ public class GremlinTaskLogic : MonoBehaviour
             // Increases the total number of times Gremlin has been hit by one
             numOfHits++;
 
+            // Play sound of a hit
+            PlayRandomSoundCombination();
+
             // If not completed, destroy gremlin
             StartCoroutine(GremlinDeath(templin));
 
@@ -116,7 +121,7 @@ public class GremlinTaskLogic : MonoBehaviour
 
         float elapsed = 0f;
         Color startColor = gremer.GetComponent<Image>().color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        Color endColor = new(startColor.r, startColor.g, startColor.b, 0f);
         yield return new WaitForSeconds(beginFadeTime);
         while (elapsed < deathTime)
         {
@@ -128,6 +133,22 @@ public class GremlinTaskLogic : MonoBehaviour
         gremer.GetComponent<Image>().color = endColor; 
 
         Destroy(gremer);
+    }
+
+    void PlayRandomSoundCombination()
+    {
+        // Get number of sounds available
+        int squishSize = squishesArray.GetLength(0);
+        int oofSize = oofsArray.GetLength(0);
+
+        // Choose a random sound
+        int randSquishIdx = UnityEngine.Random.Range(0, squishSize);
+        int randOofIdx = UnityEngine.Random.Range(0, oofSize);
+
+        // Play each sound, non-priority, using default volume, with random pitch
+        AudioManager.instance.PlaySFX(squishesArray[randSquishIdx], false, null, true);
+        AudioManager.instance.PlaySFX(oofsArray[randOofIdx], false, null, true);
+        AudioManager.instance.PlaySFX("Mallet", false, null, true);
     }
 
     /// <summary>

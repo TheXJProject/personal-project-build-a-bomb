@@ -16,9 +16,11 @@ public class AudioManager : MonoBehaviour
     [Header("---- Audio Clips ----\n")]
     public Sound[] musicSounds;
     public Sound[] sfxSounds;
+    public Sound[] sfxLoopedSounds;
     [Header("---- Audio Sources ----\n")]
     public SoundSource[] musicSourceList;
     public SoundSource[] sfxSourceList;
+    public SoundSource[] sfxLoopingSourceList;
 
     // Runtime Variables:
     public static AudioManager instance;
@@ -210,7 +212,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null, bool randPitch = false)
+    public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
     {
         if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
 
@@ -280,8 +282,13 @@ public class AudioManager : MonoBehaviour
 
                 float tempPitch = sound.pitch;
 
-                // If we want a random pitch
-                if (randPitch)
+                // If we are setting the pitch
+                if (pitchTemp.HasValue)
+                {
+                    tempPitch = pitchTemp.Value;
+                }
+                // Otherwise, if we want a random pitch
+                else if (randPitch)
                 {
                     // Get a random pitch from the range given
                     float minValue = MathF.Min(sound.randomPitchRange.x, sound.randomPitchRange.y);
@@ -311,7 +318,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    
+    public void PlayLoopingSFX(string name, double timeTillPlay, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
+    {
+
+    }
+
+    public void StopLoopingSFX(string name, double timeTillStop)
+    {
+
+    }
+
     public void StopAllSFX()
     {
         if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
@@ -364,14 +380,21 @@ public class AudioManager : MonoBehaviour
     //  Functions for music sources.
     //    - PlayMusic(string name, double timeTillPlay)
     //                                              Plays sound with 'name' on loop
-    //    - StopMusic(string name)                  Stops sound with 'name'
+    //    - StopMusic(string name, double timeTillStop)
+    //                                              Stops sound with 'name'
     //    - StopAllMusic()                          Stops all looping tracks
     //
     //  Functions for SFX sources.
-    //    - PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null)
+    //    - PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
     //                                              Plays sound with 'name' once at 'volumeTemp'
     //                                              (if 'volumeTemp' is null the sound will play
     //                                              at default volume set in inspecter)
+    //    - PlayLoopingSFX(string name, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
+    //                                              Plays sound with 'name' looping at 'volumeTemp'
+    //                                              (if 'volumeTemp' is null the sound will play
+    //                                              at default volume set in inspecter)
+    //    - StoppLoopingSFX(string name, double timeTillStop)
+    //                                              Stops named looping SFX
     //    - StopAllSFX()                            Stops all SFX and clears the names in the SFX sources
     //  Additional Functions.
     //    - WaitForAudioToStop (SoundSource source) Resets the source after the sound has stopped playing

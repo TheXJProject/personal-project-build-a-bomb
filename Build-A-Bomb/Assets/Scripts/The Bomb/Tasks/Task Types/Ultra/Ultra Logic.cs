@@ -20,6 +20,9 @@ public class UltraLogic : MonoBehaviour
     [SerializeField] RectTransform energyLevel;
     [SerializeField] RectTransform energyLevelBack;
 
+    [SerializeField] Sprite lightOff;
+    [SerializeField] Sprite lightOn;
+
     // Runtime Variables:
     int amountOfEnergyNeeded = minPossibleDifficultly;
     int currentEnergy = 0;
@@ -61,15 +64,15 @@ public class UltraLogic : MonoBehaviour
             // Set the colour of the light depending on the current energy
             if (currentEnergy >= amountOfEnergyNeeded)
             {
-                lightColour.color = Color.green;
+                lightColour.sprite = lightOn;
             }
             else if (currentEnergy > 0)
             {
-                lightColour.color = Color.yellow;
+                lightColour.sprite = lightOff;
             }
             else
             {
-                lightColour.color = Color.red;
+                lightColour.sprite = lightOff;
             }
 
             // TODO: The energy level should look animated and cool and electricccyyish if ygm

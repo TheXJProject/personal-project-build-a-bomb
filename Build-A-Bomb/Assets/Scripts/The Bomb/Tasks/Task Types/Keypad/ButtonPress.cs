@@ -55,6 +55,6 @@ public class ButtonPress : MonoBehaviour
         }
 
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.red;
+        gameObject.GetComponent<Image>().color = Color.white;
     }
 }

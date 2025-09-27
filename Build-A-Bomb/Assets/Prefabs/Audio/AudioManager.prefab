@@ -3235,7 +3235,7 @@ MonoBehaviour:
     volume: 0.75
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 0.9, y: 0.92}
+    randomPitchRange: {x: 0.85, y: 0.87}
     clip: {fileID: 8300000, guid: 6841e3bb7392f9a48bb75b4ef945dd8f, type: 3}
     looped: 0
   - name: Finished Bolting

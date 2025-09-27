@@ -58,6 +58,10 @@ public class Bolt : MonoBehaviour
                 complete = true;
                 boltingInProgress = false;
 
+                // Play each sound, non-priority, using default volume, with random pitch
+                AudioManager.instance.PlaySFX("Finished Bolt", true, null, true);
+                AudioManager.instance.PlaySFX("Finished Bolting", false, null, true);
+
                 // TODO: Replace with call for animation!
                 gameObject.GetComponent<Image>().color = Color.green;
 
@@ -67,6 +71,12 @@ public class Bolt : MonoBehaviour
         }
         else
         {
+            if (boltingInProgress && !complete)
+            {
+                // Stopped bolting
+                AudioManager.instance.PlaySFX("Finished Bolting", false, null, true);
+            }
+            
             // If the player lets go of the bolt and it is not complete
             if (!complete)
             {
@@ -90,6 +100,9 @@ public class Bolt : MonoBehaviour
             if (newData.button.Equals(PointerEventData.InputButton.Left))
             {
                 if (Msg) Debug.Log("Bolting in!");
+
+                // Play each sound, non-priority, using default volume, with random pitch
+                AudioManager.instance.PlaySFX("Start Bolting", true, null, true);
 
                 // Start checking that left click is held
                 boltingInProgress = true;

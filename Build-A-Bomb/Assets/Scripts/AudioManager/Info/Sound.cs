@@ -16,4 +16,7 @@ public class Sound
 
     // Initialise In Inspector:
     public AudioClip clip;
+
+    [Header("(SFX Only)\n")]
+    public bool looped = false;
 }

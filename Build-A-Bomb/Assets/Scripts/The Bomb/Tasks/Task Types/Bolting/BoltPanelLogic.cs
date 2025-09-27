@@ -37,6 +37,8 @@ public class BoltPanelLogic : MonoBehaviour
         {
             if (Msg) Debug.Log("Panel being shown.");
 
+            PlaySoundBasedOnSize();
+
             // Set each Gameobject to active
             panel.SetActive(true);
 
@@ -66,6 +68,21 @@ public class BoltPanelLogic : MonoBehaviour
 
             // Each bolt inactive
             bolt.SetActive(false);
+        }
+    }
+
+    void PlaySoundBasedOnSize()
+    {
+        if (!panel.activeSelf)
+        {
+            // Get size of pannel
+            int size = bolts.GetLength(0);
+
+            // Adjust the pitch to be used
+            float pitch = 1.15f - size * 0.04f;
+
+            // Play sound, non-priority, using default volume, with a set pitch
+            AudioManager.instance.PlaySFX("Place Pannel", false, null, false, pitch);
         }
     }
 }

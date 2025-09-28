@@ -152,8 +152,8 @@ MonoBehaviour:
   Msg: 0
   currentHardestDifficulty: 15
   variation1: {fileID: 5985467074216699917, guid: 1c919491bf7a2454eb17a6a4e379155b, type: 3}
-  variation2: {fileID: 5985467074216699917, guid: 7f4f041a8d5ca024ba1d45c4b39e326c, type: 3}
-  variation3: {fileID: 5985467074216699917, guid: d92143e8113512249b1b31978fa12127, type: 3}
+  variation2: {fileID: 5985467074216699917, guid: 793657ad49ba1d7498125336209e010c, type: 3}
+  variation3: {fileID: 5985467074216699917, guid: a4957a47ab2b8fd48a8664354f6d88fa, type: 3}
   statInteract: {fileID: 8087669420947635049}
 --- !u!114 &8087669420947635049 stripped
 MonoBehaviour:

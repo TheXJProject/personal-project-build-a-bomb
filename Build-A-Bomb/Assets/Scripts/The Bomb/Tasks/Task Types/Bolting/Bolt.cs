@@ -9,12 +9,30 @@ public class Bolt : MonoBehaviour
 
     // Inspector Adjustable Values:
     public float boltTime = 1;
+    [SerializeField] GameObject boltVisualOutline;
+    [SerializeField] GameObject boltVisualInnerEdge;
+    [SerializeField] GameObject boltVisualInner;
+    [SerializeField] float boltSpinSpeed;
+    [SerializeField] float boltSpinSpeedVariance;
+    [SerializeField] float finalBoltScale;
+    [SerializeField] float finalBoltInnerScale;
 
+    [SerializeField] Color boltOutCol;
+    [SerializeField] Color boltOutEdgeCol;
+    [SerializeField] Color boltWindingCol;
+    [SerializeField] Color boltWindingEdgeCol;
+    [SerializeField] Color boltInCol;
+    [SerializeField] Color boltInEdgeCol;
+    [SerializeField] float startBoltScale;
+    [SerializeField] float startBoltInnerScale;
+
+    //public flyIn flyInLogic;
     // Runtime Variables:
     [HideInInspector] public bool complete;
     bool boltingInProgress = false;
     float timeElapsed = 0f;
     BoltingLogic mainLogic;
+    float spinSpeedAfterVariance;
 
     private void Awake()
     {
@@ -25,6 +43,7 @@ public class Bolt : MonoBehaviour
         boltingInProgress = false;
         timeElapsed = 0f;
         mainLogic = gameObject.transform.parent.parent.parent.parent.GetComponent<BoltingLogic>();
+        spinSpeedAfterVariance = boltSpinSpeed + Random.Range(-boltSpinSpeedVariance, boltSpinSpeedVariance);
     }
 
     private void OnEnable()
@@ -42,13 +61,20 @@ public class Bolt : MonoBehaviour
         if (Input.GetMouseButton(0) && boltingInProgress && mainLogic.statInteract.isBeingSolvedAndSelected)
         {
             // TODO: Replace with call for animation!
-            gameObject.GetComponent<Image>().color = Color.yellow;
+            boltVisualInnerEdge.GetComponent<Image>().color = boltWindingEdgeCol;
+            boltVisualInner.GetComponent<Image>().color = boltWindingCol;
+            
+            boltVisualOutline.transform.Rotate(Vector3.forward, spinSpeedAfterVariance * Time.deltaTime);
 
             // Wait for set amount of time, checking if the button stays pressed
             if (timeElapsed < boltTime)
             {
                 // Increment the time elapsed and continue
                 timeElapsed += Time.deltaTime;
+                float newBoltScale = (((boltTime - timeElapsed) / boltTime) * (startBoltScale - finalBoltScale)) + finalBoltScale;
+                float newBoltInnerScale = (((boltTime - timeElapsed) / boltTime) * (startBoltInnerScale - finalBoltInnerScale)) + finalBoltInnerScale;
+                boltVisualOutline.transform.localScale = new Vector2(newBoltScale, newBoltScale);
+                boltVisualInnerEdge.transform.localScale = new Vector2(newBoltInnerScale, newBoltInnerScale);
             }
             else
             {
@@ -63,7 +89,10 @@ public class Bolt : MonoBehaviour
                 AudioManager.instance.PlaySFX("Finished Bolting", false, null, true);
 
                 // TODO: Replace with call for animation!
-                gameObject.GetComponent<Image>().color = Color.green;
+                boltVisualInnerEdge.GetComponent<Image>().color = boltInEdgeCol;
+                boltVisualInner.GetComponent<Image>().color = boltInCol;
+                boltVisualOutline.transform.localScale = new Vector2(finalBoltScale, finalBoltScale);
+                boltVisualInnerEdge.transform.localScale = new Vector2(finalBoltInnerScale, finalBoltInnerScale);
 
                 // Call check complete function
                 mainLogic.CheckIfComplete();
@@ -115,6 +144,7 @@ public class Bolt : MonoBehaviour
     /// </summary>
     public void ResetBolt()
     {
+        
         if (Msg) Debug.Log("Bolt Reset.");
         
         // This bolt is reset
@@ -123,6 +153,10 @@ public class Bolt : MonoBehaviour
         timeElapsed = 0;
 
         // TODO: Replace with call for animation!
-        gameObject.GetComponent<Image>().color = Color.red;
+        boltVisualInnerEdge.GetComponent<Image>().color = boltOutEdgeCol;
+        boltVisualInner.GetComponent<Image>().color = boltOutCol;
+        boltVisualInnerEdge.transform.localScale = new Vector2(startBoltInnerScale, startBoltInnerScale);
+        boltVisualOutline.transform.localScale = new Vector2(startBoltScale, startBoltScale);
+        boltVisualOutline.transform.rotation = Quaternion.identity;
     }
 }

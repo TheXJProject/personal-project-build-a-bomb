@@ -65,6 +65,7 @@ public class BoltPanelLogic : MonoBehaviour
         {
             // Reset each bolt
             bolt.GetComponent<Bolt>().ResetBolt();
+            //bolt.GetComponent<Bolt>().flyInLogic.canFlyIn = true;
 
             // Each bolt inactive
             bolt.SetActive(false);

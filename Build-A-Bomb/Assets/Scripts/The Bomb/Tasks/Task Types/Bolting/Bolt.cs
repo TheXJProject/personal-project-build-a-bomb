@@ -85,8 +85,9 @@ public class Bolt : MonoBehaviour
                 boltingInProgress = false;
 
                 // Play each sound, non-priority, using default volume, with random pitch
+                //AudioManager.instance.PlaySFX("Finished Bolt", true, null, true);
                 AudioManager.instance.PlaySFX("Finished Bolt", true, null, true);
-                AudioManager.instance.PlaySFX("Finished Bolting", false, null, true);
+                //AudioManager.instance.PlaySFX("Finished Bolting", false, null, true);
 
                 // TODO: Replace with call for animation!
                 boltVisualInnerEdge.GetComponent<Image>().color = boltInEdgeCol;

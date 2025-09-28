@@ -4012,7 +4012,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c871a4c5f3c15f847a48840a75ca9eaf, type: 3}
     looped: 0
   - name: Hammer
-    volume: 0.8
+    volume: 0.65
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0.98, y: 1.02}
@@ -4026,21 +4026,21 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d1f7eda81588de046a635f4b007405f9, type: 3}
     looped: 0
   - name: Pipe Connect
-    volume: 0.65
+    volume: 0.8
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0.9, y: 1.1}
     clip: {fileID: 8300000, guid: 51aca8422b210fa47a86c87b4f96993c, type: 3}
     looped: 0
   - name: Pipe Disconnect
-    volume: 0.6
+    volume: 0.85
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0.9, y: 1.1}
     clip: {fileID: 8300000, guid: cfc493604e0ab0b47b2166ff763ba91b, type: 3}
     looped: 0
   - name: Dial Turn
-    volume: 0.85
+    volume: 1
     pitch: 0.7
     panning: 0
     randomPitchRange: {x: 1, y: 1}
@@ -4250,7 +4250,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dbee26d06b40c3b4387a34c3c1971b5d, type: 3}
     looped: 0
   - name: Place Pannel
-    volume: 0.8
+    volume: 0.92
     pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
@@ -4260,21 +4260,21 @@ MonoBehaviour:
     volume: 0.75
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 0.97, y: 1}
+    randomPitchRange: {x: 1.15, y: 1.18}
     clip: {fileID: 8300000, guid: 777d14e74aab5b14080a673e2b0bcba2, type: 3}
     looped: 0
   - name: Finished Bolt
     volume: 0.75
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 0.85, y: 0.87}
+    randomPitchRange: {x: 0.97, y: 0.99}
     clip: {fileID: 8300000, guid: 6841e3bb7392f9a48bb75b4ef945dd8f, type: 3}
     looped: 0
   - name: Finished Bolting
     volume: 0.6
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 1.05, y: 1.1}
+    randomPitchRange: {x: 1.05, y: 1.2}
     clip: {fileID: 8300000, guid: 78b246b46fba4e34782ce6027fd2aa09, type: 3}
     looped: 0
   sfxLoopedSounds:

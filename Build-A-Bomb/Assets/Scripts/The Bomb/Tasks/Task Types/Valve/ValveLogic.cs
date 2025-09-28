@@ -31,6 +31,8 @@ public class ValveLogic : MonoBehaviour
     Quaternion startingRotation;
     bool isClockWise = true;
     bool isSetup;
+    float pitchOfSound;
+    bool playingSound = false;
 
     private void Awake()
     {
@@ -56,6 +58,18 @@ public class ValveLogic : MonoBehaviour
     {
         if (statInteract.isBeingSolvedAndSelected)
         {
+            // If we are not playing sound
+            if (!playingSound && isSetup)
+            {
+                // If you can see the valve start playing the background noise
+                AudioManager.instance.PlayLoopingSFX("Valve", AudioSettings.dspTime + 0.1, null, false, pitchOfSound);
+
+                // Set volume to zero to start
+                MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0, 0);
+
+                playingSound = true;
+            }
+
             // If we are holding left click and we can complete the task and we are holding the valve
             if (Input.GetMouseButton(0) && holdingValve)
             {
@@ -75,6 +89,14 @@ public class ValveLogic : MonoBehaviour
         else
         {
             holdingValve = false;
+
+            // If we are playing sound
+            if (playingSound && isSetup)
+            {
+                // If you can't see the the valve, stop the noise
+                AudioManager.instance.StopLoopingSFX("Valve");
+                playingSound = false;
+            }
         }
     }
 
@@ -130,18 +152,25 @@ public class ValveLogic : MonoBehaviour
     float MoveValve(float mouseSpeed)
     {
         float moveAmount;
+        float soundPitch;
 
         // If we are less than 50% complete
         if (((float)valveResistancePassed / (float)valveResistanceTotal) <= (1f / 2f))
         {
             // Valve move amount is set depending on mouse speed
             moveAmount = valveVisualSpeed * (1f / 2f) * mouseSpeed;
+            
+            // Use default pitch at the start
+            soundPitch = 0.33f;
         }
         else
         {
             // Factorially decrease the amount the valve rotates depending on completeness
-            moveAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / (float)valveResistanceTotal)) * mouseSpeed;
-            
+            moveAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * mouseSpeed;
+
+            // Start lowering the pitch
+            soundPitch = 0.33f * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * 2;
+
             // If completeness is over three quaters
             if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (3f / 4f))
             {
@@ -149,17 +178,27 @@ public class ValveLogic : MonoBehaviour
                 if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (98f / 100f))
                 {
                     moveAmount = 0f;
+                    soundPitch = 0;
                 }
                 else
                 {
                     // increase visual resistance
-                    moveAmount *= (1 - (((float)valveResistancePassed / (float)valveResistanceTotal) - 0.75f) * 0.9f);
+                    moveAmount *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
+
+                    // lower the pitch even more
+                    soundPitch *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
                 }
             }
         }
 
         // Apply rotation
         valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1) * 200f * Time.deltaTime);
+
+        // Use move amount to alter sound volume
+        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.PITCH_SHIFT, 0.05f, soundPitch);
+
+        // Volume is based on speed
+        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0.05f, moveAmount);
 
         // Returns back inputted mouse speed
         return mouseSpeed;
@@ -279,6 +318,9 @@ public class ValveLogic : MonoBehaviour
             if (Msg) Debug.Log("Rotate clockwise: " + isClockWise);
 
             // TODO: Start Vibration animation
+
+            // Set pitch of sound depending on difficultly
+            pitchOfSound = 1.25f - 0.5f * ((float)valveResistanceTotal / currentHardestDifficulty);
         }
     }
 

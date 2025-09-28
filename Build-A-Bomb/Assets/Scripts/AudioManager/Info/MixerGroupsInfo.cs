@@ -40,6 +40,7 @@ public class MixerGroupExpoParameters
     public string volume;
     public string lowPassEQ;
     public string highPassEQ;
+    public string pitchShift;
 
     // (EX_PARA SET: Put all Exposed Parameters for a single channel here)
 
@@ -47,6 +48,7 @@ public class MixerGroupExpoParameters
     [HideInInspector] public float startVolume;
     [HideInInspector] public float startLowPassEQ;
     [HideInInspector] public float startHighPassEQ;
+    [HideInInspector] public float startPitchShift;
 
     // (EX_PARA SET: Put all Exposed Parameters for a single channel here)
 }
@@ -55,13 +57,15 @@ public enum EX_PARA
 {
     VOLUME,
     LOW_PASS_EQ,
-    HIGH_PASS
+    HIGH_PASS,
+    PITCH_SHIFT
     // (EX_PARA SET: Put all Exposed Parameters options here)
 }
 
 public enum GROUP_OPTIONS
 {
     SFX_OVERALL,
+    LOOPING_SFX,
     MUSIC_OVERALL,
     MUSIC_COLLECTION
 }
@@ -71,6 +75,7 @@ public class MainGroups
 {
     // Initialise In Inspector:
     public AudioMixerGroup[] sfxOverall;
+    public AudioMixerGroup[] loopingSfx;
     public AudioMixerGroup[] musicOverall;
     public AudioMixerGroup[] musicCollection;
 
@@ -80,6 +85,7 @@ public class MainGroups
         return group switch
         {
             GROUP_OPTIONS.SFX_OVERALL => sfxOverall,
+            GROUP_OPTIONS.LOOPING_SFX => loopingSfx,
             GROUP_OPTIONS.MUSIC_OVERALL => musicOverall,
             GROUP_OPTIONS.MUSIC_COLLECTION => musicCollection,
             _ => throw new System.NotImplementedException(),

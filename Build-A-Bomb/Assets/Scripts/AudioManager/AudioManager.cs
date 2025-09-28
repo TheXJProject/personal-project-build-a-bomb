@@ -89,6 +89,29 @@ public class AudioManager : MonoBehaviour
                 }
             }
 
+            // Set up looping SFX audio sources:
+            // For each music source
+            foreach (SoundSource loopingSFXSource in sfxLoopingSourceList)
+            {
+                // For each music source reset the name and set it to looping as default
+                loopingSFXSource.soundName = SoundSource.defaultName;
+                loopingSFXSource.audioSource.loop = true;
+
+                // For each music 
+                foreach (SoundSource j in sfxLoopingSourceList)
+                {
+                    // Check for duplicates
+                    if (loopingSFXSource == j)
+                    {
+                        continue;
+                    }
+                    else if (loopingSFXSource.audioSource == j.audioSource)
+                    {
+                        if (!removeWarningMsgs) Debug.LogWarning("Error, music source " + loopingSFXSource.audioSource.name + " duplicate found!");
+                    }
+                }
+            }
+
             // Once set up the audio manager we can initialise the mixer
             MixerFXManager.instance.InitialiseMixer();
         }
@@ -318,14 +341,117 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayLoopingSFX(string name, double timeTillPlay, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
+    public void PlayLoopingSFX(string name, double? timeTillPlay = null, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
 
+        // Find the sound passed in from our list of sounds
+        Sound sound = Array.Find(sfxLoopedSounds, x => x.name == name);
+
+        // Find a looping source that's currently free
+        SoundSource source = Array.Find(sfxLoopingSourceList, y => y.soundIsSelected == false);
+
+        // Throw error if we haven't found either the sound or a free music source
+        if (sound == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, music sound " + name + " not found!");
+        }
+        else if (source == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no music source available!");
+        }
+        else if (timeTillPlay < 0.05f && timeTillPlay.HasValue)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
+        }
+        else
+        {
+            float tempPitch = sound.pitch;
+
+            // If we are setting the pitch
+            if (pitchTemp.HasValue)
+            {
+                tempPitch = pitchTemp.Value;
+            }
+            // Otherwise, if we want a random pitch
+            else if (randPitch)
+            {
+                // Get a random pitch from the range given
+                float minValue = MathF.Min(sound.randomPitchRange.x, sound.randomPitchRange.y);
+                float maxValue = MathF.Max(sound.randomPitchRange.x, sound.randomPitchRange.y);
+
+                // Get a random pitch to use
+                tempPitch = UnityEngine.Random.Range(minValue, maxValue);
+            }
+
+            // Transfer volume, pitch, panning and the clip itself to the audio source
+            source.audioSource.volume = volumeTemp ?? sound.volume;
+            source.audioSource.pitch = tempPitch;
+            source.audioSource.panStereo = sound.panning;
+            source.audioSource.clip = sound.clip;
+
+            // The music source is now in use
+            source.soundIsSelected = true;
+            source.soundName = sound.name;
+
+            // If we want to set a time when the sound starts
+            if (timeTillPlay.HasValue)
+            {
+                // Use PlayScheduled to play the track
+                source.audioSource.PlayScheduled(timeTillPlay.Value);
+            }
+            else
+            {
+                // Otherwise, play the track outright
+                source.audioSource.Play();
+            }
+
+            if (Msg) Debug.Log("Music Played: " + source.soundName);
+            if (Msg) Debug.Log("Name Check: " + sound.clip.name);
+            if (Msg) Debug.Log("Source Used: " + source.audioSource.name);
+        }
     }
 
-    public void StopLoopingSFX(string name, double timeTillStop)
+    public void StopLoopingSFX(string name, double? timeTillStop = null)
     {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
 
+        // Find the sound passed in from our list of sounds
+        Sound sound = Array.Find(sfxLoopedSounds, x => x.name == name);
+
+        // Find the looping source that's currently playing that sound
+        SoundSource source = Array.Find(sfxLoopingSourceList, y => y.soundName == name);
+
+        // Throw error if we haven't found either the sound or any source that's playing the sound
+        if (sound == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, music sound " + name + " not found!");
+        }
+        else if (source == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, no music source found playing " + name + "!");
+        }
+        else
+        {
+            // Depending on passed value
+            if (!timeTillStop.HasValue)
+            {
+                // Stop the track straight away
+                source.audioSource.Stop();
+
+                // The source is now not in use
+                source.soundName = SoundSource.defaultName;
+                source.soundIsSelected = false;
+            }
+            else
+            {
+                // Otherwise schedule the stop
+                source.audioSource.SetScheduledEndTime(timeTillStop.Value);
+
+                // Wait until the source has stopped playing before showing the manager it is available
+                StartCoroutine(WaitForAudioToStop(source));
+            }
+        }
     }
 
     public void StopAllSFX()
@@ -348,6 +474,23 @@ public class AudioManager : MonoBehaviour
 
             // The source is now not in use
             source.soundName = SoundSource.defaultName;
+        }
+
+        // For each looping sfx source there is
+        foreach (SoundSource source in sfxLoopingSourceList)
+        {
+            // Check if the source has ever been useds
+            if (source.soundName != SoundSource.defaultName)
+            {
+                playingCheck = false;
+            }
+
+            // Stop the audiosource from playing
+            source.audioSource.Stop();
+
+            // The source is now not in use
+            source.soundName = SoundSource.defaultName;
+            source.soundIsSelected = false;
         }
 
         // Throw error if no source has been used since game load or the last stopSFX() call

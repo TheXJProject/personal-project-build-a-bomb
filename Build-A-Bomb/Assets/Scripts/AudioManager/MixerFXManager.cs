@@ -161,6 +161,7 @@ public class MixerFXManager : MonoBehaviour
                 g.parameters.volume = MixerGroupExpoParameters.errorName;
                 g.parameters.lowPassEQ = MixerGroupExpoParameters.errorName;
                 g.parameters.highPassEQ = MixerGroupExpoParameters.errorName;
+                g.parameters.pitchShift = MixerGroupExpoParameters.errorName;
 
                 // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             }
@@ -215,6 +216,21 @@ public class MixerFXManager : MonoBehaviour
                     g.parameters.highPassEQ = MixerGroupExpoParameters.errorName;
                 }
 
+                // If empty
+                if (g.parameters.pitchShift == "") // ===== PitchShift =====
+                {
+                    // Apply the default name (Some parameters won't be used so we don't throw an error)
+                    g.parameters.pitchShift = MixerGroupExpoParameters.defaultName;
+                }
+                // If we have inputted a name for a potential exposed parameter, check it exists and if it does
+                // Assign the value, it currently has, to our "start" variable
+                else if (!audioMixer.GetFloat(g.parameters.pitchShift, out g.parameters.startPitchShift))
+                {
+                    // If we don't find a match throw error
+                    if (!removeWarningMsgs) Debug.LogWarning("Error, parameter with name, " + ((g.parameters.pitchShift == "") ? "none" : g.parameters.pitchShift) + ", cannot be found in the mixer!");
+                    g.parameters.pitchShift = MixerGroupExpoParameters.errorName;
+                }
+
                 // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
 
                 // Check if audiosources exist in Audio Manager.
@@ -224,9 +240,10 @@ public class MixerFXManager : MonoBehaviour
                     // Find the source in the audio manager, it could be sfx or music
                     SoundSource sourceMusic = Array.Find(AudioManager.instance.musicSourceList, y => y.audioSource == audioSource);
                     SoundSource sourceSFX = Array.Find(AudioManager.instance.sfxSourceList, y => y.audioSource == audioSource);
+                    SoundSource sourceLoopingSFX = Array.Find(AudioManager.instance.sfxLoopingSourceList, y => y.audioSource == audioSource);
 
                     // If both don't exist, throw error
-                    if ((sourceMusic == null) && (sourceSFX == null))
+                    if ((sourceMusic == null) && (sourceSFX == null) && (sourceLoopingSFX == null))
                     {
                         if (!removeWarningMsgs) Debug.LogWarning("Error, audiosource, " + ((audioSource == null) ? "none" : audioSource.name) + ", not found in Audio Manager!");
                     }
@@ -401,6 +418,80 @@ public class MixerFXManager : MonoBehaviour
                 // Store the coroutine
                 activeFades[(groupToUse, param)] = fade;
             }
+        }
+    }
+
+    public void SetLoopingSFXParam(string name, EX_PARA param, float duration, float? value = null)
+    {
+        if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
+
+        float targetValue = 0;
+        string expoParam = "";
+
+        // We want to set a parameter in a looping SFX group that's playing track with "name".
+        // We need to know what parameter, how long it will take, and the value we're setting it to.
+        // First, we find the group and get it's current value for that parameter.
+        // To do that, find the audio source outputting the track
+        SoundSource source = Array.Find(AudioManager.instance.sfxLoopingSourceList, y => y.soundName == name);
+
+        // Error check
+        if (source == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, can't find a source with audio source playing " + name + ".");
+            return;
+        }
+
+        // Then we find which group the source is playing to. We check each element of our array of groups.
+        // In each element, we check our list of audiosources to see if the list contains the source we're looking for.
+        MixerGroupsInfo groupToUse = Array.Find(groupInfo, x => Array.Exists(x.linkedAudioSources.audioSources, z => z == source.audioSource));
+
+        // Error check
+        if (groupToUse == null)
+        {
+            if (!removeWarningMsgs) Debug.LogWarning("Error, can't find an group with audio source playing " + name + ".");
+            return;
+        }
+        // If the paramater is already fading
+        else if (activeFades.TryGetValue((groupToUse, param), out Coroutine exists))
+        {
+            // Error Check
+            if (exists == null)
+            {
+                if (!removeWarningMsgs) Debug.LogWarning("Error, existing coroutine is null!");
+                if (!removeWarningMsgs) Debug.LogWarning("Group " + groupToUse.name);
+            }
+            else
+            {
+                // Stop the coroutine and remove it from active fades
+                StopCoroutine(exists);
+                activeFades.Remove((groupToUse, param));
+            }
+        }
+
+        // From the group to use, and the param type, get the correct exposed parameter and start value (on game loadup)
+        expoParam = GetExposedParams(groupToUse, param).Item1;
+        targetValue = GetExposedParams(groupToUse, param).Item2;
+
+        // Get the current value of the exposed parameter
+        if (!audioMixer.GetFloat(expoParam, out float currentValue))
+        {
+            // Throw error if this fails
+            if (!removeWarningMsgs) Debug.LogWarning("Error, failed to get current value for " + expoParam);
+            return;
+        }
+
+        // Convert and clamp (linear values should be between 0 and 1)
+        currentValue = ConvertType(param, false, currentValue);
+        targetValue = Mathf.Clamp01(value ?? ConvertType(param, false, targetValue));
+
+        // Finally, kick off a coroutine that fades the value
+        Coroutine fade = StartCoroutine(Fader(expoParam, (groupToUse, param), duration, currentValue, targetValue));
+
+        // If the fade exists
+        if (fade != null)
+        {
+            // Store the coroutine
+            activeFades[(groupToUse, param)] = fade;
         }
     }
 
@@ -589,12 +680,10 @@ public class MixerFXManager : MonoBehaviour
         // Attempt to get the exposed parameter and default targetvalue (starting value), determined by the type of parameter
         switch (type)
         {
-            case EX_PARA.VOLUME:
-                return (group.parameters.volume, group.parameters.startVolume);
-            case EX_PARA.LOW_PASS_EQ:
-                return (group.parameters.lowPassEQ, group.parameters.startLowPassEQ);
-            case EX_PARA.HIGH_PASS:
-                return (group.parameters.highPassEQ, group.parameters.startHighPassEQ);
+            case EX_PARA.VOLUME: return (group.parameters.volume, group.parameters.startVolume);
+            case EX_PARA.LOW_PASS_EQ: return (group.parameters.lowPassEQ, group.parameters.startLowPassEQ);
+            case EX_PARA.HIGH_PASS: return (group.parameters.highPassEQ, group.parameters.startHighPassEQ);
+            case EX_PARA.PITCH_SHIFT: return (group.parameters.pitchShift, group.parameters.startPitchShift);
 
             // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             default:
@@ -648,6 +737,21 @@ public class MixerFXManager : MonoBehaviour
                     // Convert the log 10hz to 22000hz scale, to a linear 0-1 scale
                     return Mathf.InverseLerp(Mathf.Log10(10), Mathf.Log10(22000), Mathf.Log10(inputValue));
                 }
+            case EX_PARA.PITCH_SHIFT:
+                // If we want to convert to type
+                if (toType)
+                {
+                    // Convert the linear 0-1 to a range of 0.5 to 2.0
+                    float newValue = Mathf.Lerp(0.5f, 2.0f, inputValue);
+                    return newValue;
+                }
+                // Otherwise, we want to convert from type
+                else
+                {
+                    // Convert the range of 0.5 to 2.0 to a linear 0-1
+                    float newValue = (inputValue - 0.5f) / (1.50f);
+                    return newValue;
+                }
 
             // ===== (EX_PARA SET: Add in extra parameters if added to!) =====
             default:
@@ -686,6 +790,8 @@ public class MixerFXManager : MonoBehaviour
     //                                              will alter the effect for the track that is in use
     //    - SetMusicOverallParam(EX_PARA param, float duration, float? value = null)
     //                                              Same as SetMusic Param but for the music overall
+    //    - SetLoopingSFXParam(string name, EX_PARA param, float duration, float? value = null)
+    //                                              Same as for music but for looping sfx
     //    - SetSfxOverallParam(EX_PARA param, float duration, float? value = null)
     //                                              Same as SetMusic Param but for the sfx overall
     //    - ForceSetParam(GROUP_OPTIONS collection, EX_PARA param, float? value = null)

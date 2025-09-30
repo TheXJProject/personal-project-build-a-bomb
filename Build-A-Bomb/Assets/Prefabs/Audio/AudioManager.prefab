@@ -4292,6 +4292,13 @@ MonoBehaviour:
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: 9348e08ce3f345a45b70bf35ed2ac1f5, type: 3}
     looped: 1
+  - name: Valve Growning
+    volume: 0.5
+    pitch: 1.4
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 5557e0e992052e2419fcafba53585050, type: 3}
+    looped: 1
   musicSourceList:
   - audioSource: {fileID: 4421302134104516341}
     soundName: Empty

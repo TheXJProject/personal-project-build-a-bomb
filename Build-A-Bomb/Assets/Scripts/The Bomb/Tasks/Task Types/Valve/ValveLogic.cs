@@ -63,6 +63,7 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can see the valve start playing the background noise
                 AudioManager.instance.PlayLoopingSFX("Valve", AudioSettings.dspTime + 0.1, null, false, pitchOfSound);
+                AudioManager.instance.PlayLoopingSFX("Valve Growning", AudioSettings.dspTime + 0.1);
 
                 // Set volume to zero to start
                 MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0, 0);
@@ -95,6 +96,8 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can't see the the valve, stop the noise
                 AudioManager.instance.StopLoopingSFX("Valve");
+                AudioManager.instance.StopLoopingSFX("Valve Growning");
+
                 playingSound = false;
             }
         }
@@ -152,7 +155,7 @@ public class ValveLogic : MonoBehaviour
     float MoveValve(float mouseSpeed)
     {
         float moveAmount;
-        float soundPitch;
+        float volumeAdjustment;
 
         // If we are less than 50% complete
         if (((float)valveResistancePassed / (float)valveResistanceTotal) <= (1f / 2f))
@@ -161,7 +164,7 @@ public class ValveLogic : MonoBehaviour
             moveAmount = valveVisualSpeed * (1f / 2f) * mouseSpeed;
             
             // Use default pitch at the start
-            soundPitch = 0.33f;
+            volumeAdjustment = 0.75f;
         }
         else
         {
@@ -169,7 +172,7 @@ public class ValveLogic : MonoBehaviour
             moveAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * mouseSpeed;
 
             // Start lowering the pitch
-            soundPitch = 0.33f * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * 2;
+            volumeAdjustment = 0.33f * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * 2;
 
             // If completeness is over three quaters
             if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (3f / 4f))
@@ -178,7 +181,7 @@ public class ValveLogic : MonoBehaviour
                 if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (98f / 100f))
                 {
                     moveAmount = 0f;
-                    soundPitch = 0;
+                    volumeAdjustment = 0;
                 }
                 else
                 {
@@ -186,7 +189,7 @@ public class ValveLogic : MonoBehaviour
                     moveAmount *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
 
                     // lower the pitch even more
-                    soundPitch *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
+                    volumeAdjustment *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
                 }
             }
         }
@@ -195,10 +198,10 @@ public class ValveLogic : MonoBehaviour
         valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1) * 200f * Time.deltaTime);
 
         // Use move amount to alter sound volume
-        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.PITCH_SHIFT, 0.05f, soundPitch);
+        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.PITCH_SHIFT, 0.1f, 0.33f - valveResistancePassed * 0.075f / valveResistanceTotal);
 
         // Volume is based on speed
-        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0.05f, moveAmount);
+        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0.04f, (volumeAdjustment + 0.25f) * 100f * mouseSpeed);
 
         // Returns back inputted mouse speed
         return mouseSpeed;
@@ -320,7 +323,7 @@ public class ValveLogic : MonoBehaviour
             // TODO: Start Vibration animation
 
             // Set pitch of sound depending on difficultly
-            pitchOfSound = 1.25f - 0.5f * ((float)valveResistanceTotal / currentHardestDifficulty);
+            pitchOfSound = 0.8f - 0.075f * ((float)valveResistanceTotal / currentHardestDifficulty);
         }
     }
 

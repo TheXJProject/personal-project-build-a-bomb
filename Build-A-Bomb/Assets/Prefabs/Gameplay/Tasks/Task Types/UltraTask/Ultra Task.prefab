@@ -254,15 +254,15 @@ RectTransform:
   m_GameObject: {fileID: 589497942990527899}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4509391, y: 0.4509391, z: 0.4509391}
+  m_LocalScale: {x: 0.4509391, y: 0.45093912, z: 0.4509391}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5962825924604718934}
-  m_Father: {fileID: 6494367188802290954}
+  m_Father: {fileID: 422300963642046228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120.151924, y: 5.0000305}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0.000012874603}
   m_SizeDelta: {x: 535.1, y: 359.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2299544451762906077
@@ -481,15 +481,15 @@ RectTransform:
   m_GameObject: {fileID: 1572667507456609919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4509391, y: 0.4509391, z: 0.4509391}
+  m_LocalScale: {x: 0.4509391, y: 0.45093912, z: 0.4509391}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3693154516363492151}
-  m_Father: {fileID: 6494367188802290954}
+  m_Father: {fileID: 422300963642046228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120.165, y: 5.0000305}
+  m_AnchoredPosition: {x: 240.31693, y: 0.000012874603}
   m_SizeDelta: {x: 535.043, y: 359.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7538553088948177549
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.38431373}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -605,6 +605,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1965484549383652157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422300963642046228}
+  m_Layer: 0
+  m_Name: right/leftEnergy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &422300963642046228
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965484549383652157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8150391991435751120}
+  - {fileID: 5447186658894505819}
+  m_Father: {fileID: 6494367188802290954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -120.151924, y: 5.0000305}
+  m_SizeDelta: {x: 241.2975, y: 162.27945}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2021922321442834537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,8 +1403,7 @@ RectTransform:
   - {fileID: 821291307412413048}
   - {fileID: 9181494447105375055}
   - {fileID: 7153570960334908342}
-  - {fileID: 8150391991435751120}
-  - {fileID: 5447186658894505819}
+  - {fileID: 422300963642046228}
   - {fileID: 1842463075167371043}
   m_Father: {fileID: 5996802138246217436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1436,7 +1472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49019608, g: 0.6528761, b: 0.65882355, a: 1}
+  m_Color: {r: 0.49019608, g: 0.52337086, b: 0.65882355, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1465,9 +1501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cdd8b724dcd2246bfb0f8578c141e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minValCol: 125
-  maxValCol: 169
+  minValCol: 220
+  maxValCol: 255
   colourCycleSpeed: 1
+  opacity: 255
 --- !u!1001 &2180294139764633864
 PrefabInstance:
   m_ObjectHideFlags: 0

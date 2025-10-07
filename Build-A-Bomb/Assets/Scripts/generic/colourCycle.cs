@@ -8,6 +8,7 @@ public class colourCycle : MonoBehaviour
     [SerializeField] int minValCol;
     [SerializeField] int maxValCol;
     [SerializeField] float colourCycleSpeed;
+    [SerializeField] int opacity = 255;
 
     int diffValCol;
     int[] rgb = new int[3];
@@ -29,7 +30,7 @@ public class colourCycle : MonoBehaviour
 
     private void Update()
     {
-        spriteToColour.color = new Color(rgb[0] / 255.0f, rgb[1] / 255.0f, rgb[2] / 255.0f);
+        spriteToColour.color = new Color(rgb[0] / 255.0f, rgb[1] / 255.0f, rgb[2] / 255.0f, opacity/255.0f);
 
         alpha += Time.deltaTime * colourCycleSpeed;
         

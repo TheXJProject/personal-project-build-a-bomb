@@ -432,7 +432,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 8810991358146571166}
+  button: {fileID: 8836204137386585330}
   info: {fileID: 7527500007536617351}
+  hoverColor: {r: 0.84313726, g: 0.7019608, b: 0.7019608, a: 1}
 --- !u!114 &1040619830411979658
 MonoBehaviour:
   m_ObjectHideFlags: 0

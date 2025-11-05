@@ -51,11 +51,15 @@ public class GoneWrongController : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskCompleted += CheckTasksGoingWrong;
+        Death.onGameOver += PauseGoingWrong;
+        BombStatus.onBombFinished += PauseGoingWrong;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskCompleted -= CheckTasksGoingWrong;
+        Death.onGameOver -= PauseGoingWrong;
+        BombStatus.onBombFinished -= PauseGoingWrong;
     }
 
 
@@ -82,6 +86,11 @@ public class GoneWrongController : MonoBehaviour
                 currentAmountFailing = initialAmountFailing + (amountFailDiff * curbRes);
             }
         }
+    }
+
+    void PauseGoingWrong()
+    {
+        goingWrong = false;
     }
 
     /// <summary>

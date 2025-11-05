@@ -17,15 +17,23 @@ public class LayerButtonMovement : MonoBehaviour
     [HideInInspector] public float oldYPosition = 0f;
     float newYPosition = 0f;
     float ydifference = 0f;
+    Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<LayerButtonInfo>().animator; 
+    }
 
     private void OnEnable()
     {
         LayerButtonController.onNonInitialLayerButtonSpawned += MoveAddedDistance;
+        Death.onGameOver += LeaveOnDeath;
     }
 
     private void OnDisable()
     {
         LayerButtonController.onNonInitialLayerButtonSpawned -= MoveAddedDistance;
+        Death.onGameOver -= LeaveOnDeath;
     }
 
     private void Update()
@@ -54,7 +62,7 @@ public class LayerButtonMovement : MonoBehaviour
             else
             {
                 waitingTransition = false;
-                GetComponent<LayerButtonInfo>().animator.SetTrigger("enter");
+                animator.SetTrigger("enter");
             }
 
         }
@@ -75,5 +83,11 @@ public class LayerButtonMovement : MonoBehaviour
 
         timeSinceMove = 0;
         doingTransition = true;
+    }
+
+    void LeaveOnDeath()
+    {
+        animator.SetBool("showing", false);
+        animator.SetBool("retreatingOnDeath", true);
     }
 }

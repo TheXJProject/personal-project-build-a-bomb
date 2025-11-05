@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47069e0a6fe5eab40b5290c743febc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignedPlayerControls: 0
 --- !u!114 &596876372908244062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,9 +466,22 @@ MonoBehaviour:
   xRayWorking: {fileID: 2100000, guid: 002341e7f19071240a60d3f9a8cc54f1, type: 2}
   OuterRing: {fileID: 8188909011498783659}
   InnerRing: {fileID: 6031333736186346135}
+  InsideInnerRing: {fileID: 4925040212488786977}
+  symbol: {fileID: 5254208550414633807}
+  centreXRay: {fileID: 7916972633622290264}
+  InsideInnerRingObject: {fileID: 2393926048103977417}
   beingSolvedColour: {r: 1, g: 0.7478442, b: 0.0047169924, a: 1}
   solvedColour: {r: 0, g: 0.8301887, b: 0, a: 1}
   goneWrongColour: {r: 0.8679245, g: 0, b: 0, a: 1}
+  lightsOutColour: {r: 1, g: 1, b: 1, a: 0.5019608}
+  timePureWhite: 0.1
+  timePopping: 0.9
+  endScale: 4
+  finalPingColour: {r: 0, g: 0, b: 0, a: 1}
+  finalInnerPingColour: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+  taskLayer: 0
+  taskNumberInLayer: 0
+  numberTasksInLayer: 0
 --- !u!1 &3965366147947730497
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +530,7 @@ MonoBehaviour:
   task: {fileID: 1071349792034378888}
   isBeingSolvedAndSelected: 0
   isBeingSolved: 0
+  isBeingSelected: 0
 --- !u!1 &7268248864388933404
 GameObject:
   m_ObjectHideFlags: 0

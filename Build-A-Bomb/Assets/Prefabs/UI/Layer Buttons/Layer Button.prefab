@@ -1223,6 +1223,7 @@ MonoBehaviour:
   bigLightGlowColWork: {r: 1, g: 0.91764706, b: 0, a: 1}
   fadeInc: 0.2
   fadeTime: 0.25
+  layerButtonObject: {fileID: 1231543329850547996}
   correspondingLayer: {fileID: 0}
   buttonIsFocused: 0
 --- !u!95 &3616018227507930910

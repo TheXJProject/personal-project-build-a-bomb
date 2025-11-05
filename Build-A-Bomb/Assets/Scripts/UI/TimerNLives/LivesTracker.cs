@@ -11,10 +11,14 @@ public class LivesTracker : MonoBehaviour
 
     // Initialise In Inspector
     [SerializeField] List<GameObject> lives;
+    [SerializeField] float iFramesLength = 0.03f;
 
     // Runtime variables
     public bool hardMode = false;
+    bool invisible = false;
     int livesLeft;
+    int bulbsNotBlown;
+    Coroutine iFrames;
 
     private void Awake()
     {
@@ -25,22 +29,42 @@ public class LivesTracker : MonoBehaviour
             lives[2].SetActive(false);
         }
         else livesLeft = 3;
+        bulbsNotBlown = livesLeft;
     }
 
     private void OnEnable()
     {
         TaskStatus.onTaskFailed += loseLife;
+        LivesBulbBlown.onBulbBlown += checkFinalBulbBlown;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskFailed -= loseLife;
+        LivesBulbBlown.onBulbBlown -= checkFinalBulbBlown;
     }
 
     public void loseLife(GameObject triggerTask)
     {
         if (livesLeft == 0) return;
-        lives[--livesLeft].GetComponent<Animator>().SetBool("blown", true);
+        if (!invisible) 
+        { 
+            lives[--livesLeft].GetComponent<Animator>().SetBool("blown", true); 
+            if (iFrames != null) StopCoroutine(iFrames);
+            iFrames = StartCoroutine(BeginIFrames());
+        }
+    }
+
+    IEnumerator BeginIFrames()
+    {
+        invisible = true;
+        yield return new WaitForSeconds(iFramesLength);
+        invisible = false;
+    }
+
+    void checkFinalBulbBlown()
+    {
+        if ((--bulbsNotBlown) != 0) return;
         if (livesLeft == 0)
         {
             onNoLives?.Invoke();

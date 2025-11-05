@@ -20,6 +20,7 @@ public class BombCameraLogic : MonoBehaviour
     float layerSizeIncrease;
     float layerSizeAcceleration;
     int totalNumOfLayers;
+    bool cannotChangeLayer = false;
 
     private void Awake()
     {
@@ -52,6 +53,8 @@ public class BombCameraLogic : MonoBehaviour
         BombStatus.onLayerCreated += ChangeFocusedLayer;
         BombStatus.onEachGoingWrongTasksSolved += ChangeFocusedLayer;
         LayerButtonPress.onLayerButtonPressed += ChangeFocusedLayer;
+        Death.onGameOver += ReturnToTopOnGameEnd;
+        BombStatus.onBombFinished += ReturnToTopOnGameEnd;
     }
 
     private void OnDisable()
@@ -59,6 +62,8 @@ public class BombCameraLogic : MonoBehaviour
         BombStatus.onLayerCreated -= ChangeFocusedLayer;
         BombStatus.onEachGoingWrongTasksSolved -= ChangeFocusedLayer;
         LayerButtonPress.onLayerButtonPressed -= ChangeFocusedLayer;
+        Death.onGameOver -= ReturnToTopOnGameEnd;
+        BombStatus.onBombFinished -= ReturnToTopOnGameEnd;
     }
 
     /// <summary>
@@ -66,8 +71,18 @@ public class BombCameraLogic : MonoBehaviour
     /// </summary>
     void ChangeFocusedLayer(GameObject triggerLayer)
     {
+        if (cannotChangeLayer) return;
         int layerToFocus = triggerLayer.GetComponent<LayerStatus>().layer;
         currentLayer = layerToFocus;
         cameraControl.NewCameraSize(cameraSizes[layerToFocus], layerToFocus);
     }
+
+    void ReturnToTopOnGameEnd()
+    {
+        cannotChangeLayer = true;
+        int layerToFocus = GameManager.instance.currentLayer;
+        currentLayer = layerToFocus;
+        cameraControl.NewCameraSize(cameraSizes[layerToFocus], layerToFocus);
+    }
+
 }

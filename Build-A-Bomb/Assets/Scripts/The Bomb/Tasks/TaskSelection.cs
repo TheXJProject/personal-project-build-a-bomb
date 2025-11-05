@@ -11,6 +11,7 @@ public class TaskSelection : MonoBehaviour
 
     // Runtime Variables
     [HideInInspector] public bool assignedPlayerControls = false;
+    bool gameStillGoing = true;
 
     private void Awake()
     {
@@ -20,17 +21,21 @@ public class TaskSelection : MonoBehaviour
     {
         LayerButtonPress.onLayerButtonPressed += PressLayerButtonDeselect;
         PlayerKeyInput.instance.playerControls.Mouse.RightClick.performed += RightClickDeselect;
+        Death.onGameOver += DeselectAndGameStopped;
+        BombStatus.onBombFinished += DeselectAndGameStopped;
     }
     private void OnDisable()
     {
         LayerButtonPress.onLayerButtonPressed -= PressLayerButtonDeselect;
         PlayerKeyInput.instance.playerControls.Mouse.RightClick.performed -= RightClickDeselect;
+        Death.onGameOver -= DeselectAndGameStopped;
+        BombStatus.onBombFinished -= DeselectAndGameStopped;
     }
 
     private void OnMouseDown()
     {
         // Selects a task when it is clicked
-        if (task.isOnCurrentLayer)
+        if (task.isOnCurrentLayer && gameStillGoing)
         {
             task.TaskSelected();
         }
@@ -50,5 +55,11 @@ public class TaskSelection : MonoBehaviour
     private void PressLayerButtonDeselect(GameObject triggerLayer)
     {
         task.TaskDeselected();
+    }
+
+    void DeselectAndGameStopped()
+    {
+        task.TaskDeselected();
+        gameStillGoing = false;
     }
 }

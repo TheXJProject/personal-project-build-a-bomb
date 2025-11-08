@@ -52,6 +52,8 @@ public class LayerButtonAppearance : MonoBehaviour
     [SerializeField] float fadeInc = 0.01f;
     [SerializeField] float fadeTime = 0.3f;
 
+    [SerializeField] GameObject layerButtonObject;
+
     // Current information
     public GameObject correspondingLayer;
     public bool buttonIsFocused = false;
@@ -82,6 +84,10 @@ public class LayerButtonAppearance : MonoBehaviour
         TaskStatus.onTaskBegan -= DetermineCorrectColour;
     }
 
+    public void DisableSelf()
+    {
+        layerButtonObject.SetActive(false);
+    }
     public void DetermineCorrectColour(GameObject trigger)
     {
         // If the same task triggers the function as the last one that was selected

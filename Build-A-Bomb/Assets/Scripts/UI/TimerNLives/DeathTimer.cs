@@ -42,12 +42,16 @@ public class DeathTimer : MonoBehaviour
     {
         BombStatus.onLayerCreated += BeginTimer;
         BombStatus.onGoingWrongCheck += DetermineTimerAggression;
+        Death.onGameOver += PauseTimer;
+        BombStatus.onBombFinished += PauseTimer;
     }
 
     private void OnDisable()
     {
         BombStatus.onLayerCreated -= BeginTimer;
         BombStatus.onGoingWrongCheck -= DetermineTimerAggression;
+        Death.onGameOver -= PauseTimer;
+        BombStatus.onBombFinished -= PauseTimer;
     }
 
     private void Update()
@@ -102,6 +106,11 @@ public class DeathTimer : MonoBehaviour
     {
         timerRunning = true;
         BombStatus.onLayerCreated -= BeginTimer;
+    }
+
+    void PauseTimer ()
+    {
+        timerRunning = false;
     }
 
     void DetermineTimerAggression(bool tasksGoingWrongNotBeingSolved)

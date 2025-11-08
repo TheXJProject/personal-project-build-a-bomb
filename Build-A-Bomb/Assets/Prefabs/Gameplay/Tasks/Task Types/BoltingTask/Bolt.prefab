@@ -231,7 +231,7 @@ MonoBehaviour:
   boltVisualOutline: {fileID: 8516044496664724351}
   boltVisualInnerEdge: {fileID: 2280754503827038462}
   boltVisualInner: {fileID: 8873801838940486630}
-  boltSpinSpeed: 1600
+  boltSpinSpeed: 750
   boltSpinSpeedVariance: 150
   finalBoltScale: 0.87
   finalBoltInnerScale: 1.15

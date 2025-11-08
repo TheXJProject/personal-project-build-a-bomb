@@ -34,6 +34,8 @@ public class KeyDisplayVisuals : MonoBehaviour
         TaskStatus.onTaskCompleted += DetermineOnSuccess;
         PlayerKeyInput.onKeyPressed += DetermineOnPress;
         PlayerKeyInput.onKeyReleased += DetermineOnRelease;
+        Death.onGameOver += DetermineOnGameFinished;
+        BombStatus.onBombFinished += DetermineOnGameFinished;
     }
 
     private void OnDisable()
@@ -44,6 +46,8 @@ public class KeyDisplayVisuals : MonoBehaviour
         TaskStatus.onTaskCompleted -= DetermineOnSuccess;
         PlayerKeyInput.onKeyPressed -= DetermineOnPress;
         PlayerKeyInput.onKeyReleased -= DetermineOnRelease;
+        Death.onGameOver -= DetermineOnGameFinished;
+        BombStatus.onBombFinished -= DetermineOnGameFinished;
     }
 
     public void AssignTaskLetter(GameObject task, int whichKey)
@@ -94,6 +98,11 @@ public class KeyDisplayVisuals : MonoBehaviour
         {
             if (isSelected) textBack.color = originalCol;
         }
+    }
+    public void DetermineOnGameFinished()
+    {
+        textBack.color = originalCol;
+        animator.SetTrigger("closing");
     }
 
     void UnselectDisplay()

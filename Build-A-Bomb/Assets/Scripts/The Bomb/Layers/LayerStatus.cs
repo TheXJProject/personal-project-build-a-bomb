@@ -38,6 +38,7 @@ public class LayerStatus : MonoBehaviour
     public List<int> taskTypesSpawned;
     System.Random rnd = new System.Random();
     public int infiniteLoopPrevention = 100;
+    int taskNumberInLayer = 0;
 
     private void OnEnable()
     {
@@ -61,6 +62,20 @@ public class LayerStatus : MonoBehaviour
         BombStatus.onLayerCreated -= SetCurrentLayer;
         BombStatus.onEachGoingWrongTasksSolved -= SetCurrentLayer;
         LayerButtonPress.onLayerButtonPressed -= SetCurrentLayer;
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && CheatLogic.cheatTool.GetCanCheatLayers())
+        {
+            foreach (GameObject task in tasks)
+            {
+                TaskStatus taskStatus = task.GetComponent<TaskStatus>();
+                taskStatus.TaskCompleted();
+                taskStatus.TaskDeselected();
+            }
+        }
     }
 
     /// <summary>
@@ -103,15 +118,21 @@ public class LayerStatus : MonoBehaviour
 
         // Instantiates a new task
         GameObject task = Instantiate(typeOfTasks[i], spawnPos, Quaternion.identity, transform);
+        TaskStatus taskStatus = task.GetComponent<TaskStatus>();
+        TaskVisuals taskVisual = task.GetComponent<TaskVisuals>();
 
         // Sets the percentage difficulty to a random value between the min and max percentage difficulty for that task type on this layer
-        task.GetComponent<TaskStatus>().difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i] + 1)) / 100f;
+        taskStatus.difficulty = (float)(rnd.Next(taskMinDifficulty[i], taskMaxDifficulty[i] + 1)) / 100f;
 
         // Sets the task's assigned layer number
-        task.GetComponent<TaskStatus>().taskLayer = layer;
+        taskStatus.taskLayer = layer;
+        taskVisual.taskLayer = layer; // Also for visuals, because i'm using it for determining the lights out timings for the death animation
+        taskVisual.taskNumberInLayer = taskNumberInLayer++;         // ^^^^
+        taskVisual.numberTasksInLayer = numberOfTasksThisLayer;   // ^^^^
 
         // Tasks only spawn when the player advances to next level, so they spawn in on the current layer
-        task.GetComponent<TaskStatus>().isOnCurrentLayer = true;
+        taskStatus.isOnCurrentLayer = true;
+
 
         // Set the tasks size assigned 
         task.transform.localScale = new Vector2(taskSize, taskSize);
@@ -174,6 +195,7 @@ public class LayerStatus : MonoBehaviour
         if (layer == spawningLayer)
         {
             numberOfTasksThisLayer = rnd.Next(minNoOfTasksSpawned, maxNoOfTasksSpawned + 1);
+            taskNumberInLayer = 0;
             for (int i = 0; i < numberOfTasksThisLayer; i++)
             {
                 SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));

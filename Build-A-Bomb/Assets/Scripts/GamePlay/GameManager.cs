@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public bool hardMode;
     public FrameRateSetting TargetFrameRate;
     public float timeRemainingAfterWin;
+    public int currentLayer = 0;
 
     private void Start()
     {
@@ -30,17 +31,11 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BombStatus.onBombFinished += WinGame;
-        DeathTimer.onTimerZero += LoseGame;
-        LivesTracker.onNoLives += LoseGame;
         BombStatus.onLayerCreated += determineGameStarted;
     }
 
     private void OnDisable()
     {
-        BombStatus.onBombFinished -= WinGame;
-        DeathTimer.onTimerZero -= LoseGame;
-        LivesTracker.onNoLives -= LoseGame;
         BombStatus.onLayerCreated -= determineGameStarted;
     }
 
@@ -83,7 +78,7 @@ public class GameManager : MonoBehaviour
         // If we are cheating, we can't lose
         if (!CheatLogic.cheatTool.GetCanCheatLayers())
         {
-            SceneManager.LoadScene("LoseScene");
+            SceneManager.LoadScene("GameplayScene");
         }
     }
 

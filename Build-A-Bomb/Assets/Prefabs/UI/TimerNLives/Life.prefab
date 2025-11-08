@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 71578143955659453}
   - component: {fileID: 1952324475745659449}
   - component: {fileID: 2508668521302424135}
+  - component: {fileID: 6451838703823206850}
   m_Layer: 0
   m_Name: Life
   m_TagString: Untagged
@@ -97,3 +98,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6451838703823206850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648619253034906528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9da0b995369ae40afc4c542bd67806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

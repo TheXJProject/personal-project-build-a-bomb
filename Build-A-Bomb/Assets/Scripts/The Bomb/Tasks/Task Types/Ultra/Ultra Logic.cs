@@ -17,11 +17,24 @@ public class UltraLogic : MonoBehaviour
     // Initialise In Inspector:
     [SerializeField] TaskInteractStatus statInteract;
     [SerializeField] Image lightColour;
-    [SerializeField] RectTransform energyLevel;
+
+    [SerializeField] RectTransform energyLevelLeft;
+    [SerializeField] RectTransform energyLevelOutlineLeft;
+    [SerializeField] RectTransform energyLevelRight;
+    [SerializeField] RectTransform energyLevelOutlineRight;
+
+    [SerializeField] RectTransform energyLevelBehindLeft;
+    [SerializeField] RectTransform energyLevelBehindRight;
+
+    [SerializeField] float energyOutlineWidth;
+
     [SerializeField] RectTransform energyLevelBack;
 
     [SerializeField] Sprite lightOff;
     [SerializeField] Sprite lightOn;
+
+    [SerializeField] Image energyGlow;
+    [SerializeField] Image buttonGlow;
 
     // Runtime Variables:
     int amountOfEnergyNeeded = minPossibleDifficultly;
@@ -144,7 +157,27 @@ public class UltraLogic : MonoBehaviour
 
         // Update width
         //energyLevel.sizeDelta = new Vector2(newWidth, energyLevel.sizeDelta.y);
-        energyLevel.GetComponent<Image>().fillAmount = newWidth / energyMaxWidth;
+        float energyFillAmount = (newWidth / energyMaxWidth);
+
+        float adjustedFillAmount = (energyFillAmount * energyFillAmount * energyFillAmount * energyFillAmount);
+
+        Color glowCol = energyGlow.color;
+        glowCol.a = adjustedFillAmount;
+        energyGlow.color = glowCol;
+
+        glowCol = buttonGlow.color;
+        glowCol.a = adjustedFillAmount;
+        buttonGlow.color = glowCol;
+
+        energyLevelLeft.GetComponent<Image>().fillAmount = energyFillAmount;
+        energyLevelOutlineLeft.GetComponent<Image>().fillAmount = energyFillAmount;
+        energyLevelRight.GetComponent<Image>().fillAmount = energyFillAmount;
+        energyLevelOutlineRight.GetComponent<Image>().fillAmount = energyFillAmount;
+
+        float energyExtraWidth = ((energyFillAmount < 0.999) && (energyFillAmount > 0.001)) ? energyOutlineWidth : 0.0f; 
+
+        energyLevelBehindLeft.GetComponent<Image>().fillAmount = energyFillAmount + energyExtraWidth;
+        energyLevelBehindRight.GetComponent<Image>().fillAmount = energyFillAmount + energyExtraWidth;
 
         // Set X position based on the new width
         //energyLevel.localPosition = new Vector3(-(energyMaxWidth - newWidth) / 2f, energyLevel.localPosition.y, energyLevel.localPosition.z);
@@ -215,7 +248,7 @@ public class UltraLogic : MonoBehaviour
             currentEnergy = 0;
 
             // Set to inactive
-            lightColour.color = Color.red;
+            lightColour.sprite = lightOff;
 
             SetEnergyVisual();
 

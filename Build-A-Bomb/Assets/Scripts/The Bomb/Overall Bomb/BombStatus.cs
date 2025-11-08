@@ -45,8 +45,6 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong += AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed += AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan += AttemptSignalGoingWrongState;
-
-        SpawnCoreLayer();
     }
 
     private void OnDisable()
@@ -56,6 +54,11 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan -= AttemptSignalGoingWrongState;
+    }
+
+    private void Start()
+    {
+        SpawnCoreLayer(); // On start so that the gamemanager has been made in awake
     }
 
     /// <summary>
@@ -82,6 +85,9 @@ public class BombStatus : MonoBehaviour
         // Update variables
         currentLayer = 0;
         layersSpawned++;
+
+        // Let the gamemanager know
+        GameManager.instance.currentLayer = currentLayer;
 
         // Signal a layer has been created and its settings set
         onLayerCreated?.Invoke(coreLayer);
@@ -135,6 +141,9 @@ public class BombStatus : MonoBehaviour
         currentLayer = layersSpawned;
         sortingLayerDecrease++;
         layersSpawned++;
+
+        // Let the gamemanager know
+        GameManager.instance.currentLayer = currentLayer;
 
         // Signal a layer has been created and its settings set
         onLayerCreated?.Invoke(nextLayer);

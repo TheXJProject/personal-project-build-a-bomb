@@ -432,7 +432,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 8810991358146571166}
+  button: {fileID: 8836204137386585330}
   info: {fileID: 7527500007536617351}
+  hoverColor: {r: 0.84313726, g: 0.7019608, b: 0.7019608, a: 1}
 --- !u!114 &1040619830411979658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,6 +1223,7 @@ MonoBehaviour:
   bigLightGlowColWork: {r: 1, g: 0.91764706, b: 0, a: 1}
   fadeInc: 0.2
   fadeTime: 0.25
+  layerButtonObject: {fileID: 1231543329850547996}
   correspondingLayer: {fileID: 0}
   buttonIsFocused: 0
 --- !u!95 &3616018227507930910

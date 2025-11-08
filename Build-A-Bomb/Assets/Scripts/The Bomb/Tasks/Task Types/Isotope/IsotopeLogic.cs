@@ -30,6 +30,7 @@ public class IsotopeLogic : MonoBehaviour
     bool reactorState = false;
     float removedTime = 0;
     bool isSetup;
+    bool playingSound = false;
 
     private void Awake()
     {
@@ -53,6 +54,32 @@ public class IsotopeLogic : MonoBehaviour
 
     private void Update()
     {
+        if (statInteract.isBeingSelected && isSetup)
+        {
+            // If we are not playing sound
+            if (!playingSound)
+            {
+                // If you can see the task, start playing the background noise
+                AudioManager.instance.PlayLoopingSFX("Ultra", AudioSettings.dspTime + 0.1);
+
+                MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME, 0);
+                MixerFXManager.instance.SetLoopingSFXParam("Ultra", EX_PARA.VOLUME, 4f);
+
+                playingSound = true;
+            }
+        }
+        else
+        {
+            // If we are playing sound
+            if (playingSound)
+            {
+                // If you can't see the the task, stop the noise
+                AudioManager.instance.StopLoopingSFX("Ultra");
+                MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME);
+                playingSound = false;
+            }
+        }
+
         // If we can complete the task set its completion level
         if (statInteract.isBeingSolvedAndSelected)
         {

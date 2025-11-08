@@ -33,6 +33,7 @@ public class ValveLogic : MonoBehaviour
     bool isSetup;
     float pitchOfSound;
     bool playingSound = false;
+    bool playingSound2 = false;
 
     private void Awake()
     {
@@ -56,6 +57,29 @@ public class ValveLogic : MonoBehaviour
 
     private void Update()
     {
+        if (statInteract.isBeingSelected && isSetup)
+        {
+            // If we are not playing sound
+            if (!playingSound2)
+            {
+                // If you can see the valve start playing the background noise
+                AudioManager.instance.PlayLoopingSFX("Valve Growning", AudioSettings.dspTime + 0.1);
+
+                playingSound2 = true;
+            }
+        }
+        else
+        {
+            // If we are playing sound
+            if (playingSound2)
+            {
+                // If you can't see the the valve, stop the noise
+                AudioManager.instance.StopLoopingSFX("Valve Growning");
+
+                playingSound2 = false;
+            }
+        }
+
         if (statInteract.isBeingSolvedAndSelected)
         {
             // If we are not playing sound
@@ -63,7 +87,6 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can see the valve start playing the background noise
                 AudioManager.instance.PlayLoopingSFX("Valve", AudioSettings.dspTime + 0.1, null, false, pitchOfSound);
-                AudioManager.instance.PlayLoopingSFX("Valve Growning", AudioSettings.dspTime + 0.1);
 
                 // Set volume to zero to start
                 MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0, 0);
@@ -96,7 +119,6 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can't see the the valve, stop the noise
                 AudioManager.instance.StopLoopingSFX("Valve");
-                AudioManager.instance.StopLoopingSFX("Valve Growning");
 
                 playingSound = false;
             }

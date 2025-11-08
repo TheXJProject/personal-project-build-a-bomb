@@ -41,6 +41,9 @@ public class ButtonPress : MonoBehaviour
 
         float timeElapsed = 0f;
 
+        // Play a Button On sound
+        AudioManager.instance.PlaySFX("Button On");
+
         // Wait for set amount of time
         while (timeElapsed < time)
         {
@@ -56,5 +59,8 @@ public class ButtonPress : MonoBehaviour
 
         // TODO: Replace with call for animation!
         gameObject.GetComponent<Image>().color = Color.white;
+
+        // Play a Button Off sound
+        AudioManager.instance.PlaySFX("Button Off");
     }
 }

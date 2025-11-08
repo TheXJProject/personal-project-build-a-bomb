@@ -28,6 +28,7 @@ public class UltraLogic : MonoBehaviour
     int currentEnergy = 0;
     float widthPerEnergy;
     float energyMaxWidth;
+    bool playingSound = false;
 
     bool isSetup;
 
@@ -51,11 +52,38 @@ public class UltraLogic : MonoBehaviour
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        if (statInteract.isBeingSelected && isSetup)
+        {
+            // If we are not playing sound
+            if (!playingSound)
+            {
+                // If you can see the task, start playing the background noise
+                AudioManager.instance.PlayLoopingSFX("Ultra", AudioSettings.dspTime + 0.1);
+                
+                MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME, 0);
+                MixerFXManager.instance.SetLoopingSFXParam("Ultra", EX_PARA.VOLUME, 4f);
+
+                playingSound = true;
+            }
+        }
+        else
+        {
+            // If we are playing sound
+            if (playingSound)
+            {
+                // If you can't see the the task, stop the noise
+                AudioManager.instance.StopLoopingSFX("Ultra");
+                MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME);
+                playingSound = false;
+            }
+        }
+
         // Checks if the task can be solved
         if (statInteract.isBeingSolvedAndSelected)
         {
+
             // Set energy level
             currentEnergy = CheckActiveTasks();
 

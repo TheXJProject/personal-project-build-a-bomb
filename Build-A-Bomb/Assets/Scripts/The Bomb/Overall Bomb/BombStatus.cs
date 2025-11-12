@@ -201,7 +201,7 @@ public class BombStatus : MonoBehaviour
             // If the layer that was just completed by the player was the final layer, signal the bomb is finished
             if (currentLayer == finalLayer)
             {
-                int timeLeft = ((timer.minutesLeft) * 60) + (int)(timer.secondsLeft);
+                float timeLeft = ((timer.minutesLeft) * 60f) + (timer.secondsLeft);
                 if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
                 onBombFinished?.Invoke();
             }

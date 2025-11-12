@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e1681dd0f8c0934c969c69b17021b90
+guid: 4f0d17d5cb9562745bb47b6caee09f6e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -118,14 +118,14 @@ TextureImporter:
         width: 1154
         height: 587
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8165168fff6610d45bd7fc1e03649869
-      internalID: 1277888870
+      spriteID: b7c07cabaafbf23409e59c0f6c398ee8
+      internalID: -161973
       vertices: []
       indices: 
       edges: []
@@ -139,14 +139,14 @@ TextureImporter:
         width: 1154
         height: 587
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2ee06f5163f6b44a8fb6cde097eabc0
-      internalID: 165037148
+      spriteID: 0c0657fb23daf0f408c30ae5a297747e
+      internalID: 1885093224
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WinningBigMonMONEY_0: 1277888870
-      WinningBigMonMONEY_1: 165037148
+      WinningBigMonMONEY_0: -161973
+      WinningBigMonMONEY_1: 1885093224
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

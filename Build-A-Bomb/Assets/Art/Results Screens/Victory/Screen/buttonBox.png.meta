@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e1681dd0f8c0934c969c69b17021b90
+guid: 7aec9736ba661084895e973199b8e0cc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,43 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WinningBigMonMONEY_0
+      name: buttonBox_0
       rect:
         serializedVersion: 2
-        x: 1622
-        y: 1773
-        width: 1154
-        height: 587
+        x: 648
+        y: 730
+        width: 584
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8165168fff6610d45bd7fc1e03649869
-      internalID: 1277888870
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WinningBigMonMONEY_1
-      rect:
-        serializedVersion: 2
-        x: 3547
-        y: 1773
-        width: 1154
-        height: 587
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2ee06f5163f6b44a8fb6cde097eabc0
-      internalID: 165037148
+      spriteID: fc2f05c8f111fc340b16bd372ff6ee9a
+      internalID: 963849950
       vertices: []
       indices: 
       edges: []
@@ -162,8 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WinningBigMonMONEY_0: 1277888870
-      WinningBigMonMONEY_1: 165037148
+      buttonBox_0: 963849950
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

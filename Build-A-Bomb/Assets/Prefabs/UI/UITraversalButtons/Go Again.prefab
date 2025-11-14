@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 5422365137437614268}
   - component: {fileID: 8768485400909398453}
   - component: {fileID: 616447176608183645}
+  - component: {fileID: 1032253590210883420}
   - component: {fileID: 7959246738364527151}
   - component: {fileID: 8662445257463113037}
   - component: {fileID: 8064269267526362513}
@@ -234,9 +235,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2322389702962153125, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
-          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-          m_MethodName: PlayNormalMode
+        - m_Target: {fileID: 1032253590210883420}
+          m_TargetAssemblyTypeName: GameManagerInstanceOptions, Assembly-CSharp
+          m_MethodName: StartNormalMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -290,6 +291,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1032253590210883420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208100361693975434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1933ce8d1ffd148b64bb2670c5f885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7959246738364527151
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,10 @@ public class GameManager : MonoBehaviour
 
     // Events
     public static event Action onGameBegan;
+    public static event Action onLevelFinshedLoading;
+
+    [SerializeField] Animator sceneTransitions;
+    [SerializeField] float animationTime;
 
     // Runtime Variables:
     public static GameManager instance;
@@ -20,6 +25,7 @@ public class GameManager : MonoBehaviour
     public FrameRateSetting TargetFrameRate;
     public float timeRemainingAfterWin;
     public int currentLayer = 0;
+    bool midSceneTransition = false;
 
     private void Start()
     {
@@ -63,14 +69,14 @@ public class GameManager : MonoBehaviour
     {
         // TODO: apply transistion effects
         hardMode = false;
-        SceneManager.LoadScene("GameplayScene");
+        LoadSceneWithAnim("GameplayScene");
     }
 
     public void PlayHardMode()
     {
         // TODO: apply transistion effects
         hardMode = true;
-        SceneManager.LoadScene("GameplayScene");
+        LoadSceneWithAnim("GameplayScene");
     }
 
     void LoseGame()
@@ -78,18 +84,40 @@ public class GameManager : MonoBehaviour
         // If we are cheating, we can't lose
         if (!CheatLogic.cheatTool.GetCanCheatLayers())
         {
-            SceneManager.LoadScene("GameplayScene");
+            LoadSceneWithAnim("GameplayScene");
         }
     }
 
     void WinGame()
     {
-        SceneManager.LoadScene("WinScene");
+        LoadSceneWithAnim("WinScene");
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        LoadSceneWithAnim("Main Menu");
+    }
+
+    void LoadSceneWithAnim(String sceneName)
+    {
+        if (midSceneTransition) return;
+        midSceneTransition = true;
+        StartCoroutine(WaitForTransition(sceneName));
+    }
+
+    IEnumerator WaitForTransition(String sceneName)
+    {
+        sceneTransitions.SetTrigger("leaveScene");
+        yield return new WaitForSeconds(animationTime);
+
+        SceneManager.LoadScene(sceneName);
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone) yield return null;
+
+        sceneTransitions.SetTrigger("enterScene");
+        yield return new WaitForSeconds(animationTime);
+        midSceneTransition = false;
+        onLevelFinshedLoading?.Invoke();
     }
 
     void determineGameStarted(GameObject triggerLayer)

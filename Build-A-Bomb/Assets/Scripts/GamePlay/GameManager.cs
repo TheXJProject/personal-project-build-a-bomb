@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float animationTime;
 
     // Runtime Variables:
+    [HideInInspector] public bool waitForAnimation = false;
     public static GameManager instance;
     public bool hardMode;
     public FrameRateSetting TargetFrameRate;
@@ -97,25 +98,31 @@ public class GameManager : MonoBehaviour
     {
         LoadSceneWithAnim("Main Menu");
     }
+    public void MainMenuFromOpening()
+    {
+        LoadSceneWithAnim("Main Menu", true);
+    }
 
-    void LoadSceneWithAnim(String sceneName)
+    void LoadSceneWithAnim(String sceneName, bool leaveSceneAlternate = false)
     {
         if (midSceneTransition) return;
         midSceneTransition = true;
-        StartCoroutine(WaitForTransition(sceneName));
+        StartCoroutine(WaitForTransition(sceneName, leaveSceneAlternate));
     }
 
-    IEnumerator WaitForTransition(String sceneName)
+    IEnumerator WaitForTransition(String sceneName, bool leaveSceneAlternate = false)
     {
-        sceneTransitions.SetTrigger("leaveScene");
-        yield return new WaitForSeconds(animationTime);
+        waitForAnimation = true;
+        if (leaveSceneAlternate) sceneTransitions.SetTrigger("leaveSceneHole");
+        else sceneTransitions.SetTrigger("leaveScene");
+        while (waitForAnimation) yield return null;
 
         SceneManager.LoadScene(sceneName);
         AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone) yield return null;
 
         sceneTransitions.SetTrigger("enterScene");
-        yield return new WaitForSeconds(animationTime);
+        while (waitForAnimation) yield return null;
         midSceneTransition = false;
         onLevelFinshedLoading?.Invoke();
     }

@@ -65,7 +65,7 @@ public class OpeningController : MonoBehaviour
         //Main menu if reached the last slide
         if (curSlide >= slides.Count - 1) 
         {
-            GameManager.instance.MainMenu();
+            GameManager.instance.MainMenuFromOpening();
             return;
         }
 

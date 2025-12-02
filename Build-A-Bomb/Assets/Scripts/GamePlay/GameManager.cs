@@ -68,14 +68,12 @@ public class GameManager : MonoBehaviour
 
     public void PlayNormalMode()
     {
-        // TODO: apply transistion effects
         hardMode = false;
         LoadSceneWithAnim("GameplayScene");
     }
 
     public void PlayHardMode()
     {
-        // TODO: apply transistion effects
         hardMode = true;
         LoadSceneWithAnim("GameplayScene");
     }

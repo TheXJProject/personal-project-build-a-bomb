@@ -10,6 +10,7 @@ public class CheatLogic : MonoBehaviour
     [Header("(Cheat List)\n")]
     [SerializeField] bool canCheatLayers = false;
     [SerializeField] bool pausedTimer = false;
+    [SerializeField] bool noCountdown = false;
 
     // Runtime Variables:
     public static CheatLogic cheatTool;
@@ -45,4 +46,5 @@ public class CheatLogic : MonoBehaviour
 
     public bool GetCanCheatLayers() => canCheatLayers;
     public bool GetPauseTimer() => pausedTimer;
+    public bool GetNoCountdown() => noCountdown;
 }

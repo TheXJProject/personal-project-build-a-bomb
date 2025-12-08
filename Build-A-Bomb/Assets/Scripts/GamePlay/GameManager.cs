@@ -19,10 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] Animator sceneTransitions;
     [SerializeField] float animationTime;
 
+    [HideInInspector] public bool gameplayStartsFromWithinGameplayScene = false;
+
     // Runtime Variables:
     [HideInInspector] public bool waitForAnimation = false;
     public static GameManager instance;
-    public bool hardMode;
+
+    [Header("Other:")]
+    [SerializeField] public bool hardMode;
     public FrameRateSetting TargetFrameRate;
     public float timeRemainingAfterWin;
     public int currentLayer = 0;
@@ -54,6 +58,9 @@ public class GameManager : MonoBehaviour
             // Make this instance a singleton
             DontDestroyOnLoad(gameObject);
             instance = this;
+            // If loading the scenemanager within the gameplay scene, set this variable, since usually the scene plays after sceneload between scenes has finished
+            if (SceneManager.GetActiveScene().name.Equals("GameplayScene")) 
+                gameplayStartsFromWithinGameplayScene = true;
         }
         else
         {

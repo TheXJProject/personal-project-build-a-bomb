@@ -134,7 +134,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // Figure out what colour the fan should be
         backAnimAlteration();
 
-        // TODO: apply animation to fan, motion blur depending on speed
+        // TODO: apply animation to fan, motion volume depending on speed
 
         // For debugging
         if (holdingReactor)

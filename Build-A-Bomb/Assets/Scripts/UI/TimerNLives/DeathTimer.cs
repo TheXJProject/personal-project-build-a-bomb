@@ -40,7 +40,7 @@ public class DeathTimer : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.onLevelFinshedLoading += BeginTimer;
+        GameStartCount.onCountdownFinished += BeginTimer;
         BombStatus.onGoingWrongCheck += DetermineTimerAggression;
         Death.onGameOver += PauseTimer;
         BombStatus.onBombFinished += PauseTimer;
@@ -48,7 +48,7 @@ public class DeathTimer : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.onLevelFinshedLoading -= BeginTimer;
+        GameStartCount.onCountdownFinished -= BeginTimer;
         BombStatus.onGoingWrongCheck -= DetermineTimerAggression;
         Death.onGameOver -= PauseTimer;
         BombStatus.onBombFinished -= PauseTimer;

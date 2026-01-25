@@ -11,7 +11,7 @@ public class TaskSelection : MonoBehaviour
 
     // Runtime Variables
     [HideInInspector] public bool assignedPlayerControls = false;
-    bool allowGameplay = false;
+    static bool allowGameplay = false;
 
     private void Awake()
     {

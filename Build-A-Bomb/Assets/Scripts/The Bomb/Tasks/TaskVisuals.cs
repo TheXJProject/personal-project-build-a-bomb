@@ -31,6 +31,9 @@ public class TaskVisuals : MonoBehaviour
     [HideInInspector] public int taskNumberInLayer;
     [HideInInspector] public int numberTasksInLayer;
 
+    [Header("PingRingManager: ")]
+    [SerializeField] PingRingManager prManager;
+
     private void Awake()
     {
         normalColourOuter = OuterRing.color; // Normal colour is set to whatever the colour is when the games starts
@@ -67,13 +70,13 @@ public class TaskVisuals : MonoBehaviour
     {
         if (task != gameObject) { return; }
         OuterRing.color = beingSolvedColour; // TODO: change this to effect it with xray coding
-        GetComponent<SpriteRenderer>().material = xRayWorking;
+        centreXRay.material = xRayWorking;
     }
 
     void TaskFailed(GameObject task) // Sets the tasks colour back to the orignal colour for when the task went wrong
     {
         if (task != gameObject) { return; }
-        GetComponent<SpriteRenderer>().material = xRayUnfinished;
+        centreXRay.material = xRayUnfinished;
 
         if (task.GetComponent<TaskStatus>().isGoingWrong) 
         {
@@ -89,14 +92,23 @@ public class TaskVisuals : MonoBehaviour
     {
         if (task != gameObject) { return; }
         OuterRing.color = solvedColour; // TODO: change this to effect it with xray coding
-        GetComponent<SpriteRenderer>().material = xRayFinished;
+        centreXRay.material = xRayFinished;
+
+        InnerRing.color = Color.white;
+        InsideInnerRing.color = Color.white;
+        prManager.DoPingComplete();
     }
 
     void TaskGoneWrong(GameObject task) // Sets the colour for when the task goes wrong
     {
         if (task != gameObject) { return; }
         OuterRing.color = goneWrongColour; // TODO: change this to effect it with xray coding
-        GetComponent<SpriteRenderer>().material = xRayUnfinished;
+        centreXRay.material = xRayUnfinished;
+
+        InnerRing.color = Color.white;
+        InsideInnerRing.color = Color.white;
+
+        prManager.DoPingGoingWrong();
     }
 
 

@@ -36,10 +36,15 @@ public class AudioManager : MonoBehaviour
 
             // (Yu Gui Oh fusion solution! We make sure that both the Audio Manager
             // and Mixer Manager are present.)
-            if (GetComponent<MixerFXManager>() == null)
+            MixerFXManager mixerFXManger = GetComponent<MixerFXManager>();
+            if (mixerFXManger == null)
             {
                 if (!removeWarningMsgs) Debug.LogWarning("MixerFXManager component is missing!");
                 if (!removeWarningMsgs) Debug.LogWarning("Please add component before running!");
+            }
+            else
+            {
+                mixerFXManger.CreateSingleton();
             }
 
             // From here, sets up audio sources.

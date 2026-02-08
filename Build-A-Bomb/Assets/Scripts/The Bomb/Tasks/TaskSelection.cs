@@ -66,4 +66,5 @@ public class TaskSelection : MonoBehaviour
     }
 
     void AllowGameplay() => allowGameplay = true; 
+    void DisallowGameplay() => allowGameplay = false; 
 }

@@ -29,7 +29,7 @@ public class MixerFXManager : MonoBehaviour
     string exParaMusicPlayer;
     string exParaSfxPlayer;
 
-    private void Awake()
+    public void CreateSingleton()
     {
         // If we haven't already initialised an instance of the Audio manager
         if (instance == null)

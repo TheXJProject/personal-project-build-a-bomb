@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Animator sceneTransitions;
     [SerializeField] float animationTime;
+    [SerializeField] float musicTime;
 
     [HideInInspector] public bool gameplayStartsFromWithinGameplayScene = false;
 
@@ -69,10 +70,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Will control scenes
-    // And, audio playing?
-    // TODO: this
-
     public void PlayNormalMode()
     {
         hardMode = false;
@@ -112,6 +109,12 @@ public class GameManager : MonoBehaviour
     {
         if (midSceneTransition) return;
         midSceneTransition = true;
+
+        // Start fading out music
+        // Set all music groups to zero volume
+        MixerFXManager.instance.SetMusicOverallParam(EX_PARA.VOLUME, musicTime, 0);
+        MixerFXManager.instance.SetSfxOverallParam(EX_PARA.VOLUME, musicTime, 0);
+
         StartCoroutine(WaitForTransition(sceneName, leaveSceneAlternate));
     }
 
@@ -129,6 +132,7 @@ public class GameManager : MonoBehaviour
         sceneTransitions.SetTrigger("enterScene");
         while (waitForAnimation) yield return null;
         midSceneTransition = false;
+
         onLevelFinshedLoading?.Invoke();
     }
 

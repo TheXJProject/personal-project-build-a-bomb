@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TaskStatus : MonoBehaviour
 {
+    public TASK_TYPES_FOR_MUSIC thisTask = TASK_TYPES_FOR_MUSIC.NULL;
+
     // Event Actions:
     public static event Action<GameObject> onTaskSelected;
     public static event Action<GameObject> onTaskDeSelected;

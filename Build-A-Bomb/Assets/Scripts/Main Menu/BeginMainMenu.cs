@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -5,6 +6,8 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class BeginMainMenu : MonoBehaviour
 {
+    public static event Action<MUSIC_TRACKS, bool, double> startMainMenuMusic;
+
     // Inspector Adjustable Values:
     [SerializeField] float startMusicTime;
     [SerializeField] float musicTransitonTime;
@@ -29,23 +32,8 @@ public class BeginMainMenu : MonoBehaviour
 
     private void Start()
     {
-        double startTime = AudioSettings.dspTime + startMusicTime;
-
-        // Set all music groups to zero volume
-        MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.MUSIC_COLLECTION, EX_PARA.VOLUME, 0f);
-
-        // Play all main menu music tracks at the same time
-        AudioManager.instance.PlayMusic("Menu Alarms", startTime);
-        AudioManager.instance.PlayMusic("Menu Bass", startTime);
-        AudioManager.instance.PlayMusic("Menu Beeps", startTime);
-        AudioManager.instance.PlayMusic("Menu Choir", startTime);
-        AudioManager.instance.PlayMusic("Menu FullChoirCrash", startTime);
-        AudioManager.instance.PlayMusic("Menu Hats", startTime);
-        AudioManager.instance.PlayMusic("Menu KickSnare", startTime);
-        AudioManager.instance.PlayMusic("Menu OfficeNoise", startTime);
-        AudioManager.instance.PlayMusic("Menu Organ", startTime);
-        AudioManager.instance.PlayMusic("Menu StartMelody", startTime);
-        AudioManager.instance.PlayMusic("Menu StringsXyphone", startTime);
+        // play main menu tracks, we want to stop everything else before we play, Startmusictime
+        startMainMenuMusic.Invoke(MUSIC_TRACKS.MAIN_MENU, true, startMusicTime);
 
         // Fade in the start menu tracks
         MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);

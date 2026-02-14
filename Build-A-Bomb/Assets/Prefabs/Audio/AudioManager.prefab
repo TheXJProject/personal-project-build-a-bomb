@@ -3996,6 +3996,181 @@ MonoBehaviour:
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 0380352fb7f8a8d4aaef5c24c2be17f7, type: 3}
     looped: 0
+  - name: Main1 Pt1 FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: dafe79da084cc3e458a883814b30d803, type: 3}
+    looped: 0
+  - name: Main1 Pt1 Hammer
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 2730e83047b2af4499e7dac059d65fa6, type: 3}
+    looped: 0
+  - name: Main1 Pt1 Start
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 840beaa05fa111a4cad5d7017098d333, type: 3}
+    looped: 0
+  - name: Main1 Pt2 Bolting
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: c0032636c62227b4d8ce23e8045cf2d5, type: 3}
+    looped: 0
+  - name: Main1 Pt2 FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 5007dbb480d454c4aae925b0c0494db0, type: 3}
+    looped: 0
+  - name: Main1 Pt2 Switch
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: cdece6202aa0d774db20e6d9d6978d4c, type: 3}
+    looped: 0
+  - name: Main1 Pt3 Fade
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: f4cd6b4becb4eef42b0874299323da7f, type: 3}
+    looped: 0
+  - name: Main1 Pt3 Task Goes Wrong
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 30f7f671f871e404492f286c0da5040f, type: 3}
+    looped: 0
+  - name: Main1 Pt3(4) FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: df6fe2aedda2c5f49b020903153d8f98, type: 3}
+    looped: 0
+  - name: Main1 Pt4 Fade
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 8fc879bc2253c0240a7d0ddf31b9b078, type: 3}
+    looped: 0
+  - name: Main1 Pt4 Valve
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: da73802ba240a534bb2000afcea9d28d, type: 3}
+    looped: 0
+  - name: Main2 Pt5 Fade
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 28482d68ffc865946a125fca5cadd2be, type: 3}
+    looped: 0
+  - name: Main2 Pt5 Puzzle
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: c81d2d6471979864fb1d5e566a6b4773, type: 3}
+    looped: 0
+  - name: Main2 Pt5 Start
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: f7bbf799744a6dc4eaf432821f4ed64c, type: 3}
+    looped: 0
+  - name: Main2 Pt6 Fade
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 4386e79d80161c947bf8f22f776750ab, type: 3}
+    looped: 0
+  - name: Main2 Pt6(not 8) Reactor
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: d32fb2f2be4f6a3468248947b4d0d7ee, type: 3}
+    looped: 0
+  - name: Main2 Pt7 Keypad
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: bd2047a4f737549458d7088bbfb7ccf7, type: 3}
+    looped: 0
+  - name: Main2 Pt7(8) FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 54dd5850b00d5b241ae0044bde42bd25, type: 3}
+    looped: 0
+  - name: Main2 Pt8 Gremlin
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: ef4c75be3c094254db0ab603e5bc3008, type: 3}
+    looped: 0
+  - name: Main3 Pt9 Fueling
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 4f6854d112397984a88b82723d7d37f6, type: 3}
+    looped: 0
+  - name: Main3 Pt9 Start
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: d1c782bd818c6a941b36925f22d0968f, type: 3}
+    looped: 0
+  - name: Main3 Pt10 Fade
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 6d17483d8b60525469b23c0b704d126d, type: 3}
+    looped: 0
+  - name: Main3 Pt10 Ultimate
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 50c40e533fe208547b0e0943050adbb0, type: 3}
+    looped: 0
+  - name: Main Transition 1
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 326b69e10b6b3484cbb8e15436d05192, type: 3}
+    looped: 0
+  - name: Main Transition 2
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0, y: 0}
+    clip: {fileID: 8300000, guid: 5a7666553cb59a8449b96eff46105203, type: 3}
+    looped: 0
   sfxSounds:
   - name: Button On
     volume: 0.75

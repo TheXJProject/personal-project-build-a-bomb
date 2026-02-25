@@ -15,6 +15,8 @@ public class GameStartCount : MonoBehaviour
     [SerializeField] int countDownLength = 3;
 
     public static event Action onCountdownFinished;
+    public static event Action<MUSIC_TRACKS, bool, double> startGamplay1Music;
+
 
     bool gameStarted = false;
 
@@ -25,6 +27,8 @@ public class GameStartCount : MonoBehaviour
 
     private void Start()
     {
+        startGamplay1Music.Invoke(MUSIC_TRACKS.GAMEPLAY1, true, briefPauseLength);
+
         if (GameManager.instance.gameplayStartsFromWithinGameplayScene) BeginGameStartVisual();
     }
 
@@ -65,6 +69,10 @@ public class GameStartCount : MonoBehaviour
 
     void GameStart()
     {
+        // Fade in the starting tracks
+        MixerFXManager.instance.SetMusicParam("Main1 Pt1 FX", EX_PARA.VOLUME, 0.01f);
+        MixerFXManager.instance.SetMusicParam("Main1 Pt1 Start", EX_PARA.VOLUME, 0.01f);
+
         onCountdownFinished?.Invoke();
         gameObject.SetActive(false);
     }

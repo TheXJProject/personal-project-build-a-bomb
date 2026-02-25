@@ -236,7 +236,7 @@ public class AudioManager : MonoBehaviour
         // Throw error if no source was playing anything
         if (!playingCheck)
         {
-            if (!removeWarningMsgs) Debug.LogWarning("Error, no music was playing!");
+            if (!removeWarningMsgs) Debug.LogWarning("Caution, no music was playing!");
         }
     }
 

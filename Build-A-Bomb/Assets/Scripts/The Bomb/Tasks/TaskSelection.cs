@@ -24,6 +24,7 @@ public class TaskSelection : MonoBehaviour
         Death.onGameOver += DeselectAndGameStopped;
         BombStatus.onBombFinished += DeselectAndGameStopped;
         GameStartCount.onCountdownFinished += AllowGameplay;
+        TutorialControl.onAllowGameplay += AllowGameplay;
     }
     private void OnDisable()
     {
@@ -32,6 +33,7 @@ public class TaskSelection : MonoBehaviour
         Death.onGameOver -= DeselectAndGameStopped;
         BombStatus.onBombFinished -= DeselectAndGameStopped;
         GameStartCount.onCountdownFinished -= AllowGameplay;
+        TutorialControl.onAllowGameplay -= AllowGameplay;
     }
 
     private void OnMouseDown()

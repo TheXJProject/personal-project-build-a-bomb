@@ -30,7 +30,8 @@ public class BombStatus : MonoBehaviour
     int layersSpawned = 0;
     int currentLayer = 0;
     int finalLayer;
-    public List<GameObject> layers = new List<GameObject>();
+    bool inTutorial = false;
+    [HideInInspector] public List<GameObject> layers = new List<GameObject>();
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong += AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed += AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan += AttemptSignalGoingWrongState;
+        TutorialControl.onTutorialStart += SetBombTutorial;
     }
 
     private void OnDisable()
@@ -54,6 +56,7 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan -= AttemptSignalGoingWrongState;
+        TutorialControl.onTutorialStart += SetBombTutorial;
     }
 
     private void Start()
@@ -201,8 +204,11 @@ public class BombStatus : MonoBehaviour
             // If the layer that was just completed by the player was the final layer, signal the bomb is finished
             if (currentLayer == finalLayer)
             {
-                float timeLeft = ((timer.minutesLeft) * 60f) + (timer.secondsLeft);
-                if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
+                if (!inTutorial)
+                {
+                    float timeLeft = ((timer.minutesLeft) * 60f) + (timer.secondsLeft);
+                    if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
+                }
                 onBombFinished?.Invoke();
             }
             else
@@ -232,4 +238,6 @@ public class BombStatus : MonoBehaviour
             onGoingWrongCheck?.Invoke(false);
         }
     }
+
+    void SetBombTutorial() => inTutorial = true;
 }

@@ -10,6 +10,7 @@ public class LayerStatus : MonoBehaviour
     public static event Action<GameObject> onTaskCreated;
     public static event Action<GameObject> onLayerSelected;
     public static event Action<GameObject> onLayerUnSelected;
+    public static event Action onLayerFinishedSpawning;
 
     // Inspector Adjustable Values:
     public int minNoOfTasksSpawned = 4;
@@ -201,6 +202,7 @@ public class LayerStatus : MonoBehaviour
                 SpawnTask(GetTaskSpawnPos(layerMinRadius, layerMaxRadius, taskSize * taskColliderRadius * taskScaleUp));
                 yield return new WaitForSeconds(spreadSpawnsOverFrameTime);
             }
+            onLayerFinishedSpawning?.Invoke();
         }
     }
 

@@ -21,6 +21,7 @@ public class BombStatus : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] GoneWrongController goneWrongController;
+    [SerializeField] TutorialTaskGoesWrong tutorialGoneWrongController;
     [SerializeField] DeathTimer timer;
 
     // Runtime Variables:
@@ -102,7 +103,10 @@ public class BombStatus : MonoBehaviour
     void SpawnNextLayer()
     {
         // Add the previous layer to the goneWrongController so that it can use it to go wrong
-        goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
+        if (goneWrongController != null)
+            goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
+        else if (inTutorial && tutorialGoneWrongController != null)
+            tutorialGoneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
 
         // Spawn the next layer
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);

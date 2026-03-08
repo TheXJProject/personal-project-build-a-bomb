@@ -1367,7 +1367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: noCountdown
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canCheatLayers
@@ -2301,17 +2301,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2.002707
-      outSlope: 2.002707
+      inSlope: 0.990973
+      outSlope: 0.990973
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 2.002707
-      inSlope: 2.002707
-      outSlope: 2.002707
+      value: 0.990973
+      inSlope: 0.990973
+      outSlope: 0.990973
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

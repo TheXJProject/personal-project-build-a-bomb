@@ -31,7 +31,7 @@ public class GoneWrongController : MonoBehaviour
     int maxLayers;
     bool goingWrong = false;
     float timeSinceLastGoneWrong = 12f;
-    System.Random rnd = new();
+    System.Random rnd = new System.Random();
     [HideInInspector] public List<GameObject> tasksToGoWrong = new();
     int numTasksGoingWrongNow = 0;
     bool goneWrongOverThres = false;

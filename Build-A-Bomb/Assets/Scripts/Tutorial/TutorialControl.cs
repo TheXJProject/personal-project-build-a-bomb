@@ -7,6 +7,8 @@ public class TutorialControl : MonoBehaviour
 {
     public static event Action onAllowGameplay;
     public static event Action onTutorialStart;
+    public static event Action<GameObject> onStopTaskBeingSolvable;
+    public static event Action<GameObject> onContinueTaskBeingSolvable;
 
     [SerializeField] private AnimationCurve bubbleEnterCurve;
     [SerializeField] private float bubbleEnterTime;
@@ -14,12 +16,22 @@ public class TutorialControl : MonoBehaviour
     [SerializeField] private float bubbleLeaveTime;
     [SerializeField] private float bubbleTextEnterTime;
     [SerializeField] private float bubbleBeginEnterTime;
-
     [SerializeField] private List<TutorialSpeachBubble> orderedSpeechBubbles;
+    [SerializeField] private TutorialTaskGoesWrong goWrongController;
+
+    [Header("The following variable is the percentage to stop progress during the second layer task solve to make a task go wrong")]
+    [SerializeField] private float percentStopTaskProgress;
+
     private int currentBubble = 0;
+    private GameObject secondLayerTask;
+    private TaskStatus secondLayerTaskStatus;
+    private bool stoppedTaskProgress = false;
+    private bool gotSecondLayerTask = false;
 
     private void OnEnable()
     {
+        TaskStatus.onTaskCompleted += SolvedGoingWrongTask;
+        LayerStatus.onTaskCreated += GetTaskOnSecondLayer;
         LayerStatus.onLayerFinishedSpawning += StartAllowGameplay;
         BombStatus.onBombFinished += FinishedLevel;
 
@@ -29,6 +41,8 @@ public class TutorialControl : MonoBehaviour
 
     private void OnDisable()
     {
+        TaskStatus.onTaskCompleted -= SolvedGoingWrongTask;
+        LayerStatus.onTaskCreated -= GetTaskOnSecondLayer;
         LayerStatus.onLayerFinishedSpawning -= StartAllowGameplay;
         BombStatus.onBombFinished -= FinishedLevel;
 
@@ -61,12 +75,39 @@ public class TutorialControl : MonoBehaviour
         ShowCurrentBubble();
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.I)) NextBubble();
-    //    if (Input.GetKeyDown(KeyCode.O)) ShowCurrentBubble();
-    //    if (Input.GetKeyDown(KeyCode.P)) HideCurrentBubble();
-    //}
+    private void Update()
+    {
+        if (gotSecondLayerTask && !stoppedTaskProgress && secondLayerTaskStatus.taskCompletion >= percentStopTaskProgress)
+        {
+            stoppedTaskProgress = true;
+            onStopTaskBeingSolvable?.Invoke(secondLayerTask);
+            goWrongController.MakeTaskGoWrong();
+        }
+    }
+
+    private void SolvedGoingWrongTask(GameObject task)
+    {
+        if (task.GetComponent<TaskStatus>().hasBeenSolved)
+        {
+            onContinueTaskBeingSolvable?.Invoke(secondLayerTask);
+        }
+    }
+
+    private void GetTaskOnSecondLayer(GameObject task)
+    {
+        TaskStatus taskStatus;
+        if ((taskStatus = task.GetComponent<TaskStatus>()) != null)
+        {
+            if (taskStatus.taskLayer == 1)
+            {
+                gotSecondLayerTask = true;  
+                secondLayerTask = task;
+                secondLayerTaskStatus = taskStatus;
+            }
+        }
+        else
+            Debug.LogError("Task doesn't have a TaskStatus script");
+    }
 
     void StartAllowGameplay()
     {

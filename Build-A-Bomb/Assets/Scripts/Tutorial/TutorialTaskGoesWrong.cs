@@ -1,18 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TutorialTaskGoesWrong : MonoBehaviour
 {
+
     private List<GameObject> tasksToGoWrong = new List<GameObject>();
     private System.Random rnd = new System.Random();
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha9)) MakeTaskGoWrong();
-    }
 
     public void AddNewLayerToChooseFrom(GameObject newLayerToGoWrong)
     {
@@ -25,11 +19,9 @@ public class TutorialTaskGoesWrong : MonoBehaviour
         }
     }
 
-    void MakeTaskGoWrong()
+    public void MakeTaskGoWrong()
     {
-        int totalTasksToChoosefrom = tasksToGoWrong.Count;
-        int taskToGoWrong = rnd.Next() % totalTasksToChoosefrom;
-
-        tasksToGoWrong[taskToGoWrong].GetComponent<TaskStatus>().TaskGoneWrong();
+        // Just get the first one I don't want to spend more time programming this 
+        tasksToGoWrong[0].GetComponent<TaskStatus>().TaskGoneWrong();
     }
 }

@@ -1877,6 +1877,8 @@ MonoBehaviour:
   - {fileID: 2014572633}
   - {fileID: 1477420987}
   - {fileID: 1408228763}
+  goWrongController: {fileID: 937683461}
+  percentStopTaskProgress: 0.4
 --- !u!114 &984087332
 MonoBehaviour:
   m_ObjectHideFlags: 0

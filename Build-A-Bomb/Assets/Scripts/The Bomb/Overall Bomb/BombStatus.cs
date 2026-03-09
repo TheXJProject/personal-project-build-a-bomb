@@ -105,7 +105,7 @@ public class BombStatus : MonoBehaviour
         // Add the previous layer to the goneWrongController so that it can use it to go wrong
         if (goneWrongController != null)
             goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
-        else if (inTutorial && tutorialGoneWrongController != null)
+        else if (tutorialGoneWrongController != null)
             tutorialGoneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
 
         // Spawn the next layer

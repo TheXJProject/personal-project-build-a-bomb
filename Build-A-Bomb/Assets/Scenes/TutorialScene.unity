@@ -3336,8 +3336,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_text
-      value: 'With the task selected, hold down the key prompted to begin completing
-        the task! '
+      value: 'Now that the task is selected, hold down the prompted key to begin
+        completing the task! '
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4548,8 +4548,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_text
-      value: If you were building a real bomb, letting go of the key before its task
-        is solved means blowing a fuse. Enough blown fuses means the bomb will explode!
+      value: Releasing the key early blows one of the fuses above the timer. Blowing
+        too many fuses will detonate the bomb. Now, switch to the layer with the
+        task going wrong and fix it!
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_fontSize
@@ -4565,7 +4566,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 62.78
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4702,7 +4707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_text
-      value: 'DON''T LET THE KEY GO
+      value: 'DON''T LET GO OF THE KEY
 
 
         And solve the task!'
@@ -4714,6 +4719,10 @@ PrefabInstance:
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_paragraphSpacing
       value: -20.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 229.15
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4733,7 +4742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.y

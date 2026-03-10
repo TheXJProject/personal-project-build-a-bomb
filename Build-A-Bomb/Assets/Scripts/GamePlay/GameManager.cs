@@ -82,6 +82,12 @@ public class GameManager : MonoBehaviour
         LoadSceneWithAnim("GameplayScene");
     }
 
+    public void PlayTutorial()
+    {
+        hardMode = true;
+        LoadSceneWithAnim("TutorialScene");
+    }
+
     void LoseGame()
     {
         // If we are cheating, we can't lose

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class TutorialControl : MonoBehaviour
     [SerializeField] private float bubbleTextEnterTime;
     [SerializeField] private float bubbleBeginEnterTime;
     [SerializeField] private List<TutorialSpeachBubble> orderedSpeechBubbles;
+    [SerializeField] private TutorialSpeachBubble noLivesBubble;
+    [SerializeField] private float timeForNoLivesBubbleToShow;
     [SerializeField] private TutorialTaskGoesWrong goWrongController;
 
     [Header("The following variable is the percentage to stop progress during the second layer task solve to make a task go wrong")]
@@ -30,6 +33,7 @@ public class TutorialControl : MonoBehaviour
 
     private void OnEnable()
     {
+        LivesTracker.onNoLives += ShowNoLivesBubble;
         TaskStatus.onTaskCompleted += SolvedGoingWrongTask;
         LayerStatus.onTaskCreated += GetTaskOnSecondLayer;
         LayerStatus.onLayerFinishedSpawning += StartAllowGameplay;
@@ -41,6 +45,7 @@ public class TutorialControl : MonoBehaviour
 
     private void OnDisable()
     {
+        LivesTracker.onNoLives -= ShowNoLivesBubble;
         TaskStatus.onTaskCompleted -= SolvedGoingWrongTask;
         LayerStatus.onTaskCreated -= GetTaskOnSecondLayer;
         LayerStatus.onLayerFinishedSpawning -= StartAllowGameplay;
@@ -66,12 +71,12 @@ public class TutorialControl : MonoBehaviour
         onTutorialStart?.Invoke(); // Made this as a separate event from "onAllowGameplay" just to give me the option to distinguish them if I wanna
         foreach (TutorialSpeachBubble bubble in orderedSpeechBubbles)
         {
-            bubble.gameObject.SetActive(true);
-            bubble.SetHideAnimationCurveParams(bubbleLeaveCurve, bubbleLeaveTime);
-            bubble.SetShowAnimationCurveParams(bubbleEnterCurve, bubbleEnterTime);
-            bubble.SetTimeForTextToEnter(bubbleTextEnterTime);
-            bubble.SetTimeToBeginEnter(bubbleBeginEnterTime);
+            SetupBubbleParams(bubble);
         }
+
+        SetupBubbleParams(noLivesBubble);
+        noLivesBubble.SetTimeForTextToEnter(0);
+
         ShowCurrentBubble();
     }
 
@@ -83,6 +88,15 @@ public class TutorialControl : MonoBehaviour
             onStopTaskBeingSolvable?.Invoke(secondLayerTask);
             goWrongController.MakeTaskGoWrong();
         }
+    }
+
+    private void SetupBubbleParams(TutorialSpeachBubble bubble)
+    {
+        bubble.gameObject.SetActive(true);
+        bubble.SetHideAnimationCurveParams(bubbleLeaveCurve, bubbleLeaveTime);
+        bubble.SetShowAnimationCurveParams(bubbleEnterCurve, bubbleEnterTime);
+        bubble.SetTimeForTextToEnter(bubbleTextEnterTime);
+        bubble.SetTimeToBeginEnter(bubbleBeginEnterTime);
     }
 
     private void SolvedGoingWrongTask(GameObject task)
@@ -141,6 +155,19 @@ public class TutorialControl : MonoBehaviour
         orderedSpeechBubbles[currentBubble].HideBubble();
     }
 
+    private void ShowNoLivesBubble()
+    {
+        StartCoroutine(ShowNowLivesBubbleOverTime());
+    }
+
+    private IEnumerator ShowNowLivesBubbleOverTime()
+    {
+        noLivesBubble.ShowBubble();
+        yield return new WaitForSeconds(timeForNoLivesBubbleToShow);
+
+        noLivesBubble.HideBubble();
+    }
+
     // Yeah I couldn't be bothered to figure out a better way:
     private void FirstClickOnTask(GameObject task)
     {
@@ -189,6 +216,7 @@ public class TutorialControl : MonoBehaviour
     {
         NextBubble();
         ShowCurrentBubble();
+        BubbleHidesWHenSwitchingLayers();
         TaskStatus.onTaskDeSelected -= SixthMovedOffTask;
         TaskStatus.onTaskSelected += SeventhSelectGoneWrongTask;
     }
@@ -215,10 +243,18 @@ public class TutorialControl : MonoBehaviour
         TaskStatus.onTaskDeSelected += HideBubbleFromEventCall;
     }
 
+    private void BubbleHidesWHenSwitchingLayers()
+    {
+        TaskStatus.onTaskSelected += HideBubbleFromEventCall;
+        TaskStatus.onTaskDeSelected += HideBubbleFromEventCall;
+        LayerStatus.onLayerSelected += HideBubbleFromEventCall;
+    }
+
     private void HideBubbleFromEventCall(GameObject task)
     {
         HideCurrentBubble();
         TaskStatus.onTaskSelected -= HideBubbleFromEventCall;
         TaskStatus.onTaskDeSelected -= HideBubbleFromEventCall;
+        LayerStatus.onLayerSelected -= HideBubbleFromEventCall;
     }
 }

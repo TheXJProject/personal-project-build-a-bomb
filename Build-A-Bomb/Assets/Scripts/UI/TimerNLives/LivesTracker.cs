@@ -8,6 +8,7 @@ public class LivesTracker : MonoBehaviour
 {
     // Event Actions
     public static Action onNoLives;
+    public static Action onFuseBeginsToBlow;
 
     // Initialise In Inspector
     [SerializeField] List<GameObject> lives;
@@ -35,20 +36,21 @@ public class LivesTracker : MonoBehaviour
     private void OnEnable()
     {
         TaskStatus.onTaskFailed += loseLife;
-        LivesBulbBlown.onBulbBlown += checkFinalBulbBlown;
+        LivesBulbBlown.onFuseBlown += checkFinalBulbBlown;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskFailed -= loseLife;
-        LivesBulbBlown.onBulbBlown -= checkFinalBulbBlown;
+        LivesBulbBlown.onFuseBlown -= checkFinalBulbBlown;
     }
 
     public void loseLife(GameObject triggerTask)
     {
         if (livesLeft == 0) return;
         if (!invisible) 
-        { 
+        {
+            onFuseBeginsToBlow?.Invoke();
             lives[--livesLeft].GetComponent<Animator>().SetBool("blown", true); 
             if (iFrames != null) StopCoroutine(iFrames);
             iFrames = StartCoroutine(BeginIFrames());

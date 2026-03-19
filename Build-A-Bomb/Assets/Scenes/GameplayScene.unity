@@ -1854,6 +1854,7 @@ MonoBehaviour:
   layerToStartGoingWrong: 2
   layerToStartTimer: 0
   goneWrongController: {fileID: 442478355}
+  tutorialGoneWrongController: {fileID: 0}
   timer: {fileID: 404800557}
   layerSizeIncrease: 3
   layers: []

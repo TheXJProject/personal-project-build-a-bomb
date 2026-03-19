@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 381593542462577180}
   - component: {fileID: 8595508057772400009}
   - component: {fileID: 5156919505973066851}
+  - component: {fileID: 6071729963220425404}
   - component: {fileID: 8127925151964605430}
   m_Layer: 0
   m_Name: arrowUI
@@ -98,6 +99,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2453669208760112645}
   m_CullTransparentMesh: 1
+--- !u!114 &6071729963220425404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453669208760112645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48791bdf409bde4cbe10a3975ef08f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8127925151964605430
 MonoBehaviour:
   m_ObjectHideFlags: 0

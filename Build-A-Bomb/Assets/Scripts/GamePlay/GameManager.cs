@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
 
     // Events
     public static event Action onGameBegan;
-    public static event Action onLevelFinshedLoading;
+    public static event Action onLevelStartedLoading;
+    public static event Action onLevelFinishedLoading;
 
     [SerializeField] Animator sceneTransitions;
     [SerializeField] float animationTime;
@@ -126,6 +127,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForTransition(String sceneName, bool leaveSceneAlternate = false)
     {
+        onLevelStartedLoading?.Invoke();
+
         waitForAnimation = true;
         if (leaveSceneAlternate) sceneTransitions.SetTrigger("leaveSceneHole");
         else sceneTransitions.SetTrigger("leaveScene");
@@ -139,7 +142,7 @@ public class GameManager : MonoBehaviour
         while (waitForAnimation) yield return null;
         midSceneTransition = false;
 
-        onLevelFinshedLoading?.Invoke();
+        onLevelFinishedLoading?.Invoke();
     }
 
     void determineGameStarted(GameObject triggerLayer)

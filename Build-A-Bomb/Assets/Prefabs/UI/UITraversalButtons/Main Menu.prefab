@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 185612375516795155}
   - component: {fileID: 3173078467189563528}
   - component: {fileID: 8693963192019840955}
+  - component: {fileID: 8450056043587449945}
   - component: {fileID: 4122713364777538257}
   - component: {fileID: 149964597728946923}
   - component: {fileID: 4837939903684146219}
@@ -257,6 +258,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 8450056043587449945}
+          m_TargetAssemblyTypeName: EndScreenButtonPress, Assembly-CSharp
+          m_MethodName: EndScreenButtonPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 0
     callback:
       m_PersistentCalls:
@@ -289,6 +302,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8450056043587449945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682146079361694016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4178be5bbbfd4c41834b3da7e429a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4122713364777538257
 MonoBehaviour:
   m_ObjectHideFlags: 0

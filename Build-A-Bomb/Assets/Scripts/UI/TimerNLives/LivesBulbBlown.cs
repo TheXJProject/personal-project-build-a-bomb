@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class LivesBulbBlown : MonoBehaviour
 {
-    public static event Action onBulbBlown;
+    public static event Action onFuseBlown;
 
     public void bulbBlown()
     {
-        onBulbBlown?.Invoke();
+        onFuseBlown?.Invoke();
     }
 }

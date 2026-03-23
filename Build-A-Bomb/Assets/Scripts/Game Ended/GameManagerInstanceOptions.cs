@@ -18,4 +18,9 @@ public class GameManagerInstanceOptions : MonoBehaviour
     {
         GameManager.instance.MainMenu();
     }
+
+    public void StartScoreboard()
+    {
+        GameManager.instance.ScoreBoard();
+    }
 }

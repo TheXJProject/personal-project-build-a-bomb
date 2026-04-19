@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class FinishedEndGameAnimation : MonoBehaviour
 {
     public static event Action onEndGameFadeOutStart;
+    public static event Action onExplosionHappens;
 
     [SerializeField] DisableAndEnableForEndGame endGameManager;
     [SerializeField] bool gameEndState = false;
@@ -22,6 +23,12 @@ public class FinishedEndGameAnimation : MonoBehaviour
     {
         startColor = image.color;
     }
+
+    public void TriggerExplosionHappensEvent()
+    {
+        onExplosionHappens?.Invoke();
+    }
+
     public void finishedAnimation()
     {
         endGameManager.loadEndGameScreen(gameEndState);

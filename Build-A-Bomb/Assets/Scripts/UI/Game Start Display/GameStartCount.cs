@@ -15,6 +15,7 @@ public class GameStartCount : MonoBehaviour
     [SerializeField] int countDownLength = 3;
 
     public static event Action onCountdownFinished;
+    public static event Action<int> onCountDownNumberAppear;
     public static event Action<MUSIC_TRACKS, bool, double> startGamplay1Music;
 
 
@@ -22,7 +23,7 @@ public class GameStartCount : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.onLevelFinshedLoading += BeginGameStartVisual;
+        GameManager.onLevelFinishedLoading += BeginGameStartVisual;
     }
 
     private void Start()
@@ -34,7 +35,7 @@ public class GameStartCount : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.onLevelFinshedLoading -= BeginGameStartVisual;
+        GameManager.onLevelFinishedLoading -= BeginGameStartVisual;
     }
 
     void BeginGameStartVisual()
@@ -63,6 +64,7 @@ public class GameStartCount : MonoBehaviour
         {
             text.text = i.ToString();
             yield return new WaitForSeconds(1);
+            onCountDownNumberAppear?.Invoke(i);
         }
         GameStart();
     }

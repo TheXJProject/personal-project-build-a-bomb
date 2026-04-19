@@ -21,6 +21,7 @@ public class BombStatus : MonoBehaviour
 
     // Initialise In Inspector:
     [SerializeField] GoneWrongController goneWrongController;
+    [SerializeField] TutorialTaskGoesWrong tutorialGoneWrongController;
     [SerializeField] DeathTimer timer;
 
     // Runtime Variables:
@@ -30,7 +31,8 @@ public class BombStatus : MonoBehaviour
     int layersSpawned = 0;
     int currentLayer = 0;
     int finalLayer;
-    public List<GameObject> layers = new List<GameObject>();
+    bool inTutorial = false;
+    [HideInInspector] public List<GameObject> layers = new List<GameObject>();
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong += AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed += AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan += AttemptSignalGoingWrongState;
+        TutorialControl.onTutorialStart += SetBombTutorial;
     }
 
     private void OnDisable()
@@ -54,6 +57,7 @@ public class BombStatus : MonoBehaviour
         TaskStatus.onTaskGoneWrong -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskFailed -= AttemptSignalGoingWrongState;
         TaskStatus.onTaskBegan -= AttemptSignalGoingWrongState;
+        TutorialControl.onTutorialStart += SetBombTutorial;
     }
 
     private void Start()
@@ -99,7 +103,10 @@ public class BombStatus : MonoBehaviour
     void SpawnNextLayer()
     {
         // Add the previous layer to the goneWrongController so that it can use it to go wrong
-        goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
+        if (goneWrongController != null)
+            goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
+        else if (tutorialGoneWrongController != null)
+            tutorialGoneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);
 
         // Spawn the next layer
         GameObject nextLayer = Instantiate(layersToBeSpawned[layersSpawned], transform);
@@ -201,8 +208,11 @@ public class BombStatus : MonoBehaviour
             // If the layer that was just completed by the player was the final layer, signal the bomb is finished
             if (currentLayer == finalLayer)
             {
-                float timeLeft = ((timer.minutesLeft) * 60f) + (timer.secondsLeft);
-                if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
+                if (!inTutorial)
+                {
+                    float timeLeft = ((timer.minutesLeft) * 60f) + (timer.secondsLeft);
+                    if (GameManager.instance != null) GameManager.instance.timeRemainingAfterWin = timeLeft;
+                }
                 onBombFinished?.Invoke();
             }
             else
@@ -232,4 +242,6 @@ public class BombStatus : MonoBehaviour
             onGoingWrongCheck?.Invoke(false);
         }
     }
+
+    void SetBombTutorial() => inTutorial = true;
 }

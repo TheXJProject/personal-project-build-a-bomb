@@ -1367,7 +1367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: noCountdown
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canCheatLayers
@@ -1854,6 +1854,7 @@ MonoBehaviour:
   layerToStartGoingWrong: 2
   layerToStartTimer: 0
   goneWrongController: {fileID: 442478355}
+  tutorialGoneWrongController: {fileID: 0}
   timer: {fileID: 404800557}
   layerSizeIncrease: 3
   layers: []
@@ -2301,17 +2302,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2.002707
-      outSlope: 2.002707
+      inSlope: 0.990973
+      outSlope: 0.990973
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 2.002707
-      inSlope: 2.002707
-      outSlope: 2.002707
+      value: 0.990973
+      inSlope: 0.990973
+      outSlope: 0.990973
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -2804,7 +2805,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 616447176608183645, guid: 3c841e001be695a4e809e8187655b79d, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MainMenu
+      value: StartScoreboard
       objectReference: {fileID: 0}
     - target: {fileID: 1133960362057037652, guid: 3c841e001be695a4e809e8187655b79d, type: 3}
       propertyPath: m_Pivot.x

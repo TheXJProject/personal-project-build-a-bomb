@@ -24,6 +24,7 @@ public class HammerTask : MonoBehaviour
     int numOfHits = 0;
     bool isSetup;
     float pausedTime = 0;
+    bool notStoppedByTutorial = true;
 
     private void Awake()
     {
@@ -37,13 +38,18 @@ public class HammerTask : MonoBehaviour
     {
         TaskInteractStatus.onTaskFailed += ResetTask;
         TaskInteractStatus.onTaskDifficultySet += SetDifficulty;
+        TutorialControl.onStopTaskBeingSolvable += StopForTutorial;
+        TutorialControl.onContinueTaskBeingSolvable += ContinueForTutorial;
     }
 
     private void OnDisable()
     {
         TaskInteractStatus.onTaskFailed -= ResetTask;
         TaskInteractStatus.onTaskDifficultySet -= SetDifficulty;
+        TutorialControl.onStopTaskBeingSolvable -= StopForTutorial;
+        TutorialControl.onContinueTaskBeingSolvable -= ContinueForTutorial;
     }
+
 
     private void Update()
     {
@@ -62,6 +68,22 @@ public class HammerTask : MonoBehaviour
                     CheckFinished();
                 }
             }
+        }
+    }
+    
+    private void StopForTutorial(GameObject triggerTask)
+    {
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            notStoppedByTutorial = false;
+        }
+    }
+
+    private void ContinueForTutorial(GameObject triggerTask)
+    {
+        if (triggerTask == gameObject.transform.parent.gameObject)
+        {
+            notStoppedByTutorial = true;
         }
     }
 
@@ -84,7 +106,7 @@ public class HammerTask : MonoBehaviour
                 if (Msg) Debug.Log("Left click is being pressed");
 
                 // Increases the total number of times Nail Head has been hit by one
-                numOfHits++;
+                if (notStoppedByTutorial) numOfHits++;
                 if (hammer.activeSelf) hammer.GetComponent<HammerVisuals>().stillHitting = true;
                 else hammer.SetActive(true);
 

@@ -1,7 +1,12 @@
 using System;
 using System.Collections;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +19,8 @@ public class GameManager : MonoBehaviour
 
     // Events
     public static event Action onGameBegan;
-    public static event Action onLevelFinshedLoading;
+    public static event Action onLevelStartedLoading;
+    public static event Action onLevelFinishedLoading;
 
     [SerializeField] Animator sceneTransitions;
     [SerializeField] float animationTime;
@@ -29,7 +35,8 @@ public class GameManager : MonoBehaviour
     [Header("Other:")]
     [SerializeField] public bool hardMode;
     public FrameRateSetting TargetFrameRate;
-    public float timeRemainingAfterWin;
+    public float timeRemainingAfterWin = -1;
+    public bool WaitToShowScores = false;
     public int currentLayer = 0;
     bool midSceneTransition = false;
 
@@ -51,7 +58,7 @@ public class GameManager : MonoBehaviour
         BombStatus.onLayerCreated -= determineGameStarted;
     }
 
-    private void Awake()
+    async void Awake()
     {
         // If we haven't already initialised an instance of the game manager
         if (instance == null)
@@ -62,6 +69,10 @@ public class GameManager : MonoBehaviour
             // If loading the scenemanager within the gameplay scene, set this variable, since usually the scene plays after sceneload between scenes has finished
             if (SceneManager.GetActiveScene().name.Equals("GameplayScene")) 
                 gameplayStartsFromWithinGameplayScene = true;
+
+            // Setup leaderboard anonymous login
+            await InitializeAndLogin();
+
         }
         else
         {
@@ -69,6 +80,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public async System.Threading.Tasks.Task InitializeAndLogin()
+    {
+        await UnityServices.InitializeAsync();
+
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+    }
+
 
     public void PlayNormalMode()
     {
@@ -80,6 +102,12 @@ public class GameManager : MonoBehaviour
     {
         hardMode = true;
         LoadSceneWithAnim("GameplayScene");
+    }
+
+    public void PlayTutorial()
+    {
+        hardMode = true;
+        LoadSceneWithAnim("TutorialScene");
     }
 
     void LoseGame()
@@ -98,11 +126,18 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
+        timeRemainingAfterWin = -1;
         LoadSceneWithAnim("Main Menu");
     }
     public void MainMenuFromOpening()
     {
         LoadSceneWithAnim("Main Menu", true);
+    }
+    
+    public void ScoreBoard()
+    {
+        GameManager.instance.WaitToShowScores = true;
+        LoadSceneWithAnim("ScoreBoard");
     }
 
     void LoadSceneWithAnim(String sceneName, bool leaveSceneAlternate = false)
@@ -120,6 +155,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForTransition(String sceneName, bool leaveSceneAlternate = false)
     {
+        onLevelStartedLoading?.Invoke();
+
         waitForAnimation = true;
         if (leaveSceneAlternate) sceneTransitions.SetTrigger("leaveSceneHole");
         else sceneTransitions.SetTrigger("leaveScene");
@@ -133,7 +170,7 @@ public class GameManager : MonoBehaviour
         while (waitForAnimation) yield return null;
         midSceneTransition = false;
 
-        onLevelFinshedLoading?.Invoke();
+        onLevelFinishedLoading?.Invoke();
     }
 
     void determineGameStarted(GameObject triggerLayer)

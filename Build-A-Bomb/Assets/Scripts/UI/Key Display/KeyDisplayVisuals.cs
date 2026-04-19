@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,10 @@ using UnityEngine.UI;
 
 public class KeyDisplayVisuals : MonoBehaviour
 {
+    public static event Action onKeyOnDisplayPressed;
+    public static event Action OnKeyDisplayLeaves;
+    public static event Action OnKeyDisplayLeavesFromGameFinish;
+
     // Initialise in Inspector
     [SerializeField] TextMeshProUGUI textDisplay;
     [SerializeField] Image textBack;
@@ -88,7 +93,11 @@ public class KeyDisplayVisuals : MonoBehaviour
     {
         if (triggerKey == keyDisplayed)
         {
-            if (isSelected) textBack.color = heldSelectedCol;
+            if (isSelected)
+            { 
+                textBack.color = heldSelectedCol;
+                onKeyOnDisplayPressed?.Invoke();
+            } 
         }
     }
 
@@ -103,11 +112,13 @@ public class KeyDisplayVisuals : MonoBehaviour
     {
         textBack.color = originalCol;
         animator.SetTrigger("closing");
+        OnKeyDisplayLeavesFromGameFinish?.Invoke();
     }
 
     void UnselectDisplay()
     {
         textBack.color = originalCol;
         animator.SetTrigger("closing");
+        OnKeyDisplayLeaves?.Invoke();
     }
 }

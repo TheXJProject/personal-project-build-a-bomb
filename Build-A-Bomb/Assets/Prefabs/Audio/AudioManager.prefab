@@ -4173,15 +4173,15 @@ MonoBehaviour:
     looped: 0
   sfxSounds:
   - name: Button On
-    volume: 0.75
-    pitch: 0.8
+    volume: 0.6
+    pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: fce530abbccc0a24c869f4c91ee3f3da, type: 3}
     looped: 0
   - name: Button Off
-    volume: 0.75
-    pitch: 0.95
+    volume: 0.6
+    pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: c871a4c5f3c15f847a48840a75ca9eaf, type: 3}
@@ -4197,7 +4197,7 @@ MonoBehaviour:
     volume: 0.65
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 1, y: 1.02}
+    randomPitchRange: {x: 0.95, y: 1.01}
     clip: {fileID: 8300000, guid: d1f7eda81588de046a635f4b007405f9, type: 3}
     looped: 0
   - name: Pipe Connect

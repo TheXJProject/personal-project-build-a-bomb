@@ -206,9 +206,9 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    void AddNewTrackFromLayer(GameObject layer
+    void AddNewTrackFromLayer(GameObject layer)
     {
-
+        // TODO: this
     }
 
     void AddNewTrackFromTaskGoneWrong(GameObject task)

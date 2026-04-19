@@ -20,8 +20,6 @@ public class GeneralCameraLogic : MonoBehaviour
     public float sizeIncreaseFromLayer = 2; // The amount of space between edge of the first bomb layer and the top/bottom of the screen
     public int startingCameraLayer = 1;
     public float startingLayerAcceleration = 3;
-    [Range(1f,10f)] public float cameraMotionSpeed = 1;
-    [Range(0.01f,10f)] public float cameraMotionAdjustment = 1;
 
     [Header("")]
     [Header("(All values below should be above zero)")]
@@ -155,20 +153,14 @@ public class GeneralCameraLogic : MonoBehaviour
             return Vector3.zero;
         }
 
-        static float SmootherStep(float t)
-        {
-            // Clamp so input stays between 0 and 1
-            t = Mathf.Clamp01(t);
-            return t * t * t * (t * (t * 6 - 15) + 10);
-        }
-
         // Create a smooth curve
-        float timeChange = SmootherStep(cameraMotionSpeed * timeSinceSet / transitionTime);
+        float timeChange = (ConvertDistanceDiffToLin(currentCameraSize) - ConvertDistanceDiffToLin(oldCameraSize))
+                            / (ConvertDistanceDiffToLin(newCameraSize) - ConvertDistanceDiffToLin(oldCameraSize));
+        timeChange = Mathf.Lerp((float)time, timeChange, (float)time);
         Vector3 result1 = Vector3.Lerp(startCameraPosition, finalCameraPosition, timeChange);
-        Vector3 result2 = Vector3.Lerp(currentCameraPosition, result1, Mathf.Clamp01(cameraMotionAdjustment * Time.deltaTime));
 
         // Return the new position
-        return result2;
+        return result1;
     }
 
     /// <summary>

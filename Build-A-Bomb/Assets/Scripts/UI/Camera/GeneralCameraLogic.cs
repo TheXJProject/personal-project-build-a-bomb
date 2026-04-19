@@ -153,10 +153,19 @@ public class GeneralCameraLogic : MonoBehaviour
             return Vector3.zero;
         }
 
-        // Create a smooth curve
-        float timeChange = (ConvertDistanceDiffToLin(currentCameraSize) - ConvertDistanceDiffToLin(oldCameraSize))
-                            / (ConvertDistanceDiffToLin(newCameraSize) - ConvertDistanceDiffToLin(oldCameraSize));
-        timeChange = Mathf.Lerp((float)time, timeChange, (float)time);
+        // Adjust these
+        float b = 5f;
+        float a = 0.065f;
+
+        float Equation(float x)
+        {
+            // Create a smooth curve
+            return 1 / (1 + Mathf.Pow(MathF.E, b - (x / a)));
+        }
+
+        // Normalise
+        float timeChange = (Equation((float)time) - Equation(0)) / (Equation(1) - Equation(0));
+
         Vector3 result1 = Vector3.Lerp(startCameraPosition, finalCameraPosition, timeChange);
 
         // Return the new position

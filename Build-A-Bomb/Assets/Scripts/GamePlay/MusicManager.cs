@@ -109,7 +109,7 @@ public class MusicManager : MonoBehaviour
         TaskStatus.onTaskGoneWrong -= AddNewTrackFromTaskGoneWrong;
     }
 
-    private void Awake()
+    private void Start()
     {
         // Get the average number of samples in transition 1
         Sound sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main1 Pt1 Start");

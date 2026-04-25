@@ -719,10 +719,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2322389702962153125, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
-      propertyPath: gameplayStartsFromWithinGameplayScene
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5901923371453961076, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0853877
@@ -3620,8 +3616,6 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 0
   startingCameraLayer: 0
   startingLayerAcceleration: 0
-  cameraMotionSpeed: 1
-  cameraMotionAdjustment: 1
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8

@@ -1361,6 +1361,7 @@ MonoBehaviour:
     enabled: 0
     fps: 10
   timeRemainingAfterWin: 0
+  WaitToShowScores: 0
   currentLayer: 0
 --- !u!114 &1705231639213426492
 MonoBehaviour:
@@ -1374,3 +1375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbfde2106465144832cf50d54fa9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskFadeInTime: 2
+  tutorialMusicWaitTime: 0.2
+  tutorialMusicFadeInTime: 7

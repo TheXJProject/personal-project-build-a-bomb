@@ -232,12 +232,6 @@ public class AudioManager : MonoBehaviour
             source.soundName = SoundSource.defaultName;
             source.soundIsSelected = false;
         }
-
-        // Throw error if no source was playing anything
-        if (!playingCheck)
-        {
-            if (!removeWarningMsgs) Debug.LogWarning("Caution, no music was playing!");
-        }
     }
 
     public void PlaySFX(string name, bool prioritySound = false, float? volumeTemp = null, bool randPitch = false, float? pitchTemp = null)
@@ -496,12 +490,6 @@ public class AudioManager : MonoBehaviour
             // The source is now not in use
             source.soundName = SoundSource.defaultName;
             source.soundIsSelected = false;
-        }
-
-        // Throw error if no source has been used since game load or the last stopSFX() call
-        if (playingCheck)
-        {
-            if (!removeWarningMsgs) Debug.LogWarning("Caution, no SFX have been played since start or last 'StopSFX()' call!");
         }
     }
 

@@ -1370,10 +1370,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
-      propertyPath: canCheatLayers
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canToggleCheats
       value: 1
       objectReference: {fileID: 0}
@@ -2188,8 +2184,6 @@ MonoBehaviour:
   sizeIncreaseFromLayer: 0
   startingCameraLayer: 0
   startingLayerAcceleration: 0
-  cameraMotionSpeed: 1
-  cameraMotionAdjustment: 1
   transitionTime: 1
   cImpact: 4.8
   dGradient: 8.8

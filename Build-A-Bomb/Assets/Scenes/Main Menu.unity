@@ -1270,6 +1270,10 @@ PrefabInstance:
       propertyPath: m_text
       value: SFX Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 7674245517661404663, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: option
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6108,6 +6112,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Music Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 7674245517661404663, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: option
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8635,6 +8643,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3693325485037220444, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674245517661404663, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: option
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

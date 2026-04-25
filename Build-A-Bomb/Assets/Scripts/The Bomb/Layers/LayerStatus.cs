@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LayerStatus : MonoBehaviour
 {
+    public LAYER_NUMS_FOR_MUSIC nextLayer = LAYER_NUMS_FOR_MUSIC.NULL;
+
     // Event Actions:
     public static event Action<GameObject> onLayerCompleted;
     public static event Action<GameObject> onTaskCreated;

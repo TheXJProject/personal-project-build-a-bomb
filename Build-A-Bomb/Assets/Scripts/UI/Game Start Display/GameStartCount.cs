@@ -71,10 +71,6 @@ public class GameStartCount : MonoBehaviour
 
     void GameStart()
     {
-        // Fade in the starting tracks
-        MixerFXManager.instance.SetMusicParam("Main1 Pt1 FX", EX_PARA.VOLUME, 0.01f);
-        MixerFXManager.instance.SetMusicParam("Main1 Pt1 Start", EX_PARA.VOLUME, 0.01f);
-
         onCountdownFinished?.Invoke();
         gameObject.SetActive(false);
     }

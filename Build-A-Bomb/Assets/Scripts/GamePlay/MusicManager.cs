@@ -52,7 +52,7 @@ public class MusicManager : MonoBehaviour
     const int numberTransitionOptions1 = 48;
     const int numberTransitionOptions2 = 48;
     const float fade1LastVolume = 0.06f;
-    const float fade2LastVolume = 0.1f;
+    const float fade2LastVolume = 0.12f;
     double track1AveSamples = 0;
     double track2AveSamples = 0;
     double transitiontime1Samples = 0;
@@ -578,7 +578,9 @@ public class MusicManager : MonoBehaviour
         MixerFXManager.instance.SetMusicParam("Main2 Pt6 Fade", EX_PARA.VOLUME, (float)transition, fade2LastVolume);
         MixerFXManager.instance.SetMusicParam("Main2 Pt7 Keypad", EX_PARA.VOLUME, (float)transition, fade2LastVolume);
         MixerFXManager.instance.SetMusicParam("Main2 Pt7(8) FX", EX_PARA.VOLUME, (float)transition, fade2LastVolume);
-        MixerFXManager.instance.SetMusicParam("Main2 Pt8 Gremlin", EX_PARA.VOLUME, (float)transition, fade2LastVolume);
+
+        // (gremlin quicker)
+        MixerFXManager.instance.SetMusicParam("Main2 Pt8 Gremlin", EX_PARA.VOLUME, (float)transition / 2.5f, fade2LastVolume);
 
         AudioManager.instance.StopMusic("Main2 Pt5 Fade", swapTime);
         AudioManager.instance.StopMusic("Main2 Pt5 Puzzle", swapTime);

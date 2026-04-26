@@ -108,6 +108,7 @@ public class LayerButtonAppearance : MonoBehaviour
                 lastSelectedTask = trigger;
             }
         }
+
         if (buttonIsFocused && correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingFocused() == false)
         {
             buttonIsFocused = false;
@@ -119,7 +120,7 @@ public class LayerButtonAppearance : MonoBehaviour
 
         if (correspondingLayer.GetComponent<LayerStatus>().ContainsTaskBeingFocused() && trigger.tag.Equals("Task"))
         {
-            if (correspondingLayer.GetComponent<LayerStatus>().layer == trigger.GetComponent<TaskStatus>().taskLayer)
+            if (trigger.GetComponent<TaskStatus>().isSelected && correspondingLayer.GetComponent<LayerStatus>().layer == trigger.GetComponent<TaskStatus>().taskLayer)
             {
                 StopCoroutine(FadeCurrentSolvedTask());
                 fill.SetActive(true);

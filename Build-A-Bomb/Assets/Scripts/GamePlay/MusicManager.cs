@@ -87,7 +87,6 @@ public class MusicManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // temp.onBaseGameStart +=
         TutorialControl.onTutorialStart += StartTutorialMusic;
         GameStartCount.onCountdownFinished += NewGame;
         BeginMainMenu.startMainMenuMusic += NewTrack;
@@ -99,7 +98,6 @@ public class MusicManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // temp.onBaseGameStart +=
         TutorialControl.onTutorialStart -= StartTutorialMusic;
         GameStartCount.onCountdownFinished -= NewGame;
         BeginMainMenu.startMainMenuMusic -= NewTrack;
@@ -460,6 +458,12 @@ public class MusicManager : MonoBehaviour
         // Find a music source that's currently playing the start track
         AudioSource source = Array.Find(AudioManager.instance.musicSourceList, x => x.soundName == "Main1 Pt1 Start").audioSource;
 
+        if (source == null)
+        {
+            Debug.LogWarning("Couldn't find source playing 'Main1 Pt1 Start'!");
+            return;
+        }
+
         double samples = (double)source.timeSamples;
         double timeRemaining = (track1AveSamples - (samples % track1AveSamples)) / (double)source.clip.frequency;
 
@@ -504,6 +508,12 @@ public class MusicManager : MonoBehaviour
     {
         // Find a music source that's currently playing the start track
         AudioSource source = Array.Find(AudioManager.instance.musicSourceList, x => x.soundName == "Main2 Pt5 Start").audioSource;
+
+        if (source == null)
+        {
+            Debug.LogWarning("Couldn't find source playing 'Main2 Pt5 Start'!");
+            return;
+        }
 
         double samples = (double)source.timeSamples;
         double timeRemaining = (track2AveSamples - (samples % track2AveSamples)) / (double)source.clip.frequency;

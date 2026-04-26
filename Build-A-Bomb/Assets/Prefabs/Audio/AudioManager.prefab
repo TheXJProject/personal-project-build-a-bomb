@@ -5543,7 +5543,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 54dd5850b00d5b241ae0044bde42bd25, type: 3}
     looped: 0
   - name: Main2 Pt8 Gremlin
-    volume: 0.861
+    volume: 1
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0, y: 0}

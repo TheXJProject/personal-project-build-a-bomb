@@ -7,6 +7,7 @@ public class BackToMain : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] ButtonManager manager;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] GameObject OptionalGameObjectToDisable;
     public arrowHover2 arrow;
 
     // Runtime Variables:
@@ -28,6 +29,8 @@ public class BackToMain : MonoBehaviour
 
             // Put the sprite cover back over the button
             spriteRenderer.enabled = true;
+
+            if (OptionalGameObjectToDisable != null) OptionalGameObjectToDisable.SetActive(false);
         }
     }
 }

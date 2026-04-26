@@ -1367,11 +1367,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: noCountdown
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canToggleCheats
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
@@ -8537,6 +8537,7 @@ MonoBehaviour:
   - {fileID: 1403097626}
   iFramesLength: 0.1
   hardMode: 0
+  devInvun: 0
 --- !u!1 &2029987566
 GameObject:
   m_ObjectHideFlags: 0

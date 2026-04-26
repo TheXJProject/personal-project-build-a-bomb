@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,9 +30,11 @@ public class GremlinTaskLogic : MonoBehaviour
     // Runtime Variables:
     int numOfHitsNeeded = minPossibleDifficultly;
     int numOfHits = 0;
-    GameObject templin;
     bool isSetup;
     float pausedTime = 0;
+    int curTemplin = 0;
+    List<GameObject> templins = new List<GameObject>();
+    List<Coroutine> templinsAnims = new List<Coroutine>();
 
     private void Awake()
     {
@@ -70,6 +74,21 @@ public class GremlinTaskLogic : MonoBehaviour
         }
     }
 
+    void CreateNewTemplin()
+    {
+        Vector3 randomPosition = new();
+        randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
+        randomPosition.y = Random.Range(0, ySpawnRange) - (ySpawnRange / 2f);
+        randomPosition.z = gremlin.transform.localPosition.z;
+
+        // Create temp gremlin
+        templins.Add(Instantiate(gremlin, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform));
+
+        // Place the gremlin
+        templins.LastOrDefault().transform.localPosition = randomPosition;
+        templins.LastOrDefault().transform.SetAsLastSibling();
+    }
+
     /// <summary>
     /// Called by Gremlin gameobject. When the player <br />
     /// clicks on the Gremlin the remaining number of <br />
@@ -89,23 +108,12 @@ public class GremlinTaskLogic : MonoBehaviour
             PlayRandomSoundCombination();
 
             // If not completed, destroy gremlin
-            StartCoroutine(GremlinDeath(templin));
+            templinsAnims.Add(StartCoroutine(GremlinDeath(templins.LastOrDefault())));
 
             // Check if task is completed
             if (numOfHits < numOfHitsNeeded)
             {
-                // Then randomly put gremlin somewhere on the screen
-                Vector3 randomPosition = new();
-                randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
-                randomPosition.y = Random.Range(0, ySpawnRange) - (ySpawnRange / 2f);
-                randomPosition.z = gremlin.transform.localPosition.z;
-
-                // Create temp gremlin
-                templin = Instantiate(gremlin, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-
-                // Place the gremlin
-                templin.transform.localPosition = randomPosition;
-                templin.transform.SetAsLastSibling();
+                CreateNewTemplin();
             }
         }
     }
@@ -131,8 +139,6 @@ public class GremlinTaskLogic : MonoBehaviour
         }
 
         gremer.GetComponent<Image>().color = endColor; 
-
-        Destroy(gremer);
     }
 
     void PlayRandomSoundCombination()
@@ -155,7 +161,7 @@ public class GremlinTaskLogic : MonoBehaviour
     /// Called by SetDifficulty method only! <br />
     /// Starts required setup for the task. <br />
     /// </summary>
-    void SetupTask()
+    void SetupTask(int numOfHitsNeeded)
     {
         // This function can only be activated once
         if (isSetup)
@@ -164,17 +170,7 @@ public class GremlinTaskLogic : MonoBehaviour
         }
         else
         {
-            // Randomly spawn a gremlin on the screen
-            Vector3 randomPosition = new();
-            randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
-            randomPosition.y = Random.Range(0, ySpawnRange) - (ySpawnRange / 2f);
-            randomPosition.z = gremlin.transform.localPosition.z;
-
-            // Create temp gremlin
-            templin = Instantiate(gremlin, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-
-            // Place the gremlin
-            templin.transform.localPosition = randomPosition;
+            CreateNewTemplin();
 
             pausedTime = 0;
 
@@ -182,6 +178,7 @@ public class GremlinTaskLogic : MonoBehaviour
             isSetup = true;
         }
     }
+
 
     /// <summary>
     /// Called by onTaskDifficultySet event only! <br />
@@ -204,7 +201,7 @@ public class GremlinTaskLogic : MonoBehaviour
             // The number of hits needed cannot be zero
             numOfHitsNeeded = Mathf.Max(numOfHitsNeeded, minPossibleDifficultly);
 
-            SetupTask();
+            SetupTask(numOfHitsNeeded);
         }
     }
 
@@ -221,20 +218,20 @@ public class GremlinTaskLogic : MonoBehaviour
             if (Msg) Debug.Log("Reset Task");
 
             // If not completed, destroy gremlin
-            Destroy(templin);
+            foreach (var templin in templins)
+            {
+                Destroy(templin);
+            }
+            templins.Clear();
+
+            foreach (var templinAnim in templinsAnims)
+            {
+                StopCoroutine(templinAnim);
+            }
+            templinsAnims.Clear();
 
             // Then randomly put gremlin somewhere on the screen
-            Vector3 randomPosition = new();
-            randomPosition.x = Random.Range(0, xSpawnRange) - (xSpawnRange / 2f);
-            randomPosition.y = Random.Range(0, ySpawnRange) - (ySpawnRange / 2f);
-            randomPosition.z = gremlin.transform.localPosition.z;
-
-            // Create temp gremlin
-            templin = Instantiate(gremlin, Vector2.zero, Quaternion.identity, transform.GetChild(0).transform);
-
-            // Place the gremlin
-            templin.transform.localPosition = randomPosition;
-            templin.transform.SetAsLastSibling();
+            CreateNewTemplin();
 
             // Reset the number of times the player has hit
             numOfHits = 0;

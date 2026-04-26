@@ -8,6 +8,7 @@ public class Settings : MonoBehaviour
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] GameObject Sliders;
     public arrowHover2 arrow;
 
     // Runtime Variables:
@@ -29,6 +30,8 @@ public class Settings : MonoBehaviour
 
             // Make sprite disappear when clicked to reveal button underneath
             spriteRenderer.enabled = false;
+
+            Sliders.SetActive(true);
         }
     }
 }

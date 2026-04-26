@@ -16,6 +16,7 @@ public class LivesTracker : MonoBehaviour
 
     // Runtime variables
     public bool hardMode = false;
+    public bool devInvun = false;
     bool invisible = false;
     int livesLeft;
     int bulbsNotBlown;
@@ -47,6 +48,7 @@ public class LivesTracker : MonoBehaviour
 
     public void loseLife(GameObject triggerTask)
     {
+        if (devInvun) return;
         if (livesLeft == 0) return;
         if (!invisible) 
         {

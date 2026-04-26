@@ -1630,6 +1630,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
   spriteRenderer: {fileID: 1102747121}
+  OptionalGameObjectToDisable: {fileID: 1465527808}
   arrow: {fileID: 410227001}
   backPressed: 0
 --- !u!114 &410227001
@@ -3600,6 +3601,7 @@ MonoBehaviour:
   backButton: {fileID: 410226995}
   manager: {fileID: 238222142}
   spriteRenderer: {fileID: 1102747121}
+  Sliders: {fileID: 1465527808}
   arrow: {fileID: 1102747125}
   pressed: 0
 --- !u!114 &1102747125
@@ -3773,6 +3775,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
   spriteRenderer: {fileID: 1809147818}
+  OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1185424208}
   backPressed: 0
 --- !u!61 &1185424206
@@ -4367,6 +4370,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
   spriteRenderer: {fileID: 1867017193}
+  OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1329559906}
   backPressed: 0
 --- !u!61 &1329559904
@@ -5440,7 +5444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1465527809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6179,6 +6183,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
   spriteRenderer: {fileID: 2067039721}
+  OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1674655549}
   backPressed: 0
 --- !u!61 &1674655547

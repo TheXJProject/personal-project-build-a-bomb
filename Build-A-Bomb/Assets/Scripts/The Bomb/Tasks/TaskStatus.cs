@@ -125,6 +125,7 @@ public class TaskStatus : MonoBehaviour
         taskCompletion = 0f;
 
         onTaskGoneWrong?.Invoke(gameObject);
+        AudioManager.instance.PlaySFX("Task Goes Wrong", true, null, true);
     }
 
     /// <summary>

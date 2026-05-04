@@ -60,11 +60,13 @@ public class EntryController : MonoBehaviour
         }
         for (int i = 0; i < results.Count; i++)
         {
-            Entry entryInfo = entries[i].GetComponent<Entry>();
-
-            entryInfo.SetName(RemoveHashtag(results[i].PlayerName));
-            entryInfo.SetPosition(i+1);
-            entryInfo.SetScore((int)(results[i].Score));
+            var go = entries[i];
+            if (go != null && go.TryGetComponent<Entry>(out var entryInfo))
+            {
+                entryInfo.SetName(RemoveHashtag(results[i].PlayerName));
+                entryInfo.SetPosition(i + 1);
+                entryInfo.SetScore((int)(results[i].Score));
+            }
         }
     }
 

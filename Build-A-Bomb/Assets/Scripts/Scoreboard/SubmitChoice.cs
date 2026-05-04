@@ -18,12 +18,15 @@ public class SubmitChoice : MonoBehaviour
     async void Start()
     {
         bool offerSubmitNewScore = await IsNewScoreHigher((int)(GameManager.instance.timeRemainingAfterWin*100));
+        print("offerSubmitNewScore is " + offerSubmitNewScore);
 
         yesOrNo.SetActive(true);
         submitChoiceOverall.SetActive(offerSubmitNewScore);
 
         enterName.SetActive(false);
         scoreBoard.SetActive(!offerSubmitNewScore);
+
+        GameManager.instance.WaitToShowScores = offerSubmitNewScore;
     }
 
     public void PlayerClickedYes()
@@ -64,6 +67,7 @@ public class SubmitChoice : MonoBehaviour
 
     public async void PlayerEnteredName(string name)
     {
+        print("Starting PlayerEnteredName");
         if (!ValidName(ref name))
         {
             Debug.Log("TODO: Make player aware: Not a valid name, name should be only letters numbers or underscores and be at least 3 characters long");

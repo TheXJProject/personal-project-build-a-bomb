@@ -20,6 +20,7 @@ public class Scoreboard : MonoBehaviour
 
             await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
 
+            print("Submitted score");
         }
         catch (System.Exception e)
         {

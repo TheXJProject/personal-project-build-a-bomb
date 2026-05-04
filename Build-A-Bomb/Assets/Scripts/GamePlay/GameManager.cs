@@ -4,9 +4,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine;
-using Unity.Services.Core;
-using Unity.Services.Authentication;
 
 public class GameManager : MonoBehaviour
 {
@@ -137,6 +134,7 @@ public class GameManager : MonoBehaviour
     public void ScoreBoard()
     {
         GameManager.instance.WaitToShowScores = true;
+        print("GameManager.instance.WaitToShowScores: " + GameManager.instance.WaitToShowScores);
         LoadSceneWithAnim("ScoreBoard");
     }
 

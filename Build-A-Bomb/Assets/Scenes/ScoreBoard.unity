@@ -3364,7 +3364,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2322389702962153125, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: timeRemainingAfterWin
-      value: 0
+      value: 1000110
       objectReference: {fileID: 0}
     - target: {fileID: 5901923371453961076, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6550,7 +6550,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -32}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 353.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3050300882741617775
 GameObject:

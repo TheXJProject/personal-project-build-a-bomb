@@ -36,6 +36,8 @@ public class SubmitChoice : MonoBehaviour
     {
         string leaderboardId = "BuildABombLeaderboard";
 
+        print("newScore: " + newScore);
+
         if (newScore <= 0)
         {
             return false;

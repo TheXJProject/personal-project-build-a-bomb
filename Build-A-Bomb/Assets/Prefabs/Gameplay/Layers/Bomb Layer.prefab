@@ -97,10 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAmount: 0.5
-  timeToMaterialize: 0
-  materialize: {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
-  defaultMat: {fileID: 2100000, guid: a7ffe0e1c9790dd49b92678ad6e7fd22, type: 2}
+  timeToFade: 0.8
 --- !u!1 &3372658217246493955
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d968a9727ff3aac4f8f412358b7468e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextLayer: 0
   minNoOfTasksSpawned: 4
   maxNoOfTasksSpawned: 4
   typeOfTasks:
@@ -156,6 +154,7 @@ MonoBehaviour:
   taskMinDifficulty: 
   taskMaxDifficulty: 
   taskMinSpawned: 
+  isTaskLarger: 
   layer: 0
   noOfKeysPerTask: 1
   layerMinRadius: 1
@@ -163,6 +162,7 @@ MonoBehaviour:
   taskSize: 0.75
   taskScaleUp: 1
   taskColliderRadius: 1.1
+  ultraTaskSizeScaleUp: 1.15
   tasks: []
   spreadSpawnsOverFrameTime: 0
   isSelected: 0

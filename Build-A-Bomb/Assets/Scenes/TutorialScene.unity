@@ -2062,6 +2062,7 @@ MonoBehaviour:
   timer: {fileID: 0}
   layerSizeIncrease: 3
   layers: []
+  lastDitchHailMaryBugFix: 1
 --- !u!4 &937683460
 Transform:
   m_ObjectHideFlags: 0

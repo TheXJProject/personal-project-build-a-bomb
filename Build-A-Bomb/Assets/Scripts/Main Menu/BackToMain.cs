@@ -6,7 +6,7 @@ public class BackToMain : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] ButtonManager manager;
-    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] FadePanel fadePanel;
     [SerializeField] GameObject OptionalGameObjectToDisable;
     public arrowHover2 arrow;
 
@@ -27,8 +27,7 @@ public class BackToMain : MonoBehaviour
             // This object then disappears
             this.gameObject.SetActive(false);
 
-            // Put the sprite cover back over the button
-            spriteRenderer.enabled = true;
+            fadePanel.FadeIn();
 
             if (OptionalGameObjectToDisable != null) OptionalGameObjectToDisable.SetActive(false);
         }

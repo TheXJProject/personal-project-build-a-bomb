@@ -5,37 +5,29 @@ using UnityEngine;
 
 public class materializeIn : MonoBehaviour
 {
-    [SerializeField] float startAmount;
-    [SerializeField] float timeToMaterialize;
-    [SerializeField] Material materialize;
-    [SerializeField] Material defaultMat;
-
-    float a = 1.6f, f = 10.5f, b = 0.2f;
+    [SerializeField] float timeToFade;
+    private SpriteRenderer sprite;
 
     private void OnEnable()
     {
+        sprite = GetComponent<SpriteRenderer>();
         StartCoroutine(Materialize());
     }
 
     IEnumerator Materialize()
     {
-        GetComponent<SpriteRenderer>().material = materialize;
+        Color color = sprite.color;
         float elapsed = 0.0f;
-        while (elapsed < timeToMaterialize)
+        while (elapsed < timeToFade)
         {
             elapsed += Time.deltaTime;
-            materialize.SetFloat("_Fade", Mathf.Clamp01(myMathFunction(elapsed, timeToMaterialize) * (1.0f - startAmount)) + startAmount);
+            float alpha = Mathf.Lerp(0,1,elapsed/timeToFade);
+            color.a = alpha;
+            sprite.color = color;
+
             yield return null;
         }
-        materialize.SetFloat("_Fade", 1.0f);
-        GetComponent<SpriteRenderer>().material = defaultMat;
-
+        color.a = 1;
+        sprite.color = color;
     }
-
-    float myMathFunction(float elapsed, float totalTime)
-    {
-        float x = elapsed / totalTime;
-        return ((-Mathf.Exp(a - (f * x))) * b + 1);
-    }
-
 }

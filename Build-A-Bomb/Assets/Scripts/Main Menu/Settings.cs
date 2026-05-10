@@ -7,7 +7,7 @@ public class Settings : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
-    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] FadePanel fadePanel;
     [SerializeField] GameObject Sliders;
     public arrowHover2 arrow;
 
@@ -28,8 +28,7 @@ public class Settings : MonoBehaviour
             // Show the back button
             backButton.SetActive(true);
 
-            // Make sprite disappear when clicked to reveal button underneath
-            spriteRenderer.enabled = false;
+            fadePanel.FadeOut();
 
             Sliders.SetActive(true);
         }

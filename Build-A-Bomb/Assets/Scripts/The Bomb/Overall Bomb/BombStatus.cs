@@ -34,6 +34,7 @@ public class BombStatus : MonoBehaviour
     int finalLayer;
     bool inTutorial = false;
     [HideInInspector] public List<GameObject> layers = new List<GameObject>();
+    [SerializeField] private bool lastDitchHailMaryBugFix = false;
 
     private void Awake()
     {
@@ -80,10 +81,18 @@ public class BombStatus : MonoBehaviour
         // Set its layer number to the correct layer number (0 for core)
         coreLayer.GetComponent<LayerStatus>().layer = layersSpawned;
 
-        coreLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= 1;
-        coreLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= 2;
-        coreLayer.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder -= 3;
-
+        if (lastDitchHailMaryBugFix)
+        {
+            coreLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = 0;
+            coreLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = 0;
+            coreLayer.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder = 0;
+        }
+        else
+        {
+            coreLayer.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder -= 1;
+            coreLayer.transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder -= 2;
+            coreLayer.transform.GetChild(3).GetComponent<SpriteRenderer>().sortingOrder -= 3;
+        }
         // Add it to the array of layers
         layers.Add(coreLayer);
 

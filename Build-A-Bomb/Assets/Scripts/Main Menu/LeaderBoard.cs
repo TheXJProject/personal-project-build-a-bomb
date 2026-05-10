@@ -7,7 +7,7 @@ public class LeaderBoard : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
-    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] FadePanel fadePanel;
     public arrowHover2 arrow;
 
     // Runtime Variables:
@@ -27,9 +27,7 @@ public class LeaderBoard : MonoBehaviour
             // Show the back button
             backButton.SetActive(true);
 
-            // Make sprite disappear when clicked to reveal button underneath
-            spriteRenderer.enabled = false;
-
+            fadePanel.FadeOut();
         }
     }
 }

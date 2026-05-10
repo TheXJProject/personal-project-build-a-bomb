@@ -1375,6 +1375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbfde2106465144832cf50d54fa9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskFadeInTime: 2
-  tutorialMusicWaitTime: 0.2
-  tutorialMusicFadeInTime: 7
+  startingVolumeMaster: 0.8
+  startingVolumeMusic: 0.5
+  startingVolumeSFX: 0.8

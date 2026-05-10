@@ -46,9 +46,9 @@ public enum LAYER_NUMS_FOR_MUSIC
 
 public class MusicManager : MonoBehaviour
 {
-    public GameObject masterSlider;
-    public GameObject musicSlider;
-    public GameObject sfxSlider;
+    public float startingVolumeMaster;
+    public float startingVolumeMusic;
+    public float startingVolumeSFX;
 
     const float taskFadeInTime = 7.0f;
     const float layerFadeInTime = 10.0f;
@@ -130,10 +130,6 @@ public class MusicManager : MonoBehaviour
         track2AveTime = track2AveSamples / sound.clip.frequency;
 
         // Set starting player volumes
-        float startingVolumeMaster = masterSlider.GetComponent<Slider>().value;
-        float startingVolumeMusic = musicSlider.GetComponent<Slider>().value;
-        float startingVolumeSFX = sfxSlider.GetComponent<Slider>().value;
-
         MixerFXManager.instance.SetPlayerMaster(startingVolumeMaster);
         MixerFXManager.instance.SetPlayerMusic(startingVolumeMusic);
         MixerFXManager.instance.SetPlayerSfx(startingVolumeSFX);

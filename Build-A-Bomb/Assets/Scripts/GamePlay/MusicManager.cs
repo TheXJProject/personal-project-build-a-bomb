@@ -65,6 +65,7 @@ public class MusicManager : MonoBehaviour
     double startTrack2Time = 0;
     double transitiontime1Samples = 0;
     double transitiontime2Samples = 0;
+    bool playingGoneWrongNoise = false;
 
     bool hammer_ = false;
     bool bolting_ = false;
@@ -93,6 +94,11 @@ public class MusicManager : MonoBehaviour
 
     bool taskGoesWrong = false;
 
+    bool countdownNoise1 = false;
+    bool countdownNoise2 = false;
+    bool countdownNoise3 = false;
+    bool countdownNoise4 = false;
+
     private void OnEnable()
     {
         TutorialControl.onTutorialStart += StartTutorialMusic;
@@ -100,8 +106,12 @@ public class MusicManager : MonoBehaviour
         BeginMainMenu.startMainMenuMusic += NewTrack;
         GameStartCount.startGamplay1Music += NewTrack;
         TaskStatus.onTaskSelected += AddNewTrackFromTask;
+        TaskStatus.onTaskDeSelected += PlayRandomTaskDeselect;
         BombStatus.onLayerChangeMusicTrack += AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong += AddNewTrackFromTaskGoneWrong;
+        BombStatus.onGoingWrongCheck += StopGoingWrongSound;
+        GameStartCount.onCountDownNumberAppear += CountDownNoise;
+        TaskStatus.onTaskCompleted += CompletedTaskSound;
     }
 
     private void OnDisable()
@@ -111,8 +121,12 @@ public class MusicManager : MonoBehaviour
         BeginMainMenu.startMainMenuMusic -= NewTrack;
         GameStartCount.startGamplay1Music -= NewTrack;
         TaskStatus.onTaskSelected -= AddNewTrackFromTask;
+        TaskStatus.onTaskDeSelected -= PlayRandomTaskDeselect;
         BombStatus.onLayerChangeMusicTrack -= AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong -= AddNewTrackFromTaskGoneWrong;
+        BombStatus.onGoingWrongCheck -= StopGoingWrongSound;
+        GameStartCount.onCountDownNumberAppear -= CountDownNoise;
+        TaskStatus.onTaskCompleted -= CompletedTaskSound;
     }
 
     private void Start()
@@ -166,6 +180,10 @@ public class MusicManager : MonoBehaviour
         layer10_ = false;
 
         taskGoesWrong = false;
+        countdownNoise1 = false;
+        countdownNoise2 = false;
+        countdownNoise3 = false;
+        countdownNoise4 = false;
     }
 
     void NewTrack(MUSIC_TRACKS track, bool reset, double musicStartTime)
@@ -344,6 +362,9 @@ public class MusicManager : MonoBehaviour
 
     void AddNewTrackFromTask(GameObject task)
     {
+        // play sfx
+        PlayRandomTaskSelect();
+
         TASK_TYPES_FOR_MUSIC thisTaks = task.GetComponent<TaskStatus>().thisTask;
         switch (thisTaks)
         {
@@ -391,6 +412,14 @@ public class MusicManager : MonoBehaviour
 
     void AddNewTrackFromTaskGoneWrong(GameObject task)
     {
+        if (!playingGoneWrongNoise)
+        {
+            playingGoneWrongNoise = true;
+            AudioManager.instance.PlayLoopingSFX("Task Going Wrong", null, null, true);
+            MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, 0f, 0f);
+            MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, 0.05f);
+        }
+
         if (!taskGoesWrong && (gameplay1 || gameplay2 || gameplay3))
         {
             taskGoesWrong = true;
@@ -619,5 +648,109 @@ public class MusicManager : MonoBehaviour
         AudioManager.instance.StopMusic("Main2 Pt7 Keypad", swapTime);
         AudioManager.instance.StopMusic("Main2 Pt7(8) FX", swapTime);
         AudioManager.instance.StopMusic("Main2 Pt8 Gremlin", swapTime);
+    }
+
+    void StopGoingWrongSound(bool goingWrong)
+    {
+        const float dieDownTime = 0.4f;
+
+        if (!goingWrong)
+        {
+            if (playingGoneWrongNoise)
+            {
+                playingGoneWrongNoise = false;
+                MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, dieDownTime, 0f);
+                AudioManager.instance.StopLoopingSFX("Task Going Wrong", AudioSettings.dspTime + dieDownTime);
+            }
+        }
+    }
+
+    void CountDownNoise(int number)
+    {
+        if (!countdownNoise4 && (number == 4))
+        {
+            countdownNoise4 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.25f);
+        }
+        else if (!countdownNoise3 && (number == 3))
+        {
+            countdownNoise3 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.375f);
+        }
+        else if (!countdownNoise2 && number == 2)
+        {
+            countdownNoise2 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.48f); 
+        }
+        else if (!countdownNoise1 && (number == 1))
+        {
+            countdownNoise1 = true;
+            AudioManager.instance.PlaySFX("Go2", true, 0.45f);
+        }
+    }
+
+    void CompletedTaskSound(GameObject gameObject)
+    {
+        int randIDX = UnityEngine.Random.Range(0, 4);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0: AudioManager.instance.PlaySFX("Task Completed1", true, null, true); break;   
+            case 1: AudioManager.instance.PlaySFX("Task Completed2", true, null, true); break;
+            case 2: AudioManager.instance.PlaySFX("Task Completed3", true, null, true); break;
+            case 3: AudioManager.instance.PlaySFX("Task Completed4", true, null, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
+    }
+
+    void PlayRandomTaskSelect()
+    {
+        int randIDX = UnityEngine.Random.Range(0, 20);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0: AudioManager.instance.PlaySFX("Task Selected 1", false, null, true); break;
+            case 1: AudioManager.instance.PlaySFX("Task Selected 2", false, null, true); break;
+            case 2: AudioManager.instance.PlaySFX("Task Selected 3", false, null, true); break;
+            case 3: AudioManager.instance.PlaySFX("Task Selected 4", false, null, true); break;
+            case 4: AudioManager.instance.PlaySFX("Task Selected 5", false, null, true); break;
+            case 5: AudioManager.instance.PlaySFX("Task Selected 6", false, null, true); break;
+            case 6: AudioManager.instance.PlaySFX("Task Selected 7", false, null, true); break;
+            case 7: AudioManager.instance.PlaySFX("Task Selected 8", false, null, true); break;
+            case 8: AudioManager.instance.PlaySFX("Task Selected 9", false, null, true); break;
+            case 9: AudioManager.instance.PlaySFX("Task Selected 10", false, null, true); break;
+            case 10:AudioManager.instance.PlaySFX("Task Selected 11", false, null, true); break;
+            case 11:AudioManager.instance.PlaySFX("Task Selected 12", false, null, true); break;
+            case 12:AudioManager.instance.PlaySFX("Task Selected 13", false, null, true); break;
+            case 13:AudioManager.instance.PlaySFX("Task Selected 14", false, null, true); break;
+            case 14:AudioManager.instance.PlaySFX("Task Selected 15", false, null, true); break;
+            case 15:AudioManager.instance.PlaySFX("Task Selected 16", false, null, true); break;
+            case 16:AudioManager.instance.PlaySFX("Task Selected 17", false, null, true); break;
+            case 17:AudioManager.instance.PlaySFX("Task Selected 18", false, null, true); break;
+            case 18: AudioManager.instance.PlaySFX("Task Selected 19", false, null, true); break;
+            case 19: AudioManager.instance.PlaySFX("Task Selected 20", false, null, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
+    }
+
+    void PlayRandomTaskDeselect(GameObject gameObject)
+    {
+        int randIDX = UnityEngine.Random.Range(0, 8);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0:AudioManager.instance.PlaySFX("Task Deselected 1", false, null, true); break;
+            case 1:AudioManager.instance.PlaySFX("Task Deselected 2", false, null, true); break; 
+            case 2:AudioManager.instance.PlaySFX("Task Deselected 3", false, null, true); break; 
+            case 3:AudioManager.instance.PlaySFX("Task Deselected 4", false, null, true); break; 
+            case 4:AudioManager.instance.PlaySFX("Task Deselected 5", false, null, true); break; 
+            case 5:AudioManager.instance.PlaySFX("Task Deselected 6", false, null, true); break; 
+            case 6:AudioManager.instance.PlaySFX("Task Deselected 7", false, null, true); break; 
+            case 7: AudioManager.instance.PlaySFX("Task Deselected 8", false, null, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
     }
 }

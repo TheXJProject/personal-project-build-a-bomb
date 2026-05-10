@@ -65,6 +65,7 @@ public class MusicManager : MonoBehaviour
     double startTrack2Time = 0;
     double transitiontime1Samples = 0;
     double transitiontime2Samples = 0;
+    bool playingGoneWrongNoise = false;
 
     bool hammer_ = false;
     bool bolting_ = false;
@@ -93,6 +94,11 @@ public class MusicManager : MonoBehaviour
 
     bool taskGoesWrong = false;
 
+    bool countdownNoise1 = false;
+    bool countdownNoise2 = false;
+    bool countdownNoise3 = false;
+    bool countdownNoise4 = false;
+
     private void OnEnable()
     {
         TutorialControl.onTutorialStart += StartTutorialMusic;
@@ -102,6 +108,8 @@ public class MusicManager : MonoBehaviour
         TaskStatus.onTaskSelected += AddNewTrackFromTask;
         BombStatus.onLayerChangeMusicTrack += AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong += AddNewTrackFromTaskGoneWrong;
+        BombStatus.onGoingWrongCheck += StopGoingWrongSound;
+        GameStartCount.onCountDownNumberAppear += CountDownNoise;
     }
 
     private void OnDisable()
@@ -113,6 +121,8 @@ public class MusicManager : MonoBehaviour
         TaskStatus.onTaskSelected -= AddNewTrackFromTask;
         BombStatus.onLayerChangeMusicTrack -= AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong -= AddNewTrackFromTaskGoneWrong;
+        BombStatus.onGoingWrongCheck -= StopGoingWrongSound;
+        GameStartCount.onCountDownNumberAppear -= CountDownNoise;
     }
 
     private void Start()
@@ -166,6 +176,10 @@ public class MusicManager : MonoBehaviour
         layer10_ = false;
 
         taskGoesWrong = false;
+        countdownNoise1 = false;
+        countdownNoise2 = false;
+        countdownNoise3 = false;
+        countdownNoise4 = false;
     }
 
     void NewTrack(MUSIC_TRACKS track, bool reset, double musicStartTime)
@@ -391,6 +405,15 @@ public class MusicManager : MonoBehaviour
 
     void AddNewTrackFromTaskGoneWrong(GameObject task)
     {
+        if (!playingGoneWrongNoise)
+        {
+            Debug.Log(task);
+            playingGoneWrongNoise = true;
+            AudioManager.instance.PlayLoopingSFX("Task Going Wrong", null, null, true);
+            MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, 0f, 0f);
+            MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, 0.05f);
+        }
+
         if (!taskGoesWrong && (gameplay1 || gameplay2 || gameplay3))
         {
             taskGoesWrong = true;
@@ -619,5 +642,44 @@ public class MusicManager : MonoBehaviour
         AudioManager.instance.StopMusic("Main2 Pt7 Keypad", swapTime);
         AudioManager.instance.StopMusic("Main2 Pt7(8) FX", swapTime);
         AudioManager.instance.StopMusic("Main2 Pt8 Gremlin", swapTime);
+    }
+
+    void StopGoingWrongSound(bool goingWrong)
+    {
+        const float dieDownTime = 0.8f;
+
+        if (!goingWrong)
+        {
+            if (playingGoneWrongNoise)
+            {
+                playingGoneWrongNoise = false;
+                MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, dieDownTime, 0f);
+                AudioManager.instance.StopLoopingSFX("Task Going Wrong", AudioSettings.dspTime + dieDownTime);
+            }
+        }
+    }
+
+    void CountDownNoise(int number)
+    {
+        if (!countdownNoise4 && (number == 4))
+        {
+            countdownNoise4 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.25f);
+        }
+        else if (!countdownNoise3 && (number == 3))
+        {
+            countdownNoise3 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.375f);
+        }
+        else if (!countdownNoise2 && number == 2)
+        {
+            countdownNoise2 = true; 
+            AudioManager.instance.PlaySFX("Go1", true, 0.48f); 
+        }
+        else if (!countdownNoise1 && (number == 1))
+        {
+            countdownNoise1 = true;
+            AudioManager.instance.PlaySFX("Go2", true, 0.45f);
+        }
     }
 }

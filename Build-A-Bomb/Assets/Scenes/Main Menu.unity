@@ -2895,7 +2895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canToggleCheats
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: musicAndSoundForceOff
@@ -5657,7 +5657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3633060049086794842, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_Value
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3693325485037220444, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_Pivot.x

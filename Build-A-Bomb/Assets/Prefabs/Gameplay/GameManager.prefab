@@ -1376,5 +1376,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingVolumeMaster: 0.8
-  startingVolumeMusic: 0.5
+  startingVolumeMusic: 0.8
   startingVolumeSFX: 0.8

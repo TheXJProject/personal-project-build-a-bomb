@@ -5571,6 +5571,20 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: Go2
+    volume: 0.3
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: ff806f02c6dcc544d8cea846b2d95f61, type: 3}
+    looped: 0
+  - name: Go1
+    volume: 0.27
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 262cab8189c42f441a284e6e16cd7a37, type: 3}
+    looped: 0
   - name: Every Button
     volume: 0.2
     pitch: 1
@@ -5893,14 +5907,14 @@ MonoBehaviour:
     randomPitchRange: {x: 1.15, y: 1.3}
     clip: {fileID: 8300000, guid: 78b246b46fba4e34782ce6027fd2aa09, type: 3}
     looped: 0
-  - name: Task Goes Wrong
-    volume: 0.7
+  sfxLoopedSounds:
+  - name: Task Going Wrong
+    volume: 0.5
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 1.15, y: 1.3}
-    clip: {fileID: 8300000, guid: 345687b17d492324a9137939e9bf9737, type: 3}
-    looped: 0
-  sfxLoopedSounds:
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: c036ae6710729424193a6a90a3bb6e16, type: 3}
+    looped: 1
   - name: Bolting (Not needed)
     volume: 0.8
     pitch: 1

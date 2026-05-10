@@ -60,6 +60,7 @@ public class GameStartCount : MonoBehaviour
 
     IEnumerator CountdownBegin()
     {
+        onCountDownNumberAppear?.Invoke(countDownLength + 1);
         for (int i = countDownLength; i > 0; --i)
         {
             text.text = i.ToString();

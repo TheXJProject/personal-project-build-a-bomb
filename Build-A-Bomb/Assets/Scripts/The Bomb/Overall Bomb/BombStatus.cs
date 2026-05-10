@@ -8,6 +8,7 @@ public class BombStatus : MonoBehaviour
     // Event actions:
     public static event Action onBombFinished;
     public static event Action<GameObject> onLayerCreated;
+    public static event Action<GameObject> onLayerChangeMusicTrack;
     public static event Action<GameObject> onEachGoingWrongTasksSolved;
     public static event Action<bool> onGoingWrongCheck;
 
@@ -102,6 +103,8 @@ public class BombStatus : MonoBehaviour
     /// </summary>
     void SpawnNextLayer()
     {
+        onLayerChangeMusicTrack?.Invoke(layers[currentLayer]);
+
         // Add the previous layer to the goneWrongController so that it can use it to go wrong
         if (goneWrongController != null)
             goneWrongController.AddNewLayerToChooseFrom(layers[currentLayer]);

@@ -11,6 +11,7 @@ public class KeyLogic : MonoBehaviour
     // Inspector Adjustable Values:
     public float onPressedTime = 1;
     public int keynumber;
+    public bool muteKey;
 
     [SerializeField] float altSizePercent;
     [SerializeField] Color altColor;
@@ -57,7 +58,7 @@ public class KeyLogic : MonoBehaviour
                 if (gameObject.activeInHierarchy)
                 {
                     // Hold the colour for a set time
-                    StartCoroutine(AnimationHoldTime(onPressedTime));
+                    StartCoroutine(AnimationHoldTime(onPressedTime, muteKey));
                 }
 
                 // Signal which key has been pressed

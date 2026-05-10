@@ -5388,13 +5388,6 @@ MonoBehaviour:
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 69b51aa7b3d2fbc4787d9cda4f801249, type: 3}
     looped: 0
-  - name: Menu OfficeNoise
-    volume: 0.95
-    pitch: 1
-    panning: 0
-    randomPitchRange: {x: 0, y: 0}
-    clip: {fileID: 8300000, guid: e065c90cb530a0a4dbfddeadc7de36a1, type: 3}
-    looped: 0
   - name: Menu Organ
     volume: 0.8
     pitch: 1
@@ -5415,13 +5408,6 @@ MonoBehaviour:
     panning: 0
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 0380352fb7f8a8d4aaef5c24c2be17f7, type: 3}
-    looped: 0
-  - name: Main1 Pt1 FX
-    volume: 0.8
-    pitch: 1
-    panning: 0
-    randomPitchRange: {x: 0, y: 0}
-    clip: {fileID: 8300000, guid: dafe79da084cc3e458a883814b30d803, type: 3}
     looped: 0
   - name: Main1 Pt1 Hammer
     volume: 0.8
@@ -5444,13 +5430,6 @@ MonoBehaviour:
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: c0032636c62227b4d8ce23e8045cf2d5, type: 3}
     looped: 0
-  - name: Main1 Pt2 FX
-    volume: 0.8
-    pitch: 1
-    panning: 0
-    randomPitchRange: {x: 0, y: 0}
-    clip: {fileID: 8300000, guid: 5007dbb480d454c4aae925b0c0494db0, type: 3}
-    looped: 0
   - name: Main1 Pt2 Switch
     volume: 0.8
     pitch: 1
@@ -5471,13 +5450,6 @@ MonoBehaviour:
     panning: 0
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: 30f7f671f871e404492f286c0da5040f, type: 3}
-    looped: 0
-  - name: Main1 Pt3(4) FX
-    volume: 0.8
-    pitch: 1
-    panning: 0
-    randomPitchRange: {x: 0, y: 0}
-    clip: {fileID: 8300000, guid: df6fe2aedda2c5f49b020903153d8f98, type: 3}
     looped: 0
   - name: Main1 Pt4 Fade
     volume: 0.8
@@ -5592,26 +5564,54 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5a7666553cb59a8449b96eff46105203, type: 3}
     looped: 0
   - name: Tutorial
-    volume: 0.8
+    volume: 0.75
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0, y: 0}
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: Forward Button
+    volume: 0.65
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1.05, y: 1.1}
+    clip: {fileID: 8300000, guid: af430c9c69bd2864297cefe9f1cd6433, type: 3}
+    looped: 0
+  - name: Back Button
+    volume: 0.65
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1.05, y: 1.1}
+    clip: {fileID: 8300000, guid: 0f3d963739b14b24faf66836bdc21608, type: 3}
+    looped: 0
+  - name: StartGame1
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: 9eeaf7096b4266f439d0324f5d0b9445, type: 3}
+    looped: 0
+  - name: StartGame2
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: ed23cec30950db94ba26c888abf50e26, type: 3}
+    looped: 0
   - name: Button On
     volume: 0.4
     pitch: 0.4
     panning: 0
     randomPitchRange: {x: 1, y: 1}
-    clip: {fileID: 8300000, guid: fce530abbccc0a24c869f4c91ee3f3da, type: 3}
+    clip: {fileID: 8300000, guid: b800b8877b939d741aa5771fa7be7dbf, type: 3}
     looped: 0
   - name: Button Off
     volume: 0.4
     pitch: 0.6
     panning: 0
     randomPitchRange: {x: 1, y: 1}
-    clip: {fileID: 8300000, guid: c871a4c5f3c15f847a48840a75ca9eaf, type: 3}
+    clip: {fileID: 8300000, guid: 731618e7eb6c7724d84e61ea6e4d19a1, type: 3}
     looped: 0
   - name: Hammer
     volume: 0.65
@@ -5744,21 +5744,21 @@ MonoBehaviour:
     pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
-    clip: {fileID: 8300000, guid: 49d8607919f9fbc488d73e38020c21f2, type: 3}
+    clip: {fileID: 8300000, guid: 5be3a65a28519da4fbded405f3249070, type: 3}
     looped: 0
   - name: Error 2
     volume: 0.7
     pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
-    clip: {fileID: 8300000, guid: a4d136f82667062438402c06b1abc94c, type: 3}
+    clip: {fileID: 8300000, guid: 3994a28568bd1f54096eb0fe03ea965a, type: 3}
     looped: 0
   - name: Error 3
     volume: 0.7
     pitch: 1
     panning: 0
     randomPitchRange: {x: 1, y: 1}
-    clip: {fileID: 8300000, guid: d54322884d462df4c994edac8cad9b48, type: 3}
+    clip: {fileID: 8300000, guid: b19370bb9ae51dc479cab44196e3ff26, type: 3}
     looped: 0
   - name: Mallet
     volume: 0.7
@@ -5921,6 +5921,34 @@ MonoBehaviour:
     panning: 0
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: dc19f666876e3c24e8bf2c68bd9e4e3c, type: 3}
+    looped: 1
+  - name: Menu OfficeNoise
+    volume: 0.85
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: e065c90cb530a0a4dbfddeadc7de36a1, type: 3}
+    looped: 1
+  - name: Main1 Pt1 FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: dafe79da084cc3e458a883814b30d803, type: 3}
+    looped: 1
+  - name: Main1 Pt2 FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 5007dbb480d454c4aae925b0c0494db0, type: 3}
+    looped: 1
+  - name: Main1 Pt3(4) FX
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: df6fe2aedda2c5f49b020903153d8f98, type: 3}
     looped: 1
   musicSourceList:
   - audioSource: {fileID: 4421302134104516341}

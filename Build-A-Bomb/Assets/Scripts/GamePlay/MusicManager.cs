@@ -53,8 +53,11 @@ public class MusicManager : MonoBehaviour
     const int numberTransitionOptions2 = 48;
     const float fade1LastVolume = 0.06f;
     const float fade2LastVolume = 0.12f;
-    double track1AveSamples = 0;
-    double track2AveSamples = 0;
+    const float bufferMin = 0.3f;
+    double track1AveTime = 0;
+    double track2AveTime = 0;
+    double startTrack1Time = 0;
+    double startTrack2Time = 0;
     double transitiontime1Samples = 0;
     double transitiontime2Samples = 0;
 
@@ -92,7 +95,7 @@ public class MusicManager : MonoBehaviour
         BeginMainMenu.startMainMenuMusic += NewTrack;
         GameStartCount.startGamplay1Music += NewTrack;
         TaskStatus.onTaskSelected += AddNewTrackFromTask;
-        LayerStatus.onLayerCompleted += AddNewTrackFromLayer;
+        BombStatus.onLayerChangeMusicTrack += AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong += AddNewTrackFromTaskGoneWrong;
     }
 
@@ -103,7 +106,7 @@ public class MusicManager : MonoBehaviour
         BeginMainMenu.startMainMenuMusic -= NewTrack;
         GameStartCount.startGamplay1Music -= NewTrack;
         TaskStatus.onTaskSelected -= AddNewTrackFromTask;
-        LayerStatus.onLayerCompleted -= AddNewTrackFromLayer;
+        BombStatus.onLayerChangeMusicTrack -= AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong -= AddNewTrackFromTaskGoneWrong;
     }
 
@@ -111,13 +114,15 @@ public class MusicManager : MonoBehaviour
     {
         // Get the average number of samples in transition 1
         Sound sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main1 Pt1 Start");
-        track1AveSamples = sound.clip.samples / (double)numberTransitionOptions1;
+        double track1AveSamples = sound.clip.samples / (double)numberTransitionOptions1;
         transitiontime1Samples = 4f * track1AveSamples;
+        track1AveTime = track1AveSamples / sound.clip.frequency;
 
         // Get the average number of samples in transition 2
         sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main2 Pt5 Start");
-        track2AveSamples = sound.clip.samples / (double)numberTransitionOptions2;
+        double track2AveSamples = sound.clip.samples / (double)numberTransitionOptions2;
         transitiontime2Samples = 6f * track2AveSamples;
+        track2AveTime = track2AveSamples / sound.clip.frequency;
     }
 
     void NewGame()
@@ -200,10 +205,12 @@ public class MusicManager : MonoBehaviour
         AudioManager.instance.PlayMusic("Menu FullChoirCrash", time);
         AudioManager.instance.PlayMusic("Menu Hats", time);
         AudioManager.instance.PlayMusic("Menu KickSnare", time);
-        AudioManager.instance.PlayMusic("Menu OfficeNoise", time);
         AudioManager.instance.PlayMusic("Menu Organ", time);
         AudioManager.instance.PlayMusic("Menu StartMelody", time);
         AudioManager.instance.PlayMusic("Menu StringsXyphone", time);
+
+        AudioManager.instance.PlayLoopingSFX("Menu OfficeNoise", time);
+        MixerFXManager.instance.SetLoopingSFXParam("Menu OfficeNoise", EX_PARA.VOLUME, 0f, 0f);
     }
 
     void TutorialTrack(double time)
@@ -217,33 +224,40 @@ public class MusicManager : MonoBehaviour
         if (!gameplay1)
         {
             gameplay1 = true;
+            startTrack1Time = AudioSettings.dspTime;
+
             // Play all music tracks at the same time for start of game
-            AudioManager.instance.PlayMusic("Main1 Pt1 FX", time);
             AudioManager.instance.PlayMusic("Main1 Pt1 Hammer", time);
             AudioManager.instance.PlayMusic("Main1 Pt1 Start", time);
             AudioManager.instance.PlayMusic("Main1 Pt2 Bolting", time);
-            AudioManager.instance.PlayMusic("Main1 Pt2 FX", time);
             AudioManager.instance.PlayMusic("Main1 Pt2 Switch", time);
             AudioManager.instance.PlayMusic("Main1 Pt3 Fade", time);
             AudioManager.instance.PlayMusic("Main1 Pt3 Task Goes Wrong", time);
-            AudioManager.instance.PlayMusic("Main1 Pt3(4) FX", time);
             AudioManager.instance.PlayMusic("Main1 Pt4 Fade", time);
             AudioManager.instance.PlayMusic("Main1 Pt4 Valve", time);
+
+            // SFX are seperate
+            AudioManager.instance.PlayLoopingSFX("Main1 Pt1 FX", time);
+            AudioManager.instance.PlayLoopingSFX("Main1 Pt2 FX", time);
+            AudioManager.instance.PlayLoopingSFX("Main1 Pt3(4) FX", time);
+
 
             // Start everything muted
             MixerFXManager.instance.SetMusicParam("Main1 Pt1 Hammer", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt1 Start", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt2 Bolting", EX_PARA.VOLUME, 0f, 0f);
-            MixerFXManager.instance.SetMusicParam("Main1 Pt2 FX", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt2 Switch", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt3 Fade", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt3 Task Goes Wrong", EX_PARA.VOLUME, 0f, 0f);
-            MixerFXManager.instance.SetMusicParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt4 Fade", EX_PARA.VOLUME, 0f, 0f);
             MixerFXManager.instance.SetMusicParam("Main1 Pt4 Valve", EX_PARA.VOLUME, 0f, 0f);
 
-            // Have the FX playing automatically
-            MixerFXManager.instance.SetMusicParam("Main1 Pt1 FX", EX_PARA.VOLUME, 0.01f);
+            // Have the FX 1 playing automatically
+            MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt1 FX", EX_PARA.VOLUME, 0.01f);
+
+            // The other two are off
+            MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt2 FX", EX_PARA.VOLUME, 0f, 0f);
+            MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, 0f, 0f);
         }
     }
 
@@ -252,6 +266,7 @@ public class MusicManager : MonoBehaviour
         if (!gameplay2)
         {
             gameplay2 = true;
+            startTrack2Time = AudioSettings.dspTime;
 
             // Prevent error messages
             hammer_ = true;
@@ -428,26 +443,26 @@ public class MusicManager : MonoBehaviour
     void Layer2()
     {
         // Fade out
-        MixerFXManager.instance.SetMusicParam("Main1 Pt1 FX", EX_PARA.VOLUME, layerFadeInTime, 0f);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt1 FX", EX_PARA.VOLUME, layerFadeInTime, 0f);
 
         // Fade in
-        MixerFXManager.instance.SetMusicParam("Main1 Pt2 FX", EX_PARA.VOLUME, layerFadeInTime);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt2 FX", EX_PARA.VOLUME, layerFadeInTime);
     }
 
     void Layer3()
     {
         // Fade out
-        MixerFXManager.instance.SetMusicParam("Main1 Pt2 FX", EX_PARA.VOLUME, layerFadeInTime, 0f);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt2 FX", EX_PARA.VOLUME, layerFadeInTime, 0f);
 
         // Fade in
         MixerFXManager.instance.SetMusicParam("Main1 Pt3 Fade", EX_PARA.VOLUME, layerFadeInTime);
-        MixerFXManager.instance.SetMusicParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, layerFadeInTime);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, layerFadeInTime);
     }
 
     void Layer4()
     {
         // Fade out
-        MixerFXManager.instance.SetMusicParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, layerFadeInTime, 0.5f);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, layerFadeInTime, 0.5f);
 
         // Fade in
         MixerFXManager.instance.SetMusicParam("Main1 Pt4 Fade", EX_PARA.VOLUME, layerFadeInTime);
@@ -455,6 +470,8 @@ public class MusicManager : MonoBehaviour
 
     void Layer5()
     {
+        double dspNow = AudioSettings.dspTime;
+
         // Find a music source that's currently playing the start track
         AudioSource source = Array.Find(AudioManager.instance.musicSourceList, x => x.soundName == "Main1 Pt1 Start").audioSource;
 
@@ -464,25 +481,24 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        double samples = (double)source.timeSamples;
-        double timeRemaining = (track1AveSamples - (samples % track1AveSamples)) / (double)source.clip.frequency;
+        double timeRemaining = track1AveTime - ((dspNow - startTrack1Time) % track1AveTime);
 
         // Prevent missing the slot
-        double transitionTimeTrack1 = (track1AveSamples / (double)source.clip.frequency);
-        if (timeRemaining < 0.08f) timeRemaining += transitionTimeTrack1;
+        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track1AveTime));
+        timeRemaining += track1AveTime * additionTimeMultiply;
 
         // Calculate when to transition
         double transitionTime = (transitiontime1Samples / (double)source.clip.frequency);
-        double swapTimeDSP = AudioSettings.dspTime + timeRemaining + transitionTime;
+        double swapTimeDSP = dspNow + timeRemaining + transitionTime;
 
         // Start and stop required tracks at time
         FadeStop1(timeRemaining + transitionTime, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY2, false, timeRemaining + transitionTime);
 
         // Transition track
-        double startTransitionDSP = AudioSettings.dspTime + timeRemaining;
+        double startTransitionDSP = dspNow + timeRemaining;
         AudioManager.instance.PlayMusic("Main Transition 1", startTransitionDSP);
-        MixerFXManager.instance.SetMusicParam("Main Transition 1", EX_PARA.VOLUME, (float)transitionTimeTrack1 * 1.5f);
+        MixerFXManager.instance.SetMusicParam("Main Transition 1", EX_PARA.VOLUME, (float)track1AveTime * 1.5f);
         AudioManager.instance.StopMusic("Main Transition 1", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
     }
 
@@ -506,6 +522,8 @@ public class MusicManager : MonoBehaviour
 
     void Layer9()
     {
+        double dspNow = AudioSettings.dspTime;
+
         // Find a music source that's currently playing the start track
         AudioSource source = Array.Find(AudioManager.instance.musicSourceList, x => x.soundName == "Main2 Pt5 Start").audioSource;
 
@@ -515,25 +533,24 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        double samples = (double)source.timeSamples;
-        double timeRemaining = (track2AveSamples - (samples % track2AveSamples)) / (double)source.clip.frequency;
+        double timeRemaining = track2AveTime - ((dspNow - startTrack2Time) % track2AveTime);
 
         // Prevent missing the slot
-        double transitionTimeTrack2 = (track2AveSamples / (double)source.clip.frequency);
-        if (timeRemaining < 0.08f) timeRemaining += transitionTimeTrack2;
+        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track1AveTime));
+        timeRemaining += track1AveTime * additionTimeMultiply;
 
         // Calculate when to transition
         double transitionTime = (transitiontime2Samples / (double)source.clip.frequency);
-        double swapTimeDSP = AudioSettings.dspTime + timeRemaining + transitionTime;
+        double swapTimeDSP = dspNow + timeRemaining + transitionTime;
 
         // Start and stop required tracks at time
         FadeStop2(timeRemaining + transitionTime, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY3, false, timeRemaining + transitionTime);
 
         // Transition track
-        double startTransitionDSP = AudioSettings.dspTime + timeRemaining;
+        double startTransitionDSP = dspNow + timeRemaining;
         AudioManager.instance.PlayMusic("Main Transition 2", startTransitionDSP);
-        MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)transitionTimeTrack2 * 1.5f);
+        MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)track1AveTime * 1.5f);
         AudioManager.instance.StopMusic("Main Transition 2", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
     }
 
@@ -545,29 +562,31 @@ public class MusicManager : MonoBehaviour
 
     void FadeStop1(double transition, double swapTime)
     {
-        MixerFXManager.instance.SetMusicParam("Main1 Pt1 FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt1 Hammer", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt1 Start", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt2 Bolting", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
-        MixerFXManager.instance.SetMusicParam("Main1 Pt2 FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt2 Switch", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt3 Fade", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt3 Task Goes Wrong", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
-        MixerFXManager.instance.SetMusicParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt4 Fade", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
         MixerFXManager.instance.SetMusicParam("Main1 Pt4 Valve", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
 
-        AudioManager.instance.StopMusic("Main1 Pt1 FX", swapTime);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt1 FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt2 FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
+        MixerFXManager.instance.SetLoopingSFXParam("Main1 Pt3(4) FX", EX_PARA.VOLUME, (float)transition, fade1LastVolume);
+
         AudioManager.instance.StopMusic("Main1 Pt1 Hammer", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt1 Start", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt2 Bolting", swapTime);
-        AudioManager.instance.StopMusic("Main1 Pt2 FX", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt2 Switch", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt3 Fade", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt3 Task Goes Wrong", swapTime);
-        AudioManager.instance.StopMusic("Main1 Pt3(4) FX", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt4 Fade", swapTime);
         AudioManager.instance.StopMusic("Main1 Pt4 Valve", swapTime);
+
+        AudioManager.instance.StopLoopingSFX("Main1 Pt1 FX", swapTime);
+        AudioManager.instance.StopLoopingSFX("Main1 Pt2 FX", swapTime);
+        AudioManager.instance.StopLoopingSFX("Main1 Pt3(4) FX", swapTime);
     }
 
     void FadeStop2(double transition, double swapTime)

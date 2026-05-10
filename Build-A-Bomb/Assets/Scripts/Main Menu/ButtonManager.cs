@@ -29,6 +29,9 @@ public class ButtonManager : MonoBehaviour
 
     public void OnAnyButtonPressed(MENUS buttonPressed)
     {
+        // Play sfx
+        AudioManager.instance.PlaySFX("Forward Button", true, null, true);
+
         // If any button is pressed, prevent any other front being pressed
         settings.pressed = true;
         tutorial.pressed = true;
@@ -52,19 +55,19 @@ public class ButtonManager : MonoBehaviour
         {
             case MENUS.SETTINGS:
                 // Set each track to be at the right volume for settings
-                MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime);
+                MixerFXManager.instance.SetLoopingSFXParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime);
                 MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, musicTransitonTime);
                 MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.VOLUME, musicTransitonTime, 0.7f);
-                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, musicTransitonTime, 0.85f);
+                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, musicTransitonTime, 0.95f);
                 MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime, 0.85f);
 
                 // And set each track to off that shouldn't be playing
-                MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime, 0f);
+                //MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime, 0f);
                 MixerFXManager.instance.SetMusicParam("Menu Choir", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
                 // Set high pass filter, goes into it quick
                 MixerFXManager.instance.SetMusicParam("Menu KickSnare", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.5f);
-                MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
+                //MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
                 MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
                 MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.HIGH_PASS, fxTransitonTimeIn, 0.65f);
                 break;
@@ -105,6 +108,9 @@ public class ButtonManager : MonoBehaviour
 
     public void OnBackToMainPressed()
     {
+        // Play sfx
+        AudioManager.instance.PlaySFX("Back Button", true, null, true);
+
         // If any back button is pressed, allow main menu buttons to be pressed
         settings.pressed = false;
         tutorial.pressed = false;
@@ -128,7 +134,7 @@ public class ButtonManager : MonoBehaviour
         // And set each track to off that shouldn't be playing
         MixerFXManager.instance.SetMusicParam("Menu Alarms", EX_PARA.VOLUME, musicTransitonTime, 0f);
         MixerFXManager.instance.SetMusicParam("Menu Beeps", EX_PARA.VOLUME, musicTransitonTime, 0f);
-        MixerFXManager.instance.SetMusicParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime, 0f);
+        MixerFXManager.instance.SetLoopingSFXParam("Menu OfficeNoise", EX_PARA.VOLUME, musicTransitonTime, 0f);
         MixerFXManager.instance.SetMusicParam("Menu FullChoirCrash", EX_PARA.VOLUME, musicTransitonTime, 0f);
         MixerFXManager.instance.SetMusicParam("Menu Organ", EX_PARA.VOLUME, musicTransitonTime, 0f);
 

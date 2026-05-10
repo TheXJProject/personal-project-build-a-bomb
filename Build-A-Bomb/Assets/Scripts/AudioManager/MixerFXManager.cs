@@ -774,9 +774,24 @@ public class MixerFXManager : MonoBehaviour
         }
     }
 
+    float GetVolumeLevel(string exParam)
+    {
+        // Set the volume on the mixer
+        if (!audioMixer.GetFloat(exParam, out float level))
+        {
+            // Throw error if this fails
+            if (!removeWarningMsgs) Debug.LogWarning("Error, failed to set target value for " + exParam);
+        }
+        return ConvertType(EX_PARA.VOLUME, false, level);
+    }
+
     public void SetPlayerMaster(float level) => SetVolumeLevel(exParaMasterPlayer, level);
     public void SetPlayerMusic(float level) => SetVolumeLevel(exParaMusicPlayer, level);
-    public void SetPlayerSfx(float level) => SetVolumeLevel(exParaSfxPlayer, level); 
+    public void SetPlayerSfx(float level) => SetVolumeLevel(exParaSfxPlayer, level);
+
+    public float GetPlayerMaster() => GetVolumeLevel(exParaMasterPlayer);
+    public float GetPlayerMusic() => GetVolumeLevel(exParaMusicPlayer);
+    public float GetPlayerSfx() => GetVolumeLevel(exParaSfxPlayer);
 
     // The MixerFXManager functions affect the various channels in the audio mixer.
     // They change the pre-master volume and can apply FX to the channels.

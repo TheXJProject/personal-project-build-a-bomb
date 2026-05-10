@@ -15,6 +15,19 @@ public class SettingsSliderControl : MonoBehaviour
 
     [SerializeField] SETTING_OPTIONS option;
 
+    private void Awake()
+    {
+        float initialValue = 0;
+        switch (option)
+        {
+            case SETTING_OPTIONS.MASTER: initialValue = MixerFXManager.instance.GetPlayerMaster(); break;
+            case SETTING_OPTIONS.MUSIC: initialValue = MixerFXManager.instance.GetPlayerMusic(); break;
+            case SETTING_OPTIONS.SFX: initialValue = MixerFXManager.instance.GetPlayerSfx(); break;
+            default: Debug.LogWarning("Error, settings option not set"); break;
+        }
+        gameObject.GetComponent<Slider>().value = initialValue;
+    }
+
     public void ChangeSetting(float level)
     {
         switch (option)

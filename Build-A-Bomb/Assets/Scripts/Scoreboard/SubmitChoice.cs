@@ -10,6 +10,7 @@ public class SubmitChoice : MonoBehaviour
     [SerializeField] private GameObject yesOrNo;
     [SerializeField] private GameObject enterName;
     [SerializeField] private GameObject submitChoiceOverall;
+    [SerializeField] private GameObject scoreWasNotHighScore;
     [SerializeField] private GameObject scoreBoard;
     [SerializeField] private Scoreboard scoreBoardInfo;
 
@@ -24,7 +25,7 @@ public class SubmitChoice : MonoBehaviour
         submitChoiceOverall.SetActive(offerSubmitNewScore);
 
         enterName.SetActive(false);
-        scoreBoard.SetActive(!offerSubmitNewScore);
+        scoreWasNotHighScore.SetActive(!offerSubmitNewScore);
 
         GameManager.instance.WaitToShowScores = offerSubmitNewScore;
     }
@@ -33,6 +34,12 @@ public class SubmitChoice : MonoBehaviour
     {
         yesOrNo.SetActive(false);
         enterName.SetActive(true);
+    }
+
+    public void PlayerClickedContinue()
+    {
+        scoreWasNotHighScore.SetActive(false);
+        scoreBoard.SetActive(true);
     }
 
     async System.Threading.Tasks.Task<bool> IsNewScoreHigher(int newScore)

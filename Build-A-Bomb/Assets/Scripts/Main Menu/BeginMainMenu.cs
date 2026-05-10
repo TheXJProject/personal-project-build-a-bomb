@@ -51,6 +51,7 @@ public class BeginMainMenu : MonoBehaviour
 
             // Play sfx
             AudioManager.instance.PlaySFX("Forward Button", true, null, true);
+            AudioManager.instance.PlaySFX("Every Button", true, null, true);
 
             // Fade in the Main menu tracks
             MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime);
@@ -77,6 +78,7 @@ public class BeginMainMenu : MonoBehaviour
 
         // Play sfx
         AudioManager.instance.PlaySFX("Back Button", true, null, true);
+        AudioManager.instance.PlaySFX("Every Button", true, null, true);
 
         // Fade out the Main menu tracks
         MixerFXManager.instance.SetMusicParam("Menu Hats", EX_PARA.VOLUME, musicTransitonTime, 0f);

@@ -31,6 +31,7 @@ public class ButtonManager : MonoBehaviour
     {
         // Play sfx
         AudioManager.instance.PlaySFX("Forward Button", true, null, true);
+        AudioManager.instance.PlaySFX("Every Button", true, null, true);
 
         // If any button is pressed, prevent any other front being pressed
         settings.pressed = true;
@@ -110,6 +111,7 @@ public class ButtonManager : MonoBehaviour
     {
         // Play sfx
         AudioManager.instance.PlaySFX("Back Button", true, null, true);
+        AudioManager.instance.PlaySFX("Every Button", true, null, true);
 
         // If any back button is pressed, allow main menu buttons to be pressed
         settings.pressed = false;

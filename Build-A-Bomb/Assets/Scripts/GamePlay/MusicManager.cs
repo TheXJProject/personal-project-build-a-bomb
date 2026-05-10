@@ -407,7 +407,6 @@ public class MusicManager : MonoBehaviour
     {
         if (!playingGoneWrongNoise)
         {
-            Debug.Log(task);
             playingGoneWrongNoise = true;
             AudioManager.instance.PlayLoopingSFX("Task Going Wrong", null, null, true);
             MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, 0f, 0f);

@@ -5909,9 +5909,9 @@ MonoBehaviour:
     looped: 0
   sfxLoopedSounds:
   - name: Task Going Wrong
-    volume: 0.5
+    volume: 0.2
     pitch: 1
-    panning: 0
+    panning: 0.2
     randomPitchRange: {x: 0.95, y: 1.05}
     clip: {fileID: 8300000, guid: c036ae6710729424193a6a90a3bb6e16, type: 3}
     looped: 1

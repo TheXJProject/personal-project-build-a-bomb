@@ -983,6 +983,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3633060049086794842, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: m_Value
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3693325485037220444, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2104,6 +2108,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &655754537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3419108219778392371, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+  m_PrefabInstance: {fileID: 283433246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &663023602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,6 +2555,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1705231639213426492, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
+      propertyPath: sfxSlider
+      value: 
+      objectReference: {fileID: 655754537}
+    - target: {fileID: 1705231639213426492, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
+      propertyPath: musicSlider
+      value: 
+      objectReference: {fileID: 1495524931}
+    - target: {fileID: 1705231639213426492, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
+      propertyPath: masterSlider
+      value: 
+      objectReference: {fileID: 1916197989}
     - target: {fileID: 5901923371453961076, guid: dd476339e61235f47bca8aa9b74bc46c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0853877
@@ -5320,6 +5341,11 @@ Transform:
   - {fileID: 1452133725}
   m_Father: {fileID: 238222141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1495524931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3419108219778392371, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+  m_PrefabInstance: {fileID: 1616853861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1531808987
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,6 +5654,10 @@ PrefabInstance:
     - target: {fileID: 3516154641640284236, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633060049086794842, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: m_Value
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3693325485037220444, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_Pivot.x
@@ -6929,6 +6959,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1916197989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3419108219778392371, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+  m_PrefabInstance: {fileID: 5160485462076088425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1962589497
 GameObject:
   m_ObjectHideFlags: 0
@@ -7887,6 +7922,10 @@ PrefabInstance:
     - target: {fileID: 3516154641640284236, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633060049086794842, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
+      propertyPath: m_Value
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3693325485037220444, guid: 35846d1274cc27c4d92cf6d42bba4c8f, type: 3}
       propertyPath: m_Pivot.x

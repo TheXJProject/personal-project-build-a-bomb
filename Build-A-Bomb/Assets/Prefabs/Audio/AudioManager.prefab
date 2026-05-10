@@ -5571,6 +5571,230 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: Task Deselected 1
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 7a704c7dd0a005c46b0446c529f1ccc3, type: 3}
+    looped: 0
+  - name: Task Deselected 2
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 869d10b68770aca4d8ea270b4ed9d893, type: 3}
+    looped: 0
+  - name: Task Deselected 3
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: cc1fd90a761669b45996452d3e95bc54, type: 3}
+    looped: 0
+  - name: Task Deselected 4
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 1f4e9ef87737ebc4cbfc4163045a3838, type: 3}
+    looped: 0
+  - name: Task Deselected 5
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 6535891ade3cb5d4887f2ef53c7adc18, type: 3}
+    looped: 0
+  - name: Task Deselected 6
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 12e9b1bed781c224393cb0e886bd70c0, type: 3}
+    looped: 0
+  - name: Task Deselected 7
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 58c0366fb42c10f449c35b2229e4fed3, type: 3}
+    looped: 0
+  - name: Task Deselected 8
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: ee88c79f4bae7864f80399933a7e5f70, type: 3}
+    looped: 0
+  - name: Task Selected 1
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: cc96c8c397f12014e960867c7922193d, type: 3}
+    looped: 0
+  - name: Task Selected 2
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 451d33bf6c563ba4083b649ed34d84eb, type: 3}
+    looped: 0
+  - name: Task Selected 3
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: d72a5a0e61129a445b5a0ea53ea074d8, type: 3}
+    looped: 0
+  - name: Task Selected 4
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 74223dbc56e65a64ea42d2c9758f68ac, type: 3}
+    looped: 0
+  - name: Task Selected 5
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 1ebfa9a5fdde08a4eb9c42d8f47d4164, type: 3}
+    looped: 0
+  - name: Task Selected 6
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 5a9d08c04186fa3408318eeed819da48, type: 3}
+    looped: 0
+  - name: Task Selected 7
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: f5661d012d2d39f4a8debb8b22e92062, type: 3}
+    looped: 0
+  - name: Task Selected 8
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 89de8b2889ee09c4eb3842bd49909c4a, type: 3}
+    looped: 0
+  - name: Task Selected 9
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: ee3b480e11b323a4fb89bf4b8c6c8530, type: 3}
+    looped: 0
+  - name: Task Selected 10
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: f5202695e2f4dfe4684645d9086eeb11, type: 3}
+    looped: 0
+  - name: Task Selected 11
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 08dd2ea1da23b2a4f955caef81c62348, type: 3}
+    looped: 0
+  - name: Task Selected 12
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: e60d1bdbba67bb44daa0a7ca74c80011, type: 3}
+    looped: 0
+  - name: Task Selected 13
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 4206e743e4d30b34ca2976b023ae1e82, type: 3}
+    looped: 0
+  - name: Task Selected 14
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: b7eec5356937aed4d95cff519e17b243, type: 3}
+    looped: 0
+  - name: Task Selected 15
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: e831a63cf705a314a8204b4fd30c39e4, type: 3}
+    looped: 0
+  - name: Task Selected 16
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: e4878ae1e27854846bf4109492284777, type: 3}
+    looped: 0
+  - name: Task Selected 17
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: bd963b90396ee634f8b69edf4deae085, type: 3}
+    looped: 0
+  - name: Task Selected 18
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: 435adc06760ac764d888945b2a47f076, type: 3}
+    looped: 0
+  - name: Task Selected 19
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: d36bdd348a53984498f28883488fd9a3, type: 3}
+    looped: 0
+  - name: Task Selected 20
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.98, y: 1.02}
+    clip: {fileID: 8300000, guid: ca397fbe9b535224c9fbf84a09bd7867, type: 3}
+    looped: 0
+  - name: Task Completed1
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.99, y: 1.01}
+    clip: {fileID: 8300000, guid: 6e9d9e4fcdf28e549b279d7abe079679, type: 3}
+    looped: 0
+  - name: Task Completed2
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.99, y: 1.01}
+    clip: {fileID: 8300000, guid: 69d5560adb0ea414384aa0eca7594d24, type: 3}
+    looped: 0
+  - name: Task Completed3
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.99, y: 1.01}
+    clip: {fileID: 8300000, guid: 873829e6f35d69c419236867b8ab4e1f, type: 3}
+    looped: 0
+  - name: Task Completed4
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.99, y: 1.01}
+    clip: {fileID: 8300000, guid: a6fef410bd9648e48a014055aa627d28, type: 3}
+    looped: 0
   - name: Go2
     volume: 0.3
     pitch: 1

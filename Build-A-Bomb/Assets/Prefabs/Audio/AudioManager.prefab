@@ -5585,6 +5585,13 @@ MonoBehaviour:
     randomPitchRange: {x: 1.05, y: 1.1}
     clip: {fileID: 8300000, guid: 0f3d963739b14b24faf66836bdc21608, type: 3}
     looped: 0
+  - name: ScoreBoard
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.8, y: 0.9}
+    clip: {fileID: 8300000, guid: fcf5803908ea3fb44a96818b859b1267, type: 3}
+    looped: 0
   - name: StartGame1
     volume: 0.8
     pitch: 1

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum MUSIC_TRACKS
 {
@@ -45,6 +46,10 @@ public enum LAYER_NUMS_FOR_MUSIC
 
 public class MusicManager : MonoBehaviour
 {
+    public GameObject masterSlider;
+    public GameObject musicSlider;
+    public GameObject sfxSlider;
+
     const float taskFadeInTime = 7.0f;
     const float layerFadeInTime = 10.0f;
     const float tutorialMusicWaitTime = 0.9f;
@@ -123,6 +128,15 @@ public class MusicManager : MonoBehaviour
         double track2AveSamples = sound.clip.samples / (double)numberTransitionOptions2;
         transitiontime2Samples = 6f * track2AveSamples;
         track2AveTime = track2AveSamples / sound.clip.frequency;
+
+        // Set starting player volumes
+        float startingVolumeMaster = masterSlider.GetComponent<Slider>().value;
+        float startingVolumeMusic = musicSlider.GetComponent<Slider>().value;
+        float startingVolumeSFX = sfxSlider.GetComponent<Slider>().value;
+
+        MixerFXManager.instance.SetPlayerMaster(startingVolumeMaster);
+        MixerFXManager.instance.SetPlayerMusic(startingVolumeMusic);
+        MixerFXManager.instance.SetPlayerSfx(startingVolumeSFX);
     }
 
     void NewGame()

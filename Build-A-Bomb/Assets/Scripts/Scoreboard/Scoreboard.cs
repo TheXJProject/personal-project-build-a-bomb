@@ -19,8 +19,6 @@ public class Scoreboard : MonoBehaviour
             string leaderboardId = "BuildABombLeaderboard";
 
             await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
-
-            print("Submitted score");
         }
         catch (System.Exception e)
         {

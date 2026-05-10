@@ -375,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canToggleCheats
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
@@ -1504,6 +1504,7 @@ MonoBehaviour:
   - {fileID: 1687501448}
   iFramesLength: 0.1
   hardMode: 0
+  devInvun: 0
 --- !u!1001 &705717812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4173,24 +4174,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_text
-      value: Additionally, if you were building a real bomb, your timer counts down
-        at an increased rate while tasks are going wrong!
+      value: If you were building a real bomb, your timer counts down at an increased
+        rate while tasks go wrong. This stops as soon as you hold down the keys for
+        those tasks!
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_fontSize
-      value: 22.9
+      value: 20.6
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_fontSizeBase
-      value: 22.9
+      value: 20.6
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 204.6
+      value: 217.36
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 55.9
+      value: 62.2
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_LocalScale.x
@@ -4206,11 +4208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 60
+      value: 58.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5578,14 +5580,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_text
-      value: 'DON''T LET GO OF THE KEY
+      value: 'DON''T LET GO OF THE KEY!!!!!!!!!
 
 
-        And solve the task!'
+        If you do, you''ll blow
+        a fuse. Now solve the task!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
+      propertyPath: m_fontSize
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_fontStyle
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 6389636051770612744, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_paragraphSpacing
@@ -5593,11 +5604,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 229.15
+      value: 177.94
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -3.5
+      value: 29.1
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_LocalScale.x
@@ -5613,11 +5624,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 9140590504673356724, guid: ce58e98cf54d7f84bb7d30f51be0cd4b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 63
+      value: 78.55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

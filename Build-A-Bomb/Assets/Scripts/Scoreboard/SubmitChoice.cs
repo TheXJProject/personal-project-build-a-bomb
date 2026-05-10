@@ -13,6 +13,7 @@ public class SubmitChoice : MonoBehaviour
     [SerializeField] private GameObject scoreWasNotHighScore;
     [SerializeField] private GameObject scoreBoard;
     [SerializeField] private Scoreboard scoreBoardInfo;
+    [SerializeField] private GameObject mustFitRequirmentsMsg;
 
     private string playerName = "Test Name";
 
@@ -74,10 +75,10 @@ public class SubmitChoice : MonoBehaviour
 
     public async void PlayerEnteredName(string name)
     {
-        print("Starting PlayerEnteredName");
         if (!ValidName(ref name))
         {
-            Debug.Log("TODO: Make player aware: Not a valid name, name should be only letters numbers or underscores and be at least 3 characters long");
+            mustFitRequirmentsMsg.SetActive(false);
+            mustFitRequirmentsMsg.SetActive(true);
             return;
         }
 
@@ -108,7 +109,7 @@ public class SubmitChoice : MonoBehaviour
             return false;
         }
 
-        if (name.Length < 3 || name.Length > 16)
+        if (name.Length < 4 || name.Length > 17)
         {
             return false;
         }

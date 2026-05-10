@@ -15,11 +15,18 @@ public class colourCycle : MonoBehaviour
     bool[] rgbCurIncreasing = new bool[3];
     int currCol = 0;
     float alpha = 0;
-    Image spriteToColour;
+    bool isImage = true;
+    Image imageToColour;
+    SpriteRenderer spriteToColour;
 
     private void Awake()
     {
-        spriteToColour = gameObject.GetComponent<Image>();
+        imageToColour = gameObject.GetComponent<Image>();
+        if (imageToColour == null )
+        {
+            isImage = false;
+            spriteToColour = gameObject.GetComponent<SpriteRenderer>();
+        }
         diffValCol = maxValCol - minValCol;
         for (int i = 0; i < rgb.Length; i++)
         {
@@ -30,7 +37,9 @@ public class colourCycle : MonoBehaviour
 
     private void Update()
     {
-        spriteToColour.color = new Color(rgb[0] / 255.0f, rgb[1] / 255.0f, rgb[2] / 255.0f, opacity/255.0f);
+        Color newColour = new Color(rgb[0] / 255.0f, rgb[1] / 255.0f, rgb[2] / 255.0f, opacity / 255.0f);
+        if (isImage) imageToColour.color = newColour;
+        else spriteToColour.color = newColour;
 
         alpha += Time.deltaTime * colourCycleSpeed;
         

@@ -21,6 +21,7 @@ public class LayerStatus : MonoBehaviour
     public List<int> taskMinDifficulty;
     public List<int> taskMaxDifficulty;
     public List<int> taskMinSpawned;
+    public List<bool> isTaskLarger;
     public int layer;
     public int noOfKeysPerTask = 1;
     public float layerMinRadius = 1f;
@@ -28,6 +29,7 @@ public class LayerStatus : MonoBehaviour
     public float taskSize = 0.6f;
     public float taskScaleUp = 1f;
     public float taskColliderRadius = 0.8f;
+    public float ultraTaskSizeScaleUp = 1.15f;
     public List<GameObject> tasks = new List<GameObject>();
     [SerializeField] float spreadSpawnsOverFrameTime = 0.02f;
 
@@ -136,9 +138,9 @@ public class LayerStatus : MonoBehaviour
         // Tasks only spawn when the player advances to next level, so they spawn in on the current layer
         taskStatus.isOnCurrentLayer = true;
 
-
+        float scaleUpUltra = isTaskLarger[i] ? ultraTaskSizeScaleUp : 1.0f;
         // Set the tasks size assigned 
-        task.transform.localScale = new Vector2(taskSize, taskSize);
+        task.transform.localScale = new Vector2(taskSize * scaleUpUltra, taskSize * scaleUpUltra);
         tasks.Add(task);
         onTaskCreated?.Invoke(task);
     }

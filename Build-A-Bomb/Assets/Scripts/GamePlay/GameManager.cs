@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour
     public void ScoreBoard()
     {
         GameManager.instance.WaitToShowScores = true;
-        print("GameManager.instance.WaitToShowScores: " + GameManager.instance.WaitToShowScores);
         LoadSceneWithAnim("ScoreBoard");
     }
 

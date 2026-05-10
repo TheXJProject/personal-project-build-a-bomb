@@ -457,17 +457,9 @@ public class AudioManager : MonoBehaviour
     {
         if (CheatLogic.cheatTool.musicAndSoundForceOff) return;
 
-        bool playingCheck = true;
-
         // For each sfx source there is
         foreach (SoundSource source in sfxSourceList)
         {
-            // Check if the source has ever been useds
-            if (source.soundName != SoundSource.defaultName)
-            {
-                playingCheck = false;
-            }
-
             // Stop the audiosource from playing
             source.audioSource.Stop();
 
@@ -478,12 +470,6 @@ public class AudioManager : MonoBehaviour
         // For each looping sfx source there is
         foreach (SoundSource source in sfxLoopingSourceList)
         {
-            // Check if the source has ever been useds
-            if (source.soundName != SoundSource.defaultName)
-            {
-                playingCheck = false;
-            }
-
             // Stop the audiosource from playing
             source.audioSource.Stop();
 

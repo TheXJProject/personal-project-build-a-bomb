@@ -27,6 +27,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] Image pieChart1;
     [SerializeField] Image pieChart2;
     [SerializeField] Color backColorWhenFullCharge;
+    [SerializeField] Color backColorComplete;
 
     // Runtime Variables:
     [HideInInspector] public bool canSpool;
@@ -210,6 +211,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // If we are at required charge
         else if (fanCompletePercentage == 100f)
         {
+            backImage.color = backColorComplete;
             backAnimator.SetInteger("state", 2);
         }
         // Otherwise we are idling

@@ -83,20 +83,15 @@ public class EntryController : MonoBehaviour
     {
         string leaderboardId = "BuildABombLeaderboard";
 
-        print("Before sign in");
-
         while (GameManager.instance.WaitToShowScores)
         {
             await System.Threading.Tasks.Task.Yield();
         }
 
-        print("waitshow score true");
         while (!AuthenticationService.Instance.IsSignedIn)
         {
             await System.Threading.Tasks.Task.Yield();
         }
-
-        print("signed in");
 
         // Get top scores (adjust limit as needed)
         var scores = await LeaderboardsService.Instance.GetScoresAsync(

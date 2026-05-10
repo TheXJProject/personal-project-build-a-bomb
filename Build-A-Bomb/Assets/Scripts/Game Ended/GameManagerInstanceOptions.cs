@@ -21,7 +21,6 @@ public class GameManagerInstanceOptions : MonoBehaviour
 
     public void StartScoreboard()
     {
-        print("Starting scoreboard");
         GameManager.instance.ScoreBoard();
     }
 }

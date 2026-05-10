@@ -19,13 +19,15 @@ public class SubmitChoice : MonoBehaviour
     async void Start()
     {
         bool offerSubmitNewScore = await IsNewScoreHigher((int)(GameManager.instance.timeRemainingAfterWin*100));
-        print("offerSubmitNewScore is " + offerSubmitNewScore);
+        bool cameFromMainMenu = GameManager.instance.timeRemainingAfterWin < 0;
 
         yesOrNo.SetActive(true);
         submitChoiceOverall.SetActive(offerSubmitNewScore);
 
         enterName.SetActive(false);
-        scoreWasNotHighScore.SetActive(!offerSubmitNewScore);
+        scoreWasNotHighScore.SetActive(!offerSubmitNewScore && !cameFromMainMenu);
+
+        scoreBoard.SetActive(cameFromMainMenu);
 
         GameManager.instance.WaitToShowScores = offerSubmitNewScore;
     }
@@ -45,8 +47,6 @@ public class SubmitChoice : MonoBehaviour
     async System.Threading.Tasks.Task<bool> IsNewScoreHigher(int newScore)
     {
         string leaderboardId = "BuildABombLeaderboard";
-
-        print("newScore: " + newScore);
 
         if (newScore <= 0)
         {

@@ -1367,11 +1367,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: noCountdown
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3068767479697761375, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: canToggleCheats
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3768929242578427074, guid: 8658448748c903e4d9d8eeed85a34e99, type: 3}
       propertyPath: m_Name
@@ -2939,9 +2939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064667192768288636, guid: 3c841e001be695a4e809e8187655b79d, type: 3}
       propertyPath: m_text
-      value: 'Submit Score
-
-        (unfinished)'
+      value: Submit Score
       objectReference: {fileID: 0}
     - target: {fileID: 7064667192768288636, guid: 3c841e001be695a4e809e8187655b79d, type: 3}
       propertyPath: m_fontSize

@@ -23,7 +23,7 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] BackToMain tutorialBack;
     [SerializeField] Normal normal;
     [SerializeField] BackToMain normalBack;
-    [SerializeField] Hard hard;
+    [SerializeField] LeaderBoard leaderboard;
     [SerializeField] BackToMain hardBack;
     [SerializeField] GoBack goBack;
 
@@ -33,12 +33,12 @@ public class ButtonManager : MonoBehaviour
         settings.pressed = true;
         tutorial.pressed = true;
         normal.pressed = true;
-        hard.pressed = true;
+        leaderboard.pressed = true;
         goBack.pressed = true;
         settings.arrow.canShow = false;
         tutorial.arrow.canShow = false;
         normal.arrow.canShow = false;
-        hard.arrow.canShow = false;
+        leaderboard.arrow.canShow = false;
         goBack.arrow.canShow = false;
 
         // Allow back buttons to be pressed
@@ -109,12 +109,12 @@ public class ButtonManager : MonoBehaviour
         settings.pressed = false;
         tutorial.pressed = false;
         normal.pressed = false;
-        hard.pressed = false;
+        leaderboard.pressed = false;
         goBack.pressed = false;
         settings.arrow.canShow = true;
         tutorial.arrow.canShow = true;
         normal.arrow.canShow = true;
-        hard.arrow.canShow = true;
+        leaderboard.arrow.canShow = true;
         goBack.arrow.canShow = true;
 
         // Set each track to be at the right volume for main menu

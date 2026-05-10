@@ -188,6 +188,7 @@ MonoBehaviour:
   pieChart1: {fileID: 1609558239117919140}
   pieChart2: {fileID: 2115487558470509919}
   backColorWhenFullCharge: {r: 0.015686274, g: 0.9136124, b: 1, a: 1}
+  backColorComplete: {r: 0.75, g: 1, b: 0.78137255, a: 1}
   canSpool: 0
   charged: 0
   fanCompletePercentage: 0
@@ -1257,7 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6320754, g: 0.25938946, b: 0.25938946, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

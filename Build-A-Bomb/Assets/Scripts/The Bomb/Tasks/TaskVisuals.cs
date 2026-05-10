@@ -25,6 +25,7 @@ public class TaskVisuals : MonoBehaviour
     [SerializeField] float endScale;
     [SerializeField] Color finalPingColour;
     [SerializeField] Color finalInnerPingColour;
+    [SerializeField] public bool isUltraTask = false;
 
     Coroutine lightsOutWait;
     [HideInInspector] public int taskLayer;
@@ -63,7 +64,7 @@ public class TaskVisuals : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.parent.transform.rotation.z * -1.0f);
+        if (!isUltraTask) transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.parent.transform.rotation.z * -1.0f);
     }
 
     void TaskBeingSolved(GameObject task) // Sets the colour for when the task is being solved

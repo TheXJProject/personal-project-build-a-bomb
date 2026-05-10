@@ -32,7 +32,6 @@ public class GremlinTaskLogic : MonoBehaviour
     int numOfHits = 0;
     bool isSetup;
     float pausedTime = 0;
-    int curTemplin = 0;
     List<GameObject> templins = new List<GameObject>();
     List<Coroutine> templinsAnims = new List<Coroutine>();
 

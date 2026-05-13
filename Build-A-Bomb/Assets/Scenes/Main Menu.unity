@@ -441,6 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179644107}
   - component: {fileID: 179644108}
+  - component: {fileID: 179644109}
   m_Layer: 0
   m_Name: settingsback
   m_TagString: Untagged
@@ -483,7 +484,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -515,6 +516,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &179644109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179644106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &228590971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1447,7 @@ MonoBehaviour:
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1102747127}
+  fadePanel: {fileID: 1102747126}
   OptionalGameObjectToDisable: {fileID: 1465527808}
   arrow: {fileID: 410227001}
   backPressed: 0
@@ -1607,6 +1624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 484586239}
   - component: {fileID: 484586240}
+  - component: {fileID: 484586241}
   m_Layer: 0
   m_Name: coverUp
   m_TagString: Untagged
@@ -1681,6 +1699,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &484586241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484586238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &487357139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,6 +1950,7 @@ GameObject:
   - component: {fileID: 616830999}
   - component: {fileID: 616831001}
   - component: {fileID: 616831000}
+  - component: {fileID: 616831002}
   m_Layer: 0
   m_Name: hardlightglow
   m_TagString: Untagged
@@ -2010,6 +2045,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &616831002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616830998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &617897581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,6 +2434,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 1.2
+  timeToFadeOut: 0.5
+  othersToFadeOut:
+  - {fileID: 1102747126}
+  - {fileID: 1809147822}
+  - {fileID: 1867017195}
+  - {fileID: 2067039727}
+  - {fileID: 1441959232}
+  - {fileID: 831626244}
+  - {fileID: 179644109}
+  - {fileID: 1314507344}
+  - {fileID: 1790081217}
+  - {fileID: 1748268259}
+  - {fileID: 2115482447}
+  - {fileID: 1017285242}
+  - {fileID: 1347434451}
+  - {fileID: 1898990373}
+  - {fileID: 1966143806}
+  - {fileID: 616831002}
+  disableOnFade: 1
 --- !u!1 &734107277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,6 +2833,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &909739551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,6 +3060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017285240}
   - component: {fileID: 1017285241}
+  - component: {fileID: 1017285242}
   m_Layer: 0
   m_Name: hardback
   m_TagString: Untagged
@@ -3029,7 +3103,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3061,6 +3135,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1017285242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017285239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1102747119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,7 +3165,6 @@ GameObject:
   - component: {fileID: 1102747124}
   - component: {fileID: 1102747125}
   - component: {fileID: 1102747126}
-  - component: {fileID: 1102747127}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -3215,7 +3304,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   backButton: {fileID: 410226995}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1102747127}
+  fadePanel: {fileID: 1102747126}
   Sliders: {fileID: 1465527808}
   arrow: {fileID: 1102747125}
   pressed: 0
@@ -3246,19 +3335,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
---- !u!114 &1102747127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102747119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3058e1369448cc46866f2dd44a6e250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToFade: 0.3
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1001 &1139834492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3415,7 +3494,7 @@ MonoBehaviour:
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1809147823}
+  fadePanel: {fileID: 1809147822}
   OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1185424208}
   backPressed: 0
@@ -3883,6 +3962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314507342}
   - component: {fileID: 1314507343}
+  - component: {fileID: 1314507344}
   m_Layer: 0
   m_Name: tutorialback
   m_TagString: Untagged
@@ -3926,7 +4006,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3958,6 +4038,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1314507344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314507341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1329559901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4010,7 +4106,7 @@ MonoBehaviour:
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1867017196}
+  fadePanel: {fileID: 1867017195}
   OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1329559906}
   backPressed: 0
@@ -4219,6 +4315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1347434449}
   - component: {fileID: 1347434450}
+  - component: {fileID: 1347434451}
   m_Layer: 0
   m_Name: hardlight
   m_TagString: Untagged
@@ -4261,7 +4358,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4293,6 +4390,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1347434451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347434448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1001 &1401559274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4836,6 +4949,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1447805204
 GameObject:
   m_ObjectHideFlags: 0
@@ -5846,7 +5962,7 @@ MonoBehaviour:
   cameraObject: {fileID: 1423135768}
   cameraData: {fileID: 1423135766}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 2067039728}
+  fadePanel: {fileID: 2067039727}
   OptionalGameObjectToDisable: {fileID: 0}
   arrow: {fileID: 1674655549}
   backPressed: 0
@@ -6074,6 +6190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1748268257}
   - component: {fileID: 1748268258}
+  - component: {fileID: 1748268259}
   m_Layer: 0
   m_Name: normalback
   m_TagString: Untagged
@@ -6116,7 +6233,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6148,6 +6265,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1748268259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748268256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1784841993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6317,6 +6450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1790081215}
   - component: {fileID: 1790081216}
+  - component: {fileID: 1790081217}
   m_Layer: 0
   m_Name: playbutton
   m_TagString: Untagged
@@ -6359,7 +6493,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6391,6 +6525,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1790081217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790081214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1809147816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6405,7 +6555,6 @@ GameObject:
   - component: {fileID: 1809147819}
   - component: {fileID: 1809147821}
   - component: {fileID: 1809147822}
-  - component: {fileID: 1809147823}
   m_Layer: 0
   m_Name: Tutorial
   m_TagString: Untagged
@@ -6545,7 +6694,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   backButton: {fileID: 1185424203}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1809147823}
+  fadePanel: {fileID: 1809147822}
   arrow: {fileID: 1809147821}
   pressed: 0
 --- !u!114 &1809147821
@@ -6575,19 +6724,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
---- !u!114 &1809147823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809147816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3058e1369448cc46866f2dd44a6e250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToFade: 0.3
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1867017188
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,7 +6741,6 @@ GameObject:
   - component: {fileID: 1867017194}
   - component: {fileID: 1867017191}
   - component: {fileID: 1867017195}
-  - component: {fileID: 1867017196}
   m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
@@ -6691,7 +6829,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   backButton: {fileID: 1329559901}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 1867017196}
+  fadePanel: {fileID: 1867017195}
   arrow: {fileID: 1867017194}
   pressed: 0
 --- !u!212 &1867017193
@@ -6773,19 +6911,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
---- !u!114 &1867017196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867017188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3058e1369448cc46866f2dd44a6e250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToFade: 0.3
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1898990370
 GameObject:
   m_ObjectHideFlags: 0
@@ -6796,6 +6924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1898990371}
   - component: {fileID: 1898990372}
+  - component: {fileID: 1898990373}
   m_Layer: 0
   m_Name: normallight
   m_TagString: Untagged
@@ -6838,7 +6967,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6870,6 +6999,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1898990373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898990370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1905868974
 GameObject:
   m_ObjectHideFlags: 0
@@ -7098,6 +7243,7 @@ GameObject:
   - component: {fileID: 1966143803}
   - component: {fileID: 1966143805}
   - component: {fileID: 1966143804}
+  - component: {fileID: 1966143806}
   m_Layer: 0
   m_Name: normallightglow
   m_TagString: Untagged
@@ -7192,6 +7338,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1966143806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966143802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &1999255255
 GameObject:
   m_ObjectHideFlags: 0
@@ -7561,7 +7723,6 @@ GameObject:
   - component: {fileID: 2067039722}
   - component: {fileID: 2067039724}
   - component: {fileID: 2067039727}
-  - component: {fileID: 2067039728}
   m_Layer: 0
   m_Name: leaderboard
   m_TagString: Untagged
@@ -7717,7 +7878,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   backButton: {fileID: 1674655544}
   manager: {fileID: 238222142}
-  fadePanel: {fileID: 2067039728}
+  fadePanel: {fileID: 2067039727}
   arrow: {fileID: 2067039724}
   pressed: 0
 --- !u!114 &2067039727
@@ -7733,19 +7894,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFade: 0.51
---- !u!114 &2067039728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067039719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3058e1369448cc46866f2dd44a6e250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToFade: 0.3
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &2115482444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7756,6 +7907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2115482445}
   - component: {fileID: 2115482446}
+  - component: {fileID: 2115482447}
   m_Layer: 0
   m_Name: playbutton
   m_TagString: Untagged
@@ -7798,7 +7950,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cedc444c2539e74c82bc74b44719c6b, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7830,6 +7982,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2115482447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115482444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9b7a80553d54042b4fd5bc9b4639b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToFade: 0.5
+  timeToFadeOut: 0.5
+  othersToFadeOut: []
+  disableOnFade: 0
 --- !u!1 &2137070414
 GameObject:
   m_ObjectHideFlags: 0

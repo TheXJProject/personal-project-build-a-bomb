@@ -6,7 +6,7 @@ public class BackToMain : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] ButtonManager manager;
-    [SerializeField] FadePanel fadePanel;
+    [SerializeField] materializeIn fadePanel;
     [SerializeField] GameObject OptionalGameObjectToDisable;
     public arrowHover2 arrow;
 

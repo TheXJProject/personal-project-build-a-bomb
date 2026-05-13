@@ -6,8 +6,8 @@ public class Settings : MonoBehaviour
     [SerializeField] GeneralCameraLogic cameraObject;
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject backButton;
-    [SerializeField] ButtonManager manager;
-    [SerializeField] FadePanel fadePanel;
+    [SerializeField] ButtonManager manager; 
+    [SerializeField] materializeIn fadePanel;
     [SerializeField] GameObject Sliders;
     public arrowHover2 arrow;
 

@@ -31,7 +31,7 @@ public class BombStatus : MonoBehaviour
     int sortingLayerDecrease = 1;
     int layersSpawned = 0;
     int currentLayer = 0;
-    int finalLayer;
+    public int finalLayer;
     bool inTutorial = false;
     [HideInInspector] public List<GameObject> layers = new List<GameObject>();
     [SerializeField] private bool lastDitchHailMaryBugFix = false;

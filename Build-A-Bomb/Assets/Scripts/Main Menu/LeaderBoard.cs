@@ -7,7 +7,7 @@ public class LeaderBoard : MonoBehaviour
     [SerializeField] MainMenuCamera cameraData;
     [SerializeField] GameObject backButton;
     [SerializeField] ButtonManager manager;
-    [SerializeField] FadePanel fadePanel;
+    [SerializeField] materializeIn fadePanel;
     public arrowHover2 arrow;
 
     // Runtime Variables:

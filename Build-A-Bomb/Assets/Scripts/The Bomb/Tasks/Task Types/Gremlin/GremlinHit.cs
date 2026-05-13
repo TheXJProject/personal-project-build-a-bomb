@@ -23,7 +23,7 @@ public class GremlinHit : MonoBehaviour
     {
         int randomIndex = UnityEngine.Random.Range(0, gremlinSprites.Length);
 
-        // Set the sprite
+        // Set the image
         GetComponent<Image>().sprite = gremlinSprites[randomIndex];
         startSize = GetComponent<RectTransform>().sizeDelta;
     }

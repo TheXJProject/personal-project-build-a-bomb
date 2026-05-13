@@ -87,11 +87,11 @@ public class BeginMainMenu : MonoBehaviour
         MixerFXManager.instance.SetMusicParam("Menu StringsXyphone", EX_PARA.VOLUME, musicTransitonTime, 0f);
 
         // Activate the next layer
-        
+
         //if (materializeCoroutine != null) 
         //    StopCoroutine(materializeCoroutine);
         //dematerializeCoroutine = StartCoroutine(DeMaterialize());
-        mainMenuLevel.SetActive(false);
+        mainMenuLevel.GetComponent<materializeIn>().FadeOut();
     }
 
     IEnumerator Materialize()

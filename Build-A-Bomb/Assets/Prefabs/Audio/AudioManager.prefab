@@ -5571,6 +5571,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: Task Stopped Going Wrong
+    volume: 0.4
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: 05888e734efb1e14e9175365f7b07565, type: 3}
+    looped: 0
   - name: Task Deselected 1
     volume: 0.25
     pitch: 1
@@ -5817,17 +5824,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6a508ab3174c0a94cb47df361af71b94, type: 3}
     looped: 0
   - name: Forward Button
-    volume: 0.65
+    volume: 0.45
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 1.05, y: 1.1}
+    randomPitchRange: {x: 1, y: 1.15}
     clip: {fileID: 8300000, guid: af430c9c69bd2864297cefe9f1cd6433, type: 3}
     looped: 0
   - name: Back Button
-    volume: 0.65
+    volume: 0.45
     pitch: 1
     panning: 0
-    randomPitchRange: {x: 1.05, y: 1.1}
+    randomPitchRange: {x: 1, y: 1.15}
     clip: {fileID: 8300000, guid: 0f3d963739b14b24faf66836bdc21608, type: 3}
     looped: 0
   - name: ScoreBoard

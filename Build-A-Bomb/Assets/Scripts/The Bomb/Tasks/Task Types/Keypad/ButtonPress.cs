@@ -22,6 +22,9 @@ public class ButtonPress : MonoBehaviour
         PointerEventData newData = (PointerEventData)data;
         if (newData.button.Equals(PointerEventData.InputButton.Left))
         {
+            // Play a Button On sound
+            AudioManager.instance.PlaySFX("Button On");
+
             // Only start coroutine if the script is enabled
             if (this.isActiveAndEnabled)
             {
@@ -40,9 +43,6 @@ public class ButtonPress : MonoBehaviour
         gameObject.GetComponent<Image>().color = Color.green;
 
         float timeElapsed = 0f;
-
-        // Play a Button On sound
-        AudioManager.instance.PlaySFX("Button On");
 
         // Wait for set amount of time
         while (timeElapsed < time)

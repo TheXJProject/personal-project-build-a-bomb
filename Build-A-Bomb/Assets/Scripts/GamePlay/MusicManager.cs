@@ -643,13 +643,14 @@ public class MusicManager : MonoBehaviour
 
     void StopGoingWrongSound(bool goingWrong)
     {
-        const float dieDownTime = 0.4f;
+        const float dieDownTime = 0.2f;
 
         if (!goingWrong)
         {
             if (playingGoneWrongNoise)
             {
                 playingGoneWrongNoise = false;
+                AudioManager.instance.PlaySFX("Task Stopped Going Wrong", true, null, true);
                 MixerFXManager.instance.SetLoopingSFXParam("Task Going Wrong", EX_PARA.VOLUME, dieDownTime, 0f);
                 AudioManager.instance.StopLoopingSFX("Task Going Wrong", AudioSettings.dspTime + dieDownTime);
             }
@@ -697,31 +698,32 @@ public class MusicManager : MonoBehaviour
 
     void PlayRandomTaskSelect()
     {
+        const float volume = 0.2f;
         int randIDX = UnityEngine.Random.Range(0, 20);
 
         // play sfx
         switch (randIDX)
         {
-            case 0: AudioManager.instance.PlaySFX("Task Selected 1", false, null, true); break;
-            case 1: AudioManager.instance.PlaySFX("Task Selected 2", false, null, true); break;
-            case 2: AudioManager.instance.PlaySFX("Task Selected 3", false, null, true); break;
-            case 3: AudioManager.instance.PlaySFX("Task Selected 4", false, null, true); break;
-            case 4: AudioManager.instance.PlaySFX("Task Selected 5", false, null, true); break;
-            case 5: AudioManager.instance.PlaySFX("Task Selected 6", false, null, true); break;
-            case 6: AudioManager.instance.PlaySFX("Task Selected 7", false, null, true); break;
-            case 7: AudioManager.instance.PlaySFX("Task Selected 8", false, null, true); break;
-            case 8: AudioManager.instance.PlaySFX("Task Selected 9", false, null, true); break;
-            case 9: AudioManager.instance.PlaySFX("Task Selected 10", false, null, true); break;
-            case 10:AudioManager.instance.PlaySFX("Task Selected 11", false, null, true); break;
-            case 11:AudioManager.instance.PlaySFX("Task Selected 12", false, null, true); break;
-            case 12:AudioManager.instance.PlaySFX("Task Selected 13", false, null, true); break;
-            case 13:AudioManager.instance.PlaySFX("Task Selected 14", false, null, true); break;
-            case 14:AudioManager.instance.PlaySFX("Task Selected 15", false, null, true); break;
-            case 15:AudioManager.instance.PlaySFX("Task Selected 16", false, null, true); break;
-            case 16:AudioManager.instance.PlaySFX("Task Selected 17", false, null, true); break;
-            case 17:AudioManager.instance.PlaySFX("Task Selected 18", false, null, true); break;
-            case 18: AudioManager.instance.PlaySFX("Task Selected 19", false, null, true); break;
-            case 19: AudioManager.instance.PlaySFX("Task Selected 20", false, null, true); break;
+            case 0: AudioManager.instance.PlaySFX("Task Selected 1", false, volume, true); break;
+            case 1: AudioManager.instance.PlaySFX("Task Selected 2", false, volume, true); break;
+            case 2: AudioManager.instance.PlaySFX("Task Selected 3", false, volume, true); break;
+            case 3: AudioManager.instance.PlaySFX("Task Selected 4", false, volume, true); break;
+            case 4: AudioManager.instance.PlaySFX("Task Selected 5", false, volume, true); break;
+            case 5: AudioManager.instance.PlaySFX("Task Selected 6", false, volume, true); break;
+            case 6: AudioManager.instance.PlaySFX("Task Selected 7", false, volume, true); break;
+            case 7: AudioManager.instance.PlaySFX("Task Selected 8", false, volume, true); break;
+            case 8: AudioManager.instance.PlaySFX("Task Selected 9", false, volume, true); break;
+            case 9: AudioManager.instance.PlaySFX("Task Selected 10", false, volume, true); break;
+            case 10:AudioManager.instance.PlaySFX("Task Selected 11", false, volume, true); break;
+            case 11:AudioManager.instance.PlaySFX("Task Selected 12", false, volume, true); break;
+            case 12:AudioManager.instance.PlaySFX("Task Selected 13", false, volume, true); break;
+            case 13:AudioManager.instance.PlaySFX("Task Selected 14", false, volume, true); break;
+            case 14:AudioManager.instance.PlaySFX("Task Selected 15", false, volume, true); break;
+            case 15:AudioManager.instance.PlaySFX("Task Selected 16", false, volume, true); break;
+            case 16:AudioManager.instance.PlaySFX("Task Selected 17", false, volume, true); break;
+            case 17:AudioManager.instance.PlaySFX("Task Selected 18", false, volume, true); break;
+            case 18: AudioManager.instance.PlaySFX("Task Selected 19", false, volume, true); break;
+            case 19: AudioManager.instance.PlaySFX("Task Selected 20", false, volume, true); break;
             default: Debug.Log("Error, couldn't play sound!"); break;
         }
     }

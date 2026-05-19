@@ -532,6 +532,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &228590971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1716,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &487357139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2063,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &617897581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,6 +2456,7 @@ MonoBehaviour:
   - {fileID: 1966143806}
   - {fileID: 616831002}
   disableOnFade: 1
+  debugging: 1
 --- !u!1 &734107277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,6 +2840,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &909739551
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,6 +3156,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1102747119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3338,6 +3344,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1001 &1139834492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4054,6 +4061,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1329559901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4406,6 +4414,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1001 &1401559274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4952,6 +4961,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1447805204
 GameObject:
   m_ObjectHideFlags: 0
@@ -6281,6 +6291,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1784841993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6541,6 +6552,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1809147816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6727,6 +6739,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1867017188
 GameObject:
   m_ObjectHideFlags: 0
@@ -6914,6 +6927,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1898990370
 GameObject:
   m_ObjectHideFlags: 0
@@ -7015,6 +7029,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1905868974
 GameObject:
   m_ObjectHideFlags: 0
@@ -7354,6 +7369,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &1999255255
 GameObject:
   m_ObjectHideFlags: 0
@@ -7897,6 +7913,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &2115482444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7998,6 +8015,7 @@ MonoBehaviour:
   timeToFadeOut: 0.5
   othersToFadeOut: []
   disableOnFade: 0
+  debugging: 0
 --- !u!1 &2137070414
 GameObject:
   m_ObjectHideFlags: 0

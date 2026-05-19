@@ -44,8 +44,15 @@ public class materializeIn : MonoBehaviour
     {
         foreach (materializeIn other in othersToFadeOut)
         {
-            other.gameObject.SetActive(true);
+            if (other.gameObject.activeSelf)
+                other.FadeIn();
+            else
+                other.gameObject.SetActive(true);
         }
+
+        // I'm getting lazy and this is the easiest way to fix a wierd bug I'm having
+        if (sprite == null)
+            sprite = GetComponent<SpriteRenderer>();
 
         Color color = sprite.color;
         float percentfadeIn = color.a;
@@ -62,6 +69,7 @@ public class materializeIn : MonoBehaviour
         }
         color.a = 1;
         sprite.color = color;
+        yield break;
     }
 
     IEnumerator FadeOutCoroutine()
@@ -87,5 +95,6 @@ public class materializeIn : MonoBehaviour
         color.a = 0;
         sprite.color = color;
         if (disableOnFade) gameObject.SetActive(false);
+        yield break;
     }
 }

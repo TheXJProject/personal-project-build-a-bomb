@@ -66,7 +66,10 @@ public class BeginMainMenu : MonoBehaviour
             //if (dematerializeCoroutine != null) 
             //    StopCoroutine(dematerializeCoroutine);
             //materializeCoroutine = StartCoroutine(Materialize());
-            mainMenuLevel.SetActive(true);
+            if (mainMenuLevel.activeSelf)
+                mainMenuLevel.GetComponent<materializeIn>().FadeIn();
+            else
+                mainMenuLevel.SetActive(true);
         }
     }
 

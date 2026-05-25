@@ -5571,6 +5571,181 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: Big Explosion
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 1f14dcfe91a055c4a938a9a7e4d52efd, type: 3}
+    looped: 0
+  - name: KeyPress
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 8df4400dfc7234945a30f834e2db4474, type: 3}
+    looped: 0
+  - name: KeyPress2
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 49a570ebd4464884dad2369e09965ebe, type: 3}
+    looped: 0
+  - name: KeyPress3
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 5dbcc407ba1ce9149838c6a66bf76e76, type: 3}
+    looped: 0
+  - name: KeyPress4
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: ea91c08dc8bd087449cce2cb440177a5, type: 3}
+    looped: 0
+  - name: KeyPress5
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 3f32f3ddecf688748a9b5ba7b391f9bd, type: 3}
+    looped: 0
+  - name: KeyPress6
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 1db64cfc8179e7d41bfc3a9839934262, type: 3}
+    looped: 0
+  - name: KeyPress7
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: b0115731a175a85418b1c41b68fb419d, type: 3}
+    looped: 0
+  - name: KeyPress8
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 7331d2ae4b226954392c7033653d4ad7, type: 3}
+    looped: 0
+  - name: KeyPress9
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 31a402dd0e054294cbf723a96042612a, type: 3}
+    looped: 0
+  - name: KeyPress10
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 080653f9fdfc7734e8359ce1302cefac, type: 3}
+    looped: 0
+  - name: KeyPress11
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: f54d3496c908e59479b28b9d4986766e, type: 3}
+    looped: 0
+  - name: KeyPress12
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: b4bd804de17661c4584b474fe64eafe0, type: 3}
+    looped: 0
+  - name: KeyPress13
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: a1602da945019a74f8f86a4df3593555, type: 3}
+    looped: 0
+  - name: KeyPress14
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 823c1fcb8ca06774098dad61a35b6a37, type: 3}
+    looped: 0
+  - name: KeyPress15
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 0b87d4eee4297fd4a913949e77dd3c85, type: 3}
+    looped: 0
+  - name: KeyPress16
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: a17316f005d89274baa0d0221d82867f, type: 3}
+    looped: 0
+  - name: KeyPress17
+    volume: 0.25
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1}
+    clip: {fileID: 8300000, guid: 14a2d451f05c50544b52467fa6aaa51d, type: 3}
+    looped: 0
+  - name: Click Layer
+    volume: 0.35
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1.1}
+    clip: {fileID: 8300000, guid: 92bee66331b88d14bb486b75b8457eb1, type: 3}
+    looped: 0
+  - name: Click Layer 2
+    volume: 0.35
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1.1}
+    clip: {fileID: 8300000, guid: 7f81eb61de2b61e4bafe08209df66808, type: 3}
+    looped: 0
+  - name: Blown Last Fuse
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 9ac13602afebec14d9ade3d7c9809c19, type: 3}
+    looped: 0
+  - name: Blown Task
+    volume: 0.7
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1.2}
+    clip: {fileID: 8300000, guid: 980fa35050c94b043a20ea9b33eec708, type: 3}
+    looped: 0
+  - name: Fuse Hiss
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: 36402ee93e3fd954c812617ee1b6ff69, type: 3}
+    looped: 0
+  - name: Blown Fuse
+    volume: 0.2
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1.15, y: 1.25}
+    clip: {fileID: 8300000, guid: e9b18fd15f783b240b6aa829eb195e9a, type: 3}
+    looped: 0
+  - name: New Layer
+    volume: 0.4
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.95, y: 1.05}
+    clip: {fileID: 8300000, guid: 9e18245781a84224b920c514ede7aed5, type: 3}
+    looped: 0
   - name: Task Stopped Going Wrong
     volume: 0.4
     pitch: 1

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class TaskVisuals : MonoBehaviour
 {
+    public static event Action popTask;
+
     [SerializeField] Material xRayFinished;
     [SerializeField] Material xRayUnfinished;
     [SerializeField] Material xRayWorking;
@@ -134,6 +137,7 @@ public class TaskVisuals : MonoBehaviour
         Color colorXRay = finalInnerPingColour;
         Vector3 endScaleVector = new Vector3(endScale, endScale, 1);
         float time = 0f;
+        popTask?.Invoke();
         while (time < timePopping)
         {
             time += Time.deltaTime;

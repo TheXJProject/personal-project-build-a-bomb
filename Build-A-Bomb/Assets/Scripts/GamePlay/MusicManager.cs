@@ -95,6 +95,8 @@ public class MusicManager : MonoBehaviour
     bool countdownNoise3 = false;
     bool countdownNoise4 = false;
 
+    GameObject lastSelectedTask = null;
+
     private void OnEnable()
     {
         TutorialControl.onTutorialStart += StartTutorialMusic;
@@ -108,6 +110,13 @@ public class MusicManager : MonoBehaviour
         BombStatus.onGoingWrongCheck += StopGoingWrongSound;
         GameStartCount.onCountDownNumberAppear += CountDownNoise;
         TaskStatus.onTaskCompleted += CompletedTaskSound;
+        LivesTracker.onFuseBeginsToBlow += FuseHiss;
+        LivesBulbBlown.onFuseBlown += BlownFuse;
+        Death.onGameOver += EndGame;
+        TaskVisuals.popTask += PopTask;
+        KeyDisplayVisuals.onKeyOnDisplayPressed += KeyPressed;
+        LayerButtonPress.onLayerButtonPressed += ClickLayer;
+        FinishedEndGameAnimation.onExplosionHappens += BigExplosion;
     }
 
     private void OnDisable()
@@ -123,6 +132,13 @@ public class MusicManager : MonoBehaviour
         BombStatus.onGoingWrongCheck -= StopGoingWrongSound;
         GameStartCount.onCountDownNumberAppear -= CountDownNoise;
         TaskStatus.onTaskCompleted -= CompletedTaskSound;
+        LivesTracker.onFuseBeginsToBlow -= FuseHiss;
+        LivesBulbBlown.onFuseBlown -= BlownFuse;
+        Death.onGameOver -= EndGame;
+        TaskVisuals.popTask -= PopTask;
+        KeyDisplayVisuals.onKeyOnDisplayPressed -= KeyPressed;
+        LayerButtonPress.onLayerButtonPressed -= ClickLayer;
+        FinishedEndGameAnimation.onExplosionHappens -= BigExplosion;
     }
 
     private void Start()
@@ -445,6 +461,7 @@ public class MusicManager : MonoBehaviour
     {
         if (!hasBeenPlayed)
         {
+            AudioManager.instance.PlaySFX("New Layer", true, null, true);
             hasBeenPlayed = true;
 
             switch (layer)
@@ -518,7 +535,7 @@ public class MusicManager : MonoBehaviour
         timeRemaining += track1AveTime * additionTimeMultiply;
 
         // Calculate when to transition
-        double transitionTime = (transitiontime1Samples / (double)source.clip.frequency);
+        double transitionTime = (transitiontime1Samples / (double)source.clip.frequency);// Todo replace with clip.length);
         double swapTimeDSP = dspNow + timeRemaining + transitionTime;
 
         // Start and stop required tracks at time
@@ -745,5 +762,73 @@ public class MusicManager : MonoBehaviour
             case 7: AudioManager.instance.PlaySFX("Task Deselected 8", false, null, true); break;
             default: Debug.Log("Error, couldn't play sound!"); break;
         }
+    }
+
+    void FuseHiss()
+    {
+        AudioManager.instance.PlaySFX("Fuse Hiss", false, null, true);
+    }
+    
+    void BlownFuse()
+    {
+        AudioManager.instance.PlaySFX("Blown Fuse", true, null, true);
+    }
+
+    void EndGame()
+    {
+        AudioManager.instance.StopAllMusic();
+        AudioManager.instance.StopAllSFX();
+        AudioManager.instance.PlaySFX("Blown Last Fuse", true);
+    }
+    
+    void PopTask()
+    {
+        AudioManager.instance.PlaySFX("Blown Task", false, null, true);
+    }
+
+    void KeyPressed()
+    {
+        int randIDX = UnityEngine.Random.Range(0, 17);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0: AudioManager.instance.PlaySFX("KeyPress", false, null, true); break;
+            case 1: AudioManager.instance.PlaySFX("KeyPress2", false, null, true); break;
+            case 2: AudioManager.instance.PlaySFX("KeyPress3", false, null, true); break;
+            case 3: AudioManager.instance.PlaySFX("KeyPress4", false, null, true); break;
+            case 4: AudioManager.instance.PlaySFX("KeyPress5", false, null, true); break;
+            case 5: AudioManager.instance.PlaySFX("KeyPress6", false, null, true); break;
+            case 6: AudioManager.instance.PlaySFX("KeyPress7", false, null, true); break;
+            case 7: AudioManager.instance.PlaySFX("KeyPress8", false, null, true); break;
+            case 8: AudioManager.instance.PlaySFX("KeyPress9", false, null, true); break;
+            case 9: AudioManager.instance.PlaySFX("KeyPress10", false, null, true); break;
+            case 10: AudioManager.instance.PlaySFX("KeyPress11", false, null, true); break;
+            case 11: AudioManager.instance.PlaySFX("KeyPress12", false, null, true); break;
+            case 12: AudioManager.instance.PlaySFX("KeyPress13", false, null, true); break;
+            case 13: AudioManager.instance.PlaySFX("KeyPress14", false, null, true); break;
+            case 14: AudioManager.instance.PlaySFX("KeyPress15", false, null, true); break;
+            case 15: AudioManager.instance.PlaySFX("KeyPress16", false, null, true); break;
+            case 16: AudioManager.instance.PlaySFX("KeyPress17", false, null, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
+    }
+
+    void ClickLayer(GameObject gameobject)
+    {
+        int randIDX = UnityEngine.Random.Range(0, 2);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0: AudioManager.instance.PlaySFX("Click Layer", true, 0.2f, true); break;
+            case 1: AudioManager.instance.PlaySFX("Click Layer 2", true, 0.2f, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
+    }
+
+    void BigExplosion()
+    {
+        AudioManager.instance.PlaySFX("Big Explosion", true);
     }
 }

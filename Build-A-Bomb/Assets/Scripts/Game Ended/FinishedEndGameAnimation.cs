@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class FinishedEndGameAnimation : MonoBehaviour
 {
+    public static event Action onDingHappens;
     public static event Action onEndGameFadeOutStart;
     public static event Action onExplosionHappens;
 
@@ -51,5 +52,10 @@ public class FinishedEndGameAnimation : MonoBehaviour
 
         image.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         gameObject.SetActive(false);
+    }
+
+    public void MakeDingEventCall()
+    {
+        onDingHappens?.Invoke();
     }
 }

@@ -22,6 +22,7 @@ public class BeginMainMenu : MonoBehaviour
     [SerializeField] SpriteRenderer glow1;
     [SerializeField] SpriteRenderer glow2;
     public arrowHover2 arrow;
+    [SerializeField] ButtonManager buttonManager;
     float a = 1.6f, f = 5.8f, b = 0.2f;
 
     // Runtime Variables:
@@ -34,6 +35,7 @@ public class BeginMainMenu : MonoBehaviour
     {
         // play main menu tracks, we want to stop everything else before we play, Startmusictime
         startMainMenuMusic.Invoke(MUSIC_TRACKS.MAIN_MENU, true, startMusicTime);
+        buttonManager.DisableAllOthers();
 
         // Fade in the start menu tracks
         MixerFXManager.instance.SetMusicParam("Menu StartMelody", EX_PARA.VOLUME, 0.1f);
@@ -45,6 +47,8 @@ public class BeginMainMenu : MonoBehaviour
         // If we have not pressed the button
         if (!pressed)
         {
+            buttonManager.EnableAllOthers();
+
             // Prevent it being pressed again until reset elsewhere
             pressed = true;
             arrow.canShow = false;

@@ -954,6 +954,7 @@ MonoBehaviour:
   glow1: {fileID: 1966143805}
   glow2: {fileID: 616831001}
   arrow: {fileID: 257295542}
+  buttonManager: {fileID: 238222142}
 --- !u!114 &257295542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2452,6 +2453,7 @@ MonoBehaviour:
   - {fileID: 1898990373}
   - {fileID: 1966143806}
   - {fileID: 616831002}
+  - {fileID: 484586241}
   disableOnFade: 1
 --- !u!1 &734107277
 GameObject:
@@ -4921,6 +4923,7 @@ MonoBehaviour:
   cameraData: {fileID: 1423135766}
   beginMenuLevel: {fileID: 257295536}
   arrow: {fileID: 1441959231}
+  buttonManager: {fileID: 238222142}
   pressed: 0
 --- !u!114 &1441959231
 MonoBehaviour:

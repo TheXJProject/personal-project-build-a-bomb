@@ -18,6 +18,7 @@ public class LivesTracker : MonoBehaviour
     public bool hardMode = false;
     public bool devInvun = false;
     bool invisible = false;
+    bool died = false;
     int livesLeft;
     int bulbsNotBlown;
     Coroutine iFrames;
@@ -38,16 +39,19 @@ public class LivesTracker : MonoBehaviour
     {
         TaskStatus.onTaskFailed += loseLife;
         LivesBulbBlown.onFuseBlown += checkFinalBulbBlown;
+        Death.onGameOver += checkDeath;
     }
 
     private void OnDisable()
     {
         TaskStatus.onTaskFailed -= loseLife;
         LivesBulbBlown.onFuseBlown -= checkFinalBulbBlown;
+        Death.onGameOver -= checkDeath;
     }
 
     public void loseLife(GameObject triggerTask)
     {
+        if (died) return;
         if (devInvun) return;
         if (livesLeft == 0) return;
         if (!invisible) 
@@ -74,4 +78,6 @@ public class LivesTracker : MonoBehaviour
             onNoLives?.Invoke();
         }
     }
+
+    void checkDeath() => died = true;
 }

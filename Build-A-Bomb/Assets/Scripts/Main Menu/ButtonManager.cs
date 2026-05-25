@@ -27,11 +27,23 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] BackToMain hardBack;
     [SerializeField] GoBack goBack;
 
-    public void OnAnyButtonPressed(MENUS buttonPressed)
+    public void EnableAllOthers()
     {
-        // Play sfx
-        AudioManager.instance.PlaySFX("Every Button", true, null, true);
+        // If any back button is pressed, allow main menu buttons to be pressed
+        settings.pressed = false;
+        tutorial.pressed = false;
+        normal.pressed = false;
+        leaderboard.pressed = false;
+        goBack.pressed = false;
+        settings.arrow.canShow = true;
+        tutorial.arrow.canShow = true;
+        normal.arrow.canShow = true;
+        leaderboard.arrow.canShow = true;
+        goBack.arrow.canShow = true;
+    }
 
+    public void DisableAllOthers()
+    {
         // If any button is pressed, prevent any other front being pressed
         settings.pressed = true;
         tutorial.pressed = true;
@@ -49,6 +61,14 @@ public class ButtonManager : MonoBehaviour
         tutorialBack.backPressed = false;
         normalBack.backPressed = false;
         hardBack.backPressed = false;
+    }
+
+    public void OnAnyButtonPressed(MENUS buttonPressed)
+    {
+        DisableAllOthers();
+
+        // Play sfx
+        AudioManager.instance.PlaySFX("Every Button", true, null, true);
 
         // Set music depending on which button was pressed
         switch (buttonPressed)
@@ -108,20 +128,10 @@ public class ButtonManager : MonoBehaviour
 
     public void OnBackToMainPressed()
     {
+        EnableAllOthers();
+
         // Play sfx
         AudioManager.instance.PlaySFX("Every Button", true, null, true);
-
-        // If any back button is pressed, allow main menu buttons to be pressed
-        settings.pressed = false;
-        tutorial.pressed = false;
-        normal.pressed = false;
-        leaderboard.pressed = false;
-        goBack.pressed = false;
-        settings.arrow.canShow = true;
-        tutorial.arrow.canShow = true;
-        normal.arrow.canShow = true;
-        leaderboard.arrow.canShow = true;
-        goBack.arrow.canShow = true;
 
         // Set each track to be at the right volume for main menu
         MixerFXManager.instance.SetMusicParam("Menu Bass", EX_PARA.VOLUME, musicTransitonTime);

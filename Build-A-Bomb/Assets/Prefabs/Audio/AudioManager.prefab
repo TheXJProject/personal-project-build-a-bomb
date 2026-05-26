@@ -5571,9 +5571,37 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
-  - name: Big Explosion
+  - name: Winning Chord
     volume: 0.8
     pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 523265df0fb393c4d90bdf4beb355a0f, type: 3}
+    looped: 0
+  - name: Metal Creaking
+    volume: 0.35
+    pitch: 1.8
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 9118ddfb2d689b64094ca67335f0979b, type: 3}
+    looped: 0
+  - name: Buildup Hiss
+    volume: 0.75
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 53a8392dc69df684785576bd9f4b3ccc, type: 3}
+    looped: 0
+  - name: Ding
+    volume: 0.85
+    pitch: 1.4
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 3a3eaa2c74948f14e8d9ea4aa72e3762, type: 3}
+    looped: 0
+  - name: Big Explosion
+    volume: 0.8
+    pitch: 1.5
     panning: 0
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: 1f14dcfe91a055c4a938a9a7e4d52efd, type: 3}

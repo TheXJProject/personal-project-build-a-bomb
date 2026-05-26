@@ -11,7 +11,8 @@ public enum MUSIC_TRACKS
     GAMEPLAY3,
     OPENING,
     LOSING,
-    WINNING
+    WINNING,
+    SCOREBOARD
 }
 
 public enum TASK_TYPES_FOR_MUSIC
@@ -117,6 +118,10 @@ public class MusicManager : MonoBehaviour
         KeyDisplayVisuals.onKeyOnDisplayPressed += KeyPressed;
         LayerButtonPress.onLayerButtonPressed += ClickLayer;
         FinishedEndGameAnimation.onExplosionHappens += BigExplosion;
+        FinishedEndGameAnimation.onDingHappens += Ding;
+        // TODO: winning += NewTrack; 
+        // TODO: loosing += NewTrack;
+        // TODO: OpeningTrack += NewTrack;
     }
 
     private void OnDisable()
@@ -139,6 +144,7 @@ public class MusicManager : MonoBehaviour
         KeyDisplayVisuals.onKeyOnDisplayPressed -= KeyPressed;
         LayerButtonPress.onLayerButtonPressed -= ClickLayer;
         FinishedEndGameAnimation.onExplosionHappens -= BigExplosion;
+        FinishedEndGameAnimation.onDingHappens -= Ding;
     }
 
     private void Start()
@@ -187,6 +193,7 @@ public class MusicManager : MonoBehaviour
         layer10_ = false;
 
         taskGoesWrong = false;
+        playingGoneWrongNoise = false;
         countdownNoise1 = false;
         countdownNoise2 = false;
         countdownNoise3 = false;
@@ -220,9 +227,10 @@ public class MusicManager : MonoBehaviour
         {
             case MUSIC_TRACKS.MAIN_MENU: MainMenuTracks(startTime); break;
             case MUSIC_TRACKS.TUTORIAL: TutorialTrack(startTime); break;
-            case MUSIC_TRACKS.OPENING:
-            case MUSIC_TRACKS.LOSING:
-            case MUSIC_TRACKS.WINNING:
+            case MUSIC_TRACKS.OPENING: 
+            case MUSIC_TRACKS.LOSING: LoosingMusic(startTime); break;
+            case MUSIC_TRACKS.WINNING: WinningChord(); break;
+            case MUSIC_TRACKS.SCOREBOARD: // TODO: ScoreboardMusic(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY1: GameplayTracks1(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY2: GameplayTracks2(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY3: GameplayTracks3(startTime); break;
@@ -778,6 +786,8 @@ public class MusicManager : MonoBehaviour
     {
         AudioManager.instance.StopAllMusic();
         AudioManager.instance.StopAllSFX();
+        AudioManager.instance.PlaySFX("Buildup Hiss", true);
+        AudioManager.instance.PlaySFX("Metal Creaking", true);
         AudioManager.instance.PlaySFX("Blown Last Fuse", true);
     }
     
@@ -830,5 +840,20 @@ public class MusicManager : MonoBehaviour
     void BigExplosion()
     {
         AudioManager.instance.PlaySFX("Big Explosion", true);
+    }
+
+    void Ding()
+    {
+        AudioManager.instance.PlaySFX("Ding", true);
+    }
+
+    void LoosingMusic(double time)
+    {
+
+    }
+
+    void WinningChord()
+    {
+        AudioManager.instance.PlaySFX("Winning Chord", true);
     }
 }

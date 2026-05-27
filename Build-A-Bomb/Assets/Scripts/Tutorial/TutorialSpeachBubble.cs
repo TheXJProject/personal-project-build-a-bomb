@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,9 @@ using UnityEngine.UI;
 
 public class TutorialSpeachBubble : MonoBehaviour
 {
+    public static Action onTutorialBubbleStartsAppearing;
+    public static Action onTutorialBubbleStartsDisappearing;
+
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image bubbleBackground;
     [SerializeField] private Transform overallTransform;
@@ -68,6 +72,9 @@ public class TutorialSpeachBubble : MonoBehaviour
             StopCoroutine(showingBubble);
         if (hidingBubble != null)
             StopCoroutine(hidingBubble);
+
+        onTutorialBubbleStartsAppearing?.Invoke();
+
         showingBubble = StartCoroutine(ShowingBubble());
     }
     public void HideBubble()
@@ -79,6 +86,9 @@ public class TutorialSpeachBubble : MonoBehaviour
             StopCoroutine(hidingBubble);
         if (showingBubble != null)
             StopCoroutine(showingBubble);
+
+        onTutorialBubbleStartsDisappearing?.Invoke();
+
         hidingBubble = StartCoroutine(HidingBubble());
     }
 

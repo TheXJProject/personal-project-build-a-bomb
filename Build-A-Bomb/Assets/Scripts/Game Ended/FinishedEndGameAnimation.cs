@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class FinishedEndGameAnimation : MonoBehaviour
 {
     public static event Action onDingHappens;
+    public static event Action onPingHappens;
     public static event Action onEndGameFadeOutStart;
     public static event Action onExplosionHappens;
 
@@ -18,12 +19,11 @@ public class FinishedEndGameAnimation : MonoBehaviour
     [SerializeField] Image image;
     Color startColor;
 
-
-
     void Start()
     {
         startColor = image.color;
     }
+
 
     public void TriggerExplosionHappensEvent()
     {
@@ -57,5 +57,10 @@ public class FinishedEndGameAnimation : MonoBehaviour
     public void MakeDingEventCall()
     {
         onDingHappens?.Invoke();
+    }
+
+    public void MakePingEventCall() // Okay yeah I named these poorly on purpose, not that anyhthing is coded well in this really, but this one is for the victory din
+    {
+        onPingHappens?.Invoke();
     }
 }

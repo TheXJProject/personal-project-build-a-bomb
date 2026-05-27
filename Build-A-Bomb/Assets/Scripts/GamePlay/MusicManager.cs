@@ -96,8 +96,6 @@ public class MusicManager : MonoBehaviour
     bool countdownNoise3 = false;
     bool countdownNoise4 = false;
 
-    GameObject lastSelectedTask = null;
-
     private void OnEnable()
     {
         TutorialControl.onTutorialStart += StartTutorialMusic;
@@ -119,6 +117,10 @@ public class MusicManager : MonoBehaviour
         LayerButtonPress.onLayerButtonPressed += ClickLayer;
         FinishedEndGameAnimation.onExplosionHappens += BigExplosion;
         FinishedEndGameAnimation.onDingHappens += Ding;
+        TutorialSpeachBubble.onTutorialBubbleStartsAppearing += BubbleOpen;
+        TutorialSpeachBubble.onTutorialBubbleStartsDisappearing += BubbleClose;
+        FinishedEndGameAnimation.onPingHappens += Ping;
+        BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
         // TODO: winning += NewTrack; 
         // TODO: loosing += NewTrack;
         // TODO: OpeningTrack += NewTrack;
@@ -145,6 +147,10 @@ public class MusicManager : MonoBehaviour
         LayerButtonPress.onLayerButtonPressed -= ClickLayer;
         FinishedEndGameAnimation.onExplosionHappens -= BigExplosion;
         FinishedEndGameAnimation.onDingHappens -= Ding;
+        TutorialSpeachBubble.onTutorialBubbleStartsAppearing -= BubbleOpen;
+        TutorialSpeachBubble.onTutorialBubbleStartsDisappearing += BubbleClose;
+        FinishedEndGameAnimation.onPingHappens -= Ping;
+        BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
     }
 
     private void Start()
@@ -229,7 +235,7 @@ public class MusicManager : MonoBehaviour
             case MUSIC_TRACKS.TUTORIAL: TutorialTrack(startTime); break;
             case MUSIC_TRACKS.OPENING: 
             case MUSIC_TRACKS.LOSING: LoosingMusic(startTime); break;
-            case MUSIC_TRACKS.WINNING: WinningChord(); break;
+            case MUSIC_TRACKS.WINNING: Debug.LogWarning("Error, Shouldn't ever get here!"); break;
             case MUSIC_TRACKS.SCOREBOARD: // TODO: ScoreboardMusic(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY1: GameplayTracks1(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY2: GameplayTracks2(startTime); break;
@@ -780,6 +786,17 @@ public class MusicManager : MonoBehaviour
     void BlownFuse()
     {
         AudioManager.instance.PlaySFX("Blown Fuse", true, null, true);
+
+        int randIDX = UnityEngine.Random.Range(0, 3);
+
+        // play sfx
+        switch (randIDX)
+        {
+            case 0: AudioManager.instance.PlaySFX("Fuse Glass", true, 0.3f, true); break;
+            case 1: AudioManager.instance.PlaySFX("Fuse Glass 2", true, 0.3f, true); break;
+            case 2: AudioManager.instance.PlaySFX("Fuse Glass 3", true, 0.3f, true); break;
+            default: Debug.Log("Error, couldn't play sound!"); break;
+        }
     }
 
     void EndGame()
@@ -845,6 +862,23 @@ public class MusicManager : MonoBehaviour
     void Ding()
     {
         AudioManager.instance.PlaySFX("Ding", true);
+    }
+
+    void BubbleOpen()
+    {
+        AudioManager.instance.PlaySFX("Bubble Open", false, null, true);
+    }
+
+    void BubbleClose()
+    {
+        AudioManager.instance.PlaySFX("Bubble Close", false, null, true);
+    }
+
+    void Ping()
+    {
+        AudioManager.instance.StopAllMusic();
+        AudioManager.instance.StopAllSFX();
+        AudioManager.instance.PlaySFX("The Last Ding", true);
     }
 
     void LoosingMusic(double time)

@@ -5571,6 +5571,48 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ee286a7c50467d4489b61f0583280615, type: 3}
     looped: 0
   sfxSounds:
+  - name: The Last Ding
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 19da668571bbc5e4a9fb2de771b983ce, type: 3}
+    looped: 0
+  - name: Bubble Open
+    volume: 0.6
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1.1}
+    clip: {fileID: 8300000, guid: fb9365fc5de90d54e98ba7815e2a2377, type: 3}
+    looped: 0
+  - name: Bubble Close
+    volume: 0.2
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 0.9, y: 1.1}
+    clip: {fileID: 8300000, guid: 5d063d1bc2d95aa468451ce8868dcdda, type: 3}
+    looped: 0
+  - name: Fuse Glass 3
+    volume: 0.55
+    pitch: 1
+    panning: -0.3
+    randomPitchRange: {x: 1, y: 1.2}
+    clip: {fileID: 8300000, guid: b498d3347c2b873449b11914fe0e52dc, type: 3}
+    looped: 0
+  - name: Fuse Glass 2
+    volume: 0.55
+    pitch: 1
+    panning: -0.3
+    randomPitchRange: {x: 1, y: 1.2}
+    clip: {fileID: 8300000, guid: 2dfa0fa5f65bdd445a3210bf2dc4a9f7, type: 3}
+    looped: 0
+  - name: Fuse Glass
+    volume: 0.55
+    pitch: 1
+    panning: -0.3
+    randomPitchRange: {x: 1, y: 1.2}
+    clip: {fileID: 8300000, guid: c4b6fcf3c561b554d8edc11b7c519037, type: 3}
+    looped: 0
   - name: Winning Chord
     volume: 0.8
     pitch: 1
@@ -5579,8 +5621,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 523265df0fb393c4d90bdf4beb355a0f, type: 3}
     looped: 0
   - name: Metal Creaking
-    volume: 0.35
-    pitch: 1.8
+    volume: 0.25
+    pitch: 1.7
     panning: 0
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: 9118ddfb2d689b64094ca67335f0979b, type: 3}

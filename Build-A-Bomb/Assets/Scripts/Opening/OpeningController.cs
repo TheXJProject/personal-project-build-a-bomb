@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class OpeningController : MonoBehaviour
 {
+    public static event Action onOpeningSceneStarts;
+
     enum TransitionType
     {
         NONE,
@@ -51,6 +54,7 @@ public class OpeningController : MonoBehaviour
 
     IEnumerator Start()
     {
+        onOpeningSceneStarts?.Invoke();
         yield return new WaitForSecondsRealtime(1); // Wait a second just make it look nicer
         TransitionToNextSlide();
     }

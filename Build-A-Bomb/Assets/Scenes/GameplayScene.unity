@@ -299,6 +299,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1465452338}
+        m_TargetAssemblyTypeName: BigMoneyEvents, Assembly-CSharp
+        m_MethodName: TriggerBigTextEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -1320,6 +1335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -1455,6 +1473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls:
@@ -3134,6 +3155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls:
@@ -3243,6 +3267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -4203,6 +4230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls:
@@ -4820,6 +4850,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -5321,6 +5354,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1465452338}
+        m_TargetAssemblyTypeName: BigMoneyEvents, Assembly-CSharp
+        m_MethodName: TriggerMoneyTextEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -6750,6 +6798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465452337}
+  - component: {fileID: 1465452338}
   m_Layer: 5
   m_Name: BIGMONEY
   m_TagString: Untagged
@@ -6778,6 +6827,18 @@ RectTransform:
   m_AnchoredPosition: {x: 16.69824, y: 33.9318}
   m_SizeDelta: {x: 1158.457, y: 470.28027}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1465452338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465452336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50539d7124a905a449b1381626afa6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1520934385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6967,6 +7028,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -8907,6 +8971,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f2914efcf8a8428d49f537bb90843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartedTransition:
+    m_PersistentCalls:
+      m_Calls: []
   onFinishedTransition:
     m_PersistentCalls:
       m_Calls: []

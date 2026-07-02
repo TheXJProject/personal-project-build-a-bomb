@@ -8,6 +8,7 @@ using UnityEngine.UI;
 [ExecuteAlways]
 public class VictoryAnimaticDoTransition : MonoBehaviour
 {
+    public UnityEvent onStartedTransition;
     public UnityEvent onFinishedTransition;
 
     [Header("Debugging configuration")]
@@ -63,6 +64,7 @@ public class VictoryAnimaticDoTransition : MonoBehaviour
 
     IEnumerator MoveToPosition()
     {
+        onStartedTransition?.Invoke();
         float elapsed = timeToFloatIn;
 
         while (elapsed > 0)

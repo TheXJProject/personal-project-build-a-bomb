@@ -96,6 +96,8 @@ public class MusicManager : MonoBehaviour
     bool countdownNoise3 = false;
     bool countdownNoise4 = false;
 
+    bool playedWinningChord = false;
+
     private void OnEnable()
     {
         TutorialControl.onTutorialStart += StartTutorialMusic;
@@ -121,9 +123,8 @@ public class MusicManager : MonoBehaviour
         TutorialSpeachBubble.onTutorialBubbleStartsDisappearing += BubbleClose;
         FinishedEndGameAnimation.onPingHappens += Ping;
         BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
-        // TODO: winning += NewTrack; 
-        // TODO: loosing += NewTrack;
-        // TODO: OpeningTrack += NewTrack;
+        Scoreboard.onScoreBoardBegin += StartScoreboardMusic;
+        // OpeningTrack += NewTrack;
     }
 
     private void OnDisable()
@@ -148,9 +149,10 @@ public class MusicManager : MonoBehaviour
         FinishedEndGameAnimation.onExplosionHappens -= BigExplosion;
         FinishedEndGameAnimation.onDingHappens -= Ding;
         TutorialSpeachBubble.onTutorialBubbleStartsAppearing -= BubbleOpen;
-        TutorialSpeachBubble.onTutorialBubbleStartsDisappearing += BubbleClose;
+        TutorialSpeachBubble.onTutorialBubbleStartsDisappearing -= BubbleClose;
         FinishedEndGameAnimation.onPingHappens -= Ping;
-        BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
+        BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart -= WinningChord;
+        Scoreboard.onScoreBoardBegin -= StartScoreboardMusic;
     }
 
     private void Start()
@@ -204,6 +206,7 @@ public class MusicManager : MonoBehaviour
         countdownNoise2 = false;
         countdownNoise3 = false;
         countdownNoise4 = false;
+        playedWinningChord = false;
     }
 
     void NewTrack(MUSIC_TRACKS track, bool reset, double musicStartTime)
@@ -233,10 +236,10 @@ public class MusicManager : MonoBehaviour
         {
             case MUSIC_TRACKS.MAIN_MENU: MainMenuTracks(startTime); break;
             case MUSIC_TRACKS.TUTORIAL: TutorialTrack(startTime); break;
-            case MUSIC_TRACKS.OPENING: 
-            case MUSIC_TRACKS.LOSING: LoosingMusic(startTime); break;
+            case MUSIC_TRACKS.OPENING: OpeningTrack(startTime); break;
+            case MUSIC_TRACKS.LOSING: Debug.LogWarning("Error, Shouldn't ever get here!"); break;
             case MUSIC_TRACKS.WINNING: Debug.LogWarning("Error, Shouldn't ever get here!"); break;
-            case MUSIC_TRACKS.SCOREBOARD: // TODO: ScoreboardMusic(startTime); break;
+            case MUSIC_TRACKS.SCOREBOARD: ScoreboardMusic(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY1: GameplayTracks1(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY2: GameplayTracks2(startTime); break;
             case MUSIC_TRACKS.GAMEPLAY3: GameplayTracks3(startTime); break;
@@ -266,6 +269,18 @@ public class MusicManager : MonoBehaviour
     {
         // Play all main menu music tracks at the same time
         AudioManager.instance.PlayMusic("Tutorial", time);
+    }
+
+    void OpeningTrack(double time)
+    {
+        // Play all main menu music tracks at the same time
+        AudioManager.instance.PlayMusic("Cut Scene", time);
+    }
+
+    void ScoreboardMusic(double time)
+    {
+        // Play all main menu music tracks at the same time
+        AudioManager.instance.PlayMusic("Scoreboard Music", time);
     }
 
     void GameplayTracks1(double time)
@@ -492,6 +507,12 @@ public class MusicManager : MonoBehaviour
                 default: break;
             }
         }
+    }
+
+    void StartScoreboardMusic(MUSIC_TRACKS track, bool reset, double time)
+    {
+        NewTrack(track, reset, time);
+        MixerFXManager.instance.SetMusicParam("Scoreboard Music", EX_PARA.VOLUME, tutorialMusicFadeInTime * 2);
     }
 
     void StartTutorialMusic()
@@ -856,7 +877,7 @@ public class MusicManager : MonoBehaviour
 
     void BigExplosion()
     {
-        AudioManager.instance.PlaySFX("Big Explosion", true);
+        AudioManager.instance.PlaySFX("Big Explosion", true, null, false, 0.97f);
     }
 
     void Ding()
@@ -878,16 +899,15 @@ public class MusicManager : MonoBehaviour
     {
         AudioManager.instance.StopAllMusic();
         AudioManager.instance.StopAllSFX();
-        AudioManager.instance.PlaySFX("The Last Ding", true);
-    }
-
-    void LoosingMusic(double time)
-    {
-
+        AudioManager.instance.PlaySFX("The Last Ding", true, null, false, 1.03f);
     }
 
     void WinningChord()
     {
-        AudioManager.instance.PlaySFX("Winning Chord", true);
+        if (!playedWinningChord)
+        {
+            playedWinningChord = true;
+            AudioManager.instance.PlaySFX("Winning Chord", true);
+        }
     }
 }

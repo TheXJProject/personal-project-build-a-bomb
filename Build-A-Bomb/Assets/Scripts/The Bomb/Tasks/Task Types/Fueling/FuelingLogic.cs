@@ -40,6 +40,7 @@ public class FuelingLogic : MonoBehaviour
     Vector2 refuelerStartPos;
     double amountOfCanisterNeededPerOneFuelUnit;
     bool isSetup;
+    bool playingSound2 = false;
 
     private void Awake()
     {
@@ -64,6 +65,33 @@ public class FuelingLogic : MonoBehaviour
 
     private void Update()
     {
+        if (statInteract.isBeingSelected && isSetup && statInteract.isBeingSolvedAndSelected && (currentFuel > 0) && (currentFuel < maxFuel) && 
+            refueler.GetComponent<RefuelerLogic>().docked && !refueler.GetComponent<RefuelerLogic>().follow)
+        {
+            // If we are not playing sound
+            if (!playingSound2)
+            {
+                // If you can see the valve start playing the background noise
+                AudioManager.instance.PlayLoopingSFX("Fueling", AudioSettings.dspTime + 0.1);
+
+                MixerFXManager.instance.SetLoopingSFXParam("Fueling", EX_PARA.VOLUME, 0f, 0f);
+                MixerFXManager.instance.SetLoopingSFXParam("Fueling", EX_PARA.VOLUME, 0.2f);
+
+                playingSound2 = true;
+            }
+        }
+        else
+        {
+            // If we are playing sound
+            if (playingSound2)
+            {
+                // If you can't see the the valve, stop the noise
+                AudioManager.instance.StopLoopingSFX("Fueling");
+
+                playingSound2 = false;
+            }
+        }
+
         // Checks if the task can be solved
         if (statInteract.isBeingSolvedAndSelected)
         {

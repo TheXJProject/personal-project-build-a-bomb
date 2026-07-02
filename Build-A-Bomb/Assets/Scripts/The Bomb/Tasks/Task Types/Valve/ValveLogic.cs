@@ -31,8 +31,6 @@ public class ValveLogic : MonoBehaviour
     Quaternion startingRotation;
     bool isClockWise = true;
     bool isSetup;
-    float pitchOfSound;
-    bool playingSound = false;
     bool playingSound2 = false;
 
     private void Awake()
@@ -64,9 +62,15 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can see the valve start playing the background noise
                 AudioManager.instance.PlayLoopingSFX("Valve Growning", AudioSettings.dspTime + 0.1);
+                AudioManager.instance.PlayLoopingSFX("SteamSound", AudioSettings.dspTime + 0.1, null, true);
+
+                MixerFXManager.instance.SetLoopingSFXParam("Valve Growning", EX_PARA.VOLUME, 0.2f);
+                
 
                 playingSound2 = true;
             }
+
+            MixerFXManager.instance.SetLoopingSFXParam("SteamSound", EX_PARA.VOLUME, 0f, Mathf.Max(0, (0.9f - (float)valveResistancePassed / valveResistanceTotal)));
         }
         else
         {
@@ -75,6 +79,9 @@ public class ValveLogic : MonoBehaviour
             {
                 // If you can't see the the valve, stop the noise
                 AudioManager.instance.StopLoopingSFX("Valve Growning");
+                AudioManager.instance.StopLoopingSFX("SteamSound");
+
+                //MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME);
 
                 playingSound2 = false;
             }
@@ -82,46 +89,22 @@ public class ValveLogic : MonoBehaviour
 
         if (statInteract.isBeingSolvedAndSelected)
         {
-            // If we are not playing sound
-            if (!playingSound && isSetup)
-            {
-                // If you can see the valve start playing the background noise
-                AudioManager.instance.PlayLoopingSFX("Valve", AudioSettings.dspTime + 0.1, null, false, pitchOfSound);
-
-                // Set volume to zero to start
-                MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0, 0);
-
-                playingSound = true;
-            }
-
             // If we are holding left click and we can complete the task and we are holding the valve
             if (Input.GetMouseButton(0) && holdingValve)
             {
                 // Move the valve a set amount and adjust completeness level
-                ValveCompletenessCheck(MoveValve(CheckMouseSpeed()));
-
-                // TODO: reduce vibration animation depending on valveResistancePassed
-
-                // If we are not over the valve or left click is not held
-                if (!Input.GetMouseButton(0))
-                {
-                    // We are no londer holding the valve
-                    holdingValve = false;
-                }
+                ValveCompletenessCheck(MoveValve(CheckMouseSpeed()));                
+            }
+            // If we are not over the valve or left click is not held
+            if (!Input.GetMouseButton(0))
+            {
+                // We are no londer holding the valve
+                holdingValve = false;
             }
         }
         else
         {
             holdingValve = false;
-
-            // If we are playing sound
-            if (playingSound && isSetup)
-            {
-                // If you can't see the the valve, stop the noise
-                AudioManager.instance.StopLoopingSFX("Valve");
-
-                playingSound = false;
-            }
         }
     }
 
@@ -158,6 +141,19 @@ public class ValveLogic : MonoBehaviour
                 {
                     // We are holding the valve
                     holdingValve = true;
+
+                    int rand = Random.Range(1, 8);
+                    switch (rand)
+                    {
+                        case 1: AudioManager.instance.PlaySFX("Valve Grown 1", false, null, true); break;
+                        case 2: AudioManager.instance.PlaySFX("Valve Grown 2", false, null, true); break;
+                        case 3: AudioManager.instance.PlaySFX("Valve Grown 3", false, null, true); break;
+                        case 4: AudioManager.instance.PlaySFX("Valve Grown 4", false, null, true); break;
+                        case 5: AudioManager.instance.PlaySFX("Valve Grown 5", false, null, true); break;
+                        case 6: AudioManager.instance.PlaySFX("Valve Grown 6", false, null, true); break;
+                        case 7: AudioManager.instance.PlaySFX("Valve Grown 7", false, null, true); break;
+                        default: Debug.Log("bruhhhh!?"); break;
+                    }
                 }
                 else
                 {
@@ -177,24 +173,17 @@ public class ValveLogic : MonoBehaviour
     float MoveValve(float mouseSpeed)
     {
         float moveAmount;
-        float volumeAdjustment;
 
         // If we are less than 50% complete
         if (((float)valveResistancePassed / (float)valveResistanceTotal) <= (1f / 2f))
         {
             // Valve move amount is set depending on mouse speed
             moveAmount = valveVisualSpeed * (1f / 2f) * mouseSpeed;
-            
-            // Use default pitch at the start
-            volumeAdjustment = 0.75f;
         }
         else
         {
             // Factorially decrease the amount the valve rotates depending on completeness
             moveAmount = valveVisualSpeed * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * mouseSpeed;
-
-            // Start lowering the pitch
-            volumeAdjustment = 0.33f * (1f - ((float)valveResistancePassed / valveResistanceTotal)) * 2;
 
             // If completeness is over three quaters
             if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (3f / 4f))
@@ -203,27 +192,17 @@ public class ValveLogic : MonoBehaviour
                 if (((float)valveResistancePassed / (float)valveResistanceTotal) >= (98f / 100f))
                 {
                     moveAmount = 0f;
-                    volumeAdjustment = 0;
                 }
                 else
                 {
                     // increase visual resistance
                     moveAmount *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
-
-                    // lower the pitch even more
-                    volumeAdjustment *= (1 - (((float)valveResistancePassed / valveResistanceTotal) - 0.75f) * 0.9f);
                 }
             }
         }
 
         // Apply rotation
         valve.transform.rotation *= Quaternion.Euler(0, 0, moveAmount * (isClockWise ? -1 : 1) * 200f * Time.deltaTime);
-
-        // Use move amount to alter sound volume
-        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.PITCH_SHIFT, 0.1f, 0.33f - valveResistancePassed * 0.075f / valveResistanceTotal);
-
-        // Volume is based on speed
-        MixerFXManager.instance.SetLoopingSFXParam("Valve", EX_PARA.VOLUME, 0.04f, (volumeAdjustment + 0.25f) * 100f * mouseSpeed);
 
         // Returns back inputted mouse speed
         return mouseSpeed;
@@ -346,11 +325,6 @@ public class ValveLogic : MonoBehaviour
             }
 
             if (Msg) Debug.Log("Rotate clockwise: " + isClockWise);
-
-            // TODO: Start Vibration animation
-
-            // Set pitch of sound depending on difficultly
-            pitchOfSound = 0.8f - 0.075f * ((float)valveResistanceTotal / currentHardestDifficulty);
         }
     }
 

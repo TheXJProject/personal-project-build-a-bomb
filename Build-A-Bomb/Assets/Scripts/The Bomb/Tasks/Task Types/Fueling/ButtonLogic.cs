@@ -79,6 +79,9 @@ public class ButtonLogic : MonoBehaviour
     /// </summary>
     IEnumerator ButtonHoldTime(float time)
     {
+        // Play a Button On sound
+        AudioManager.instance.PlaySFX("Button On");
+
         // TODO: Replace with call for animation!
         SetPressedButton();
 
@@ -99,5 +102,8 @@ public class ButtonLogic : MonoBehaviour
 
         // TODO: Replace with call for animation!
         SetUnpressedButton();
+
+        // Play a Button Off sound
+        AudioManager.instance.PlaySFX("Button Off");
     }
 }

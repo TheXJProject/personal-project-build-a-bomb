@@ -47,6 +47,11 @@ public class RefuelerLogic : MonoBehaviour
                 gameObject.transform.position = dock.transform.position;
             }
 
+            if (follow)
+            {
+                // Play a Button On sound
+                AudioManager.instance.PlaySFX("Put Down Jerry", true, null, true);
+            }
             // Otherwise we are not following the mouse
             follow = false;
         }
@@ -115,6 +120,9 @@ public class RefuelerLogic : MonoBehaviour
         {
             // Follow the mouse
             follow = true;
+
+            // Play a Button On sound
+            AudioManager.instance.PlaySFX("Pick up Jerry", true, null, true);
         }
     }
 }

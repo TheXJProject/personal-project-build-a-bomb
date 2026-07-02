@@ -5415,6 +5415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c417ece00da39478a5ef77ae96c88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMusicTime: 0.9
 --- !u!1 &1610471775
 GameObject:
   m_ObjectHideFlags: 0

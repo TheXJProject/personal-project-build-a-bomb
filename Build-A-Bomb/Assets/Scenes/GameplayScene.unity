@@ -5746,8 +5746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7a7942324d83418140664982d63e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeForAnimaticToStart: 1.5
-  timeForButtonsToAppear: 3
+  timeForAnimaticToStart: 2
+  timeForButtonsToAppear: 1.5
 --- !u!1 &1290425923
 GameObject:
   m_ObjectHideFlags: 0

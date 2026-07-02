@@ -60,10 +60,11 @@ public class IsotopeLogic : MonoBehaviour
             if (!playingSound)
             {
                 // If you can see the task, start playing the background noise
-                //AudioManager.instance.PlayLoopingSFX("Ultra", AudioSettings.dspTime + 0.1);
+                AudioManager.instance.PlayLoopingSFX("Reactor Speed", AudioSettings.dspTime + 0.1);
+                MixerFXManager.instance.SetLoopingSFXParam("Reactor Speed", EX_PARA.VOLUME, 0.2f);
 
-                //MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME, 0);
-                //MixerFXManager.instance.SetLoopingSFXParam("Ultra", EX_PARA.VOLUME, 4f);
+                AudioManager.instance.PlayLoopingSFX("Charging Reactor", AudioSettings.dspTime + 0.1f);
+                MixerFXManager.instance.SetLoopingSFXParam("Charging Reactor", EX_PARA.VOLUME, 0f, 0f);
 
                 playingSound = true;
             }
@@ -74,8 +75,8 @@ public class IsotopeLogic : MonoBehaviour
             if (playingSound)
             {
                 // If you can't see the the task, stop the noise
-                //AudioManager.instance.StopLoopingSFX("Ultra");
-                //MixerFXManager.instance.ForceSetParam(GROUP_OPTIONS.LOOPING_SFX, EX_PARA.VOLUME);
+                AudioManager.instance.StopLoopingSFX("Reactor Speed");
+                AudioManager.instance.StopLoopingSFX("Charging Reactor");
                 playingSound = false;
             }
         }

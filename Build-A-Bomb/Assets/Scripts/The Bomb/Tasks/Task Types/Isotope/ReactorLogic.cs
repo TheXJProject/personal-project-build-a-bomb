@@ -39,6 +39,7 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool isMouseOver = false;
     float timeStamp = 0;
     Color backColor;
+    bool playingCharingSound = false;
 
     private void Awake()
     {
@@ -90,6 +91,13 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             // If the player started holding the reactor, is holding left mouse and the pointer is over the reactor
             if (holdingReactor && Input.GetMouseButton(0) && isMouseOver)
             {
+                if (!playingCharingSound)
+                {
+                    playingCharingSound = true;
+
+                    MixerFXManager.instance.SetLoopingSFXParam("Charging Reactor", EX_PARA.VOLUME, 0.3f);
+                }
+
                 // Increase charge
                 chargeAmount = Mathf.Min(chargeLimit, chargeAmount + (Time.deltaTime * chargeIncreaseSpeed));
 
@@ -99,6 +107,13 @@ public class ReactorLogic : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             // Otherwise
             else
             {
+                if (playingCharingSound)
+                {
+                    playingCharingSound = false;
+
+                    MixerFXManager.instance.SetLoopingSFXParam("Charging Reactor", EX_PARA.VOLUME, 1.5f, 0f);
+                }
+
                 // Player is not charging reactor
                 holdingReactor = false;
 

@@ -60,7 +60,7 @@ public class SubmitChoice : MonoBehaviour
             {
                 await System.Threading.Tasks.Task.Yield();
             }
-            await System.Threading.Tasks.Task.Delay(200);
+            //await System.Threading.Tasks.Task.Delay(200);
 
             var playerScore = await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
 

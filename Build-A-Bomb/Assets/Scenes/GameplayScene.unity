@@ -5373,7 +5373,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   showFinalPosition: 1
-  timeBeforeFloatingIn: 6.3
+  timeBeforeFloatingIn: 5.75
   timeToFloatIn: 0.15
   offScreenAnchorPosition: {x: -16, y: 202.4}
   endAnimaticAnchorPosition: {x: -16, y: 35.6}

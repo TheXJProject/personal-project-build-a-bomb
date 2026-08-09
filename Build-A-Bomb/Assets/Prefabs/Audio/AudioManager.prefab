@@ -5578,7 +5578,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e307051178e91cf44b658ea94dbb2600, type: 3}
     looped: 0
   - name: Cut Scene
-    volume: 0.5
+    volume: 0.85
     pitch: 1
     panning: 0
     randomPitchRange: {x: 0, y: 0}
@@ -6459,6 +6459,20 @@ MonoBehaviour:
     panning: 0
     randomPitchRange: {x: 0.9, y: 1.1}
     clip: {fileID: 8300000, guid: 1e81e41f6c627ff41a115565c3d2ee3d, type: 3}
+    looped: 0
+  - name: Door Slam
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 89ac8fedf676bd0488f88cb5fed5c8e6, type: 3}
+    looped: 0
+  - name: Ch-Ching
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 3043f72bff567c041969f6beb463ea06, type: 3}
     looped: 0
   sfxLoopedSounds:
   - name: Task Going Wrong

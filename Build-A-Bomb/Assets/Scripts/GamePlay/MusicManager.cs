@@ -125,6 +125,8 @@ public class MusicManager : MonoBehaviour
         BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
         Scoreboard.onScoreBoardBegin += StartScoreboardMusic;
         OpeningController.onOpeningSceneStarts += OpeningScene;
+        OpeningDoorEvent.onDoorSlam += DoorSlam;
+        BigMoneyEvents.onBigTextEnters += ChChing;
     }
 
     private void OnDisable()
@@ -154,6 +156,8 @@ public class MusicManager : MonoBehaviour
         BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart -= WinningChord;
         Scoreboard.onScoreBoardBegin -= StartScoreboardMusic;
         OpeningController.onOpeningSceneStarts -= OpeningScene;
+        OpeningDoorEvent.onDoorSlam -= DoorSlam;
+        BigMoneyEvents.onBigTextEnters -= ChChing;
     }
 
     private void Start()
@@ -914,7 +918,17 @@ public class MusicManager : MonoBehaviour
 
     void OpeningScene()
     {
-        NewTrack(MUSIC_TRACKS.OPENING, true, 2.5f);
+        NewTrack(MUSIC_TRACKS.OPENING, true, 1f);
         MixerFXManager.instance.SetMusicParam("Cut Scene", EX_PARA.VOLUME, 0f);
+    }
+
+    void ChChing()
+    {
+        AudioManager.instance.PlaySFX("Ch-Ching", true);
+    }
+
+    void DoorSlam()
+    {
+        AudioManager.instance.PlaySFX("Door Slam", true);
     }
 }

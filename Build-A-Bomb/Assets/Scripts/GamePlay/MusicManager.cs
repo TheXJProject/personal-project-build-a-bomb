@@ -176,7 +176,7 @@ public class MusicManager : MonoBehaviour
         transitiontime1 = 4f * (track1AveSamples / sound.clip.frequency);
         track1AveTime = track1AveSamples / sound.clip.frequency;
 
-        Debug.LogError(sound.clip.frequency + " " + track1AveSamples + " " + transitiontime1 + " " + track1AveTime + " " + AudioSettings.dspTime);
+        //Debug.LogError(sound.clip.frequency + " " + track1AveSamples + " " + transitiontime1 + " " + track1AveTime + " " + AudioSettings.dspTime);
 
         // Get the average number of samples in transition 2
         sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main2 Pt5 Start");
@@ -184,7 +184,7 @@ public class MusicManager : MonoBehaviour
         transitiontime2 = 6f * (track2AveSamples / sound.clip.frequency);
         track2AveTime = track2AveSamples / sound.clip.frequency;
 
-        Debug.LogError(sound.clip + " " + track2AveSamples + " " + transitiontime2 + " " + track2AveTime);
+        //Debug.LogError(sound.clip + " " + track2AveSamples + " " + transitiontime2 + " " + track2AveTime);
     }
 
     void NewGame()
@@ -607,7 +607,7 @@ public class MusicManager : MonoBehaviour
 
         // Start and stop required tracks at time
         FadeStop1(transitionTime, swapTimeDSP);
-        NewTrack(MUSIC_TRACKS.GAMEPLAY2, false, timeRemaining + transitionTime);
+        NewTrack(MUSIC_TRACKS.GAMEPLAY2, false, timeRemaining/* + transitionTime*/);
 
         // Transition track
         //double startTransitionDSP = dspNow + timeRemaining;
@@ -673,7 +673,7 @@ public class MusicManager : MonoBehaviour
 
         // Start and stop required tracks at time
         FadeStop2(transitionTime, swapTimeDSP);
-        NewTrack(MUSIC_TRACKS.GAMEPLAY3, false, timeRemaining + transitionTime);
+        NewTrack(MUSIC_TRACKS.GAMEPLAY3, false, timeRemaining /*+ transitionTime*/);
 
         // Transition track
         //double startTransitionDSP = dspNow + timeRemaining;

@@ -53,8 +53,8 @@ public class MusicManager : MonoBehaviour
     const float tutorialMusicFadeInTime = 2.5f;
     const int numberTransitionOptions1 = 48;
     const int numberTransitionOptions2 = 48;
-    const float fade1LastVolume = 0.06f;
-    const float fade2LastVolume = 0.12f;
+    const float fade1LastVolume = 0;
+    const float fade2LastVolume = 0;
     const float bufferMin = 0.5f;
     double track1AveTime = 0;
     double track2AveTime = 0;
@@ -606,7 +606,7 @@ public class MusicManager : MonoBehaviour
         //Debug.LogError("swapTimeDSP " + swapTimeDSP);
 
         // Start and stop required tracks at time
-        FadeStop1(transitionTime, swapTimeDSP);
+        FadeStop1(0.1f, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY2, false, timeRemaining/* + transitionTime*/);
 
         // Transition track
@@ -672,7 +672,7 @@ public class MusicManager : MonoBehaviour
         //Debug.LogError("swapTimeDSP " + swapTimeDSP);
 
         // Start and stop required tracks at time
-        FadeStop2(transitionTime, swapTimeDSP);
+        FadeStop2(0.1f, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY3, false, timeRemaining /*+ transitionTime*/);
 
         // Transition track

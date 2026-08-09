@@ -165,12 +165,6 @@ public class AudioManager : MonoBehaviour
             // Use PlayScheduled to play the track
             source.audioSource.PlayScheduled(dspTimeTillPlay);
 
-            if (source.soundName == "Main2 Pt5 Start")
-            {
-                Debug.LogError("Here1: " + AudioSettings.dspTime);
-                Debug.LogError("Here2: " + dspTimeTillPlay);
-            }
-
             if (Msg) Debug.Log("Music Played: " + source.soundName);
             if (Msg) Debug.Log("Name Check: " + sound.clip.name);
             if (Msg) Debug.Log("Source Used: " + source.audioSource.name);

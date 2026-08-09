@@ -124,7 +124,7 @@ public class MusicManager : MonoBehaviour
         FinishedEndGameAnimation.onPingHappens += Ping;
         BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart += WinningChord;
         Scoreboard.onScoreBoardBegin += StartScoreboardMusic;
-        // OpeningTrack += NewTrack;
+        OpeningController.onOpeningSceneStarts += OpeningScene;
     }
 
     private void OnDisable()
@@ -153,6 +153,7 @@ public class MusicManager : MonoBehaviour
         FinishedEndGameAnimation.onPingHappens -= Ping;
         BeginVictoryScreenAnimatic.onVictoryScreenAnimaticStart -= WinningChord;
         Scoreboard.onScoreBoardBegin -= StartScoreboardMusic;
+        OpeningController.onOpeningSceneStarts -= OpeningScene;
     }
 
     private void Start()
@@ -909,5 +910,11 @@ public class MusicManager : MonoBehaviour
             playedWinningChord = true;
             AudioManager.instance.PlaySFX("Winning Chord", true);
         }
+    }
+
+    void OpeningScene()
+    {
+        NewTrack(MUSIC_TRACKS.OPENING, true, 2.5f);
+        MixerFXManager.instance.SetMusicParam("Cut Scene", EX_PARA.VOLUME, 0f);
     }
 }

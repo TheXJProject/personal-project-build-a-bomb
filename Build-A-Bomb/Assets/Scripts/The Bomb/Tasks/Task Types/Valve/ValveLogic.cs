@@ -154,6 +154,18 @@ public class ValveLogic : MonoBehaviour
                         case 7: AudioManager.instance.PlaySFX("Valve Grown 7", false, null, true); break;
                         default: Debug.Log("bruhhhh!?"); break;
                     }
+                    rand = Random.Range(1, 8);
+                    switch (rand)
+                    {
+                        case 1: AudioManager.instance.PlaySFX("Valve Grown 1", false, 0.7f, true); break;
+                        case 2: AudioManager.instance.PlaySFX("Valve Grown 2", false, 0.7f, true); break;
+                        case 3: AudioManager.instance.PlaySFX("Valve Grown 3", false, 0.7f, true); break;
+                        case 4: AudioManager.instance.PlaySFX("Valve Grown 4", false, 0.7f, true); break;
+                        case 5: AudioManager.instance.PlaySFX("Valve Grown 5", false, 0.7f, true); break;
+                        case 6: AudioManager.instance.PlaySFX("Valve Grown 6", false, 0.7f, true); break;
+                        case 7: AudioManager.instance.PlaySFX("Valve Grown 7", false, 0.7f, true); break;
+                        default: Debug.Log("bruhhhh!?"); break;
+                    }
                 }
                 else
                 {

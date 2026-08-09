@@ -108,6 +108,7 @@ public class MusicManager : MonoBehaviour
         TaskStatus.onTaskDeSelected += PlayRandomTaskDeselect;
         BombStatus.onLayerChangeMusicTrack += AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong += AddNewTrackFromTaskGoneWrong;
+        TaskStatus.onTaskFailed += AddNewTrackFromTaskGoneWrong;
         BombStatus.onGoingWrongCheck += StopGoingWrongSound;
         GameStartCount.onCountDownNumberAppear += CountDownNoise;
         TaskStatus.onTaskCompleted += CompletedTaskSound;
@@ -142,6 +143,7 @@ public class MusicManager : MonoBehaviour
         TaskStatus.onTaskDeSelected -= PlayRandomTaskDeselect;
         BombStatus.onLayerChangeMusicTrack -= AddNewTrackFromLayer;
         TaskStatus.onTaskGoneWrong -= AddNewTrackFromTaskGoneWrong;
+        TaskStatus.onTaskFailed -= AddNewTrackFromTaskGoneWrong;
         BombStatus.onGoingWrongCheck -= StopGoingWrongSound;
         GameStartCount.onCountDownNumberAppear -= CountDownNoise;
         TaskStatus.onTaskCompleted -= CompletedTaskSound;
@@ -174,11 +176,15 @@ public class MusicManager : MonoBehaviour
         transitiontime1Samples = 4f * track1AveSamples;
         track1AveTime = track1AveSamples / sound.clip.frequency;
 
+        Debug.LogError(sound.name + " " + track1AveSamples + " " + transitiontime1Samples + " " + track1AveTime + " " + AudioSettings.dspTime);
+
         // Get the average number of samples in transition 2
         sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main2 Pt5 Start");
         double track2AveSamples = sound.clip.samples / (double)numberTransitionOptions2;
         transitiontime2Samples = 6f * track2AveSamples;
         track2AveTime = track2AveSamples / sound.clip.frequency;
+
+        Debug.LogError(sound.name + " " + track2AveSamples + " " + transitiontime2Samples + " " + track2AveTime);
     }
 
     void NewGame()
@@ -459,6 +465,8 @@ public class MusicManager : MonoBehaviour
 
     void AddNewTrackFromTaskGoneWrong(GameObject task)
     {
+        if (!task.GetComponent<TaskStatus>().isGoingWrong) return;
+
         if (!playingGoneWrongNoise)
         {
             playingGoneWrongNoise = true;
@@ -576,9 +584,16 @@ public class MusicManager : MonoBehaviour
 
         double timeRemaining = track1AveTime - ((dspNow - startTrack1Time) % track1AveTime);
 
+        Debug.LogError(timeRemaining);
+        Debug.LogError(dspNow);
+        Debug.LogError(startTrack1Time);
+
         // Prevent missing the slot
         int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track1AveTime));
         timeRemaining += track1AveTime * additionTimeMultiply;
+
+        Debug.LogError(additionTimeMultiply);
+        Debug.LogError(timeRemaining);
 
         // Calculate when to transition
         double transitionTime = (transitiontime1Samples / (double)source.clip.frequency);// Todo replace with clip.length);
@@ -629,8 +644,8 @@ public class MusicManager : MonoBehaviour
         double timeRemaining = track2AveTime - ((dspNow - startTrack2Time) % track2AveTime);
 
         // Prevent missing the slot
-        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track1AveTime));
-        timeRemaining += track1AveTime * additionTimeMultiply;
+        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track2AveTime));
+        timeRemaining += track2AveTime * additionTimeMultiply;
 
         // Calculate when to transition
         double transitionTime = (transitiontime2Samples / (double)source.clip.frequency);
@@ -643,7 +658,7 @@ public class MusicManager : MonoBehaviour
         // Transition track
         double startTransitionDSP = dspNow + timeRemaining;
         AudioManager.instance.PlayMusic("Main Transition 2", startTransitionDSP);
-        MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)track1AveTime * 1.5f);
+        MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)track2AveTime * 1.5f);
         AudioManager.instance.StopMusic("Main Transition 2", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
     }
 

@@ -146,7 +146,7 @@ public class AudioManager : MonoBehaviour
         {
             if (!removeWarningMsgs) Debug.LogWarning("Error, no music source available!");
         }
-        else if (dspTimeTillPlay < 0.05f)
+        else if ((dspTimeTillPlay - AudioSettings.dspTime) < 0.05f)
         {
             if (!removeWarningMsgs) Debug.LogWarning("Warning, May fail to play track if time is less than 0.05!");
         }
@@ -163,7 +163,13 @@ public class AudioManager : MonoBehaviour
             source.soundName = sound.name;
 
             // Use PlayScheduled to play the track
-            source.audioSource.PlayScheduled(dspTimeTillPlay);
+            source.audioSource.PlayDelayed((float)(dspTimeTillPlay - AudioSettings.dspTime));
+
+            if (source.soundName == "Main2 Pt5 Start")
+            {
+                Debug.LogError("Here1: " + AudioSettings.dspTime);
+                Debug.LogError("Here2: " + dspTimeTillPlay);
+            }
 
             if (Msg) Debug.Log("Music Played: " + source.soundName);
             if (Msg) Debug.Log("Name Check: " + sound.clip.name);

@@ -55,13 +55,13 @@ public class MusicManager : MonoBehaviour
     const int numberTransitionOptions2 = 48;
     const float fade1LastVolume = 0.06f;
     const float fade2LastVolume = 0.12f;
-    const float bufferMin = 0.3f;
+    const float bufferMin = 0.5f;
     double track1AveTime = 0;
     double track2AveTime = 0;
     double startTrack1Time = 0;
     double startTrack2Time = 0;
-    double transitiontime1Samples = 0;
-    double transitiontime2Samples = 0;
+    double transitiontime1 = 0;
+    double transitiontime2 = 0;
     bool playingGoneWrongNoise = false;
 
     bool hammer_ = false;
@@ -168,23 +168,23 @@ public class MusicManager : MonoBehaviour
         OpeningDudeMoneyEh.onDudeMoneyEh -= MoneyEy;
     }
 
-    private void Start()
+    void LoadTransitionData()
     {
         // Get the average number of samples in transition 1
         Sound sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main1 Pt1 Start");
         double track1AveSamples = sound.clip.samples / (double)numberTransitionOptions1;
-        transitiontime1Samples = 4f * track1AveSamples;
+        transitiontime1 = 4f * (track1AveSamples / sound.clip.frequency);
         track1AveTime = track1AveSamples / sound.clip.frequency;
 
-        Debug.LogError(sound.name + " " + track1AveSamples + " " + transitiontime1Samples + " " + track1AveTime + " " + AudioSettings.dspTime);
+        Debug.LogError(sound.clip.frequency + " " + track1AveSamples + " " + transitiontime1 + " " + track1AveTime + " " + AudioSettings.dspTime);
 
         // Get the average number of samples in transition 2
         sound = Array.Find(AudioManager.instance.musicSounds, x => x.name == "Main2 Pt5 Start");
         double track2AveSamples = sound.clip.samples / (double)numberTransitionOptions2;
-        transitiontime2Samples = 6f * track2AveSamples;
+        transitiontime2 = 6f * (track2AveSamples / sound.clip.frequency);
         track2AveTime = track2AveSamples / sound.clip.frequency;
 
-        Debug.LogError(sound.name + " " + track2AveSamples + " " + transitiontime2Samples + " " + track2AveTime);
+        Debug.LogError(sound.clip + " " + track2AveSamples + " " + transitiontime2 + " " + track2AveTime);
     }
 
     void NewGame()
@@ -304,6 +304,8 @@ public class MusicManager : MonoBehaviour
     {
         if (!gameplay1)
         {
+            LoadTransitionData();
+
             gameplay1 = true;
             startTrack1Time = AudioSettings.dspTime;
 
@@ -584,30 +586,37 @@ public class MusicManager : MonoBehaviour
 
         double timeRemaining = track1AveTime - ((dspNow - startTrack1Time) % track1AveTime);
 
-        Debug.LogError(timeRemaining);
-        Debug.LogError(dspNow);
-        Debug.LogError(startTrack1Time);
+        //Debug.LogError("Time remaining: " + timeRemaining);
+        //Debug.LogError("dspNow: " + dspNow);
+        //Debug.LogError("starttrack1Time" + startTrack1Time);
 
         // Prevent missing the slot
-        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track1AveTime));
-        timeRemaining += track1AveTime * additionTimeMultiply;
+        if (timeRemaining < bufferMin)
+        {
+            timeRemaining += track1AveTime;
+        }
 
-        Debug.LogError(additionTimeMultiply);
-        Debug.LogError(timeRemaining);
+        //Debug.LogError("timeRemaining" + timeRemaining);
 
         // Calculate when to transition
-        double transitionTime = (transitiontime1Samples / (double)source.clip.frequency);// Todo replace with clip.length);
+        double transitionTime = transitiontime1;
         double swapTimeDSP = dspNow + timeRemaining + transitionTime;
 
+        //Debug.LogError("transitionTime " + transitionTime);
+        //Debug.LogError("swapTimeDSP " + swapTimeDSP);
+
         // Start and stop required tracks at time
-        FadeStop1(timeRemaining + transitionTime, swapTimeDSP);
+        FadeStop1(transitionTime, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY2, false, timeRemaining + transitionTime);
 
         // Transition track
-        double startTransitionDSP = dspNow + timeRemaining;
-        AudioManager.instance.PlayMusic("Main Transition 1", startTransitionDSP);
-        MixerFXManager.instance.SetMusicParam("Main Transition 1", EX_PARA.VOLUME, (float)track1AveTime * 1.5f);
-        AudioManager.instance.StopMusic("Main Transition 1", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
+        //double startTransitionDSP = dspNow + timeRemaining;
+        
+        //Debug.LogError("startTransitionDSP : " + startTransitionDSP);
+        
+        //AudioManager.instance.PlayMusic("Main Transition 1", startTransitionDSP);
+        //MixerFXManager.instance.SetMusicParam("Main Transition 1", EX_PARA.VOLUME, (float)track1AveTime * 1.5f);
+        //AudioManager.instance.StopMusic("Main Transition 1", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
     }
 
     void Layer6()
@@ -643,23 +652,37 @@ public class MusicManager : MonoBehaviour
 
         double timeRemaining = track2AveTime - ((dspNow - startTrack2Time) % track2AveTime);
 
+        //Debug.LogError("Time remaining: " + timeRemaining);
+        //Debug.LogError("dspNow: " + dspNow);
+        //Debug.LogError("starttrack2Time" + startTrack2Time);
+
         // Prevent missing the slot
-        int additionTimeMultiply = Mathf.Max(0, (int)((bufferMin - timeRemaining) / track2AveTime));
-        timeRemaining += track2AveTime * additionTimeMultiply;
+        if (timeRemaining < bufferMin)
+        {
+            timeRemaining += track2AveTime;
+        }
+
+        //Debug.LogError("timeRemaining" + timeRemaining);
 
         // Calculate when to transition
-        double transitionTime = (transitiontime2Samples / (double)source.clip.frequency);
+        double transitionTime = transitiontime2;
         double swapTimeDSP = dspNow + timeRemaining + transitionTime;
 
+        //Debug.LogError("transitionTime " + transitionTime);
+        //Debug.LogError("swapTimeDSP " + swapTimeDSP);
+
         // Start and stop required tracks at time
-        FadeStop2(timeRemaining + transitionTime, swapTimeDSP);
+        FadeStop2(transitionTime, swapTimeDSP);
         NewTrack(MUSIC_TRACKS.GAMEPLAY3, false, timeRemaining + transitionTime);
 
         // Transition track
-        double startTransitionDSP = dspNow + timeRemaining;
-        AudioManager.instance.PlayMusic("Main Transition 2", startTransitionDSP);
-        MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)track2AveTime * 1.5f);
-        AudioManager.instance.StopMusic("Main Transition 2", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
+        //double startTransitionDSP = dspNow + timeRemaining;
+        
+        //Debug.LogError("startTransitionDSP : " + startTransitionDSP);
+        
+        //AudioManager.instance.PlayMusic("Main Transition 2", startTransitionDSP);
+        //MixerFXManager.instance.SetMusicParam("Main Transition 2", EX_PARA.VOLUME, (float)track2AveTime * 1.5f);
+        //AudioManager.instance.StopMusic("Main Transition 2", startTransitionDSP + transitionTime + (layerFadeInTime / 2));
     }
 
     void Layer10()

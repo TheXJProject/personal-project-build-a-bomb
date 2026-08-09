@@ -6474,6 +6474,27 @@ MonoBehaviour:
     randomPitchRange: {x: 1, y: 1}
     clip: {fileID: 8300000, guid: 3043f72bff567c041969f6beb463ea06, type: 3}
     looped: 0
+  - name: Make More Money
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: 90a7913178f53a6499a0f2164a773ce8, type: 3}
+    looped: 0
+  - name: Groan
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: e86b4b40e058f3c4a814248247ee8aa3, type: 3}
+    looped: 0
+  - name: Money Ey
+    volume: 0.8
+    pitch: 1
+    panning: 0
+    randomPitchRange: {x: 1, y: 1}
+    clip: {fileID: 8300000, guid: a62de231afc551e44b89ec24b736a5a5, type: 3}
+    looped: 0
   sfxLoopedSounds:
   - name: Task Going Wrong
     volume: 0.2

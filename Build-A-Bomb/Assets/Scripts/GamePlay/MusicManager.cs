@@ -127,6 +127,9 @@ public class MusicManager : MonoBehaviour
         OpeningController.onOpeningSceneStarts += OpeningScene;
         OpeningDoorEvent.onDoorSlam += DoorSlam;
         BigMoneyEvents.onBigTextEnters += ChChing;
+        OpeningDudeShoutsEvent.onDudeShoutsEvent += MoreMoney;
+        OpeningDudeAngry.onDudeAngry += Anger;
+        OpeningDudeMoneyEh.onDudeMoneyEh += MoneyEy;
     }
 
     private void OnDisable()
@@ -158,6 +161,9 @@ public class MusicManager : MonoBehaviour
         OpeningController.onOpeningSceneStarts -= OpeningScene;
         OpeningDoorEvent.onDoorSlam -= DoorSlam;
         BigMoneyEvents.onBigTextEnters -= ChChing;
+        OpeningDudeShoutsEvent.onDudeShoutsEvent -= MoreMoney;
+        OpeningDudeAngry.onDudeAngry -= Anger;
+        OpeningDudeMoneyEh.onDudeMoneyEh -= MoneyEy;
     }
 
     private void Start()

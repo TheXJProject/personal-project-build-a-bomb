@@ -937,4 +937,19 @@ public class MusicManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("Door Slam", true);
     }
+
+    void MoreMoney()
+    {
+        AudioManager.instance.PlaySFX("Make More Money", true);
+    }
+
+    void Anger()
+    {
+        AudioManager.instance.PlaySFX("Groan", true);
+    }
+
+    void MoneyEy()
+    {
+        AudioManager.instance.PlaySFX("Money Ey", true);
+    }
 }
